@@ -1,0 +1,170 @@
+{
+  "metadata": {
+    "kernelspec": {
+      "name": "node_nteract",
+      "language": "javascript",
+      "display_name": "Node.js (nteract)"
+    },
+    "kernel_info": {
+      "name": "node_nteract"
+    },
+    "language_info": {
+      "name": "javascript",
+      "version": "8.2.1",
+      "mimetype": "application/javascript",
+      "file_extension": ".js"
+    },
+    "title": "WepSIM 2.0.11",
+    "nteract": {
+      "version": "nteract-on-jupyter@2.0.0"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": "## mode",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "ep",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "mode",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## firmware",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "begin{ \n  fetch:            (T2, C0),\n                    (TA, R, BW=11, M1=1, C1=1),\n                    (M2, C2, T1, C3),\n                    (A0, B=0, C=0)\n\n}\nld regF regO {\n            co=010000,\n            nwords=1,\n            regF=reg(25,21),\n            regO=reg(20,16),\n            {\n                (SELA=10000, SELC=10101, T9, LC, A0=1, B=1, C=0)\n            }\n}\n\nldi regF U16 {\n            co=010010,\n            nwords=1,\n            regF=reg(25,21),\n            U16=inm(15,0),\n            {\n                (SIZE=10000,OFFSET= 00000,T3,LC,SELC=10101, A0=1, B=1, C=0)\n            }\n}\n\nld regF (regO){\n            co=010011,\n            nwords=1,\n            regF=reg(25,21),\n            regO=reg(20,16),\n            {\n              (SELA=10000,T9,C0)#OBTENCION DE LA DIRECCION DE MEMORIA DEL VALOR\n              (TA,R,BW =11,M1,C1)##VALOR DESEADO GUARDADO EN MBR\n              (SELC=10101,LC,T1,A0=1,B=1,C=0)##VALOR GUARDADO EN RDEST                                          \n            }\n}\n\nadd_a regO {\n            co=011000,\n            nwords=1,\n            regO=reg(25,21)\n            { \n            (SELA= 00100,MR,T9,C4), ##GUARDAMOS EL VALOR DE A EN RT1\n            (SELB = 10101,MA,MC,SELCOP=1010,C6,SELP=11,M7,C7), ##SUMAMOS Y GUARDAMOS EN RT3\n  \t\t\t\t\t(T7,LC,SELC=00100,MR,A0=1,B=1,C=0) ##CARGAMOS EN A LO QUE HAYA EN RT3+FETCH                            \n            }\n}\n\naddi_a S16{\n\t\t\t\t\t  co=011010,\n            nwords=1,\n            S16= inm(15,0)\n            {\n            (SIZE = 10000,SE,OFFSET = 00000,T3,C5),##GUARDAMOS S16 EN RT2\n            (SELA= 00100,MR,T9,C4), ##GUARDAMOS EL VALOR DE A EN RT1\n            (MA,MB= 01,MC,SELCOP=1010,T6,LC,SELC=00100,MR,SELP=11,M7,C7,A0=1,B=1,C=0) ##SUMAMOS Y GUARDAMOS EN A  \t\t\t\t                            \n            }\n}\n\ninc regF{\n            co=011100,\n            nwords=1,\n            regF=reg(25,21),\n            {\n              (SELA=10101,MB=11,SELCOP=1010,MC,T6,SELC=10101,LC,SELP=11,M7,C7,A0=1,B=1,C=0)     \n            }\n}\n\ndec regF{\n            co=011101,\n            nwords=1,\n            regF=reg(25,21),\n            {\n              (SELA=10101,MB=11,SELCOP=1011,MC,T6,SELC=10101,LC,SELP=11,M7,C7,A0=1,B=1,C=0)     \n            }\n}\n\njp S16{\n\t\t\t\t\t  co=110000,\n            nwords=1,\n            S16= address(15,0)rel\n            {\n            jp:\n            (SIZE = 10000,SE,OFFSET = 00000,T3,C5)##GUARDAMOS S16 EN RT2\n            (T2,C4) ##GUARDAMOS EL VALOR DE PC EN RT1\n            (MA,MB= 01,MC,SELCOP=1010,T6,C2,A0=1,B=1,C=0) ##SUMAMOS Y GUARDAMOS EN PC  \t\t\t\t                            \n            }\n}\n\njpz S16{\n  \t\t\t\t  co=110011,\n            nwords=1,\n            S16= address(15,0)rel,\n  {\n  \t\t\t\t\t(A0 = 0, B=0, C=0110, MADDR = jp),\n            (A0=1,B=1,C=0)\n            \n  }\n  \t\n}\n\ncall U16{\n  co=100001,\n  nwords=1,\n  U16 = inm(15,0)\n  {\n  (SELA = 11101,MR,MB=10,SELCOP=1011,MC,T6,SELC=11101,LC,C0),\n  (T2,C1),\n  (TA,BW=11,TD,W),\n  (SIZE=10000,OFFSET=00000,T3,C2,A0=1,B=1,C=0)\n  }\n}\n\nret{\n  co=100010,\n  nwords=1,\n  {\n  (SELA = 11101,MR,T9,C0),##GUARDAR SP EN MAR\n  (SELA= 11101,MR,MB=10,SELCOP=1010,MC,T6,SELC=11101,LC,TA,R,BW=11,M1,C1),##SUMAR 4 A SP, ACTUALIZAR SP, Y LEER LO CONTENIDO EN MAR\n  (T1,C2,A0=1,B=1,C=0)##LLEVAR A PC\n  \n  }\n}\n\nhalt{\n  co=100011,\n  nwords=1,\n    {\n    (SELA=00000,T9,C2,A0=1,B=1,C=0)\n}\n}\n  \npush regO{\n  co=100100,\n  nwords= 1,\n  regO = reg(25,21)\n  {\n    (SELA=11101,MR,MB=10,SELCOP=1011,MC,T6,C0,SELC=11101,LC),##RESTAMOS SP, GUARDAMOS EN MAR, Y ACUALIZAMOS\n    (SELA=10101,T9,C1),##GUARDAMOS ROG EN MBR\n    (TA,BW=11,TD,W,A0=1,B=1,C=0)##ESCRIBIMOS.\n      }\n}\n\npop regF{\n  co=100101,\n  nwords= 1,\n  regF = reg(25,21)\n  {\n    (SELA=11101,MR,T9,C0),##GUARDAMOS EN MAR\n    (TA,BW=11,R,M1,C1,SELA=11101,MR,MB=10,SELCOP=1010,MC,T6,SELC=11101,LC),##GUARDAMOS LA LECTURA DE MAR EN MBR, SUMAMOS Y ACTUALIZAMOS SP \n    (T1,SELC=10101,LC,A0=1,B=1,C=0)##ESCRIBIMOS EN REGF\n      }\n}\n  \n\n\nregisters\n{\n        0=$zero,\n        1=$at,\n        2=$v0,\n        3=$v1,\n        4=A,\n        5=BC,\n        6=DE,\n        7=HL,\n        8=IX,\n        9=IY,\n        10=$t2,\n        11=$t3,\n        12=$t4,\n        13=$t5,\n        14=$t6,\n        15=$t7,\n        16=$s0,\n        17=$s1,\n        18=$s2,\n        19=$s3,\n        20=$s4,\n        21=$s5,\n        22=$s6,\n        23=$s7,\n        24=$t8,\n        25=$t9,\n        26=$k0,\n        27=$k1,\n        28=$gp,\n        29=SP (stack_pointer),\n        30=$fp,\n        31=$ra\n}",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "firmware",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## assembly",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": ".data\n\tvector: .word 1,2,3,4,5,6,7,8,9,10\n  \n.text\nsumav: ##Apilar IX e IY\n\tpush IX \n\tpush IY\n  ##A = Suma del vector\n\tldi A,0\n  ##Bucle\n      add_a IX\n  \t\t##COMPROBACION DE QUE EL VECTOR ESTE VACIO\n  \t\tjpz f1\n      ldi A,0\n      b1: ld $t2,(IY)\n      ##INCREMENTO DE DIRECCION DE MEMORIA\n      inc IY\n      inc IY\n      inc IY\n      inc IY\n      ##SUMA DEL ACUMULADOR\n      add_a $t2\n      ##Reducción de indice \n      dec IX\n      jpz f1\n      jp b1\n\t##Desapilar IX e IY  \n  f1:\n  ##copia del valor al $v0 equivalente\n  ld  HL,A\n  ##desapilar\n  pop IY\n  pop IX\n  \n\t##return\n\tret\nmain:\n \tldi IY,vector\n  ldi IX,10\n  call sumav\n  fin: halt\n",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "assembly",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## state_current",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "{\n  \"time\": 1573654114860,\n  \"title\": \"clock 602 @ &#181;address 0\",\n  \"title_short\": \"clock 602,<br>&#181;add 0\",\n  \"content\": \"register R4 = 0x37; register R7 = 0x37; register R8 = 0xa; register R9 = 0x1000; register R10 = 0xa; register R29 = 0xfffff; register SR = 0x10000000; memory 0x1000 = 0x1; memory 0x1004 = 0x2; memory 0x1008 = 0x3; memory 0x100c = 0x4; memory 0x1010 = 0x5; memory 0x1014 = 0x6; memory 0x1018 = 0x7; memory 0x101c = 0x8; memory 0x1020 = 0x9; memory 0x1024 = 0xa; memory 0x8000 = 0x91000000; memory 0x8004 = 0x91200000; memory 0x8008 = 0x48800000; memory 0x800c = 0x61000000; memory 0x8010 = 0xcc000028; memory 0x8014 = 0x48800000; memory 0x8018 = 0x4d490000; memory 0x801c = 0x71200000; memory 0x8020 = 0x71200000; memory 0x8024 = 0x71200000; memory 0x8028 = 0x71200000; memory 0x802c = 0x61400000; memory 0x8030 = 0x75000000; memory 0x8034 = 0xcc000004; memory 0x8038 = 0xc000ffdc; memory 0x803c = 0x40e40000; memory 0x8040 = 0x95200000; memory 0x8044 = 0x95000000; memory 0x8048 = 0x88000000; memory 0x804c = 0x49201000; memory 0x8050 = 0x4900000a; memory 0x8054 = 0x84008000; memory 0x8058 = 0x8c000000; memory 0xffff0 = 0x1000; memory 0xffff4 = 0xa; memory 0xffff8 = 0x8058; \"\n}",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "state_current",
+        "type": "object",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## state_history",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "[]",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "state_history",
+        "type": "object",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## record",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "[\n  {\n    \"timestamp\": 3387,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 13564,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 2719,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 500,\n    \"description\": \"Show message with title \\\"<span class='inline-block text-truncate w-25'>CARGA Y SALTO</span>\\\" and body \\\"<span class='inline-block text-truncate w-25'></span>\\\".\",\n    \"element\": \"wsweb_notifyuser_show(\\\"CARGA Y SALTO\\\", \\\"\\\", \\\"5000\\\");\\n\"\n  },\n  {\n    \"timestamp\": 5000,\n    \"description\": \"Close message with title \\\"<span class='inline-block text-truncate w-25'>CARGA Y SALTO</span>\\\".\",\n    \"element\": \"wsweb_notifyuser_hide();\\n\"\n  },\n  {\n    \"timestamp\": 6215,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 1914,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 3306,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 1544,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 500,\n    \"description\": \"Show message with title \\\"<span class='inline-block text-truncate w-25'>COMPROBACION 0</span>\\\" and body \\\"<span class='inline-block text-truncate w-25'></span>\\\".\",\n    \"element\": \"wsweb_notifyuser_show(\\\"COMPROBACION 0\\\", \\\"\\\", \\\"5000\\\");\\n\"\n  },\n  {\n    \"timestamp\": 5000,\n    \"description\": \"Close message with title \\\"<span class='inline-block text-truncate w-25'>COMPROBACION 0</span>\\\".\",\n    \"element\": \"wsweb_notifyuser_hide();\\n\"\n  },\n  {\n    \"timestamp\": 3575,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 2666,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 500,\n    \"description\": \"Show message with title \\\"<span class='inline-block text-truncate w-25'>OBTENCION DEL VALOR DEL VECTOR</span>\\\" and body \\\"<span class='inline-block text-truncate w-25'></span>\\\".\",\n    \"element\": \"wsweb_notifyuser_show(\\\"OBTENCION DEL VALOR DEL VECTOR\\\", \\\"\\\", \\\"5000\\\");\\n\"\n  },\n  {\n    \"timestamp\": 5000,\n    \"description\": \"Close message with title \\\"<span class='inline-block text-truncate w-25'>OBTENCION DEL VALOR DEL VECTOR</span>\\\".\",\n    \"element\": \"wsweb_notifyuser_hide();\\n\"\n  },\n  {\n    \"timestamp\": 1519,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 2728,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 1878,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 1239,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 11680,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 500,\n    \"description\": \"Show message with title \\\"<span class='inline-block text-truncate w-25'>INCREMENTO DEL ITERADOR DE MEMORIA Y SUMA EN EL ACUMULADOR</span>\\\" and body \\\"<span class='inline-block text-truncate w-25'></span>\\\".\",\n    \"element\": \"wsweb_notifyuser_show(\\\"INCREMENTO DEL ITERADOR DE MEMORIA Y SUMA EN EL ACUMULADOR\\\", \\\"\\\", \\\"5000\\\");\\n\"\n  },\n  {\n    \"timestamp\": 5000,\n    \"description\": \"Close message with title \\\"<span class='inline-block text-truncate w-25'>INCREMENTO DEL ITERADOR DE MEMORIA Y SUMA EN EL ACUMULADOR</span>\\\".\",\n    \"element\": \"wsweb_notifyuser_hide();\\n\"\n  },\n  {\n    \"timestamp\": 4619,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 158,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 500,\n    \"description\": \"Show message with title \\\"<span class='inline-block text-truncate w-25'>BACK AL BUCLE Y REDUCCION DE INDICE</span>\\\" and body \\\"<span class='inline-block text-truncate w-25'></span>\\\".\",\n    \"element\": \"wsweb_notifyuser_show(\\\"BACK AL BUCLE Y REDUCCION DE INDICE\\\", \\\"\\\", \\\"5000\\\");\\n\"\n  },\n  {\n    \"timestamp\": 5000,\n    \"description\": \"Close message with title \\\"<span class='inline-block text-truncate w-25'>BACK AL BUCLE Y REDUCCION DE INDICE</span>\\\".\",\n    \"element\": \"wsweb_notifyuser_hide();\\n\"\n  },\n  {\n    \"timestamp\": 5655,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 523,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 665,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 430,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 266,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 239,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 251,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 239,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 249,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 223,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 272,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 250,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 247,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 242,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 195,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 244,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 207,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 185,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 218,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 183,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 195,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 234,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 204,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 184,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 199,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 209,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 213,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 218,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 238,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 219,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 464,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 249,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 234,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 218,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 234,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 259,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 281,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 273,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 292,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 267,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 238,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 215,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 231,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 207,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 224,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 195,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 197,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 232,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 244,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 213,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 220,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 201,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 201,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 201,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 593,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 494,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 434,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 328,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 260,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 260,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 244,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 225,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 215,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 243,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 508,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 526,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 233,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 260,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 257,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 241,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 239,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 255,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 289,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 259,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 461,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 214,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 222,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 194,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 215,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 221,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 212,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 203,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 246,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 500,\n    \"description\": \"Show message with title \\\"<span class='inline-block text-truncate w-25'>POP EN PILA Y PASAMOS EL VALOR A HL</span>\\\" and body \\\"<span class='inline-block text-truncate w-25'></span>\\\".\",\n    \"element\": \"wsweb_notifyuser_show(\\\"POP EN PILA Y PASAMOS EL VALOR A HL\\\", \\\"\\\", \\\"5000\\\");\\n\"\n  },\n  {\n    \"timestamp\": 5000,\n    \"description\": \"Close message with title \\\"<span class='inline-block text-truncate w-25'>POP EN PILA Y PASAMOS EL VALOR A HL</span>\\\".\",\n    \"element\": \"wsweb_notifyuser_hide();\\n\"\n  },\n  {\n    \"timestamp\": 1487,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 497,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 3834,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 500,\n    \"description\": \"Show message with title \\\"<span class='inline-block text-truncate w-25'>FIN</span>\\\" and body \\\"<span class='inline-block text-truncate w-25'></span>\\\".\",\n    \"element\": \"wsweb_notifyuser_show(\\\"FIN\\\", \\\"\\\", \\\"5000\\\");\\n\"\n  },\n  {\n    \"timestamp\": 5000,\n    \"description\": \"Close message with title \\\"<span class='inline-block text-truncate w-25'>FIN</span>\\\".\",\n    \"element\": \"wsweb_notifyuser_hide();\\n\"\n  },\n  {\n    \"timestamp\": 1984,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  },\n  {\n    \"timestamp\": 4349,\n    \"description\": \"Execute instruction\",\n    \"element\": \"wsweb_execution_instruction();\\n\"\n  }\n]",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "record",
+        "type": "object",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## tag",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "Mon Nov 11 2019 18:42:38 GMT+0100 (hora estándar de Europa central)",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "tag",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## notify",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "true",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "notify",
+        "type": "boolean",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    }
+  ]
+}

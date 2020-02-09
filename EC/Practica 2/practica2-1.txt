@@ -1,0 +1,170 @@
+{
+  "metadata": {
+    "kernelspec": {
+      "name": "node_nteract",
+      "language": "javascript",
+      "display_name": "Node.js (nteract)"
+    },
+    "kernel_info": {
+      "name": "node_nteract"
+    },
+    "language_info": {
+      "name": "javascript",
+      "version": "8.2.1",
+      "mimetype": "application/javascript",
+      "file_extension": ".js"
+    },
+    "title": "WepSIM 2.0.11",
+    "nteract": {
+      "version": "nteract-on-jupyter@2.0.0"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": "## mode",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "ep",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "mode",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## firmware",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "\n\n\n\n\n\n\nbegin\n{\n    fetch:          (T2, C0),\n                    (TA, R, BW=11, M1=1, C1=1),\n                    (M2, C2, T1, C3),\n                    (A0, B=0, C=0)\n}\nld regF regO {\n            co=010000,\n            nwords=1,\n            regF=reg(25,21),\n            regO=reg(20,16),\n            {\n                (SELA=10000, SELC=10101, T9, LC, A0=1, B=1, C=0)\n            }\n}\n\nldi regF U16 {\n            co=010010,\n            nwords=1,\n            regF=reg(25,21),\n            U16=inm(15,0),\n            {\n                (SIZE=10000,OFFSET= 00000,T3,LC,SELC=10101, A0=1, B=1, C=0)\n            }\n}\n\nld regF (regO){\n            co=010011,\n            nwords=1,\n            regF=reg(25,21),\n            regO=reg(20,16),\n            {\n              (SELA=10000,T9,C0)#OBTENCION DE LA DIRECCION DE MEMORIA DEL VALOR\n              (TA,R,BW =11,M1,C1)##VALOR DESEADO GUARDADO EN MBR\n              (SELC=10101,LC,T1,A0=1,B=1,C=0)##VALOR GUARDADO EN RDEST\n              \n              \n              \n            }\n}\n\nadd_a regO {\n            co=011000,\n            nwords=1,\n            regO=reg(25,21),\n            { \n            (SELA= 00100,MR,T9,C4) ##GUARDAMOS EL VALOR DE A EN RT1\n            (SELB = 10101,MA,MC,SELCOP=1010,C6) ##SUMAMOS Y GUARDAMOS EN RT3\n  \t\t\t\t\t(T7,LC,SELC=00100,MR,SELP=11,M7,C7,A0=1,B=1,C=0) ##CARGAMOS EN A LO QUE HAYA EN RT3+FETCH\n            \n                \n            }\n}\n\naddi_a S16{\n\t\t\t\t\t  co=011010,\n            nwords=1,\n            S16= inm(15,0)\n            {\n            (SIZE = 10000,SE,OFFSET = 00000,T3,C5)##GUARDAMOS S16 EN RT2\n            (SELA= 00100,MR,T9,C4) ##GUARDAMOS EL VALOR DE A EN RT1\n            (MA,MB= 01,MC,SELCOP=1010,T6,LC,SELC=00100,MR,SELP=11,M7,C7,A0=1,B=1,C=0) ##SUMAMOS Y GUARDAMOS EN A\n  \t\t\t\t\n            \n                \n            }\n}\n\n\nregisters\n{\n        0=$zero,\n        1=$at,\n        2=$v0,\n        3=$v1,\n        4=A,\n        5=BC,\n        6=DE,\n        7=HL,\n        8=IX,\n        9=IY,\n        10=$t2,\n        11=$t3,\n        12=$t4,\n        13=$t5,\n        14=$t6,\n        15=$t7,\n        16=$s0,\n        17=$s1,\n        18=$s2,\n        19=$s3,\n        20=$s4,\n        21=$s5,\n        22=$s6,\n        23=$s7,\n        24=$t8,\n        25=$t9,\n        26=$k0,\n        27=$k1,\n        28=$gp,\n        29=SP (stack_pointer),\n        30=$fp,\n        31=$ra\n}\n\n\n\n\n",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "firmware",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## assembly",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "\n.text\nmain: \n\tldi A,2\n  ldi BC,2\n  addi_a -1\n  ldi IX,2\n\n\n\n\n\n\n\n",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "assembly",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## state_current",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "{\n  \"time\": 1573500355649,\n  \"title\": \"clock 1 @ &#181;address 0\",\n  \"title_short\": \"clock 1,<br>&#181;add 0\",\n  \"content\": \"register R29 = 0xfffff; register PC = 0x8000; memory 0x8000 = 0x48800002; memory 0x8004 = 0x48a00002; memory 0x8008 = 0x6800ffff; memory 0x800c = 0x49000002; \"\n}",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "state_current",
+        "type": "object",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## state_history",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "[]",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "state_history",
+        "type": "object",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## record",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "[]",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "record",
+        "type": "object",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## tag",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "Mon Nov 11 2019 18:42:38 GMT+0100 (hora estándar de Europa central)",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "tag",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## notify",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "true",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "notify",
+        "type": "boolean",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    }
+  ]
+}

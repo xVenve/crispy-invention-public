@@ -1,0 +1,170 @@
+{
+  "metadata": {
+    "kernelspec": {
+      "name": "node_nteract",
+      "language": "javascript",
+      "display_name": "Node.js (nteract)"
+    },
+    "kernel_info": {
+      "name": "node_nteract"
+    },
+    "language_info": {
+      "name": "javascript",
+      "version": "8.2.1",
+      "mimetype": "application/javascript",
+      "file_extension": ".js"
+    },
+    "title": "WepSIM 2.0.11",
+    "nteract": {
+      "version": "nteract-on-jupyter@2.0.0"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": "## mode",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "ep",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "mode",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## firmware",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "begin{ \n  fetch:            (T2, C0),\n                    (TA, R, BW=11, M1=1, C1=1),\n                    (M2, C2, T1, C3),\n                    (A0, B=0, C=0)\n\n}\nld regF regO {\n            co=010000,\n            nwords=1,\n            regF=reg(25,21),\n            regO=reg(20,16),\n            {\n                (SELA=10000, SELC=10101, T9, LC, A0=1, B=1, C=0)\n            }\n}\n\nldi regF U16 {\n            co=010010,\n            nwords=1,\n            regF=reg(25,21),\n            U16=inm(15,0),\n            {\n                (SIZE=10000,OFFSET= 00000,T3,LC,SELC=10101, A0=1, B=1, C=0)\n            }\n}\n\nld regF (regO){\n            co=010011,\n            nwords=1,\n            regF=reg(25,21),\n            regO=reg(20,16),\n            {\n              (SELA=10000,T9,C0)#OBTENCION DE LA DIRECCION DE MEMORIA DEL VALOR\n              (TA,R,BW =11,M1,C1)##VALOR DESEADO GUARDADO EN MBR\n              (SELC=10101,LC,T1,A0=1,B=1,C=0)##VALOR GUARDADO EN RDEST                                          \n            }\n}\n\nadd_a regO {\n            co=011000,\n            nwords=1,\n            regO=reg(25,21)\n            { \n            (SELA= 00100,MR,T9,C4), ##GUARDAMOS EL VALOR DE A EN RT1\n            (SELB = 10101,MA,MC,SELCOP=1010,C6,SELP=11,M7,C7), ##SUMAMOS Y GUARDAMOS EN RT3\n  \t\t\t\t\t(T7,LC,SELC=00100,MR,A0=1,B=1,C=0) ##CARGAMOS EN A LO QUE HAYA EN RT3+FETCH                            \n            }\n}\n\naddi_a S16{\n\t\t\t\t\t  co=011010,\n            nwords=1,\n            S16= inm(15,0)\n            {\n            (SIZE = 10000,SE,OFFSET = 00000,T3,C5),##GUARDAMOS S16 EN RT2\n            (SELA= 00100,MR,T9,C4), ##GUARDAMOS EL VALOR DE A EN RT1\n            (MA,MB= 01,MC,SELCOP=1010,T6,LC,SELC=00100,MR,SELP=11,M7,C7,A0=1,B=1,C=0) ##SUMAMOS Y GUARDAMOS EN A  \t\t\t\t                            \n            }\n}\n\ninc regF{\n            co=011100,\n            nwords=1,\n            regF=reg(25,21),\n            {\n              (SELA=10101,MB=11,SELCOP=1010,MC,T6,SELC=10101,LC,SELP=11,M7,C7,A0=1,B=1,C=0)     \n            }\n}\n\ndec regF{\n            co=011101,\n            nwords=1,\n            regF=reg(25,21),\n            {\n              (SELA=10101,MB=11,SELCOP=1011,MC,T6,SELC=10101,LC,SELP=11,M7,C7,A0=1,B=1,C=0)     \n            }\n}\n\njp S16{\n\t\t\t\t\t  co=110000,\n            nwords=1,\n            S16= inm(15,0)\n            {\n            jp:\n            (SIZE = 10000,SE,OFFSET = 00000,T3,C5)##GUARDAMOS S16 EN RT2\n            (T2,C4) ##GUARDAMOS EL VALOR DE PC EN RT1\n            (MA,MB= 01,MC,SELCOP=1010,T6,C2,A0=1,B=1,C=0) ##SUMAMOS Y GUARDAMOS EN PC  \t\t\t\t                            \n            }\n}\n\njpz S16{\n  \t\t\t\t  co=110011,\n            nwords=1,\n            S16= inm(15,0),\n  {\n  \t\t\t\t\t(A0 = 0, B=0, C=0110, MADDR = jp),\n            (A0=1,B=1,C=0)\n            \n  }\n  \t\n}\n\ncall U16{\n  co=100001,\n  nwords=1,\n  U16 = inm(15,0)\n  {\n  (SELA = 11101,MR,MB=10,SELCOP=1011,MC,T6,SELC=11101,LC,C0),\n  (T2,C1),\n  (TA,BW=11,TD,W),\n  (SIZE=10000,OFFSET=00000,T3,C2,A0=1,B=1,C=0)\n  }\n}\n\nret{\n  co=100010,\n  nwords=1,\n  {\n  (SELA = 11101,MR,T9,C0),##GUARDAR SP EN MAR\n  (SELA= 11101,MR,MB=10,SELCOP=1010,MC,T6,SELC=11101,LC,TA,R,BW=11,M1,C1),##SUMAR 4 A SP, ACTUALIZAR SP, Y LEER LO CONTENIDO EN MAR\n  (T1,C2,A0=1,B=1,C=0)##LLEVAR A PC\n  \n  }\n}\n\nhalt{\n  co=100011,\n  nwords=1,\n    {\n    (SELA=00000,T9,C2,A0=1,B=1,C=0)\n}\n}\n  \npush regO{\n  co=100100,\n  nwords= 1,\n  regO = reg(25,21)\n  {\n    (SELA=11101,MR,MB=10,SELCOP=1011,MC,T6,C0,SELC=11101,LC),##RESTAMOS SP, GUARDAMOS EN MAR, Y ACUALIZAMOS\n    (SELA=10101,T9,C1),##GUARDAMOS ROG EN MBR\n    (TA,BW=11,TD,W,A0=1,B=1,C=0)##ESCRIBIMOS.\n      }\n}\n\npop regF{\n  co=100101,\n  nwords= 1,\n  regF = reg(25,21)\n  {\n    (SELA=11101,MR,T9,C0),##GUARDAMOS EN MAR\n    (TA,BW=11,R,M1,C1,SELA=11101,MR,MB=10,SELCOP=1010,MC,T6,SELC=11101,LC),##GUARDAMOS LA LECTURA DE MAR EN MBR, SUMAMOS Y ACTUALIZAMOS SP \n    (T1,SELC=10101,LC,A0=1,B=1,C=0)##ESCRIBIMOS EN REGF\n      }\n}\n  \n\n\nregisters\n{\n        0=$zero,\n        1=$at,\n        2=$v0,\n        3=$v1,\n        4=A,\n        5=BC,\n        6=DE,\n        7=HL,\n        8=IX,\n        9=IY,\n        10=$t2,\n        11=$t3,\n        12=$t4,\n        13=$t5,\n        14=$t6,\n        15=$t7,\n        16=$s0,\n        17=$s1,\n        18=$s2,\n        19=$s3,\n        20=$s4,\n        21=$s5,\n        22=$s6,\n        23=$s7,\n        24=$t8,\n        25=$t9,\n        26=$k0,\n        27=$k1,\n        28=$gp,\n        29=SP (stack_pointer),\n        30=$fp,\n        31=$ra\n}",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "firmware",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## assembly",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": ".data\n\tvector: .word 1,2,3,4,5,6,7,8,9,10\n  \n.text\nsumav: ##Apilar IX e IY\n\tpush IX \n\tpush IY\n  ##A = Suma del vector\n\tldi A,0\n  ##Bucle\n      add_a IX\n  \t\t##COMPROBACION DE QUE EL VECTOR ESTE VACIO\n  \t\tjpz f1\n      ldi A,0\n      b1: ld $t2,(IY)\n      ##INCREMENTO DE DIRECCION DE MEMORIA\n      inc IY\n      inc IY\n      inc IY\n      inc IY\n      ##SUMA DEL ACUMULADOR\n      add_a $t2\n      ##Reducción de indice \n      dec IX\n      jpz f1\n      jp b1\n\t##Desapilar IX e IY  \n  f1:\n  ##copia del valor al $v0 equivalente\n  ld  HL,A\n  ##desapilar\n  pop IY\n  pop IX\n  \n\t##return\n\tret\nmain:\n \tldi IY,vector\n  ldi IX,10\n  call sumav\n  fin: halt\n",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "assembly",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## state_current",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "{\n  \"time\": 1573649260438,\n  \"title\": \"clock 1 @ &#181;address 0\",\n  \"title_short\": \"clock 1,<br>&#181;add 0\",\n  \"content\": \"\"\n}",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "state_current",
+        "type": "object",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## state_history",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "[]",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "state_history",
+        "type": "object",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## record",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "[]",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "record",
+        "type": "object",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## tag",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "Mon Nov 11 2019 18:42:38 GMT+0100 (hora estándar de Europa central)",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "tag",
+        "type": "string",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": "## notify",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "source": "true",
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "name": "notify",
+        "type": "boolean",
+        "collapsed": false,
+        "deletable": false,
+        "editable": false
+      }
+    }
+  ]
+}
