@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 6.4.--><structure>
+	<type>pda</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>186.0</x>
+			<y>212.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="q1">
+			<x>574.0</x>
+			<y>214.0</y>
+		</state>
+		<state id="2" name="q2">
+			<x>362.0</x>
+			<y>382.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>x</read>
+			<pop>x</pop>
+			<push/>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>y</read>
+			<pop>y</pop>
+			<push/>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>z</read>
+			<pop>z</pop>
+			<push/>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read/>
+			<pop>A</pop>
+			<push>xAz</push>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read/>
+			<pop>Z</pop>
+			<push/>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read/>
+			<pop>A</pop>
+			<push>y</push>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read/>
+			<pop>A</pop>
+			<push>yB</push>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read/>
+			<pop>S</pop>
+			<push>xzz</push>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read/>
+			<pop>B</pop>
+			<push>y</push>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read/>
+			<pop>B</pop>
+			<push>yB</push>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read/>
+			<pop>S</pop>
+			<push>xAzz</push>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read/>
+			<pop>Z</pop>
+			<push>SZ</push>
+		</transition>
+		<note>
+			<text>Hemos pasado con JFLAP la gramatica diseñada a mano a un AP por vaciado que reconoce el mismo 
+lenguaje que nuestra gramatica.
+
+Comienza apilando nuestro axioma y va al estado q1, en el estado q1 va desapilando los simbolos
+terminales sin hacer nada y cuando llega a un simbolo terminal apila lo equivalente a la regla de 
+produccion de la gramatica.</text>
+			<x>145.0</x>
+			<y>65.0</y>
+		</note>
+	</automaton>
+</structure>

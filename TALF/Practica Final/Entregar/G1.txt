@@ -1,0 +1,14 @@
+Bloque -> Sentencia / SentenciaSentencia
+Sentencia -> Asignación; / Impresión; / Condicional;
+Asignación -> Variable=Expresión
+Impresión -> printExpresion
+Condicional -> ifCondicionExpresion
+Expresion -> Termino / ExpresionOperadorExpresion / [ExpresionOperadorExpresion]
+Condicion -> [ExpresionComparadorExpresion]
+Termino -> Variable / Valor / Parametro
+Operador -> + / - / / / * / %
+Comparador -> == / != / < / >
+Parametro -> $Valor
+Variable -> j / k / m / n
+Valor -> RecursividadValor / Recursividad
+Recursividad -> 0 / 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9
