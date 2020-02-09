@@ -16,7 +16,7 @@ int main(int argc, char *argv[]){
 	}
 
 	char carac;
- 	while(fscanf(ori,"%c", &carac)!=EOF)
+ 	while(fscanf(ori,"%c", &carac)!=EOF) //Lee un caracter, pero cuando llega al final devuelve EOF fscanf
  	{
    		fprintf(final,"%c",carac);
  	}
