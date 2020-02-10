@@ -1,0 +1,13 @@
+|FSM
+L1 <= inst2.DB_MAX_OUTPUT_PORT_TYPE
+RST => inst.ACLR
+RST => inst1.ACLR
+CLK => inst.CLK
+CLK => inst1.CLK
+Start => inst4.IN1
+Start => inst10.IN0
+Start => inst11.IN1
+L2 <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+Enable <= inst8.DB_MAX_OUTPUT_PORT_TYPE
+
+

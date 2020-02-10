@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="LFSR">
+		<CBX_INST_ENTRY INSTANCE_NAME="|LFSR|BUSMUX:inst5|lpm_mux:$00000" CBX_FILE_NAME="mux_mbc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|LFSR|BUSMUX:inst6|lpm_mux:$00000" CBX_FILE_NAME="mux_mbc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|LFSR|BUSMUX:inst7|lpm_mux:$00000" CBX_FILE_NAME="mux_mbc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|LFSR|BUSMUX:inst8|lpm_mux:$00000" CBX_FILE_NAME="mux_mbc.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

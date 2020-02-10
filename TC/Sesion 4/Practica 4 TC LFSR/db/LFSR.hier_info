@@ -1,0 +1,183 @@
+|LFSR
+q1 <= inst.DB_MAX_OUTPUT_PORT_TYPE
+RST => inst.ACLR
+RST => inst15.ACLR
+RST => inst14.ACLR
+RST => inst16.ACLR
+LOAD => BUSMUX:inst5.sel
+LOAD => BUSMUX:inst7.sel
+LOAD => BUSMUX:inst6.sel
+LOAD => BUSMUX:inst8.sel
+k2 => BUSMUX:inst6.datab[0]
+CLK => inst14.CLK
+CLK => inst15.CLK
+CLK => inst16.CLK
+CLK => inst.CLK
+ENABLE => inst14.ENA
+ENABLE => inst15.ENA
+ENABLE => inst16.ENA
+ENABLE => inst.ENA
+k3 => BUSMUX:inst7.datab[0]
+k4 => BUSMUX:inst8.datab[0]
+k1 => BUSMUX:inst5.datab[0]
+q2 <= inst14.DB_MAX_OUTPUT_PORT_TYPE
+q3 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+q4 <= inst16.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|LFSR|BUSMUX:inst5
+dataa[0] => lpm_mux:$00000.data[0][0]
+datab[0] => lpm_mux:$00000.data[1][0]
+sel => lpm_mux:$00000.sel[0]
+result[0] <= lpm_mux:$00000.result[0]
+
+
+|LFSR|BUSMUX:inst5|lpm_mux:$00000
+data[0][0] => muxlut:$00009.data[0]
+data[1][0] => muxlut:$00009.data[1]
+sel[0] => muxlut:$00009.select[0]
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= altshift:external_latency_ffs.result[0]
+
+
+|LFSR|BUSMUX:inst5|lpm_mux:$00000|altshift:external_latency_ffs
+data[0] => result[0].DATAIN
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= data[0].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|LFSR|BUSMUX:inst5|lpm_mux:$00000|muxlut:$00009
+data[0] => result_node.IN1
+data[1] => result_node.IN1
+select[0] => _.IN0
+select[0] => result_node.IN0
+clock => clock_out.DATAIN
+aclr => aclr_out.DATAIN
+clken => clken_out.DATAIN
+result <= result_node.DB_MAX_OUTPUT_PORT_TYPE
+clock_out <= clock.DB_MAX_OUTPUT_PORT_TYPE
+aclr_out <= aclr.DB_MAX_OUTPUT_PORT_TYPE
+clken_out <= clken.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|LFSR|BUSMUX:inst7
+dataa[0] => lpm_mux:$00000.data[0][0]
+datab[0] => lpm_mux:$00000.data[1][0]
+sel => lpm_mux:$00000.sel[0]
+result[0] <= lpm_mux:$00000.result[0]
+
+
+|LFSR|BUSMUX:inst7|lpm_mux:$00000
+data[0][0] => muxlut:$00009.data[0]
+data[1][0] => muxlut:$00009.data[1]
+sel[0] => muxlut:$00009.select[0]
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= altshift:external_latency_ffs.result[0]
+
+
+|LFSR|BUSMUX:inst7|lpm_mux:$00000|altshift:external_latency_ffs
+data[0] => result[0].DATAIN
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= data[0].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|LFSR|BUSMUX:inst7|lpm_mux:$00000|muxlut:$00009
+data[0] => result_node.IN1
+data[1] => result_node.IN1
+select[0] => _.IN0
+select[0] => result_node.IN0
+clock => clock_out.DATAIN
+aclr => aclr_out.DATAIN
+clken => clken_out.DATAIN
+result <= result_node.DB_MAX_OUTPUT_PORT_TYPE
+clock_out <= clock.DB_MAX_OUTPUT_PORT_TYPE
+aclr_out <= aclr.DB_MAX_OUTPUT_PORT_TYPE
+clken_out <= clken.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|LFSR|BUSMUX:inst6
+dataa[0] => lpm_mux:$00000.data[0][0]
+datab[0] => lpm_mux:$00000.data[1][0]
+sel => lpm_mux:$00000.sel[0]
+result[0] <= lpm_mux:$00000.result[0]
+
+
+|LFSR|BUSMUX:inst6|lpm_mux:$00000
+data[0][0] => muxlut:$00009.data[0]
+data[1][0] => muxlut:$00009.data[1]
+sel[0] => muxlut:$00009.select[0]
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= altshift:external_latency_ffs.result[0]
+
+
+|LFSR|BUSMUX:inst6|lpm_mux:$00000|altshift:external_latency_ffs
+data[0] => result[0].DATAIN
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= data[0].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|LFSR|BUSMUX:inst6|lpm_mux:$00000|muxlut:$00009
+data[0] => result_node.IN1
+data[1] => result_node.IN1
+select[0] => _.IN0
+select[0] => result_node.IN0
+clock => clock_out.DATAIN
+aclr => aclr_out.DATAIN
+clken => clken_out.DATAIN
+result <= result_node.DB_MAX_OUTPUT_PORT_TYPE
+clock_out <= clock.DB_MAX_OUTPUT_PORT_TYPE
+aclr_out <= aclr.DB_MAX_OUTPUT_PORT_TYPE
+clken_out <= clken.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|LFSR|BUSMUX:inst8
+dataa[0] => lpm_mux:$00000.data[0][0]
+datab[0] => lpm_mux:$00000.data[1][0]
+sel => lpm_mux:$00000.sel[0]
+result[0] <= lpm_mux:$00000.result[0]
+
+
+|LFSR|BUSMUX:inst8|lpm_mux:$00000
+data[0][0] => muxlut:$00009.data[0]
+data[1][0] => muxlut:$00009.data[1]
+sel[0] => muxlut:$00009.select[0]
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= altshift:external_latency_ffs.result[0]
+
+
+|LFSR|BUSMUX:inst8|lpm_mux:$00000|altshift:external_latency_ffs
+data[0] => result[0].DATAIN
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= data[0].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|LFSR|BUSMUX:inst8|lpm_mux:$00000|muxlut:$00009
+data[0] => result_node.IN1
+data[1] => result_node.IN1
+select[0] => _.IN0
+select[0] => result_node.IN0
+clock => clock_out.DATAIN
+aclr => aclr_out.DATAIN
+clken => clken_out.DATAIN
+result <= result_node.DB_MAX_OUTPUT_PORT_TYPE
+clock_out <= clock.DB_MAX_OUTPUT_PORT_TYPE
+aclr_out <= aclr.DB_MAX_OUTPUT_PORT_TYPE
+clken_out <= clken.DB_MAX_OUTPUT_PORT_TYPE
+
+

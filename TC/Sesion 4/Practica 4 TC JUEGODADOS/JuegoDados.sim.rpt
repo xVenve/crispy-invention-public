@@ -1,0 +1,300 @@
+Simulator report for JuegoDados
+Thu Apr 25 11:34:29 2019
+Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Simulator Summary
+  3. Simulator Settings
+  4. Simulation Waveforms
+  5. Coverage Summary
+  6. Complete 1/0-Value Coverage
+  7. Missing 1-Value Coverage
+  8. Missing 0-Value Coverage
+  9. Simulator INI Usage
+ 10. Simulator Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2010 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++--------------------------------------------+
+; Simulator Summary                          ;
++-----------------------------+--------------+
+; Type                        ; Value        ;
++-----------------------------+--------------+
+; Simulation Start Time       ; 0 ps         ;
+; Simulation End Time         ; 64.0 s       ;
+; Simulation Netlist Size     ; 109 nodes    ;
+; Simulation Coverage         ;      68.81 % ;
+; Total Number of Transitions ; 1598         ;
+; Simulation Breakpoints      ; 0            ;
+; Family                      ; MAX7000S     ;
++-----------------------------+--------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Simulator Settings                                                                                                      ;
++--------------------------------------------------------------------------------------------+------------+---------------+
+; Option                                                                                     ; Setting    ; Default Value ;
++--------------------------------------------------------------------------------------------+------------+---------------+
+; Simulation mode                                                                            ; Functional ; Timing        ;
+; Start time                                                                                 ; 0 ns       ; 0 ns          ;
+; Simulation results format                                                                  ; CVWF       ;               ;
+; Add pins automatically to simulation output waveforms                                      ; On         ; On            ;
+; Check outputs                                                                              ; Off        ; Off           ;
+; Report simulation coverage                                                                 ; On         ; On            ;
+; Display complete 1/0 value coverage report                                                 ; On         ; On            ;
+; Display missing 1-value coverage report                                                    ; On         ; On            ;
+; Display missing 0-value coverage report                                                    ; On         ; On            ;
+; Detect setup and hold time violations                                                      ; Off        ; Off           ;
+; Detect glitches                                                                            ; Off        ; Off           ;
+; Disable timing delays in Timing Simulation                                                 ; Off        ; Off           ;
+; Generate Signal Activity File                                                              ; Off        ; Off           ;
+; Generate VCD File for PowerPlay Power Analyzer                                             ; Off        ; Off           ;
+; Group bus channels in simulation results                                                   ; Off        ; Off           ;
+; Preserve fewer signal transitions to reduce memory requirements                            ; On         ; On            ;
+; Trigger vector comparison with the specified mode                                          ; INPUT_EDGE ; INPUT_EDGE    ;
+; Disable setup and hold time violations detection in input registers of bi-directional pins ; Off        ; Off           ;
+; Overwrite Waveform Inputs With Simulation Outputs                                          ; Off        ;               ;
+; Perform Glitch Filtering in Timing Simulation                                              ; Auto       ; Auto          ;
++--------------------------------------------------------------------------------------------+------------+---------------+
+
+
++----------------------+
+; Simulation Waveforms ;
++----------------------+
+Waveform report data cannot be output to ASCII.
+Please use Quartus II to view the waveform report data.
+
+
++--------------------------------------------------------------------+
+; Coverage Summary                                                   ;
++-----------------------------------------------------+--------------+
+; Type                                                ; Value        ;
++-----------------------------------------------------+--------------+
+; Total coverage as a percentage                      ;      68.81 % ;
+; Total nodes checked                                 ; 109          ;
+; Total output ports checked                          ; 109          ;
+; Total output ports with complete 1/0-value coverage ; 75           ;
+; Total output ports with no 1/0-value coverage       ; 31           ;
+; Total output ports with no 1-value coverage         ; 31           ;
+; Total output ports with no 0-value coverage         ; 34           ;
++-----------------------------------------------------+--------------+
+
+
+The following table displays output ports that toggle between 1 and 0 during simulation.
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Complete 1/0-Value Coverage                                                                                                                                                      ;
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+------------------+
+; Node Name                                                                     ; Output Port Name                                                              ; Output Port Type ;
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+------------------+
+; |JuegoDados|Gana1                                                             ; |JuegoDados|Gana1                                                             ; pin_out          ;
+; |JuegoDados|LOAD                                                              ; |JuegoDados|LOAD                                                              ; out              ;
+; |JuegoDados|CLK                                                               ; |JuegoDados|CLK                                                               ; out              ;
+; |JuegoDados|Start                                                             ; |JuegoDados|Start                                                             ; out              ;
+; |JuegoDados|Empate                                                            ; |JuegoDados|Empate                                                            ; pin_out          ;
+; |JuegoDados|D11                                                               ; |JuegoDados|D11                                                               ; pin_out          ;
+; |JuegoDados|D12                                                               ; |JuegoDados|D12                                                               ; pin_out          ;
+; |JuegoDados|D13                                                               ; |JuegoDados|D13                                                               ; pin_out          ;
+; |JuegoDados|D14                                                               ; |JuegoDados|D14                                                               ; pin_out          ;
+; |JuegoDados|D21                                                               ; |JuegoDados|D21                                                               ; pin_out          ;
+; |JuegoDados|D22                                                               ; |JuegoDados|D22                                                               ; pin_out          ;
+; |JuegoDados|D23                                                               ; |JuegoDados|D23                                                               ; pin_out          ;
+; |JuegoDados|D24                                                               ; |JuegoDados|D24                                                               ; pin_out          ;
+; |JuegoDados|74179:inst5|13                                                    ; |JuegoDados|74179:inst5|13                                                    ; regout           ;
+; |JuegoDados|74179:inst5|17                                                    ; |JuegoDados|74179:inst5|17                                                    ; out0             ;
+; |JuegoDados|74179:inst5|14                                                    ; |JuegoDados|74179:inst5|14                                                    ; regout           ;
+; |JuegoDados|74179:inst5|18                                                    ; |JuegoDados|74179:inst5|18                                                    ; out0             ;
+; |JuegoDados|74179:inst5|15                                                    ; |JuegoDados|74179:inst5|15                                                    ; regout           ;
+; |JuegoDados|74179:inst5|19                                                    ; |JuegoDados|74179:inst5|19                                                    ; out0             ;
+; |JuegoDados|74179:inst5|16                                                    ; |JuegoDados|74179:inst5|16                                                    ; regout           ;
+; |JuegoDados|74179:inst5|20                                                    ; |JuegoDados|74179:inst5|20                                                    ; out0             ;
+; |JuegoDados|74179:inst5|31                                                    ; |JuegoDados|74179:inst5|31                                                    ; out0             ;
+; |JuegoDados|74179:inst5|32                                                    ; |JuegoDados|74179:inst5|32                                                    ; out0             ;
+; |JuegoDados|74179:inst5|30                                                    ; |JuegoDados|74179:inst5|30                                                    ; out0             ;
+; |JuegoDados|74179:inst5|28                                                    ; |JuegoDados|74179:inst5|28                                                    ; out0             ;
+; |JuegoDados|74179:inst5|25                                                    ; |JuegoDados|74179:inst5|25                                                    ; out0             ;
+; |JuegoDados|74179:inst5|26                                                    ; |JuegoDados|74179:inst5|26                                                    ; out0             ;
+; |JuegoDados|conformador:inst2|inst5                                           ; |JuegoDados|conformador:inst2|inst5                                           ; out0             ;
+; |JuegoDados|conformador:inst2|inst1                                           ; |JuegoDados|conformador:inst2|inst1                                           ; regout           ;
+; |JuegoDados|conformador:inst2|inst                                            ; |JuegoDados|conformador:inst2|inst                                            ; regout           ;
+; |JuegoDados|fsm:inst3|inst2                                                   ; |JuegoDados|fsm:inst3|inst2                                                   ; out0             ;
+; |JuegoDados|fsm:inst3|inst                                                    ; |JuegoDados|fsm:inst3|inst                                                    ; regout           ;
+; |JuegoDados|fsm:inst3|inst4                                                   ; |JuegoDados|fsm:inst3|inst4                                                   ; out0             ;
+; |JuegoDados|fsm:inst3|inst1                                                   ; |JuegoDados|fsm:inst3|inst1                                                   ; regout           ;
+; |JuegoDados|fsm:inst3|inst5                                                   ; |JuegoDados|fsm:inst3|inst5                                                   ; out0             ;
+; |JuegoDados|fsm:inst3|inst7                                                   ; |JuegoDados|fsm:inst3|inst7                                                   ; out0             ;
+; |JuegoDados|fsm:inst3|inst11                                                  ; |JuegoDados|fsm:inst3|inst11                                                  ; out0             ;
+; |JuegoDados|fsm:inst3|inst6                                                   ; |JuegoDados|fsm:inst3|inst6                                                   ; out0             ;
+; |JuegoDados|fsm:inst3|inst3                                                   ; |JuegoDados|fsm:inst3|inst3                                                   ; out0             ;
+; |JuegoDados|fsm:inst3|inst8                                                   ; |JuegoDados|fsm:inst3|inst8                                                   ; out0             ;
+; |JuegoDados|lfsr:inst|inst                                                    ; |JuegoDados|lfsr:inst|inst                                                    ; regout           ;
+; |JuegoDados|lfsr:inst|inst17                                                  ; |JuegoDados|lfsr:inst|inst17                                                  ; out0             ;
+; |JuegoDados|lfsr:inst|inst15                                                  ; |JuegoDados|lfsr:inst|inst15                                                  ; regout           ;
+; |JuegoDados|lfsr:inst|inst14                                                  ; |JuegoDados|lfsr:inst|inst14                                                  ; regout           ;
+; |JuegoDados|lfsr:inst|inst16                                                  ; |JuegoDados|lfsr:inst|inst16                                                  ; regout           ;
+; |JuegoDados|lfsr:inst|busmux:inst8|lpm_mux:$00000|muxlut:$00009|result_node~0 ; |JuegoDados|lfsr:inst|busmux:inst8|lpm_mux:$00000|muxlut:$00009|result_node~0 ; out0             ;
+; |JuegoDados|lfsr:inst|busmux:inst8|lpm_mux:$00000|muxlut:$00009|result_node   ; |JuegoDados|lfsr:inst|busmux:inst8|lpm_mux:$00000|muxlut:$00009|result_node   ; out0             ;
+; |JuegoDados|lfsr:inst|busmux:inst6|lpm_mux:$00000|muxlut:$00009|result_node~0 ; |JuegoDados|lfsr:inst|busmux:inst6|lpm_mux:$00000|muxlut:$00009|result_node~0 ; out0             ;
+; |JuegoDados|lfsr:inst|busmux:inst6|lpm_mux:$00000|muxlut:$00009|result_node   ; |JuegoDados|lfsr:inst|busmux:inst6|lpm_mux:$00000|muxlut:$00009|result_node   ; out0             ;
+; |JuegoDados|lfsr:inst|busmux:inst7|lpm_mux:$00000|muxlut:$00009|result_node~0 ; |JuegoDados|lfsr:inst|busmux:inst7|lpm_mux:$00000|muxlut:$00009|result_node~0 ; out0             ;
+; |JuegoDados|lfsr:inst|busmux:inst7|lpm_mux:$00000|muxlut:$00009|result_node   ; |JuegoDados|lfsr:inst|busmux:inst7|lpm_mux:$00000|muxlut:$00009|result_node   ; out0             ;
+; |JuegoDados|lfsr:inst|busmux:inst5|lpm_mux:$00000|muxlut:$00009|result_node~0 ; |JuegoDados|lfsr:inst|busmux:inst5|lpm_mux:$00000|muxlut:$00009|result_node~0 ; out0             ;
+; |JuegoDados|74179:inst6|13                                                    ; |JuegoDados|74179:inst6|13                                                    ; regout           ;
+; |JuegoDados|74179:inst6|17                                                    ; |JuegoDados|74179:inst6|17                                                    ; out0             ;
+; |JuegoDados|74179:inst6|14                                                    ; |JuegoDados|74179:inst6|14                                                    ; regout           ;
+; |JuegoDados|74179:inst6|18                                                    ; |JuegoDados|74179:inst6|18                                                    ; out0             ;
+; |JuegoDados|74179:inst6|15                                                    ; |JuegoDados|74179:inst6|15                                                    ; regout           ;
+; |JuegoDados|74179:inst6|19                                                    ; |JuegoDados|74179:inst6|19                                                    ; out0             ;
+; |JuegoDados|74179:inst6|16                                                    ; |JuegoDados|74179:inst6|16                                                    ; regout           ;
+; |JuegoDados|74179:inst6|20                                                    ; |JuegoDados|74179:inst6|20                                                    ; out0             ;
+; |JuegoDados|74179:inst6|31                                                    ; |JuegoDados|74179:inst6|31                                                    ; out0             ;
+; |JuegoDados|74179:inst6|32                                                    ; |JuegoDados|74179:inst6|32                                                    ; out0             ;
+; |JuegoDados|74179:inst6|29                                                    ; |JuegoDados|74179:inst6|29                                                    ; out0             ;
+; |JuegoDados|74179:inst6|30                                                    ; |JuegoDados|74179:inst6|30                                                    ; out0             ;
+; |JuegoDados|74179:inst6|27                                                    ; |JuegoDados|74179:inst6|27                                                    ; out0             ;
+; |JuegoDados|74179:inst6|28                                                    ; |JuegoDados|74179:inst6|28                                                    ; out0             ;
+; |JuegoDados|74179:inst6|26                                                    ; |JuegoDados|74179:inst6|26                                                    ; out0             ;
+; |JuegoDados|comparador:inst1|inst63                                           ; |JuegoDados|comparador:inst1|inst63                                           ; out0             ;
+; |JuegoDados|comparador:inst1|inst60                                           ; |JuegoDados|comparador:inst1|inst60                                           ; out0             ;
+; |JuegoDados|comparador:inst1|inst21                                           ; |JuegoDados|comparador:inst1|inst21                                           ; out0             ;
+; |JuegoDados|comparador:inst1|inst20                                           ; |JuegoDados|comparador:inst1|inst20                                           ; out0             ;
+; |JuegoDados|comparador:inst1|inst19                                           ; |JuegoDados|comparador:inst1|inst19                                           ; out0             ;
+; |JuegoDados|comparador:inst1|inst68                                           ; |JuegoDados|comparador:inst1|inst68                                           ; out0             ;
+; |JuegoDados|comparador:inst1|inst26                                           ; |JuegoDados|comparador:inst1|inst26                                           ; out0             ;
+; |JuegoDados|comparador:inst1|inst27                                           ; |JuegoDados|comparador:inst1|inst27                                           ; out0             ;
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+------------------+
+
+
+The following table displays output ports that do not toggle to 1 during simulation.
++----------------------------------------------------------------------------------------------+
+; Missing 1-Value Coverage                                                                     ;
++-------------------------------------+-------------------------------------+------------------+
+; Node Name                           ; Output Port Name                    ; Output Port Type ;
++-------------------------------------+-------------------------------------+------------------+
+; |JuegoDados|Gana2                   ; |JuegoDados|Gana2                   ; pin_out          ;
+; |JuegoDados|74179:inst5|29          ; |JuegoDados|74179:inst5|29          ; out0             ;
+; |JuegoDados|comparador:inst1|inst   ; |JuegoDados|comparador:inst1|inst   ; out0             ;
+; |JuegoDados|comparador:inst1|inst3  ; |JuegoDados|comparador:inst1|inst3  ; out0             ;
+; |JuegoDados|comparador:inst1|inst4  ; |JuegoDados|comparador:inst1|inst4  ; out0             ;
+; |JuegoDados|comparador:inst1|inst2  ; |JuegoDados|comparador:inst1|inst2  ; out0             ;
+; |JuegoDados|comparador:inst1|inst1  ; |JuegoDados|comparador:inst1|inst1  ; out0             ;
+; |JuegoDados|comparador:inst1|inst5  ; |JuegoDados|comparador:inst1|inst5  ; out0             ;
+; |JuegoDados|comparador:inst1|inst22 ; |JuegoDados|comparador:inst1|inst22 ; out0             ;
+; |JuegoDados|comparador:inst1|inst6  ; |JuegoDados|comparador:inst1|inst6  ; out0             ;
+; |JuegoDados|comparador:inst1|inst28 ; |JuegoDados|comparador:inst1|inst28 ; out0             ;
+; |JuegoDados|comparador:inst1|inst64 ; |JuegoDados|comparador:inst1|inst64 ; out0             ;
+; |JuegoDados|comparador:inst1|inst61 ; |JuegoDados|comparador:inst1|inst61 ; out0             ;
+; |JuegoDados|comparador:inst1|inst38 ; |JuegoDados|comparador:inst1|inst38 ; out0             ;
+; |JuegoDados|comparador:inst1|inst39 ; |JuegoDados|comparador:inst1|inst39 ; out0             ;
+; |JuegoDados|comparador:inst1|inst18 ; |JuegoDados|comparador:inst1|inst18 ; out0             ;
+; |JuegoDados|comparador:inst1|inst62 ; |JuegoDados|comparador:inst1|inst62 ; out0             ;
+; |JuegoDados|comparador:inst1|inst30 ; |JuegoDados|comparador:inst1|inst30 ; out0             ;
+; |JuegoDados|comparador:inst1|inst29 ; |JuegoDados|comparador:inst1|inst29 ; out0             ;
+; |JuegoDados|comparador:inst1|inst23 ; |JuegoDados|comparador:inst1|inst23 ; out0             ;
+; |JuegoDados|comparador:inst1|inst7  ; |JuegoDados|comparador:inst1|inst7  ; out0             ;
+; |JuegoDados|comparador:inst1|inst40 ; |JuegoDados|comparador:inst1|inst40 ; out0             ;
+; |JuegoDados|comparador:inst1|inst42 ; |JuegoDados|comparador:inst1|inst42 ; out0             ;
+; |JuegoDados|comparador:inst1|inst41 ; |JuegoDados|comparador:inst1|inst41 ; out0             ;
+; |JuegoDados|comparador:inst1|inst43 ; |JuegoDados|comparador:inst1|inst43 ; out0             ;
+; |JuegoDados|comparador:inst1|inst25 ; |JuegoDados|comparador:inst1|inst25 ; out0             ;
+; |JuegoDados|comparador:inst1|inst24 ; |JuegoDados|comparador:inst1|inst24 ; out0             ;
+; |JuegoDados|comparador:inst1|inst34 ; |JuegoDados|comparador:inst1|inst34 ; out0             ;
+; |JuegoDados|comparador:inst1|inst32 ; |JuegoDados|comparador:inst1|inst32 ; out0             ;
+; |JuegoDados|comparador:inst1|inst31 ; |JuegoDados|comparador:inst1|inst31 ; out0             ;
+; |JuegoDados|comparador:inst1|inst35 ; |JuegoDados|comparador:inst1|inst35 ; out0             ;
++-------------------------------------+-------------------------------------+------------------+
+
+
+The following table displays output ports that do not toggle to 0 during simulation.
++----------------------------------------------------------------------------------------------+
+; Missing 0-Value Coverage                                                                     ;
++-------------------------------------+-------------------------------------+------------------+
+; Node Name                           ; Output Port Name                    ; Output Port Type ;
++-------------------------------------+-------------------------------------+------------------+
+; |JuegoDados|RST                     ; |JuegoDados|RST                     ; out              ;
+; |JuegoDados|Gana2                   ; |JuegoDados|Gana2                   ; pin_out          ;
+; |JuegoDados|74179:inst5|29          ; |JuegoDados|74179:inst5|29          ; out0             ;
+; |JuegoDados|74179:inst5|27          ; |JuegoDados|74179:inst5|27          ; out0             ;
+; |JuegoDados|74179:inst6|25          ; |JuegoDados|74179:inst6|25          ; out0             ;
+; |JuegoDados|comparador:inst1|inst   ; |JuegoDados|comparador:inst1|inst   ; out0             ;
+; |JuegoDados|comparador:inst1|inst3  ; |JuegoDados|comparador:inst1|inst3  ; out0             ;
+; |JuegoDados|comparador:inst1|inst4  ; |JuegoDados|comparador:inst1|inst4  ; out0             ;
+; |JuegoDados|comparador:inst1|inst2  ; |JuegoDados|comparador:inst1|inst2  ; out0             ;
+; |JuegoDados|comparador:inst1|inst1  ; |JuegoDados|comparador:inst1|inst1  ; out0             ;
+; |JuegoDados|comparador:inst1|inst5  ; |JuegoDados|comparador:inst1|inst5  ; out0             ;
+; |JuegoDados|comparador:inst1|inst22 ; |JuegoDados|comparador:inst1|inst22 ; out0             ;
+; |JuegoDados|comparador:inst1|inst6  ; |JuegoDados|comparador:inst1|inst6  ; out0             ;
+; |JuegoDados|comparador:inst1|inst28 ; |JuegoDados|comparador:inst1|inst28 ; out0             ;
+; |JuegoDados|comparador:inst1|inst64 ; |JuegoDados|comparador:inst1|inst64 ; out0             ;
+; |JuegoDados|comparador:inst1|inst61 ; |JuegoDados|comparador:inst1|inst61 ; out0             ;
+; |JuegoDados|comparador:inst1|inst38 ; |JuegoDados|comparador:inst1|inst38 ; out0             ;
+; |JuegoDados|comparador:inst1|inst39 ; |JuegoDados|comparador:inst1|inst39 ; out0             ;
+; |JuegoDados|comparador:inst1|inst18 ; |JuegoDados|comparador:inst1|inst18 ; out0             ;
+; |JuegoDados|comparador:inst1|inst62 ; |JuegoDados|comparador:inst1|inst62 ; out0             ;
+; |JuegoDados|comparador:inst1|inst30 ; |JuegoDados|comparador:inst1|inst30 ; out0             ;
+; |JuegoDados|comparador:inst1|inst29 ; |JuegoDados|comparador:inst1|inst29 ; out0             ;
+; |JuegoDados|comparador:inst1|inst23 ; |JuegoDados|comparador:inst1|inst23 ; out0             ;
+; |JuegoDados|comparador:inst1|inst7  ; |JuegoDados|comparador:inst1|inst7  ; out0             ;
+; |JuegoDados|comparador:inst1|inst40 ; |JuegoDados|comparador:inst1|inst40 ; out0             ;
+; |JuegoDados|comparador:inst1|inst42 ; |JuegoDados|comparador:inst1|inst42 ; out0             ;
+; |JuegoDados|comparador:inst1|inst41 ; |JuegoDados|comparador:inst1|inst41 ; out0             ;
+; |JuegoDados|comparador:inst1|inst43 ; |JuegoDados|comparador:inst1|inst43 ; out0             ;
+; |JuegoDados|comparador:inst1|inst25 ; |JuegoDados|comparador:inst1|inst25 ; out0             ;
+; |JuegoDados|comparador:inst1|inst24 ; |JuegoDados|comparador:inst1|inst24 ; out0             ;
+; |JuegoDados|comparador:inst1|inst34 ; |JuegoDados|comparador:inst1|inst34 ; out0             ;
+; |JuegoDados|comparador:inst1|inst32 ; |JuegoDados|comparador:inst1|inst32 ; out0             ;
+; |JuegoDados|comparador:inst1|inst31 ; |JuegoDados|comparador:inst1|inst31 ; out0             ;
+; |JuegoDados|comparador:inst1|inst35 ; |JuegoDados|comparador:inst1|inst35 ; out0             ;
++-------------------------------------+-------------------------------------+------------------+
+
+
++---------------------+
+; Simulator INI Usage ;
++--------+------------+
+; Option ; Usage      ;
++--------+------------+
+
+
++--------------------+
+; Simulator Messages ;
++--------------------+
+Info: *******************************************************************
+Info: Running Quartus II Simulator
+    Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+    Info: Processing started: Thu Apr 25 11:34:29 2019
+Info: Command: quartus_sim --read_settings_files=on --write_settings_files=off JuegoDados -c JuegoDados
+Info: Using vector source file "D:/Drive/Universidad/Primero/2º. Cuatrimestre/TECNOLOGIA DE COMPUTADORES/Practicas/Sesion 4/Practica 4 TC JUEGODADOS/JuegoDados.vwf"
+Info: Option to preserve fewer signal transitions to reduce memory requirements is enabled
+    Info: Simulation has been partitioned into sub-simulations according to the maximum transition count determined by the engine. Transitions from memory will be flushed out to disk at the end of each sub-simulation to reduce memory requirements.
+Info: Simulation partitioned into 1 sub-simulations
+Info: Simulation coverage is      68.81 %
+Info: Number of transitions in simulation is 1598
+Info: Quartus II Simulator was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 151 megabytes
+    Info: Processing ended: Thu Apr 25 11:34:29 2019
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:00
+
+

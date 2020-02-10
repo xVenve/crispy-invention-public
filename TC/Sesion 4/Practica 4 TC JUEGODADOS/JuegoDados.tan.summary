@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------------------
+Timing Analyzer Summary
+--------------------------------------------------------------------------------------
+
+Type           : Worst-case tsu
+Slack          : N/A
+Required Time  : None
+Actual Time    : 2.000 ns
+From           : Start
+To             : conformador:inst2|inst1
+From Clock     : --
+To Clock       : CLK
+Failed Paths   : 0
+
+Type           : Worst-case tco
+Slack          : N/A
+Required Time  : None
+Actual Time    : 19.600 ns
+From           : registro:inst7|inst13
+To             : Gana1
+From Clock     : RST
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case th
+Slack          : N/A
+Required Time  : None
+Actual Time    : 3.000 ns
+From           : Start
+To             : conformador:inst2|inst1
+From Clock     : --
+To Clock       : CLK
+Failed Paths   : 0
+
+Type           : Clock Setup: 'RST'
+Slack          : N/A
+Required Time  : None
+Actual Time    : 100.00 MHz ( period = 10.000 ns )
+From           : registro:inst7|inst13
+To             : registro:inst7|inst13
+From Clock     : RST
+To Clock       : RST
+Failed Paths   : 0
+
+Type           : Clock Setup: 'CLK'
+Slack          : N/A
+Required Time  : None
+Actual Time    : 100.00 MHz ( period = 10.000 ns )
+From           : fsm:inst3|inst1
+To             : fsm:inst3|inst1
+From Clock     : CLK
+To Clock       : CLK
+Failed Paths   : 0
+
+Type           : Total number of failed paths
+Slack          : 
+Required Time  : 
+Actual Time    : 
+From           : 
+To             : 
+From Clock     : 
+To Clock       : 
+Failed Paths   : 0
+
+--------------------------------------------------------------------------------------
+

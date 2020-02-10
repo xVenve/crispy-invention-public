@@ -1,0 +1,23 @@
+* D:\Desktop\P1\Ej4.2.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Sat Apr 06 22:22:49 2019
+
+
+
+** Analysis setup **
+.tran 0ms 1ms SKIPBP
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "Ej4.2.net"
+.INC "Ej4.2.als"
+
+
+.probe
+
+
+.END

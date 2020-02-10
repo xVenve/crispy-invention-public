@@ -1,0 +1,10 @@
+|DNI
+S <= inst12.DB_MAX_OUTPUT_PORT_TYPE
+A3 => inst.IN0
+A2 => inst4.IN0
+A1 => inst11.IN2
+A1 => inst5.IN0
+A0 => inst6.IN0
+A0 => inst10.IN3
+
+

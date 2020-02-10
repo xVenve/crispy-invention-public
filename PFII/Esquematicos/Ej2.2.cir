@@ -1,0 +1,22 @@
+* D:\Desktop\P1\Ej2.2.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Sat Apr 06 22:16:29 2019
+
+
+
+** Analysis setup **
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "Ej2.2.net"
+.INC "Ej2.2.als"
+
+
+.probe
+
+
+.END
