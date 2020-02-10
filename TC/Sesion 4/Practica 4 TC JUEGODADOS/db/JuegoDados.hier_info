@@ -1,0 +1,395 @@
+|JuegoDados
+Gana1 <= Comparador:inst1.G1X
+LOAD => LFSR:inst.LOAD
+CLK => LFSR:inst.CLK
+CLK => Conformador:inst2.CLK
+CLK => FSM:inst3.CLK
+CLK => 74179:inst6.CLK
+CLK => 74179:inst5.CLK
+RST => LFSR:inst.RST
+RST => Conformador:inst2.RST
+RST => FSM:inst3.RST
+RST => 74179:inst6.CLRN
+RST => 74179:inst5.CLRN
+Start => Conformador:inst2.BTN
+Gana2 <= Comparador:inst1.G2Y
+Empate <= Comparador:inst1.Empate
+D11 <= 74179:inst6.QA
+D12 <= 74179:inst6.QB
+D13 <= 74179:inst6.QC
+D14 <= 74179:inst6.QD
+D21 <= 74179:inst5.QA
+D22 <= 74179:inst5.QB
+D23 <= 74179:inst5.QC
+D24 <= 74179:inst5.QD
+
+
+|JuegoDados|Comparador:inst1
+G1X <= inst63.DB_MAX_OUTPUT_PORT_TYPE
+X4 => inst3.IN0
+X4 => inst4.IN3
+X4 => inst2.IN0
+X4 => inst1.IN2
+X4 => inst5.IN0
+X4 => inst22.IN3
+X4 => inst6.IN3
+X4 => inst28.IN4
+X4 => inst10.IN0
+Enable => inst3.IN1
+Enable => inst4.IN1
+Enable => inst2.IN1
+Enable => inst21.IN0
+Enable => inst20.IN0
+Enable => inst19.IN0
+Enable => inst1.IN1
+Enable => inst5.IN1
+Enable => inst22.IN1
+Enable => inst6.IN1
+Enable => inst28.IN1
+Enable => inst38.IN1
+Enable => inst39.IN1
+Enable => inst18.IN1
+Enable => inst30.IN0
+Enable => inst29.IN0
+Enable => inst23.IN0
+Enable => inst7.IN1
+Enable => inst40.IN1
+Enable => inst42.IN1
+Enable => inst41.IN1
+Enable => inst43.IN1
+Enable => inst26.IN2
+Enable => inst25.IN2
+Enable => inst24.IN2
+Enable => inst27.IN2
+Enable => inst34.IN2
+Enable => inst32.IN2
+Enable => inst31.IN2
+Enable => inst35.IN2
+X2 => inst3.IN2
+X2 => inst4.IN2
+X2 => inst21.IN2
+X2 => inst20.IN1
+X2 => inst22.IN0
+X2 => inst28.IN0
+X2 => inst8.IN0
+X2 => inst25.IN1
+X2 => inst27.IN0
+Y1 => inst17.IN0
+Y1 => inst39.IN4
+Y1 => inst30.IN2
+Y1 => inst23.IN2
+Y1 => inst40.IN3
+Y1 => inst42.IN0
+Y1 => inst41.IN3
+Y1 => inst34.IN4
+Y1 => inst35.IN0
+Y3 => inst12.IN0
+Y3 => inst18.IN4
+Y3 => inst40.IN4
+Y3 => inst42.IN4
+Y3 => inst43.IN4
+Y3 => inst34.IN3
+Y3 => inst32.IN3
+Y3 => inst31.IN3
+Y3 => inst35.IN3
+Y4 => inst13.IN0
+Y4 => inst38.IN5
+Y4 => inst39.IN5
+Y4 => inst18.IN5
+Y4 => inst7.IN5
+Y4 => inst40.IN5
+Y4 => inst42.IN5
+Y4 => inst41.IN5
+Y4 => inst43.IN5
+X3 => inst4.IN0
+X3 => inst2.IN2
+X3 => inst6.IN0
+X3 => inst28.IN3
+X3 => inst9.IN0
+X3 => inst26.IN0
+X3 => inst25.IN0
+X3 => inst24.IN1
+X3 => inst27.IN4
+Y2 => inst11.IN0
+Y2 => inst38.IN4
+Y2 => inst30.IN3
+Y2 => inst29.IN3
+Y2 => inst42.IN3
+Y2 => inst41.IN4
+Y2 => inst43.IN3
+Y2 => inst32.IN4
+Y2 => inst35.IN4
+X1 => inst21.IN1
+X1 => inst19.IN1
+X1 => inst5.IN2
+X1 => inst22.IN2
+X1 => inst6.IN2
+X1 => inst28.IN2
+X1 => inst15.IN0
+X1 => inst26.IN1
+X1 => inst27.IN1
+G2Y <= inst64.DB_MAX_OUTPUT_PORT_TYPE
+Empate <= inst68.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|74179:inst6
+QDN <= 34.DB_MAX_OUTPUT_PORT_TYPE
+CLRN => 13.ACLR
+CLRN => 14.ACLR
+CLRN => 15.ACLR
+CLRN => 16.ACLR
+CLK => 33.IN0
+SER => 24.IN0
+ST => 24.IN1
+ST => 37.IN0
+ST => 23.IN1
+ST => 22.IN1
+ST => 21.IN1
+LD => 35.IN0
+LD => 32.IN0
+LD => 30.IN0
+LD => 28.IN0
+LD => 26.IN0
+A => 32.IN1
+B => 30.IN1
+C => 28.IN1
+D => 26.IN1
+QA <= 16.DB_MAX_OUTPUT_PORT_TYPE
+QB <= 15.DB_MAX_OUTPUT_PORT_TYPE
+QC <= 14.DB_MAX_OUTPUT_PORT_TYPE
+QD <= 13.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|LFSR:inst
+q1 <= inst.DB_MAX_OUTPUT_PORT_TYPE
+RST => inst.ACLR
+RST => inst15.ACLR
+RST => inst14.ACLR
+RST => inst16.ACLR
+LOAD => BUSMUX:inst5.sel
+LOAD => BUSMUX:inst7.sel
+LOAD => BUSMUX:inst6.sel
+LOAD => BUSMUX:inst8.sel
+k2 => BUSMUX:inst6.datab[0]
+CLK => inst14.CLK
+CLK => inst15.CLK
+CLK => inst16.CLK
+CLK => inst.CLK
+ENABLE => inst14.ENA
+ENABLE => inst15.ENA
+ENABLE => inst16.ENA
+ENABLE => inst.ENA
+k3 => BUSMUX:inst7.datab[0]
+k4 => BUSMUX:inst8.datab[0]
+k1 => BUSMUX:inst5.datab[0]
+q2 <= inst14.DB_MAX_OUTPUT_PORT_TYPE
+q3 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+q4 <= inst16.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst5
+dataa[0] => lpm_mux:$00000.data[0][0]
+datab[0] => lpm_mux:$00000.data[1][0]
+sel => lpm_mux:$00000.sel[0]
+result[0] <= lpm_mux:$00000.result[0]
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst5|lpm_mux:$00000
+data[0][0] => muxlut:$00009.data[0]
+data[1][0] => muxlut:$00009.data[1]
+sel[0] => muxlut:$00009.select[0]
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= altshift:external_latency_ffs.result[0]
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst5|lpm_mux:$00000|altshift:external_latency_ffs
+data[0] => result[0].DATAIN
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= data[0].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst5|lpm_mux:$00000|muxlut:$00009
+data[0] => result_node~0.IN1
+data[1] => result_node~1.IN1
+select[0] => _~0.IN0
+select[0] => result_node~1.IN0
+clock => clock_out.DATAIN
+aclr => aclr_out.DATAIN
+clken => clken_out.DATAIN
+result <= result_node.DB_MAX_OUTPUT_PORT_TYPE
+clock_out <= clock.DB_MAX_OUTPUT_PORT_TYPE
+aclr_out <= aclr.DB_MAX_OUTPUT_PORT_TYPE
+clken_out <= clken.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst7
+dataa[0] => lpm_mux:$00000.data[0][0]
+datab[0] => lpm_mux:$00000.data[1][0]
+sel => lpm_mux:$00000.sel[0]
+result[0] <= lpm_mux:$00000.result[0]
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst7|lpm_mux:$00000
+data[0][0] => muxlut:$00009.data[0]
+data[1][0] => muxlut:$00009.data[1]
+sel[0] => muxlut:$00009.select[0]
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= altshift:external_latency_ffs.result[0]
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst7|lpm_mux:$00000|altshift:external_latency_ffs
+data[0] => result[0].DATAIN
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= data[0].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst7|lpm_mux:$00000|muxlut:$00009
+data[0] => result_node~0.IN1
+data[1] => result_node~1.IN1
+select[0] => _~0.IN0
+select[0] => result_node~1.IN0
+clock => clock_out.DATAIN
+aclr => aclr_out.DATAIN
+clken => clken_out.DATAIN
+result <= result_node.DB_MAX_OUTPUT_PORT_TYPE
+clock_out <= clock.DB_MAX_OUTPUT_PORT_TYPE
+aclr_out <= aclr.DB_MAX_OUTPUT_PORT_TYPE
+clken_out <= clken.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst6
+dataa[0] => lpm_mux:$00000.data[0][0]
+datab[0] => lpm_mux:$00000.data[1][0]
+sel => lpm_mux:$00000.sel[0]
+result[0] <= lpm_mux:$00000.result[0]
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst6|lpm_mux:$00000
+data[0][0] => muxlut:$00009.data[0]
+data[1][0] => muxlut:$00009.data[1]
+sel[0] => muxlut:$00009.select[0]
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= altshift:external_latency_ffs.result[0]
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst6|lpm_mux:$00000|altshift:external_latency_ffs
+data[0] => result[0].DATAIN
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= data[0].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst6|lpm_mux:$00000|muxlut:$00009
+data[0] => result_node~0.IN1
+data[1] => result_node~1.IN1
+select[0] => _~0.IN0
+select[0] => result_node~1.IN0
+clock => clock_out.DATAIN
+aclr => aclr_out.DATAIN
+clken => clken_out.DATAIN
+result <= result_node.DB_MAX_OUTPUT_PORT_TYPE
+clock_out <= clock.DB_MAX_OUTPUT_PORT_TYPE
+aclr_out <= aclr.DB_MAX_OUTPUT_PORT_TYPE
+clken_out <= clken.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst8
+dataa[0] => lpm_mux:$00000.data[0][0]
+datab[0] => lpm_mux:$00000.data[1][0]
+sel => lpm_mux:$00000.sel[0]
+result[0] <= lpm_mux:$00000.result[0]
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst8|lpm_mux:$00000
+data[0][0] => muxlut:$00009.data[0]
+data[1][0] => muxlut:$00009.data[1]
+sel[0] => muxlut:$00009.select[0]
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= altshift:external_latency_ffs.result[0]
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst8|lpm_mux:$00000|altshift:external_latency_ffs
+data[0] => result[0].DATAIN
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= data[0].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|LFSR:inst|BUSMUX:inst8|lpm_mux:$00000|muxlut:$00009
+data[0] => result_node~0.IN1
+data[1] => result_node~1.IN1
+select[0] => _~0.IN0
+select[0] => result_node~1.IN0
+clock => clock_out.DATAIN
+aclr => aclr_out.DATAIN
+clken => clken_out.DATAIN
+result <= result_node.DB_MAX_OUTPUT_PORT_TYPE
+clock_out <= clock.DB_MAX_OUTPUT_PORT_TYPE
+aclr_out <= aclr.DB_MAX_OUTPUT_PORT_TYPE
+clken_out <= clken.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|FSM:inst3
+L1 <= inst2.DB_MAX_OUTPUT_PORT_TYPE
+RST => inst.ACLR
+RST => inst1.ACLR
+CLK => inst.CLK
+CLK => inst1.CLK
+Start => inst4.IN1
+Start => inst10.IN0
+Start => inst11.IN1
+L2 <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+Enable <= inst8.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|JuegoDados|Conformador:inst2
+BTN_CONF <= inst5.DB_MAX_OUTPUT_PORT_TYPE
+RST => inst1.ACLR
+RST => inst.ACLR
+CLK => inst1.CLK
+CLK => inst.CLK
+BTN => inst1.DATAIN
+
+
+|JuegoDados|74179:inst5
+QDN <= 34.DB_MAX_OUTPUT_PORT_TYPE
+CLRN => 13.ACLR
+CLRN => 14.ACLR
+CLRN => 15.ACLR
+CLRN => 16.ACLR
+CLK => 33.IN0
+SER => 24.IN0
+ST => 24.IN1
+ST => 37.IN0
+ST => 23.IN1
+ST => 22.IN1
+ST => 21.IN1
+LD => 35.IN0
+LD => 32.IN0
+LD => 30.IN0
+LD => 28.IN0
+LD => 26.IN0
+A => 32.IN1
+B => 30.IN1
+C => 28.IN1
+D => 26.IN1
+QA <= 16.DB_MAX_OUTPUT_PORT_TYPE
+QB <= 15.DB_MAX_OUTPUT_PORT_TYPE
+QC <= 14.DB_MAX_OUTPUT_PORT_TYPE
+QD <= 13.DB_MAX_OUTPUT_PORT_TYPE
+
+

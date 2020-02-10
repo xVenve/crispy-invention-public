@@ -1,0 +1,23 @@
+* W:\Universidad\Primero\2º. Cuatrimestre\PRINCIPIOS FISICOS DE LA INGENIERÍA INFORMATICA\PSPICE\P1\Ej7.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Fri Apr 12 19:01:04 2019
+
+
+
+** Analysis setup **
+.ac DEC 101 10 200K
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "Ej7.net"
+.INC "Ej7.als"
+
+
+.probe
+
+
+.END

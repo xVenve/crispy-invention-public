@@ -1,0 +1,395 @@
+Quartus II
+Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+33
+2061
+OFF
+OFF
+OFF
+ON
+ON
+OFF
+FV_OFF
+Level2
+0
+0
+VRSM_ON
+VHSM_ON
+0
+-- Start Library Paths --
+-- End Library Paths --
+-- Start VHDL Libraries --
+-- End VHDL Libraries --
+# entity
+74179
+# storage
+db|JuegoDados.(1).cnf
+db|JuegoDados.(1).cnf
+# case_insensitive
+# source_file
+|programas|altera|91sp2|quartus|libraries|others|maxplus2|74179.bdf
+68b5f17f4a181ad53e0ebc48230cac6
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# macro_sequence
+
+# end
+# entity
+Comparador
+# storage
+db|JuegoDados.(2).cnf
+db|JuegoDados.(2).cnf
+# case_insensitive
+# source_file
+comparador.bdf
+e626a6b0ad212461e7a64c1fdcac59a3
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+comparador:inst1
+}
+# macro_sequence
+
+# end
+# entity
+LFSR
+# storage
+db|JuegoDados.(3).cnf
+db|JuegoDados.(3).cnf
+# case_insensitive
+# source_file
+lfsr.bdf
+76ecf2849472e4254d221b7349db699
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+lfsr:inst
+}
+# macro_sequence
+
+# end
+# entity
+BUSMUX
+# storage
+db|JuegoDados.(4).cnf
+db|JuegoDados.(4).cnf
+# case_insensitive
+# source_file
+|programas|altera|91sp2|quartus|libraries|megafunctions|busmux.tdf
+62baf6984e5874bbcc56e5babb8d423
+7
+# user_parameter {
+WIDTH
+1
+PARAMETER_UNKNOWN
+USR
+}
+# used_port {
+sel
+-1
+3
+result0
+-1
+3
+datab0
+-1
+3
+dataa0
+-1
+3
+}
+# hierarchies {
+lfsr:inst|busmux:inst5
+lfsr:inst|busmux:inst7
+lfsr:inst|busmux:inst6
+lfsr:inst|busmux:inst8
+}
+# macro_sequence
+
+# end
+# entity
+lpm_mux
+# storage
+db|JuegoDados.(5).cnf
+db|JuegoDados.(5).cnf
+# case_insensitive
+# source_file
+|programas|altera|91sp2|quartus|libraries|megafunctions|lpm_mux.tdf
+9d45665215a7636e457c26f5f1517
+7
+# user_parameter {
+AUTO_CARRY_CHAINS
+ON
+AUTO_CARRY
+USR
+IGNORE_CARRY_BUFFERS
+OFF
+IGNORE_CARRY
+USR
+AUTO_CASCADE_CHAINS
+ON
+AUTO_CASCADE
+USR
+IGNORE_CASCADE_BUFFERS
+OFF
+IGNORE_CASCADE
+USR
+LPM_WIDTH
+1
+PARAMETER_UNKNOWN
+USR
+LPM_SIZE
+2
+PARAMETER_UNKNOWN
+USR
+LPM_WIDTHS
+1
+PARAMETER_UNKNOWN
+USR
+LPM_PIPELINE
+0
+PARAMETER_UNKNOWN
+DEF
+CBXI_PARAMETER
+mux_mbc
+PARAMETER_UNKNOWN
+USR
+DEVICE_FAMILY
+MAX7000S
+PARAMETER_UNKNOWN
+USR
+}
+# used_port {
+sel0
+-1
+3
+result0
+-1
+3
+data1_0
+-1
+3
+data0_0
+-1
+3
+}
+# hierarchies {
+lfsr:inst|busmux:inst5|lpm_mux:$00000
+lfsr:inst|busmux:inst7|lpm_mux:$00000
+lfsr:inst|busmux:inst6|lpm_mux:$00000
+lfsr:inst|busmux:inst8|lpm_mux:$00000
+}
+# macro_sequence
+
+# end
+# entity
+altshift
+# storage
+db|JuegoDados.(6).cnf
+db|JuegoDados.(6).cnf
+# case_insensitive
+# source_file
+|programas|altera|91sp2|quartus|libraries|megafunctions|altshift.tdf
+f9c48e01ed05093ffb6fc0cfdb46bd
+7
+# user_parameter {
+WIDTH
+1
+PARAMETER_UNKNOWN
+USR
+DEPTH
+0
+PARAMETER_UNKNOWN
+USR
+}
+# used_port {
+result0
+-1
+3
+data0
+-1
+3
+}
+# hierarchies {
+lfsr:inst|busmux:inst5|lpm_mux:$00000|altshift:external_latency_ffs
+lfsr:inst|busmux:inst7|lpm_mux:$00000|altshift:external_latency_ffs
+lfsr:inst|busmux:inst6|lpm_mux:$00000|altshift:external_latency_ffs
+lfsr:inst|busmux:inst8|lpm_mux:$00000|altshift:external_latency_ffs
+}
+# macro_sequence
+
+# end
+# entity
+muxlut
+# storage
+db|JuegoDados.(7).cnf
+db|JuegoDados.(7).cnf
+# case_insensitive
+# source_file
+|programas|altera|91sp2|quartus|libraries|megafunctions|muxlut.tdf
+d5acef58a3908096e667465b433959
+7
+# user_parameter {
+AUTO_CARRY_CHAINS
+ON
+AUTO_CARRY
+USR
+IGNORE_CARRY_BUFFERS
+OFF
+IGNORE_CARRY
+USR
+AUTO_CASCADE_CHAINS
+ON
+AUTO_CASCADE
+USR
+IGNORE_CASCADE_BUFFERS
+OFF
+IGNORE_CASCADE
+USR
+SIZE
+2
+PARAMETER_UNKNOWN
+USR
+LEVEL
+0
+PARAMETER_UNKNOWN
+USR
+TOT_LEVELS
+1
+PARAMETER_UNKNOWN
+USR
+LATENCY
+0
+PARAMETER_UNKNOWN
+USR
+REM_LATENCY
+0
+PARAMETER_UNKNOWN
+DEF
+LOCAL
+0
+PARAMETER_UNKNOWN
+DEF
+CASCADE_CHAIN
+MANUAL
+PARAMETER_UNKNOWN
+USR
+DEVICE_FAMILY
+MAX7000S
+PARAMETER_UNKNOWN
+USR
+}
+# used_port {
+select0
+-1
+3
+result
+-1
+3
+data1
+-1
+3
+data0
+-1
+3
+}
+# hierarchies {
+lfsr:inst|busmux:inst5|lpm_mux:$00000|muxlut:$00009
+lfsr:inst|busmux:inst7|lpm_mux:$00000|muxlut:$00009
+lfsr:inst|busmux:inst6|lpm_mux:$00000|muxlut:$00009
+lfsr:inst|busmux:inst8|lpm_mux:$00000|muxlut:$00009
+}
+# macro_sequence
+
+# end
+# entity
+Conformador
+# storage
+db|JuegoDados.(9).cnf
+db|JuegoDados.(9).cnf
+# case_insensitive
+# source_file
+conformador.bdf
+b2fbec7595202ab96a9cd13beb83f7ac
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+conformador:inst2
+}
+# macro_sequence
+
+# end
+# entity
+FSM
+# storage
+db|JuegoDados.(8).cnf
+db|JuegoDados.(8).cnf
+# case_insensitive
+# source_file
+fsm.bdf
+9152ab25cf39beab2360abfd11d41
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+fsm:inst3
+}
+# macro_sequence
+
+# end
+# entity
+JuegoDados
+# storage
+db|JuegoDados.(0).cnf
+db|JuegoDados.(0).cnf
+# case_insensitive
+# source_file
+juegodados.bdf
+e0e21d5d23d86f42bcf1e18c7f9ec7f8
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+|
+}
+# macro_sequence
+
+# end
+# entity
+Registro
+# storage
+db|JuegoDados.(10).cnf
+db|JuegoDados.(10).cnf
+# case_insensitive
+# source_file
+registro.bdf
+c44c395b97c425d8e14758fb0d367a3
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+registro:inst12
+registro:inst7
+}
+# macro_sequence
+
+# end
+# complete
+

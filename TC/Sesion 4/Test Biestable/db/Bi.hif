@@ -1,0 +1,150 @@
+Quartus II
+Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+33
+2061
+OFF
+OFF
+OFF
+ON
+ON
+OFF
+FV_OFF
+Level2
+0
+0
+VRSM_ON
+VHSM_ON
+0
+-- Start Library Paths --
+-- End Library Paths --
+-- Start VHDL Libraries --
+-- End VHDL Libraries --
+# entity
+74179
+# storage
+db|Bi.(1).cnf
+db|Bi.(1).cnf
+# case_insensitive
+# source_file
+|programas|altera|91sp2|quartus|libraries|others|maxplus2|74179.bdf
+68b5f17f4a181ad53e0ebc48230cac6
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+74179:inst4
+}
+# macro_sequence
+
+# end
+# entity
+74173
+# storage
+db|Bi.(2).cnf
+db|Bi.(2).cnf
+# case_insensitive
+# source_file
+|programas|altera|91sp2|quartus|libraries|others|maxplus2|74173.bdf
+1e39e3d26dcdc1f1cfe48e1ed1674c98
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+74173:inst
+}
+# macro_sequence
+
+# end
+# entity
+74194
+# storage
+db|Bi.(3).cnf
+db|Bi.(3).cnf
+# case_insensitive
+# source_file
+|programas|altera|91sp2|quartus|libraries|others|maxplus2|74194.bdf
+76207d7caabe558ca0ce206cabe2c71f
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+74194:inst5
+}
+# macro_sequence
+
+# end
+# entity
+74199
+# storage
+db|Bi.(4).cnf
+db|Bi.(4).cnf
+# case_insensitive
+# source_file
+|programas|altera|91sp2|quartus|libraries|others|maxplus2|74199.bdf
+be30891d8b5bd1ca928562cd4d5552
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+74199:inst6
+}
+# macro_sequence
+
+# end
+# entity
+enadff
+# storage
+db|Bi.(5).cnf
+db|Bi.(5).cnf
+# case_insensitive
+# source_file
+|programas|altera|91sp2|quartus|libraries|others|maxplus2|enadff.bdf
+598c733d4f61e887df469837ad24a74
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+74199:inst6|enadff:78
+74199:inst6|enadff:79
+74199:inst6|enadff:80
+74199:inst6|enadff:81
+74199:inst6|enadff:82
+74199:inst6|enadff:83
+74199:inst6|enadff:84
+74199:inst6|enadff:85
+}
+# macro_sequence
+
+# end
+# entity
+Bi
+# storage
+db|Bi.(0).cnf
+db|Bi.(0).cnf
+# case_insensitive
+# source_file
+bi.bdf
+ca9a7a624e46b71f4ba7ef5979abbd
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+|
+}
+# macro_sequence
+
+# end
+# complete
+

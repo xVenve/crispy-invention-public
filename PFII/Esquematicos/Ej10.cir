@@ -1,0 +1,22 @@
+* D:\Desktop\P1\Ej10.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Sun Apr 28 21:20:46 2019
+
+
+
+** Analysis setup **
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "Ej10.net"
+.INC "Ej10.als"
+
+
+.probe
+
+
+.END

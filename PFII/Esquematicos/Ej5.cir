@@ -1,0 +1,23 @@
+* W:\Universidad\Primero\2º. Cuatrimestre\PRINCIPIOS FISICOS DE LA INGENIERÍA INFORMATICA\PSPICE\P1\Ej5.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Apr 11 19:18:41 2019
+
+
+
+** Analysis setup **
+.tran 0ms 20.27ms SKIPBP
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "Ej5.net"
+.INC "Ej5.als"
+
+
+.probe
+
+
+.END

@@ -1,0 +1,23 @@
+* W:\Universidad\Primero\2º. Cuatrimestre\PRINCIPIOS FISICOS DE LA INGENIERÍA INFORMATICA\PSPICE\P1\Ej9.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Mon Apr 29 17:31:20 2019
+
+
+
+** Analysis setup **
+.tran 0ns 8ms SKIPBP
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "Ej9.net"
+.INC "Ej9.als"
+
+
+.probe
+
+
+.END

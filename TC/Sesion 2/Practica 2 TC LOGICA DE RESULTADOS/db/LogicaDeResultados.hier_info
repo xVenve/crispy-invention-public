@@ -1,0 +1,27 @@
+|LogicaDeResultados
+G2 <= inst23.DB_MAX_OUTPUT_PORT_TYPE
+X1 => inst18.IN0
+X1 => inst19.IN0
+X1 => inst21.IN0
+X1 => inst8.IN0
+X1 => inst15.IN0
+X1 => inst17.IN0
+X2 => inst9.IN0
+X2 => inst19.IN1
+X2 => inst20.IN1
+X2 => inst.IN1
+X2 => inst15.IN1
+X2 => inst16.IN0
+X3 => inst10.IN0
+X3 => inst19.IN2
+X3 => inst21.IN1
+X3 => inst.IN2
+X3 => inst17.IN2
+X4 => inst18.IN3
+X4 => inst11.IN0
+X4 => inst20.IN2
+X4 => inst15.IN2
+X4 => inst16.IN2
+G1 <= inst22.DB_MAX_OUTPUT_PORT_TYPE
+
+

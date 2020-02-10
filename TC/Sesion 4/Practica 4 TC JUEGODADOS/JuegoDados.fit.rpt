@@ -1,0 +1,392 @@
+Fitter report for JuegoDados
+Thu Apr 25 11:31:49 2019
+Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Fitter Summary
+  3. Fitter Settings
+  4. Parallel Compilation
+  5. Pin-Out File
+  6. Fitter Resource Usage Summary
+  7. Input Pins
+  8. Output Pins
+  9. All Package Pins
+ 10. Output Pin Default Load For Reported TCO
+ 11. Fitter Resource Utilization by Entity
+ 12. Control Signals
+ 13. Non-Global High Fan-Out Signals
+ 14. Interconnect Usage Summary
+ 15. LAB Macrocells
+ 16. Parallel Expander
+ 17. Logic Cell Interconnection
+ 18. Fitter Device Options
+ 19. Fitter Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2010 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------+
+; Fitter Summary                                                       ;
++-----------------------+----------------------------------------------+
+; Fitter Status         ; Successful - Thu Apr 25 11:31:49 2019        ;
+; Quartus II Version    ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
+; Revision Name         ; JuegoDados                                   ;
+; Top-level Entity Name ; JuegoDados                                   ;
+; Family                ; MAX7000S                                     ;
+; Device                ; EPM7064SLC44-10                              ;
+; Timing Models         ; Final                                        ;
+; Total macrocells      ; 24 / 64 ( 38 % )                             ;
+; Total pins            ; 19 / 36 ( 53 % )                             ;
++-----------------------+----------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Fitter Settings                                                                                              ;
++----------------------------------------------------------------------------+-----------------+---------------+
+; Option                                                                     ; Setting         ; Default Value ;
++----------------------------------------------------------------------------+-----------------+---------------+
+; Device                                                                     ; EPM7064SLC44-10 ;               ;
+; Use smart compilation                                                      ; Off             ; Off           ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On              ; On            ;
+; Enable compact report table                                                ; Off             ; Off           ;
+; Use TimeQuest Timing Analyzer                                              ; Off             ; Off           ;
+; Optimize Timing for ECOs                                                   ; Off             ; Off           ;
+; Regenerate full fit report during ECO compiles                             ; Off             ; Off           ;
+; Optimize IOC Register Placement for Timing                                 ; On              ; On            ;
+; Limit to One Fitting Attempt                                               ; Off             ; Off           ;
+; Fitter Initial Placement Seed                                              ; 1               ; 1             ;
+; Slow Slew Rate                                                             ; Off             ; Off           ;
+; Fitter Effort                                                              ; Auto Fit        ; Auto Fit      ;
+; Force Fitter to Avoid Periphery Placement Warnings                         ; Off             ; Off           ;
+; Use Best Effort Settings for Compilation                                   ; Off             ; Off           ;
++----------------------------------------------------------------------------+-----------------+---------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 6      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++--------------+
+; Pin-Out File ;
++--------------+
+The pin-out file can be found in D:/Drive/Universidad/Primero/2º. Cuatrimestre/TECNOLOGIA DE COMPUTADORES/Practicas/Sesion 4/Practica 4 TC JUEGODADOS/JuegoDados.pin.
+
+
++------------------------------------------------------+
+; Fitter Resource Usage Summary                        ;
++-----------------------------------+------------------+
+; Resource                          ; Usage            ;
++-----------------------------------+------------------+
+; Logic cells                       ; 24 / 64 ( 38 % ) ;
+; Registers                         ; 16 / 64 ( 25 % ) ;
+; Number of pterms used             ; 95               ;
+; User inserted logic elements      ; 0                ;
+; I/O pins                          ; 19 / 36 ( 53 % ) ;
+;     -- Clock pins                 ; 0 / 2 ( 0 % )    ;
+;     -- Dedicated input pins       ; 0 / 2 ( 0 % )    ;
+; Global signals                    ; 0                ;
+; Shareable expanders               ; 0 / 64 ( 0 % )   ;
+; Parallel expanders                ; 5 / 60 ( 8 % )   ;
+; Cells using turbo bit             ; 24 / 64 ( 38 % ) ;
+; Maximum fan-out node              ; fsm:inst3|inst   ;
+; Maximum fan-out                   ; 17               ;
+; Highest non-global fan-out signal ; fsm:inst3|inst   ;
+; Highest non-global fan-out        ; 17               ;
+; Total fan-out                     ; 166              ;
+; Average fan-out                   ; 3.86             ;
++-----------------------------------+------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------+
+; Input Pins                                                                                                                                  ;
++-------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
+; Name  ; Pin # ; I/O Bank ; LAB ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; I/O Standard ; Location assigned by ;
++-------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
+; CLK   ; 31    ; --       ; 3   ; 16                    ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
+; LOAD  ; 29    ; --       ; 3   ; 4                     ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
+; RST   ; 41    ; --       ; 4   ; 16                    ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
+; Start ; 40    ; --       ; 4   ; 1                     ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
++-------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Output Pins                                                                                                                                                                                ;
++--------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
+; Name   ; Pin # ; I/O Bank ; LAB ; Output Register ; Slow Slew Rate ; Open Drain ; TRI Primitive ; I/O Standard ; Location assigned by ; Load  ; Output Enable Source ; Output Enable Group ;
++--------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
+; D11    ; 19    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; D12    ; 21    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; D13    ; 12    ; --       ; 1   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; D14    ; 8     ; --       ; 1   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; D21    ; 14    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; D22    ; 17    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; D23    ; 4     ; --       ; 1   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; D24    ; 9     ; --       ; 1   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; Empate ; 11    ; --       ; 1   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; Gana1  ; 6     ; --       ; 1   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; Gana2  ; 5     ; --       ; 1   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
++--------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
+
+
++-------------------------------------------------------------------------------------------------------+
+; All Package Pins                                                                                      ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+; Location ; Pad Number ; I/O Bank ; Pin Name/Usage ; Dir.   ; I/O Standard ; Voltage ; User Assignment ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+; 1        ; 0          ; --       ; GND+           ;        ;              ;         ;                 ;
+; 2        ; 1          ; --       ; GND+           ;        ;              ;         ;                 ;
+; 3        ; 2          ; --       ; VCC            ; power  ;              ;         ;                 ;
+; 4        ; 3          ; --       ; D23            ; output ; TTL          ;         ; N               ;
+; 5        ; 4          ; --       ; Gana2          ; output ; TTL          ;         ; N               ;
+; 6        ; 5          ; --       ; Gana1          ; output ; TTL          ;         ; N               ;
+; 7        ; 6          ; --       ; TDI            ; input  ; TTL          ;         ; N               ;
+; 8        ; 7          ; --       ; D14            ; output ; TTL          ;         ; N               ;
+; 9        ; 8          ; --       ; D24            ; output ; TTL          ;         ; N               ;
+; 10       ; 9          ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 11       ; 10         ; --       ; Empate         ; output ; TTL          ;         ; N               ;
+; 12       ; 11         ; --       ; D13            ; output ; TTL          ;         ; N               ;
+; 13       ; 12         ; --       ; TMS            ; input  ; TTL          ;         ; N               ;
+; 14       ; 13         ; --       ; D21            ; output ; TTL          ;         ; N               ;
+; 15       ; 14         ; --       ; VCC            ; power  ;              ;         ;                 ;
+; 16       ; 15         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 17       ; 16         ; --       ; D22            ; output ; TTL          ;         ; N               ;
+; 18       ; 17         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 19       ; 18         ; --       ; D11            ; output ; TTL          ;         ; N               ;
+; 20       ; 19         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 21       ; 20         ; --       ; D12            ; output ; TTL          ;         ; N               ;
+; 22       ; 21         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 23       ; 22         ; --       ; VCC            ; power  ;              ;         ;                 ;
+; 24       ; 23         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 25       ; 24         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 26       ; 25         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 27       ; 26         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 28       ; 27         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 29       ; 28         ; --       ; LOAD           ; input  ; TTL          ;         ; N               ;
+; 30       ; 29         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 31       ; 30         ; --       ; CLK            ; input  ; TTL          ;         ; N               ;
+; 32       ; 31         ; --       ; TCK            ; input  ; TTL          ;         ; N               ;
+; 33       ; 32         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 34       ; 33         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 35       ; 34         ; --       ; VCC            ; power  ;              ;         ;                 ;
+; 36       ; 35         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 37       ; 36         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 38       ; 37         ; --       ; TDO            ; output ; TTL          ;         ; N               ;
+; 39       ; 38         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 40       ; 39         ; --       ; Start          ; input  ; TTL          ;         ; N               ;
+; 41       ; 40         ; --       ; RST            ; input  ; TTL          ;         ; N               ;
+; 42       ; 41         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 43       ; 42         ; --       ; GND+           ;        ;              ;         ;                 ;
+; 44       ; 43         ; --       ; GND+           ;        ;              ;         ;                 ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+Note: Pin directions (input, output or bidir) are based on device operating in user mode.
+
+
++-----------------------------------------------+
+; Output Pin Default Load For Reported TCO      ;
++--------------+-------+------------------------+
+; I/O Standard ; Load  ; Termination Resistance ;
++--------------+-------+------------------------+
+; TTL          ; 10 pF ; Not Available          ;
++--------------+-------+------------------------+
+Note: User assignments will override these defaults. The user specified values are listed in the Output Pins and Bidir Pins tables.
+
+
++-----------------------------------------------------------------------------------------------+
+; Fitter Resource Utilization by Entity                                                         ;
++----------------------------+------------+------+-------------------------------+--------------+
+; Compilation Hierarchy Node ; Macrocells ; Pins ; Full Hierarchy Name           ; Library Name ;
++----------------------------+------------+------+-------------------------------+--------------+
+; |JuegoDados                ; 24         ; 19   ; |JuegoDados                   ; work         ;
+;    |comparador:inst1|      ; 8          ; 0    ; |JuegoDados|comparador:inst1  ; work         ;
+;    |conformador:inst2|     ; 2          ; 0    ; |JuegoDados|conformador:inst2 ; work         ;
+;    |fsm:inst3|             ; 2          ; 0    ; |JuegoDados|fsm:inst3         ; work         ;
+;    |lfsr:inst|             ; 4          ; 0    ; |JuegoDados|lfsr:inst         ; work         ;
+;    |registro:inst12|       ; 4          ; 0    ; |JuegoDados|registro:inst12   ; work         ;
+;    |registro:inst7|        ; 4          ; 0    ; |JuegoDados|registro:inst7    ; work         ;
++----------------------------+------------+------+-------------------------------+--------------+
+
+
++----------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                    ;
++------+----------+---------+---------------------+--------+----------------------+------------------+
+; Name ; Location ; Fan-Out ; Usage               ; Global ; Global Resource Used ; Global Line Name ;
++------+----------+---------+---------------------+--------+----------------------+------------------+
+; CLK  ; PIN_31   ; 16      ; Async. clear, Clock ; no     ; --                   ; --               ;
+; RST  ; PIN_41   ; 16      ; Async. clear, Clock ; no     ; --                   ; --               ;
++------+----------+---------+---------------------+--------+----------------------+------------------+
+
+
++--------------------------------------+
+; Non-Global High Fan-Out Signals      ;
++----------------------------+---------+
+; Name                       ; Fan-Out ;
++----------------------------+---------+
+; fsm:inst3|inst             ; 17      ;
+; RST                        ; 16      ;
+; CLK                        ; 16      ;
+; fsm:inst3|inst1            ; 16      ;
+; registro:inst7|inst11      ; 10      ;
+; registro:inst12|inst11     ; 10      ;
+; registro:inst7|inst13      ; 9       ;
+; registro:inst7|inst12      ; 9       ;
+; registro:inst12|inst13     ; 8       ;
+; registro:inst12|inst12     ; 8       ;
+; registro:inst7|inst        ; 8       ;
+; registro:inst12|inst       ; 8       ;
+; LOAD                       ; 4       ;
+; lfsr:inst|inst15           ; 4       ;
+; lfsr:inst|inst16           ; 3       ;
+; lfsr:inst|inst14           ; 3       ;
+; lfsr:inst|inst             ; 3       ;
+; conformador:inst2|inst1    ; 3       ;
+; conformador:inst2|inst     ; 2       ;
+; Start                      ; 1       ;
+; comparador:inst1|inst68~7  ; 1       ;
+; comparador:inst1|inst63~20 ; 1       ;
+; comparador:inst1|inst63~14 ; 1       ;
+; comparador:inst1|inst64~26 ; 1       ;
+; comparador:inst1|inst64~20 ; 1       ;
+; comparador:inst1|inst68~5  ; 1       ;
+; comparador:inst1|inst63~13 ; 1       ;
+; comparador:inst1|inst64~19 ; 1       ;
++----------------------------+---------+
+
+
++------------------------------------------------+
+; Interconnect Usage Summary                     ;
++----------------------------+-------------------+
+; Interconnect Resource Type ; Usage             ;
++----------------------------+-------------------+
+; Output enables             ; 0 / 6 ( 0 % )     ;
+; PIA buffers                ; 30 / 144 ( 21 % ) ;
++----------------------------+-------------------+
+
+
++----------------------------------------------------------------------+
+; LAB Macrocells                                                       ;
++----------------------------------------+-----------------------------+
+; Number of Macrocells  (Average = 6.00) ; Number of LABs  (Total = 2) ;
++----------------------------------------+-----------------------------+
+; 0                                      ; 2                           ;
+; 1                                      ; 0                           ;
+; 2                                      ; 0                           ;
+; 3                                      ; 0                           ;
+; 4                                      ; 0                           ;
+; 5                                      ; 0                           ;
+; 6                                      ; 0                           ;
+; 7                                      ; 0                           ;
+; 8                                      ; 1                           ;
+; 9                                      ; 0                           ;
+; 10                                     ; 0                           ;
+; 11                                     ; 0                           ;
+; 12                                     ; 0                           ;
+; 13                                     ; 0                           ;
+; 14                                     ; 0                           ;
+; 15                                     ; 0                           ;
+; 16                                     ; 1                           ;
++----------------------------------------+-----------------------------+
+
+
++---------------------------------------------------------+
+; Parallel Expander                                       ;
++--------------------------+------------------------------+
+; Parallel Expander Length ; Number of Parallel Expanders ;
++--------------------------+------------------------------+
+; 0                        ; 0                            ;
+; 1                        ; 1                            ;
+; 2                        ; 2                            ;
++--------------------------+------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Logic Cell Interconnection                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
++-----+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; LAB ; Logic Cell ; Input                                                                                                                                                                                                                                               ; Output                                                                                                                                                                                                                                                                                                                                                                                                                                ;
++-----+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+;  A  ; LC8        ; LOAD, lfsr:inst|inst15, lfsr:inst|inst16, CLK, RST                                                                                                                                                                                                  ; lfsr:inst|inst14, registro:inst12|inst, registro:inst7|inst                                                                                                                                                                                                                                                                                                                                                                           ;
+;  A  ; LC15       ; LOAD, lfsr:inst|inst, CLK, RST                                                                                                                                                                                                                      ; lfsr:inst|inst15, registro:inst12|inst11, registro:inst7|inst11                                                                                                                                                                                                                                                                                                                                                                       ;
+;  A  ; LC7        ; LOAD, lfsr:inst|inst14, CLK, RST                                                                                                                                                                                                                    ; lfsr:inst|inst, lfsr:inst|inst16, registro:inst12|inst12, registro:inst7|inst12                                                                                                                                                                                                                                                                                                                                                       ;
+;  A  ; LC5        ; lfsr:inst|inst, fsm:inst3|inst, fsm:inst3|inst1, registro:inst12|inst, RST, CLK                                                                                                                                                                     ; registro:inst12|inst, D14, comparador:inst1|inst64~19, comparador:inst1|inst63~13, comparador:inst1|inst64~26, comparador:inst1|inst63~14, comparador:inst1|inst63~20, comparador:inst1|inst68~7                                                                                                                                                                                                                                      ;
+;  A  ; LC1        ; lfsr:inst|inst14, fsm:inst3|inst, fsm:inst3|inst1, registro:inst12|inst11, RST, CLK                                                                                                                                                                 ; registro:inst12|inst11, D13, comparador:inst1|inst64~19, comparador:inst1|inst63~13, comparador:inst1|inst68~5, comparador:inst1|inst64~20, comparador:inst1|inst64~26, comparador:inst1|inst63~14, comparador:inst1|inst63~20, comparador:inst1|inst68~7                                                                                                                                                                             ;
+;  A  ; LC6        ; LOAD, lfsr:inst|inst15, CLK, RST                                                                                                                                                                                                                    ; lfsr:inst|inst, registro:inst12|inst13, registro:inst7|inst13                                                                                                                                                                                                                                                                                                                                                                         ;
+;  A  ; LC4        ; lfsr:inst|inst, fsm:inst3|inst, fsm:inst3|inst1, registro:inst7|inst, RST, CLK                                                                                                                                                                      ; registro:inst7|inst, D24, comparador:inst1|inst64~19, comparador:inst1|inst63~13, comparador:inst1|inst64~26, comparador:inst1|inst63~14, comparador:inst1|inst63~20, comparador:inst1|inst68~7                                                                                                                                                                                                                                       ;
+;  A  ; LC16       ; lfsr:inst|inst14, fsm:inst3|inst, fsm:inst3|inst1, registro:inst7|inst11, RST, CLK                                                                                                                                                                  ; registro:inst7|inst11, D23, comparador:inst1|inst64~19, comparador:inst1|inst63~13, comparador:inst1|inst68~5, comparador:inst1|inst64~20, comparador:inst1|inst64~26, comparador:inst1|inst63~14, comparador:inst1|inst63~20, comparador:inst1|inst68~7                                                                                                                                                                              ;
+;  A  ; LC14       ; comparador:inst1|inst64~26, registro:inst12|inst11, fsm:inst3|inst, fsm:inst3|inst1, registro:inst7|inst12, registro:inst7|inst11, registro:inst7|inst13, registro:inst12|inst13, registro:inst12|inst, registro:inst7|inst                         ; Gana2                                                                                                                                                                                                                                                                                                                                                                                                                                 ;
+;  A  ; LC11       ; comparador:inst1|inst63~20, registro:inst12|inst12, registro:inst12|inst11, fsm:inst3|inst, fsm:inst3|inst1, registro:inst7|inst13, registro:inst12|inst, registro:inst7|inst, registro:inst7|inst11, registro:inst7|inst12                         ; Gana1                                                                                                                                                                                                                                                                                                                                                                                                                                 ;
+;  A  ; LC3        ; comparador:inst1|inst68~7, fsm:inst3|inst, fsm:inst3|inst1, registro:inst12|inst11, registro:inst7|inst11, registro:inst12|inst12, registro:inst7|inst12, registro:inst12|inst13, registro:inst7|inst13                                             ; Empate                                                                                                                                                                                                                                                                                                                                                                                                                                ;
+;  A  ; LC12       ; registro:inst12|inst13, fsm:inst3|inst, fsm:inst3|inst1, registro:inst7|inst13, registro:inst12|inst12, registro:inst7|inst12, registro:inst12|inst11, registro:inst7|inst11                                                                        ; comparador:inst1|inst64~26                                                                                                                                                                                                                                                                                                                                                                                                            ;
+;  A  ; LC13       ; comparador:inst1|inst64~20, registro:inst12|inst12, registro:inst12|inst11, registro:inst12|inst13, fsm:inst3|inst, fsm:inst3|inst1, registro:inst12|inst, registro:inst7|inst, registro:inst7|inst13, registro:inst7|inst11, registro:inst7|inst12 ; comparador:inst1|inst64~19                                                                                                                                                                                                                                                                                                                                                                                                            ;
+;  A  ; LC9        ; registro:inst12|inst13, fsm:inst3|inst, fsm:inst3|inst1, registro:inst7|inst13, registro:inst12|inst12, registro:inst7|inst12, registro:inst12|inst11, registro:inst7|inst11, registro:inst12|inst, registro:inst7|inst                             ; comparador:inst1|inst63~20                                                                                                                                                                                                                                                                                                                                                                                                            ;
+;  A  ; LC10       ; comparador:inst1|inst63~14, registro:inst12|inst13, registro:inst12|inst11, fsm:inst3|inst, fsm:inst3|inst1, registro:inst7|inst12, registro:inst7|inst11, registro:inst12|inst, registro:inst7|inst, registro:inst12|inst12, registro:inst7|inst13 ; comparador:inst1|inst63~13                                                                                                                                                                                                                                                                                                                                                                                                            ;
+;  A  ; LC2        ; fsm:inst3|inst, fsm:inst3|inst1, registro:inst12|inst, registro:inst7|inst, registro:inst12|inst11, registro:inst7|inst11                                                                                                                           ; comparador:inst1|inst68~5                                                                                                                                                                                                                                                                                                                                                                                                             ;
+;  B  ; LC26       ; Start, CLK, RST                                                                                                                                                                                                                                     ; conformador:inst2|inst, fsm:inst3|inst, fsm:inst3|inst1                                                                                                                                                                                                                                                                                                                                                                               ;
+;  B  ; LC25       ; conformador:inst2|inst1, CLK, RST                                                                                                                                                                                                                   ; fsm:inst3|inst, fsm:inst3|inst1                                                                                                                                                                                                                                                                                                                                                                                                       ;
+;  B  ; LC21       ; conformador:inst2|inst1, conformador:inst2|inst, CLK, RST                                                                                                                                                                                           ; registro:inst12|inst, registro:inst12|inst11, fsm:inst3|inst1, registro:inst7|inst, registro:inst7|inst11, registro:inst12|inst12, registro:inst7|inst12, registro:inst12|inst13, registro:inst7|inst13, comparador:inst1|inst64~19, comparador:inst1|inst63~13, comparador:inst1|inst68~5, comparador:inst1|inst64~20, comparador:inst1|inst64~26, comparador:inst1|inst63~14, comparador:inst1|inst63~20, comparador:inst1|inst68~7 ;
+;  B  ; LC18       ; conformador:inst2|inst1, conformador:inst2|inst, fsm:inst3|inst, CLK, RST                                                                                                                                                                           ; registro:inst12|inst, registro:inst12|inst11, registro:inst7|inst, registro:inst7|inst11, registro:inst12|inst12, registro:inst7|inst12, registro:inst12|inst13, registro:inst7|inst13, comparador:inst1|inst64~19, comparador:inst1|inst63~13, comparador:inst1|inst68~5, comparador:inst1|inst64~20, comparador:inst1|inst64~26, comparador:inst1|inst63~14, comparador:inst1|inst63~20, comparador:inst1|inst68~7                  ;
+;  B  ; LC17       ; lfsr:inst|inst15, fsm:inst3|inst, fsm:inst3|inst1, registro:inst12|inst12, RST, CLK                                                                                                                                                                 ; registro:inst12|inst12, D12, comparador:inst1|inst63~13, comparador:inst1|inst68~5, comparador:inst1|inst64~20, comparador:inst1|inst64~26, comparador:inst1|inst63~14, comparador:inst1|inst63~20                                                                                                                                                                                                                                    ;
+;  B  ; LC24       ; lfsr:inst|inst15, fsm:inst3|inst, fsm:inst3|inst1, registro:inst7|inst12, RST, CLK                                                                                                                                                                  ; registro:inst7|inst12, D22, comparador:inst1|inst64~19, comparador:inst1|inst63~13, comparador:inst1|inst68~5, comparador:inst1|inst64~20, comparador:inst1|inst64~26, comparador:inst1|inst63~14, comparador:inst1|inst63~20                                                                                                                                                                                                         ;
+;  B  ; LC20       ; lfsr:inst|inst16, fsm:inst3|inst, fsm:inst3|inst1, registro:inst12|inst13, RST, CLK                                                                                                                                                                 ; registro:inst12|inst13, D11, comparador:inst1|inst64~19, comparador:inst1|inst68~5, comparador:inst1|inst64~20, comparador:inst1|inst64~26, comparador:inst1|inst63~14, comparador:inst1|inst63~20                                                                                                                                                                                                                                    ;
+;  B  ; LC30       ; lfsr:inst|inst16, fsm:inst3|inst, fsm:inst3|inst1, registro:inst7|inst13, RST, CLK                                                                                                                                                                  ; registro:inst7|inst13, D21, comparador:inst1|inst64~19, comparador:inst1|inst63~13, comparador:inst1|inst68~5, comparador:inst1|inst64~20, comparador:inst1|inst64~26, comparador:inst1|inst63~14, comparador:inst1|inst63~20                                                                                                                                                                                                         ;
++-----+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------+
+; Fitter Device Options                                         ;
++----------------------------------------------+----------------+
+; Option                                       ; Setting        ;
++----------------------------------------------+----------------+
+; Enable user-supplied start-up clock (CLKUSR) ; Off            ;
+; Enable device-wide reset (DEV_CLRn)          ; Off            ;
+; Enable device-wide output enable (DEV_OE)    ; Off            ;
+; Enable INIT_DONE output                      ; Off            ;
+; Configuration scheme                         ; Passive Serial ;
+; Security bit                                 ; Off            ;
+; Base pin-out file on sameframe device        ; Off            ;
++----------------------------------------------+----------------+
+
+
++-----------------+
+; Fitter Messages ;
++-----------------+
+Info: *******************************************************************
+Info: Running Quartus II Fitter
+    Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+    Info: Processing started: Thu Apr 25 11:31:49 2019
+Info: Command: quartus_fit --read_settings_files=off --write_settings_files=off JuegoDados -c JuegoDados
+Info: Selected device EPM7064SLC44-10 for design "JuegoDados"
+Info: Quartus II Fitter was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 212 megabytes
+    Info: Processing ended: Thu Apr 25 11:31:49 2019
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:00
+
+

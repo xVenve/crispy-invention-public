@@ -1,0 +1,11 @@
+|CODIFICADOR
+S1 <= inst4.DB_MAX_OUTPUT_PORT_TYPE
+T => inst3.IN0
+T => inst8.IN0
+Pi => inst9.IN0
+Pi => inst.IN1
+Pa => inst10.IN0
+Pa => inst6.IN2
+S2 <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+
+
