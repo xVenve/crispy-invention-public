@@ -16,6 +16,9 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
+	int descriptor;	//Descriptor del fichero
+	char buf[BUFFER_SIZE];	//Declaramos el buffer con el tamaño indicado
+	//open  con flag O_RDWR para Read/Write
 
 	return 0;
 }
