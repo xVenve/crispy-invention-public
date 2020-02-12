@@ -29,16 +29,16 @@ int main(int argc, char *argv[])
 	while((nread=read(descriptor, buf, BUFFER_SIZE))<0){
 		do{
 			nwrite=write(STDOUT_FILENO, buf, nread);
-			if(nwrite<0){
+			if(nwrite==0){
 				close(descriptor);
 				//comprobar errores de close
 				return -1;
 			}
 			nread-=nwrite;
-		}while(nread>0)
+		}while(nread>0);
 
 	}
-
+	close(descriptor);
 
 
 	return 0;
