@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 		}while(nread>0);
 	}
 	if(nread<0){
-		pritnf("Error al leer fichero\n")
+		pritnf("Error al leer fichero\n");
 		if(close(descriptor)<0){
 			printf("Error al cerrar el fichero\n");
 		}
