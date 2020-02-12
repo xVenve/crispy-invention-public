@@ -26,19 +26,25 @@ int main(int argc, char *argv[])
 	}
 
 	int nread, nwrite;
-	while((nread=read(descriptor, buf, BUFFER_SIZE))<0){
+	while((nread=read(descriptor, buf, BUFFER_SIZE))>0){
 		do{
 			nwrite=write(STDOUT_FILENO, buf, nread);
-			if(nwrite==0){
-				close(descriptor);
-				//comprobar errores de close
+			if(nwrite<0){
+				if(close(descriptor)<0){
+					printf("Error al cerrar el fichero\n");
+					return -1;
+				}
+				printf("Error al escribir en la linea de comandos\n");
 				return -1;
 			}
 			nread-=nwrite;
 		}while(nread>0);
 
 	}
-	close(descriptor);
+	if(close(descriptor)<0){
+		printf("Error al cerrar el fichero\n");
+		return -1;
+	}
 
 
 	return 0;
