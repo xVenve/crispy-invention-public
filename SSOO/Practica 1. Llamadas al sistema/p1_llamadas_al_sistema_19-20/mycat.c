@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
 
 	int descriptor;	//Descriptor del fichero
 	char buf[BUFFER_SIZE];	//Declaramos el buffer con el tamaño indicado
-	
-	
+
+
 	descriptor=open(argv[1], O_RDONLY);	//open  con flag O_RDONLY para Read
 	if(descriptor<0){
 		printf("Error al abrir el fichero\n");
@@ -54,8 +54,7 @@ int main(int argc, char *argv[])
 		printf("Error al cerrar el fichero\n");
 		return -1;
 	}
-	//Carlos
+	
 
 	return 0;
 }
-
