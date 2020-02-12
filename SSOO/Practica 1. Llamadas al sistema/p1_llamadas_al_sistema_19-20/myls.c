@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	//No hemos recibido argumentos, por lo que usamos el directorio actual
 	if(argc <2){
 		char buffer[PATH_MAX];
-		getcwd(buffer, PATH_MAX); //directorio guardado en buffer
+		getcwd(buffer, PATH_MAX); //directorio actual guardado en buffer
 		descriptor = opendir (buffer);
 	}else if (argc == 2){
 	//Usamos el argumento como directorio a leer
@@ -22,11 +22,14 @@ int main(int argc, char *argv[])
 		printf("Exceso de argumentos\n");
 		return -1;
 	}
+
+
 	if (descriptor == NULL){
 		printf ("Error al abrir directorio \n");
 		return -1;
 	}
-	//Leemos cada uno de los ficheros a del directorio al que apunta descriptor
+
+	//Leemos cada uno de los ficheros del directorio al que apunta descriptor e imprimimos por pantalla el nombre
 	struct dirent *fichero_act;
 	while ( (fichero_act = readdir(descriptor) ) != NULL){
 		printf("%s\n",fichero_act->d_name);
