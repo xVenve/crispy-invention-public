@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
 			nwrite=write(STDOUT_FILENO, buf, nread);
 			if(nwrite<0){
 				close(descriptor);
+				//comprobar errores de close
 				return -1;
 			}
 			nread-=nwrite;
@@ -38,7 +39,7 @@ int main(int argc, char *argv[])
 
 	}
 
-	
+
 
 	return 0;
 }
