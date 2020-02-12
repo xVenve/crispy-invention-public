@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
 			if(nwrite<0){
 				if(close(descriptor)<0){
 					printf("Error al cerrar el fichero\n");
-					return -1;
 				}
 				printf("Error al escribir en la linea de comandos\n");
 				return -1;
@@ -46,7 +45,12 @@ int main(int argc, char *argv[])
 		}while(nread>0);
 	}
 	if(nread<0){
-		printf("Error al leer el fichero\n");
+		pritnf("Error al leer fichero\n")
+		if(close(descriptor)<0){
+			printf("Error al cerrar el fichero\n");
+		}
+		return -1;
+
 	}
 
 
@@ -54,7 +58,7 @@ int main(int argc, char *argv[])
 		printf("Error al cerrar el fichero\n");
 		return -1;
 	}
-	
+
 
 	return 0;
 }
