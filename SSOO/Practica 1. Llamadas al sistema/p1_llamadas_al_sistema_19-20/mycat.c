@@ -18,7 +18,27 @@ int main(int argc, char *argv[])
 
 	int descriptor;	//Descriptor del fichero
 	char buf[BUFFER_SIZE];	//Declaramos el buffer con el tamaño indicado
-	//open  con flag O_RDWR para Read/Write
+	
+	descriptor=open(argv[1], O_RDONLY);	//open  con flag O_RDONLY para Read
+	if(descriptor<0){
+		printf("Error al abrir el fichero\n");
+		return -1;
+	}
+
+	int nread, nwrite;
+	while((nread=read(descriptor, buf, BUFFER_SIZE))<0){
+		do{
+			nwrite=write(STDOUT_FILENO, buf, nread);
+			if(nwrite<0){
+				close(descriptor);
+				return -1;
+			}
+			nread-=nwrite;
+		}while(nread>0)
+
+	}
+
+	
 
 	return 0;
 }
