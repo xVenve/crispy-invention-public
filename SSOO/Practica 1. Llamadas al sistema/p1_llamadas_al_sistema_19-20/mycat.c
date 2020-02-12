@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 		printf("Error al cerrar el fichero\n");
 		return -1;
 	}
-
+	//Carlos
 
 	return 0;
 }
