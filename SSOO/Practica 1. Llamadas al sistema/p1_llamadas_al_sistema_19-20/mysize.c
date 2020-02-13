@@ -8,7 +8,35 @@
 
 int main(int argc, char *argv[])
 {
-	
 
+	DIR *descriptor;
+	//Usamos el directorio actual
+	char buffer[PATH_MAX];
+	getcwd(buffer, PATH_MAX); //directorio guardado en buffer
+	descriptor = opendir (buffer);
+
+	if (descriptor == NULL){
+		printf ("Error al abrir directorio \n");
+		return -1;
+	}
+	//Leemos cada uno de los ficheros a del directorio al que apunta descriptor
+	struct dirent *fichero_act;
+	while ( (fichero_act = readdir(descriptor) ) != NULL){
+		//Usamos la función lseek
+		if (fichero_act->d_type == DT_REG){
+			int tamaño_fichero = lseek(fichero_act,0,SEEK_END);
+			if (tamaño_fichero == -1){
+				printf("Error al leer un fichero\n");
+				return -1;
+			}
+			printf("%s	%d\n",fichero_act->d_name,tamaño_fichero);
+		}
+
+	}
+	//Hemos terminado de leer, cerramos el directorio
+	if (closedir(descriptor) == -1){
+		printf("Error al cerrar directorio\n");
+		return -1;
+	}
 	return 0;
 }
