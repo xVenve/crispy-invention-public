@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 		//Usamos la función lseek
 		if (fichero_act->d_type == DT_REG){
 			//Abrimos el fichero en el que nos encontramos para encontrar su tamaño
-			int descriptor_fichero = open(fichero_act->d_name, O_RDONLY);
+			int descriptor_fichero = open(fichero_act->d_name, O_RDWR);
 			if (descriptor_fichero <0){
 				printf("Error al abrir fichero\n");
 				return -1;
