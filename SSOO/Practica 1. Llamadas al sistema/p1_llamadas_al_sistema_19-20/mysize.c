@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	struct dirent *fichero_act;
 	while ( (fichero_act = readdir(descriptor) ) != NULL){
 		//Usamos la función lseek
-
+		if(fichero_act->d_type==DT_REG){
 			//Abrimos el fichero en el que nos encontramos para encontrar su tamaño
 			int descriptor_fichero = open(fichero_act->d_name, O_RDWR,0600); //podemos modificar permisos
 			if (descriptor_fichero <0){
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 				printf("Error al cerrar fichero\n");
 				return -1;
 			}
-
+		}
 
 	}
 	//Hemos terminado de leer, cerramos el directorio
