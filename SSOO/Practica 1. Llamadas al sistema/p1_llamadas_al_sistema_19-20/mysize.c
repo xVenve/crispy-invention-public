@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 				printf("Error al leer un fichero\n");
 				return -1;
 			}
-			printf("%s\t%d\n",fichero_act->d_name,tamano_fichero);
+			printf("%s\t%ld\n",fichero_act->d_name,tamano_fichero);
 
 			if (close(descriptor_fichero)<0){
 				printf("Error al cerrar fichero\n");
