@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	while ( (fichero_act = readdir(descriptor) ) != NULL){
 		//Usamos la función lseek
 		if (fichero_act->d_type == DT_REG){
-			int tamano_fichero = lseek(fichero_act,0,SEEK_END);
+			int tamano_fichero = lseek(descriptor,0,SEEK_END);
 			if (tamano_fichero == -1){
 				printf("Error al leer un fichero\n");
 				return -1;
