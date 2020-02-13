@@ -38,6 +38,6 @@ public class CambioDeDivisa {
 	}
 	
 	System.out.print("Cambio: "+(dol/cambio)+" "+moneda);
-	
+	sc.close();
 	}
 }

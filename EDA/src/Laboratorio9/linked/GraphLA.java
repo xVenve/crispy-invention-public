@@ -21,6 +21,7 @@ public class GraphLA implements IGraph {
 	boolean directed;
 		
 		
+	@SuppressWarnings("unchecked")
 	public GraphLA(String[] vertices, boolean d) {
 			this.vertices=vertices;
 			numVertices=vertices.length;

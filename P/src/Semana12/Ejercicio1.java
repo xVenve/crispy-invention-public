@@ -20,5 +20,6 @@ public class Ejercicio1 {
 		System.out.println("Persona 1: \n"+Jesus.toString());
 		System.out.println("Persona 2: \n"+Mujer.toString());	
 		System.out.println("Persona 3: \n"+Mujer2.toString());
+		sc.close();
 	}
 }

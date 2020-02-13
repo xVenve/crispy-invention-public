@@ -1,5 +1,4 @@
 package codigosfuente;
-import java.util.Random;
 public class DiezPorDiezFind {
 //Sin acabar
 	public static void main(String[] args) {

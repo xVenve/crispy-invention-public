@@ -8,7 +8,7 @@ public class Ejercicio5 {
 		Scanner sc=new Scanner(System.in);
 		int enter, suma,n=4,d;
 		
-		System.out.println("Indica el límite superior para generar números perfectos y pulsa. Enter: ");
+		System.out.println("Indica el lï¿½mite superior para generar nï¿½meros perfectos y pulsa. Enter: ");
 		enter=sc.nextInt();
 		
 		do {
@@ -21,13 +21,13 @@ public class Ejercicio5 {
 				
 			}
 			if(suma==n) {
-				System.out.println("El número " +n+ " es perfecto");
+				System.out.println("El nï¿½mero " +n+ " es perfecto");
 			}
 			n++;
 			
 			
 		}while(enter>=n);
-		
+		sc.close();
 	}
 
 }

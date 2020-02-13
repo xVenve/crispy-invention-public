@@ -1,7 +1,5 @@
 package Semana6;
 
-import java.util.Random;
-
 public class Ejercicio6 {
 	public static void main(String[] args) {
 		

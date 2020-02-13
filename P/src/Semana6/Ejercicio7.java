@@ -9,7 +9,7 @@ public class Ejercicio7 {
 		Scanner sc=new Scanner(System.in);
 		int suma;
 		String luck;
-		System.out.println("Introduce el año de nacimiento (4 dígitos) y pulsa Enter ");
+		System.out.println("Introduce el aï¿½o de nacimiento (4 dï¿½gitos) y pulsa Enter ");
         suma=sc.nextInt();
         System.out.println("Introduce el mes en nacimiento y pulsa Enter");
         suma=suma+sc.nextInt();
@@ -23,8 +23,8 @@ public class Ejercicio7 {
         	
         }
         
-        System.out.println("Tu número de la suerte es el "+suma);
-
+        System.out.println("Tu nï¿½mero de la suerte es el "+suma);
+        sc.close();
 	}
 
 }

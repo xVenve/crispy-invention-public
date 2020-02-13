@@ -1,5 +1,4 @@
 package Semana5;
-import java.util.Scanner;
 
 public class Ejercicio11 {
 

@@ -31,7 +31,7 @@ public class Ejercicio8 {
 			latino[0]=g;
 
 		}
-		
+		sc.close();
 		
 	}
 

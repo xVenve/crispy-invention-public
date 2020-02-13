@@ -18,6 +18,7 @@ public class Ejercicio8 {
 				System.out.print(a[j][i]);
 			}
 			System.out.println();
+			sc.close();
 		}
 	}
 }

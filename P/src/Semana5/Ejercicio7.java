@@ -6,23 +6,24 @@ public class Ejercicio7 {
 	public static void main(String[] args) {
 		
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Introduzca una coordenada (Primero x y después y): ");
+		System.out.println("Introduzca una coordenada (Primero x y despuï¿½s y): ");
 		int x=sc.nextInt();
 		int y=sc.nextInt();
 		if(x>0) {
 			if(y>0) {
-				System.out.print("La coordenada introducida pertenece al 1º cuadrante.");
+				System.out.print("La coordenada introducida pertenece al 1ï¿½ cuadrante.");
 			}else {
-				System.out.print("La coordenada introducida pertenece al 4º cuadrante.");
+				System.out.print("La coordenada introducida pertenece al 4ï¿½ cuadrante.");
 			}
 		}else {
 			if(y>0) {
-				System.out.print("La coordenada introducida pertenece al 2º cuadrante.");
+				System.out.print("La coordenada introducida pertenece al 2ï¿½ cuadrante.");
 			}else {
-				System.out.print("La coordenada introducida pertenece al 3º cuadrante.");
+				System.out.print("La coordenada introducida pertenece al 3ï¿½ cuadrante.");
 
 			}
 		}
+		sc.close();
 
 	}
 

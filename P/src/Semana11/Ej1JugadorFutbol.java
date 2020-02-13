@@ -1,5 +1,4 @@
 package Semana11;
-import java.util.Random;
 public class Ej1JugadorFutbol {
 	private String nombre, apellido, posicion, equipo;
 	private int edad;

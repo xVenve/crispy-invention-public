@@ -6,7 +6,7 @@ public class Ejercicio4 {
 	public static void main(String[] args) {
 		
 		Scanner sc=new Scanner(System.in);
-		System.out.println("¿Cuantos años tienes?");
+		System.out.println("ï¿½Cuantos aï¿½os tienes?");
 		int a=sc.nextInt();
 		double b=9;
 		
@@ -19,7 +19,7 @@ public class Ejercicio4 {
 		}
 		
 		System.out.println("El precio es: "+b); 
-
+		sc.close();
 	}
 
 }

@@ -6,7 +6,7 @@ public class Ejercicio9 {
 	public static void main(String[] args) {
 
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Introduzca el años que desea saber si es bisiesto y el año actual: ");
+		System.out.println("Introduzca el aï¿½os que desea saber si es bisiesto y el aï¿½o actual: ");
 		int b=sc.nextInt();
 		int a=sc.nextInt();
 		if(b%4==0) {
@@ -15,30 +15,30 @@ public class Ejercicio9 {
 					if(b<=a) {
 						System.out.println(b+" fue bisiesto.");
 					}else {
-						System.out.println(b+" será bisiesto.");
+						System.out.println(b+" serï¿½ bisiesto.");
 					}
 				}else {
 					if(b<=a) {
 						System.out.println(b+" no fue bisiesto.");
 					}else {
-						System.out.println(b+" no será bisiesto.");
+						System.out.println(b+" no serï¿½ bisiesto.");
 					}					
 				}
 			}else {
 				if(b<=a) {
 					System.out.println(b+" fue bisiesto.");
 				}else {
-					System.out.println(b+" será bisiesto.");
+					System.out.println(b+" serï¿½ bisiesto.");
 				}
 			}
 		}else {
 			if(b<=a) {
 				System.out.println(b+" no fue bisiesto.");
 			}else {
-				System.out.println(b+" no será bisiesto.");
+				System.out.println(b+" no serï¿½ bisiesto.");
 			}
 		}
-
+		sc.close();
 
 	}
 

@@ -30,6 +30,7 @@ public class Ejercicio9 {
 		}else {
 			System.out.println("�Estas mintiendo! �He intentado todos los n�meros!");
 		}
+		sc.close();
 	}
 
 }

@@ -1,5 +1,4 @@
 package Semana12;
-import java.util.Random;
 public class Ejercicio2 {
 
 	public static void main(String[] args) {
