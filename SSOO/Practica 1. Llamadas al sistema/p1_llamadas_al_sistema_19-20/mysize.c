@@ -25,17 +25,17 @@ int main(int argc, char *argv[])
 		//Usamos la función lseek
 		if (fichero_act->d_type == DT_REG){
 			//Abrimos el fichero en el que nos encontramos para encontrar su tamaño
-			int descriptor_fichero = open(fichero_act->d_name, O_RDWR);
+			int descriptor_fichero = open(fichero_act->d_name, O_RDWR); //podemos modificar permisos
 			if (descriptor_fichero <0){
 				printf("Error al abrir fichero\n");
 				return -1;
 			}
-			int tamano_fichero = lseek(descriptor_fichero,0,SEEK_END);
+			long tamano_fichero = lseek(descriptor_fichero,0L,SEEK_END);
 			if (tamano_fichero <0){
 				printf("Error al leer un fichero\n");
 				return -1;
 			}
-			printf("%s	%d\n",fichero_act->d_name,tamano_fichero);
+			printf("%s\t%d\n",fichero_act->d_name,tamano_fichero);
 
 			if (close(descriptor_fichero)<0){
 				printf("Error al cerrar fichero\n");
