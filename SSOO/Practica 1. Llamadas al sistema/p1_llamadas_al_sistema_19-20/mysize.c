@@ -23,9 +23,9 @@ int main(int argc, char *argv[])
 	struct dirent *fichero_act;
 	while ( (fichero_act = readdir(descriptor) ) != NULL){
 		//Usamos la función lseek
-	
+
 			//Abrimos el fichero en el que nos encontramos para encontrar su tamaño
-			int descriptor_fichero = open(fichero_act->d_name, O_RDWR); //podemos modificar permisos
+			int descriptor_fichero = open(fichero_act->d_name, O_RDWR,0600); //podemos modificar permisos
 			if (descriptor_fichero <0){
 				printf("Error al abrir fichero\n");
 				return -1;
