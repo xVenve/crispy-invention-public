@@ -24,12 +24,24 @@ int main(int argc, char *argv[])
 	while ( (fichero_act = readdir(descriptor) ) != NULL){
 		//Usamos la función lseek
 		if (fichero_act->d_type == DT_REG){
-			int tamano_fichero = lseek(descriptor,0,SEEK_END);
-			if (tamano_fichero == -1){
+			//Abrimos el fichero en el que nos encontramos para encontrar su tamaño
+			char nombre_fichero[] = fichero_act->d_name;
+			int descriptor_fichero = open (nombre_fichero, O_RDONLY);
+			if (descriptor_fichero <0){
+				printf("Error al abrir fichero\n");
+				return -1;
+			}
+			int tamano_fichero = lseek(descriptor_fichero,0,SEEK_SET);
+			if (tamano_fichero <0){
 				printf("Error al leer un fichero\n");
 				return -1;
 			}
 			printf("%s	%d\n",fichero_act->d_name,tamano_fichero);
+
+			if (close(descriptor_fichero)<0){
+				printf("Error al cerrar fichero\n");
+				return -1;
+			}
 		}
 
 	}
