@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 				printf("Error al abrir fichero\n");
 				return -1;
 			}
-			int tamano_fichero = lseek(descriptor_fichero,0,SEEK_SET);
+			int tamano_fichero = lseek(descriptor_fichero,0,SEEK_END);
 			if (tamano_fichero <0){
 				printf("Error al leer un fichero\n");
 				return -1;
