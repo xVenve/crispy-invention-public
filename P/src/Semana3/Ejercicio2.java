@@ -1,6 +1,7 @@
 package Semana3;
 
 public class Ejercicio2 {
+	@SuppressWarnings("unused")
 	public static void main(String[]arg) {
 		String a;
 		//System.out.println(a);

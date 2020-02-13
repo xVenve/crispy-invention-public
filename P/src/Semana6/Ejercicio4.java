@@ -1,7 +1,6 @@
 package Semana6;
 
 import java.util.Scanner;
-import java.util.Random;
 
 public class Ejercicio4 {
 
@@ -24,7 +23,7 @@ public class Ejercicio4 {
 			
 		}while(!i);
 		System.out.println("Ha acertado, el número era "+ random+" has necesitado "+c+" intentos.");
-				
+		sc.close();
 	}
 
 }

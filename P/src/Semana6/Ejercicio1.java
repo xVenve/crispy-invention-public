@@ -22,6 +22,7 @@ public class Ejercicio1 {
 			System.out.println("La suma de los números es: "+ suma);
 			System.out.println("La media de los números es: "+suma/(contador-1));
 		}
+		sc.close();
 	}
 
 }

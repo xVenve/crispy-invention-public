@@ -3,7 +3,7 @@ import java.util.*;
 public class Ejercicio5 {
 	public static void main(String[]args) {
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Introduzca la dimensión de su array");
+		System.out.println("Introduzca la dimensiï¿½n de su array");
 		double[] a=new double[sc.nextInt()];
 		int total=0;
 		for(int i=0;i<a.length;i++) {
@@ -11,5 +11,6 @@ public class Ejercicio5 {
 			total+=a[i];
 		}
 		System.out.print("La suma de todos los elementos es "+total);
+		sc.close();
 	}
 }

@@ -25,9 +25,9 @@ public class Ejercicio5 {
 				System.out.print(b+"<"+c+"<"+a);
 			}else {
 				System.out.print(c+"<"+b+"<"+a);
-		}
+			}
 				
-	}
-
+		}
+		sc.close();
   }
 }

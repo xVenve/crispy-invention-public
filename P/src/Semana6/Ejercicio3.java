@@ -13,7 +13,7 @@ public class Ejercicio3 {
 		for(n=c;n<=c*m;n=n+c) {
 			System.out.println(n);
 		}
+		sc.close();
 	}
-
 
 }

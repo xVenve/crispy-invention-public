@@ -6,7 +6,7 @@ public class Ejercicio2 {
 	public static void main(String[] args) {
 
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Introduzca los dos números enteros que desea dividir.");
+		System.out.println("Introduzca los dos nï¿½meros enteros que desea dividir.");
 		int a=sc.nextInt();
 		int b=sc.nextInt();
 		
@@ -15,7 +15,7 @@ public class Ejercicio2 {
 		}else {
 			System.out.print((float)a/b);
 		}
-		
+		sc.close();
 	}
 
 }

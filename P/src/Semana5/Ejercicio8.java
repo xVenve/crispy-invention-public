@@ -6,7 +6,7 @@ public class Ejercicio8 {
 	public static void main(String[] args) {
 		
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Introduzca su sueldo y años de antigüedad: ");
+		System.out.println("Introduzca su sueldo y aï¿½os de antigï¿½edad: ");
 		double s=sc.nextDouble();
 		int a=sc.nextInt();
 		if (s<500) {
@@ -17,7 +17,7 @@ public class Ejercicio8 {
 			}
 		}
 		System.out.println("Su sueldo es: "+ s);
-
+		sc.close();
 	}
 
 }

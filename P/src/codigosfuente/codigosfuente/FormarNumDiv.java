@@ -14,6 +14,7 @@ public class FormarNumDiv {
 			}		
 		}while(numi!=-1);
 		System.out.print("El resultado es "+numg+"/7 = "+((double)numg/7));
+		sc.close();
 	}
 
 }

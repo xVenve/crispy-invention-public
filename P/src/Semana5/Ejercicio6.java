@@ -42,6 +42,6 @@ public class Ejercicio6 {
 		default:
 			System.out.println("Es una letra."); 
 		}
-		
+		sc.close();
 	}
 }

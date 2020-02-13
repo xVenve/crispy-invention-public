@@ -6,7 +6,7 @@ public class Ejercicio1 {
 	public static void main(String[] args) {
 		
 		Scanner sc=new Scanner(System.in);
-		System.out.print("Introduzca dos números.");
+		System.out.print("Introduzca dos nï¿½meros.");
 		int a=sc.nextInt();
 		int b=sc.nextInt();
 		if(a>b) {
@@ -18,8 +18,7 @@ public class Ejercicio1 {
 				System.out.print("Son iguales.");
 			}
 		}
-		
-		
+		sc.close();		
 		
 	}
 

@@ -1,6 +1,7 @@
 package Semana3;
 
 public class Ejercicio12 {
+	@SuppressWarnings("unused")
 	public static void main(String[] arg) {
 		byte a=1,b=2,c;
 		short d=3,e=4,f;

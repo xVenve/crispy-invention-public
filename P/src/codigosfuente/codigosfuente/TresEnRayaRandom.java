@@ -1,7 +1,6 @@
 package codigosfuente;
 
 	import java.util.Scanner;
-	import java.util.Random;
 
 	public class TresEnRayaRandom {
 		
@@ -32,7 +31,8 @@ package codigosfuente;
 				System.out.print("\n");
 
 			}
-
+			
+			sc.close();
 			
 		}
 	}
