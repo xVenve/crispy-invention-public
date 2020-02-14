@@ -1,6 +1,7 @@
 package Laboratorio1;
 
 import java.util.*;
+
 public class Polinomio implements iPolinomio{
 	int data[];
 	public Polinomio() {
@@ -37,6 +38,14 @@ public class Polinomio implements iPolinomio{
 		}
 		return value;
 	}
+	
+	/**
+	 * Suma el polinomio con el pasado por parametro
+	 * 
+	 * @param p Polinomio a sumar con el invocante
+	 * 
+	 * @return Polinomio resultado de la suma
+	 */
 	public iPolinomio suma(iPolinomio p) {
 		Polinomio r=new Polinomio();
 		if(p.getDegree()>=this.getDegree()) {
@@ -55,6 +64,10 @@ public class Polinomio implements iPolinomio{
 		}
 		return r;
 	}
+	
+	/**
+	 * Imprime el polinomio por pantalla
+	 */
 	public void show(){
 		for(int i=0;i<this.getDegree(); i++) {
 			System.out.print(getCoeficient(i)+" ");

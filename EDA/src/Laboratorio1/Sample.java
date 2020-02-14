@@ -11,6 +11,10 @@ public class Sample implements iSample{
 		m=new double[] {5,4,3.65,2,1};
 		size=m.length;
 	}
+	
+	/**
+	 * Maximo
+	 */
 	public double getMax(){
 		double l=0;
 		for(int i=0; i<size; i++) {
@@ -20,6 +24,10 @@ public class Sample implements iSample{
 		}
 		return l;
 	}
+	
+	/**
+	 * Minimo
+	 */
 	public double getMin(){
 		double l=0;
 		for(int i=0; i<size; i++) {
@@ -29,6 +37,10 @@ public class Sample implements iSample{
 		}
 		return l;
 	}
+	
+	/**
+	 * Suma de la matriz
+	 */
 	public double sum(){
 		double l=0;
 		for(int i=0; i<size; i++) {
@@ -36,10 +48,18 @@ public class Sample implements iSample{
 		}
 		return l;
 	}
+	
+	/**
+	 * Media
+	 */
 	public double mean(){
 		double l=sum();
 		return (l/size);
 	}
+	
+	/**
+	 * Mediana
+	 */
 	public double median() {
 		//Por si acaso
 		double[] aux=new double[size];
