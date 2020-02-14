@@ -1,18 +1,31 @@
 package Laboratorio0;
 
+/**
+ * Representa una matriz matemática de enteros y sus operaciones.
+ * 
+ * @author xvenve
+ */
 public class Matriz {
 	private int M;
 	private int N;
 	private int[][] data;
 	public Matriz() {
-		
 	}
+	
+	/**
+	 * Constructor de la matriz mxn de ceros
+	 * @param m Filas
+	 * @param n Columnas
+	 */
 	public Matriz(int m, int n) {
 		M = m;
 		N = n;
 		data = new int[M][N];
 	}
 	
+	/**
+	 * Rellena la matriz con valores comprendidos entre 0 y 10
+	 */
 	public void MatrizRandom() {
 		for(int i=0;i<M;i++) {
 			for(int j=0;j<N;j++) {
@@ -20,6 +33,10 @@ public class Matriz {
 			}
 		}
 	}
+	
+	/**
+	 * Imprime la matriz por pantalla
+	 */
 	public void Show() {
 		for(int i=0;i<M;i++) {
 			for(int j=0;j<N;j++) {
@@ -29,6 +46,12 @@ public class Matriz {
 		}
 		System.out.println();
 	}
+	
+	/**
+	 * Transpone la matriz que lo invoca
+	 * 
+	 * @return Matriz transpuesta
+	 */
 	public Matriz Transpose(){
 		Matriz T= new Matriz(N,M);
 		for(int i=0;i<M;i++) {
@@ -38,6 +61,14 @@ public class Matriz {
 		}
 		return T;
 	}
+	
+	/**
+	 * Suma la matriz que invoca con la pasada como parametro
+	 * 
+	 * @param R Matriz a sumar
+	 *
+	 * @return Resultado de la suma de las matrices
+	 */
 	public Matriz Plus(Matriz R) {
 		Matriz G=new Matriz();
 		if(R.M==this.M&&R.N==this.N) {
@@ -53,6 +84,13 @@ public class Matriz {
 		return G;
 	}
 	
+	/**
+	 *Resta la matriz que invoca con la pasada como parametro
+	 * 
+	 * @param R Matriz a restar
+	 *
+	 * @return Resultado de la resta de las matrices
+	 */
 	public Matriz Minus(Matriz R) {
 		Matriz G=new Matriz();
 		if(R.M==this.M&&R.N==this.N) {
@@ -67,6 +105,14 @@ public class Matriz {
 		}
 		return G;
 	}
+	
+	/**
+	 * Comprueba si son iguales la matriz que invoca y la pasada por parametro
+	 * 
+	 * @param R Matriz con la que comparar
+	 * 
+	 * @return true Son iguales / false Son distintas
+	 */
 	public boolean Equal(Matriz R) {
 		boolean G=true;
 		if(R.M==this.M&&R.N==this.N) {
@@ -80,6 +126,14 @@ public class Matriz {
 		}
 		return G;
 	}
+	
+	/**
+	 * Crea una matriz identidad de tamaño NxN
+	 * 
+	 * @param N Dimension de la matriz
+	 * 
+	 * @return Matriz identidad NxN
+	 */
 	public static Matriz MatrizIdentidad(int N){
 		Matriz I=new Matriz(N,N);
 		for(int i=0;i<N;i++) {
@@ -87,6 +141,8 @@ public class Matriz {
 		}
 		return I;
 	}
+	
+	
 	public static void main(String[] args) {
 		Matriz H=new Matriz(2,2);
 		Matriz J=new Matriz(2,2);
