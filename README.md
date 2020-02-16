@@ -7,13 +7,13 @@ Así estarán cada paso registrado y solo un archivo final.
 
 # Practicas a entregar
 
-- [ ] 25/02 [**Práctica 1 FBD**](https://github.com/xVenve/crispy-invention/tree/master/FBD/Practica%201)
+- [ ] 25/02 [**Ejercicio Guiado 2 PDS**](https://github.com/xVenve/crispy-invention/tree/master/PDS/Ejercicio%20Guiado%202)
   - [ ] Solución Transport4FutureIoTServices con el código que implemente correctamente las restricciones de la normativa de código
   - [ ] Normativa de codigo.pdf
   - [ ] Normativa de código.xml
   - [ ] El código fuente que se encuentre en el repositorio GitLab debe cumplir la normativa de código
   - [ ] Proyecto debidamente configurado (incluyendo el fichero pom.xml)
-- [ ] 28/02 [**Ejercicio Guiado 2 PDS**](https://github.com/xVenve/crispy-invention/tree/master/PDS/Ejercicio%20Guiado%202)
+- [ ] 28/02 [**Practica 1 SSOO**](https://github.com/xVenve/crispy-invention/tree/master/SSOO/Practica%201.%20Llamadas%20al%20sistema)
   - [ ] Redactar memoria
     - [ ] Acabar borrador( portada, índice, descripción, pruebas, dificultades y conclusión) 
     - [ ] Relectura
