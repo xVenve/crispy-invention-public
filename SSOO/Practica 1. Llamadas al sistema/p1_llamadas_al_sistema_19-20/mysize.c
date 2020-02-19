@@ -32,13 +32,13 @@ int main(int argc, char *argv[])
 			}
 			int tamano_fichero = lseek(descriptor_fichero,0,SEEK_END);
 			if (tamano_fichero <0){
-				printf("Error al leer un fichero\n");
+				printf("Error al leer un fichero: %s\n",fichero_act->d_name);
 				goto bucleLectura;
 			}
 			printf("%s\t%d\n",fichero_act->d_name,tamano_fichero);
 
 			if (close(descriptor_fichero)<0){
-				printf("Error al cerrar fichero\n");
+				printf("Error al cerrar fichero: %s\n",fichero_act->d_name);
 				return -1;
 			}
 		}
