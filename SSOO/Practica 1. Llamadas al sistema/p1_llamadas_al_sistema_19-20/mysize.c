@@ -21,19 +21,19 @@ int main(int argc, char *argv[])
 	}
 	//Leemos cada uno de los ficheros a del directorio al que apunta descriptor
 	struct dirent *fichero_act;
-	while ( (fichero_act = readdir(descriptor) ) != NULL){
+	bucleLectura: while ( (fichero_act = readdir(descriptor) ) != NULL){
 		//Usamos la función lseek
 		if(fichero_act->d_type==DT_REG){
 			//Abrimos el fichero en el que nos encontramos para encontrar su tamaño
 			int descriptor_fichero = open(fichero_act->d_name, O_RDONLY);
 			if (descriptor_fichero <0){
-				printf("Error al abrir fichero\n");
-				return -1;
+				printf("Error al abrir fichero: %s\n",fichero_act->d_name);
+				goto bucleLectura;
 			}
 			int tamano_fichero = lseek(descriptor_fichero,0,SEEK_END);
 			if (tamano_fichero <0){
 				printf("Error al leer un fichero\n");
-				return -1;
+				goto bucleLectura;
 			}
 			printf("%s\t%d\n",fichero_act->d_name,tamano_fichero);
 
