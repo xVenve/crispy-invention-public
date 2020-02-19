@@ -15,13 +15,13 @@ Así estarán cada paso registrado y solo un archivo final.
   - [ ] Proyecto debidamente configurado (incluyendo el fichero pom.xml)
 - [ ] 28/02 [**Practica 1 SSOO**](https://github.com/xVenve/crispy-invention/tree/master/SSOO/Practica%201.%20Llamadas%20al%20sistema)
   - [ ] Redactar memoria
-    - [ ] Acabar borrador( portada, índice, descripción, pruebas, dificultades y conclusión) 
+    - [x] Acabar borrador( portada, índice, descripción, pruebas, dificultades y conclusión) 
     - [ ] Relectura
-    - [ ] Comprobar estructura
-  - [ ] Acabar los 3 programas
-    - [ ] Poner comentarios
-    - [ ] Comprobar funcionamiento
-  - [ ] Comprobar que no falten documentos (autores.txt)
+    - [x] Comprobar estructura
+  - [x] Acabar los 3 programas
+    - [x] Poner comentarios
+    - [x] Comprobar funcionamiento
+  - [x] Comprobar que no falten documentos (autores.txt)
 - [ ] 03/03 [**Práctica 1 FBD**](https://github.com/xVenve/crispy-invention/tree/master/FBD/Practica%201)
   - [ ] Rellenar plantilla.
     - [ ] Diseño relacional a mano
