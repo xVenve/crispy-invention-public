@@ -32,7 +32,7 @@ CREATE TABLE USUARIOS(
 	password VARCHAR2(100) NOT NULL,
 	email VARCHAR2(100) NOT NULL,
 	CONSTRAINT PKUSUARIOS_nombre_usuario PRIMARY KEY (nombre_usuario),
-	CONSTRAINT FKUSUARIOS_email UNIQUE KEY (email),
+	CONSTRAINT FKUSUARIOS_email UNIQUE(email),
 	CONSTRAINT password_valid CHECK (password>8)
 	);
 
