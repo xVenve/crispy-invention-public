@@ -182,7 +182,7 @@ CREATE TABLE PROPUESTAS(
 	mensaje VARCHAR (1500) NOT NULL,
 	CONSTRAINT PKPROPUESTAS PRIMARY KEY(miembro_club, miembro_usuario, f_completa),
 	CONSTRAINT FKPROPUESTAS_miembro FOREIGN KEY(miembro_club, miembro_usuario) REFERENCES MEMBRESIA(club, usuario)
-	 ON DELETE CASCADE
+	 ON DELETE CASCADE,
 	CONSTRAINT FKPROPUESTAS_peliculas FOREIGN KEY(pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
 );
 
@@ -217,7 +217,7 @@ CREATE TABLE OPINIONES(
 	asunto VARCHAR2(1500) NOT NULL,
 	valoracion NUMBER(2),
 	CONSTRAINT PKOPINIONES_miembro_club PRIMARY KEY (miembro_club, miembro_usuario, pelicula_titulo, pelicula_director),
-	CONSTRAINT FKOPINIONES_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, titulo)
+	CONSTRAINT FKOPINIONES_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
 	ON DELETE CASCADE,
 	CONSTRAINT FKOPINIONES_miembro FOREIGN KEY (miembro_usuario, miembro_club) REFERENCES MEMBRESIA (usuario, club)
 	ON DELETE CASCADE
