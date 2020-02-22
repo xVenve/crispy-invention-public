@@ -7,16 +7,16 @@ Así estarán cada paso registrado y solo un archivo final.
 
 # Practicas a entregar
 
-- [ ] 25/02 [**Ejercicio Guiado 2 PDS**](https://github.com/xVenve/crispy-invention/tree/master/PDS/Ejercicio%20Guiado%202)
-  - [ ] Solución Transport4FutureIoTServices con el código que implemente correctamente las restricciones de la normativa de código
-  - [ ] Normativa de codigo.pdf
-  - [ ] Normativa de código.xml
-  - [ ] El código fuente que se encuentre en el repositorio GitLab debe cumplir la normativa de código
-  - [ ] Proyecto debidamente configurado (incluyendo el fichero pom.xml)
-- [ ] 28/02 [**Practica 1 SSOO**](https://github.com/xVenve/crispy-invention/tree/master/SSOO/Practica%201.%20Llamadas%20al%20sistema)
-  - [ ] Redactar memoria
+- [x] 25/02 [**Ejercicio Guiado 2 PDS**](https://github.com/xVenve/crispy-invention/tree/master/PDS/Ejercicio%20Guiado%202)
+  - [x] Solución Transport4FutureIoTServices con el código que implemente correctamente las restricciones de la normativa de código
+  - [x] Normativa de codigo.pdf
+  - [x] Normativa de código.xml
+  - [x] El código fuente que se encuentre en el repositorio GitLab debe cumplir la normativa de código
+  - [x] Proyecto debidamente configurado (incluyendo el fichero pom.xml)
+- [x] 28/02 [**Practica 1 SSOO**](https://github.com/xVenve/crispy-invention/tree/master/SSOO/Practica%201.%20Llamadas%20al%20sistema)
+  - [x] Redactar memoria
     - [x] Acabar borrador( portada, índice, descripción, pruebas, dificultades y conclusión) 
-    - [ ] Relectura
+    - [x] Relectura
     - [x] Comprobar estructura
   - [x] Acabar los 3 programas
     - [x] Poner comentarios
@@ -24,9 +24,13 @@ Así estarán cada paso registrado y solo un archivo final.
   - [x] Comprobar que no falten documentos (autores.txt)
 - [ ] 03/03 [**Práctica 1 FBD**](https://github.com/xVenve/crispy-invention/tree/master/FBD/Practica%201)
   - [ ] Rellenar plantilla.
-    - [ ] Diseño relacional a mano
+    - [x] Diseño relacional a mano
     - [ ] Añadidos y resueltos los supuestos semánticos
   - [ ] Diseño relacional en SQL
+    - [x] Crear tablas.
+    - [ ] Insertar valores en tablas
+    - [ ] Comprobar que todos los datos esten introducidos y cumple las exigencias del cliente.
+   
 - [ ] 28/03 [**Práctica 2 SSOO**](https://github.com/xVenve/crispy-invention/tree/master/SSOO/Practica%202.%20MiniShell)
   - [ ] Redactar memoria
     - [ ] Acabar borrador( portada, índice, descripción, pruebas, dificultades y conclusión) 
