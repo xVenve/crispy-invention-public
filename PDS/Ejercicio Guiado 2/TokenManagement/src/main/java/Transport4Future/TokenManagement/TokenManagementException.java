@@ -1,16 +1,17 @@
 package Transport4Future.TokenManagement;
 
-public class TokenManagementException extends Exception {
+public class Tokenmanagementexception extends Exception 
+{
 	private static final long serialVersionUID = 1L;
 	String message;
 
-	public TokenManagementException(String message) {
-
+	public Tokenmanagementexception(String message) 
+	{
 		this.message = message;
 	}
 
-	public String getMessage() {
-
+	public String GETMESSAGE() 
+	{
 		return this.message;
 	}
 }
