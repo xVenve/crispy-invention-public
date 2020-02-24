@@ -36,7 +36,7 @@ CREATE TABLE PERFILES(
 	apellido1 VARCHAR2(100),
 	apellido2 VARCHAR(100),
 	f_nacimiento DATE,
-	telf VARCHAR2(14),
+	telf VARCHAR2(14), --Revisar si es un numero
 	edad NUMBER(3),
 	usuario VARCHAR2(100) NOT NULL,
 	CONSTRAINT PK_PERFILES PRIMARY KEY (dni),
@@ -53,7 +53,7 @@ CREATE TABLE CONTRATOS(
 	id VARCHAR2(100) NOT NULL,
 	tipo_contrato VARCHAR2(50) NOT NULL,
 	perfil VARCHAR2(9) NOT NULL,
-	cod_postal VARCHAR2(10) NOT NULL,
+	cod_postal VARCHAR2(10) NOT NULL, --revisar si es un numero
 	ciudad VARCHAR2(100) NOT NULL,
 	pais VARCHAR2(100) NOT NULL,
 	f_inicio DATE NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE CONTRATOS(
 );
 
 CREATE TABLE RATIOS(
-	tipo VARCHAR2(100) NOT NULL,
+	tipo VARCHAR2(100) NOT NULL, --revisar si es un numero
 	CONSTRAINT PK_RATIOS PRIMARY KEY (tipo)
 );
 
@@ -85,7 +85,7 @@ CREATE TABLE GENEROS(
 
 CREATE TABLE IMDBS(
 	link VARCHAR2(200) NOT NULL,
-	puntuacion NUMBER(2) NOT NULL,
+	puntuacion NUMBER(2,1) NOT NULL, --2 para la parte entera y 1 para el decimal.
 	cantidad_users NUMBER(4) NOT NULL,
 	cantidad_criticos NUMBER(4) NOT NULL,
 	CONSTRAINT PK_IMDBS_link PRIMARY KEY (link)
@@ -94,7 +94,7 @@ CREATE TABLE IMDBS(
 CREATE TABLE PELICULAS(
 	titulo VARCHAR2(100) NOT NULL,
 	director VARCHAR2(100) NOT NULL,
-	duracion NUMBER(3) NOT NULL,
+	duracion NUMBER(3) NOT NULL, --poner como un numero
 	color VARCHAR2(100) NOT NULL,
 	ratio DECIMAL(5) NOT NULL,
 	año_estreno DATE NOT NULL,
@@ -314,6 +314,6 @@ INSERT INTO GENEROS(tipo)
 	WHERE (genre5 IS NOT NULL AND genre5 NOT IN (SELECT tipo FROM GENEROS));
 
 INSERT INTO IMDBS (link, puntuacion, cantidad_users, cantidad_criticos)
-		SELECT DISTINCT movie_imdb_link, TO_NUMBER(imdb_score,'9,9'), TO_NUMBER(num_user_for_reviews, '99999'), TO_NUMBER(num_critic_for_reviews, '99999')
+		SELECT DISTINCT movie_imdb_link, TO_NUMBER(imdb_score,'99.9'), TO_NUMBER(num_user_for_reviews, '99999'), TO_NUMBER(num_critic_for_reviews, '99999')
 		FROM old_movies
 		WHERE (movie_imdb_link IS NOT NULL AND num_critic_for_reviews IS NOT NULL AND num_user_for_reviews IS NOT NULL);
