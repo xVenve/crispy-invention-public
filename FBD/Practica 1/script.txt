@@ -64,7 +64,7 @@ CREATE TABLE CONTRATOS(
 );
 
 CREATE TABLE RATIOS(
-	tipo DECIMAL(5) NOT NULL,
+	tipo VARCHAR2(100) NOT NULL,
 	CONSTRAINT PK_RATIOS PRIMARY KEY (tipo)
 );
 
@@ -74,7 +74,7 @@ CREATE TABLE IDIOMAS(
 );
 
 CREATE TABLE CALIFICACIONES(
-	tipo VARCHAR2(8) NOT NULL,
+	tipo VARCHAR2(100) NOT NULL,
 	CONSTRAINT PK_CALIFICACIONES PRIMARY KEY (tipo)
 );
 
@@ -86,8 +86,8 @@ CREATE TABLE GENEROS(
 CREATE TABLE IMDBS(
 	link VARCHAR2(200) NOT NULL,
 	puntuacion NUMBER(2) NOT NULL,
-	cantidad_users NUMBER(25) NOT NULL,
-	cantidad_criticos NUMBER(20) NOT NULL,
+	cantidad_users NUMBER(4) NOT NULL,
+	cantidad_criticos NUMBER(4) NOT NULL,
 	CONSTRAINT PK_IMDBS_link PRIMARY KEY (link)
 );
 
@@ -262,3 +262,58 @@ INSERT INTO PERFILES (dni, nombre_pila, apellido1, apellido2, f_nacimiento, telf
 	SELECT citizenID, name, surname, sec_surname, TO_DATE(birthdate, 'YYYY-MM-DD') , phoneN, (SYSDATE-(TO_DATE(birthdate, 'YYYY-MM-DD')))/365.2422, nickname
 	FROM old_users
 	WHERE (citizenID IS NOT NULL AND LENGTH(passw)>8);
+
+INSERT INTO TIPOS_CONTRATOS (tipo)
+	SELECT DISTINCT contract_type
+	FROM old_users
+	WHERE (contractId IS NOT NULL);
+
+INSERT INTO CONTRATOS (id, tipo_contrato, perfil, cod_postal, ciudad, pais, f_inicio, f_fin)
+	SELECT contractId, contract_type, citizenID, ZIPcode, town, country, TO_DATE(startdate, 'YYYY-MM-DD'), TO_DATE(enddate, 'YYYY-MM-DD')
+	FROM old_users
+	WHERE (contractId IS NOT NULL AND citizenID IS NOT NULL AND LENGTH(passw)>8);
+
+INSERT INTO RATIOS (tipo)
+	SELECT DISTINCT aspect_ratio
+	FROM old_movies
+	WHERE (aspect_ratio IS NOT NULL);
+
+INSERT INTO IDIOMAS (nombre)
+	SELECT DISTINCT language
+	FROM old_movies
+	WHERE (language IS NOT NULL);
+
+INSERT INTO CALIFICACIONES (tipo)
+	SELECT DISTINCT content_rating
+	FROM old_movies
+	WHERE (content_rating IS NOT NULL);
+
+INSERT INTO GENEROS(tipo)
+	SELECT DISTINCT genre1
+	FROM old_movies
+	WHERE (genre1 IS NOT NULL);
+
+INSERT INTO GENEROS(tipo)
+	SELECT DISTINCT genre2
+	FROM old_movies
+	WHERE (genre2 IS NOT NULL AND genre2 NOT IN (SELECT tipo FROM GENEROS));
+
+INSERT INTO GENEROS(tipo)
+	SELECT DISTINCT genre3
+	FROM old_movies
+	WHERE (genre3 IS NOT NULL AND genre3 NOT IN (SELECT tipo FROM GENEROS));
+
+INSERT INTO GENEROS(tipo)
+	SELECT DISTINCT genre4
+	FROM old_movies
+	WHERE (genre4 IS NOT NULL AND genre4 NOT IN (SELECT tipo FROM GENEROS));
+
+INSERT INTO GENEROS(tipo)
+	SELECT DISTINCT genre5
+	FROM old_movies
+	WHERE (genre5 IS NOT NULL AND genre5 NOT IN (SELECT tipo FROM GENEROS));
+
+INSERT INTO IMDBS (link, puntuacion, cantidad_users, cantidad_criticos)
+		SELECT DISTINCT movie_imdb_link, TO_NUMBER(imdb_score,'9,9'), TO_NUMBER(num_user_for_reviews, '99999'), TO_NUMBER(num_critic_for_reviews, '99999')
+		FROM old_movies
+		WHERE (movie_imdb_link IS NOT NULL AND num_critic_for_reviews IS NOT NULL AND num_user_for_reviews IS NOT NULL);
