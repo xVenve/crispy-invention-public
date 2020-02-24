@@ -253,5 +253,12 @@ CREATE TABLE CREACIONES_CLUB (
 	ON DELETE CASCADE
 );
 
- INSERT INTO USUARIOS (nombre_usuario, password, email) SELECT nickname, passw, eMail FROM old_users WHERE (LENGTH(passw)>8);
- INSERT INTO PERFILES (dni,nombre_pila,apellido1,apellido2,f_nacimiento,telf,edad,usuario) SELECT citizenID, name, surname, sec_surname, TO_DATE(birthdate, 'YYYY-MM-DD') , phoneN, (SYSDATE-(TO_DATE(birthdate, 'YYYY-MM-DD')))/365.2422,nickname FROM old_users;
+INSERT INTO USUARIOS (nombre_usuario, password, email)
+ SELECT nickname, passw, eMail
+ FROM old_users
+ WHERE (LENGTH(passw)>8);
+
+INSERT INTO PERFILES (dni, nombre_pila, apellido1, apellido2, f_nacimiento, telf, edad, usuario)
+	SELECT citizenID, name, surname, sec_surname, TO_DATE(birthdate, 'YYYY-MM-DD') , phoneN, (SYSDATE-(TO_DATE(birthdate, 'YYYY-MM-DD')))/365.2422, nickname
+	FROM old_users
+	WHERE (citizenID IS NOT NULL AND LENGTH(passw)>8);
