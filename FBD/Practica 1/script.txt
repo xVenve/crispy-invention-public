@@ -27,7 +27,7 @@ CREATE TABLE USUARIOS(
 	email VARCHAR2(100) NOT NULL,
 	CONSTRAINT PK_USUARIOS PRIMARY KEY (nombre_usuario),
 	CONSTRAINT FK_USUARIOS_email UNIQUE(email),
-	CONSTRAINT password_valid CHECK (LENGTH(password) >8)
+	CONSTRAINT password_valid CHECK (LENGTH(password) >8) --Indicar que hemos resuelto el supuesto semantico explicito, al controlar la longitud.
 	);
 
 CREATE TABLE PERFILES(
@@ -256,11 +256,11 @@ CREATE TABLE CREACIONES_CLUB (
 INSERT INTO USUARIOS (nombre_usuario, password, email)
  SELECT nickname, passw, eMail
  FROM old_users
- WHERE (LENGTH(passw)>8);
+ WHERE (LENGTH(passw)>8); --Anotar en memoria que descartamos entradas que tienen pass menor de 8 letras
 
 INSERT INTO PERFILES (dni, nombre_pila, apellido1, apellido2, f_nacimiento, telf, edad, usuario)
 	SELECT citizenID, name, surname, sec_surname, TO_DATE(birthdate, 'YYYY-MM-DD') , phoneN, (SYSDATE-(TO_DATE(birthdate, 'YYYY-MM-DD')))/365.2422, nickname
-	FROM old_users
+	FROM old_users --Que hemos sacado edad de la fehca altual y la de nacimiento, no la hemos cogido
 	WHERE (citizenID IS NOT NULL AND LENGTH(passw)>8);
 
 INSERT INTO TIPOS_CONTRATOS (tipo)
@@ -296,7 +296,7 @@ INSERT INTO GENEROS(tipo)
 INSERT INTO GENEROS(tipo)
 	SELECT DISTINCT genre2
 	FROM old_movies
-	WHERE (genre2 IS NOT NULL AND genre2 NOT IN (SELECT tipo FROM GENEROS));
+	WHERE (genre2 IS NOT NULL AND genre2 NOT IN (SELECT tipo FROM GENEROS)); --Para evitar que aparezcan valores repetidos y de error hacemos: atrib NOT IN (query)
 
 INSERT INTO GENEROS(tipo)
 	SELECT DISTINCT genre3
@@ -315,5 +315,5 @@ INSERT INTO GENEROS(tipo)
 
 INSERT INTO IMDBS (link, puntuacion, cantidad_users, cantidad_criticos)
 		SELECT DISTINCT movie_imdb_link, TO_NUMBER(imdb_score,'99.9'), TO_NUMBER(num_user_for_reviews, '99999'), TO_NUMBER(num_critic_for_reviews, '99999')
-		FROM old_movies
+		FROM old_movies --Hemos cambiado los tipos de datos a enteros, documentar.
 		WHERE (movie_imdb_link IS NOT NULL AND num_critic_for_reviews IS NOT NULL AND num_user_for_reviews IS NOT NULL);
