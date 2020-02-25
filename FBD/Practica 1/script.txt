@@ -27,7 +27,7 @@ CREATE TABLE USUARIOS(
 	email VARCHAR2(100) NOT NULL,
 	CONSTRAINT PK_USUARIOS PRIMARY KEY (nombre_usuario),
 	CONSTRAINT FK_USUARIOS_email UNIQUE(email),
-	CONSTRAINT password_valid CHECK (LENGTH(password) >8) --Indicar que hemos resuelto el supuesto semantico explicito, al controlar la longitud.
+	CONSTRAINT password_valid CHECK (LENGTH(password) >8)
 	);
 
 CREATE TABLE PERFILES(
@@ -93,35 +93,33 @@ CREATE TABLE IMDBS(
 
 CREATE TABLE PELICULAS(
 	titulo VARCHAR2(100) NOT NULL,
-	director VARCHAR2(100) NOT NULL,
-	duracion NUMBER(3) NOT NULL, --poner como un numero
-	color VARCHAR2(100) NOT NULL,
-	ratio DECIMAL(5) NOT NULL,
-	año_estreno DATE NOT NULL,
-	calif_edad VARCHAR2(8) NOT NULL,
-	pais VARCHAR2(100) NOT NULL,
+	director VARCHAR2(100)NOT NULL,
+	duracion NUMBER(7)NOT NULL,
+	color VARCHAR2(100)NOT NULL,
+	ratio VARCHAR2(100)NOT NULL,
+	estreno NUMBER(6)NOT NULL,
+	calif_edad VARCHAR2(100)NOT NULL,
+	pais VARCHAR2(100)NOT NULL,
 	idioma VARCHAR2(100) NOT NULL,
-	presupuesto NUMBER(30) NOT NULL,
-	ingresos NUMBER(30) NOT NULL,
-	imdb VARCHAR2(100) NOT NULL,
-	n_rostros NUMBER(8) NOT NULL,
-	l_dir NUMBER(25) NOT NULL,
-	l_peli NUMBER(25) NOT NULL,
-	servicio VARCHAR2(100) NOT NULL,
+	presupuesto NUMBER(13)NOT NULL,
+	ingresos NUMBER(13)NOT NULL,
+	imdb VARCHAR2(100)NOT NULL,
+	n_rostros NUMBER(10)NOT NULL,
+	l_dir NUMBER(10)NOT NULL,
+	l_peli NUMBER(10)NOT NULL,
 	CONSTRAINT PK_PELICULAS PRIMARY KEY(titulo, director),
 	CONSTRAINT CHECK_PELICULAS_COLOR CHECK (color IN('Color','Black and White')),
 	CONSTRAINT FK_PELICULAS_RATIO FOREIGN KEY(ratio) REFERENCES RATIOS(tipo),
 	CONSTRAINT FK_PELICULAS_CALIFICACION FOREIGN KEY(calif_edad) REFERENCES CALIFICACIONES(TIPO),
 	CONSTRAINT FK_PELICULAS_IDIOMA FOREIGN KEY(idioma) REFERENCES IDIOMAS(NOMBRE),
-	CONSTRAINT FK_PELICULAS_IMDB FOREIGN KEY(imdb) REFERENCES IMDBS(link),
-	CONSTRAINT FK_PELICULAS_SERVICIO FOREIGN KEY(servicio) REFERENCES TIPOS_CONTRATOS(tipo)
+	CONSTRAINT FK_PELICULAS_IMDB FOREIGN KEY(imdb) REFERENCES IMDBS(link)
 );
 
 CREATE TABLE PALABRAS_PELICULA(
 	pelicula_titulo VARCHAR2(100) NOT NULL,
 	pelicula_director VARCHAR2(100) NOT NULL,
 	palabra VARCHAR2(100) NOT NULL,
-	CONSTRAINT PK_PALABRASPELICULA PRIMARY KEY(pelicula_titulo, pelicula_director),
+	CONSTRAINT PK_PALABRASPELICULA PRIMARY KEY(pelicula_titulo, pelicula_director, palabra), --Añadido como clave principal palabra
 	CONSTRAINT FK_PALABRASPELICULA_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
 	 ON DELETE CASCADE
 );
@@ -130,7 +128,7 @@ CREATE TABLE GENEROS_PELICULA(
 	pelicula_titulo VARCHAR2(100) NOT NULL,
 	pelicula_director VARCHAR(100) NOT NULL,
 	genero VARCHAR2(100) NOT NULL,
-	CONSTRAINT PK_GENEROSPELICULA PRIMARY KEY(pelicula_titulo, pelicula_director),
+	CONSTRAINT PK_GENEROSPELICULA PRIMARY KEY(pelicula_titulo, pelicula_director, genero), --añadido como clave principal genero
 	CONSTRAINT FK_GENEROSPELICULA_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
 	 ON DELETE CASCADE,
 	CONSTRAINT FK_GENEROSPELICULA_genero FOREIGN KEY (genero) REFERENCES GENEROS(tipo)
@@ -139,108 +137,111 @@ CREATE TABLE GENEROS_PELICULA(
 CREATE TABLE PROTAGONISTAS(
 	pelicula_titulo VARCHAR2(100) NOT NULL,
 	pelicula_director VARCHAR2(100) NOT NULL,
-	nombre VARCHAR2(50) NOT NULL,
-	apellido VARCHAR2(50) NOT NULL,
+	nombre VARCHAR2(100) NOT NULL, --Hemos eliminado el atributo apellido, ya que el nombre se proporciona en un unico campo
 	likes NUMBER (25) NOT NULL,
-	CONSTRAINT PK_PROTAGONISTAS PRIMARY KEY(pelicula_titulo, pelicula_director, nombre, apellido),
+	CONSTRAINT PK_PROTAGONISTAS PRIMARY KEY(pelicula_titulo, pelicula_director, nombre),
 	CONSTRAINT FK_PROTAGONISTAS_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
 );
 
 CREATE TABLE CLUBES(
 	nombre VARCHAR2(100) NOT NULL,
-	abierto NUMBER(1) NOT NULL,
-	ciudad VARCHAR2(50) NOT NULL,
-	cod_postal VARCHAR2(60) NOT NULL,
-	pais VARCHAR2(50) NOT NULL,
+	abierto VARCHAR2(100) NOT NULL, --Antes era un NUMBER(1)
+	slogan VARCHAR2(100); --Añadido slogan, ya que estaba almacenado en la base de datos antigua
 	f_creacion DATE NOT NULL,
 	CONSTRAINT PK_CLUBES PRIMARY KEY(nombre)
+	--hemos quitao cod_postal ciudad y pais porque si
 );
 
 CREATE TABLE MEMBRESIA(
 	club VARCHAR2(100) NOT NULL,
 	usuario VARCHAR2(100) NOT NULL,
-	media_actividad NUMBER(10) NOT NULL,
 	CONSTRAINT PK_MEMBRESIA PRIMARY KEY(club, usuario),
 	CONSTRAINT FK_MEMBRESIA_club FOREIGN KEY(club) REFERENCES CLUBES(nombre),
 	CONSTRAINT FK_MEMBRESIA_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
 );
 
-CREATE TABLE PROPUESTAS(
-	miembro_club VARCHAR(100) NOT NULL,
-	miembro_usuario VARCHAR(100) NOT NULL,
-	pelicula_titulo VARCHAR(100) NOT NULL,
-	pelicula_director VARCHAR(100) NOT NULL,
-	f_completa DATE NOT NULL,
-	aceptado NUMBER(1) NOT NULL,
-	asunto VARCHAR(100) NOT NULL,
-	mensaje VARCHAR (1500) NOT NULL,
-	CONSTRAINT PK_PROPUESTAS PRIMARY KEY(miembro_club, miembro_usuario, f_completa),
-	CONSTRAINT FK_PROPUESTAS_miembro FOREIGN KEY(miembro_club, miembro_usuario) REFERENCES MEMBRESIA(club, usuario)
-	 ON DELETE CASCADE,
-	CONSTRAINT FK_PROPUESTAS_peliculas FOREIGN KEY(pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
+CREATE TABLE VISUALIZACIONES(
+	usuario_club VARCHAR2(100) NOT NULL,
+	usuario_nombre VARCHAR2(100) NOT NULL,
+	media_actividad NUMBER(4,2) NOT NULL,
+	CONSTRAINT PK_VISUALIZACIONES PRIMARY KEY(usuario_club, usuario_nombre, media_actividad),
+	CONSTRAINT FK_VISUALIZACIONES FOREIGN KEY(usuario) REFERENCES MEMBRESIA(usuario)
 );
+--HAY QUE AÑADIR LA TABLA DE VISUALIZACIONES EN EL DISEÑO RElacional, es VISUALIZACIONES al dia
 
-CREATE TABLE CLUBES_HISTORICOS(
+	CREATE TABLE PROPUESTAS(
+		miembro_club VARCHAR(100) NOT NULL,
+		miembro_usuario VARCHAR(100) NOT NULL,
+		pelicula_titulo VARCHAR(100) NOT NULL,
+		pelicula_director VARCHAR(100) NOT NULL,
+		f_completa DATE NOT NULL,
+		asunto VARCHAR(100) NOT NULL,
+		mensaje VARCHAR (1500) NOT NULL,
+		CONSTRAINT PK_PROPUESTAS PRIMARY KEY(miembro_club, miembro_usuario, f_completa),
+		CONSTRAINT FK_PROPUESTAS_miembro FOREIGN KEY(miembro_club, miembro_usuario) REFERENCES MEMBRESIA(club, usuario)
+		 ON DELETE CASCADE,
+		CONSTRAINT FK_PROPUESTAS_peliculas FOREIGN KEY(pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
+	);
+
+
+CREATE TABLE CLUBES_HISTORICOS( --CAMBIAR EN EL ESQUEMA RELACIONAL
 	nombre VARCHAR2(100) NOT NULL,
-	abierto NUMBER(1) NOT NULL,
-	ciudad VARCHAR2(50) NOT NULL,
-	cod_postal VARCHAR2(60) NOT NULL,
-	pais VARCHAR2(50) NOT NULL,
-	f_creacion DATE,
-	f_cierre DATE,
+	abierto VARCHAR2(100) NOT NULL,
+	f_creacion DATE NOT NULL,
+	f_cierre DATE NOT NULL,
 	CONSTRAINT PK_CLUBES_HISTORICOS PRIMARY KEY(nombre)
 );
 
-CREATE TABLE MEMBRESIA_HISTORICAS (
+
+	CREATE TABLE MEMBRESIA_HISTORICAS (
 	club VARCHAR2(100) NOT NULL,
-	usuario VARCHAR2(100) NOT NULL,
-	media_actividad NUMBER(10) NOT NULL,
+	usuario VARCHAR2(100),
 	CONSTRAINT PK_MEMBRESIA_HISTORICAS PRIMARY KEY(club, usuario),
 	CONSTRAINT FK_MEMBRESIA_HISTORICAS_club FOREIGN KEY(club) REFERENCES CLUBES_HISTORICOS(nombre)
 	 ON DELETE CASCADE,
-	CONSTRAINT FK_MEMBRESIA_HISTRORICAS_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
+	CONSTRAINT FK_MEMBRESIA_HISTORICAS_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
 	 ON DELETE CASCADE
 );
 
 CREATE TABLE OPINIONES(
-	miembro_club VARCHAR2(100) NOT NULL,
-	miembro_usuario VARCHAR2(100) NOT NULL,
-	pelicula_titulo VARCHAR2(100) NOT NULL,
-	pelicula_director VARCHAR2(100) NOT NULL,
-	f_completa DATE NOT NULL,
-	asunto VARCHAR2(1500) NOT NULL,
-	valoracion NUMBER(2),
-	CONSTRAINT PK_OPINIONES PRIMARY KEY (miembro_club, miembro_usuario, pelicula_titulo, pelicula_director),
-	CONSTRAINT FK_OPINIONES_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
-	ON DELETE CASCADE,
-	CONSTRAINT FK_OPINIONES_miembro FOREIGN KEY (miembro_usuario, miembro_club) REFERENCES MEMBRESIA (usuario, club)
-	ON DELETE CASCADE
-);
+		miembro_club VARCHAR2(100) NOT NULL,
+		miembro_usuario VARCHAR2(100) NOT NULL,
+		pelicula_titulo VARCHAR2(100) NOT NULL,
+		pelicula_director VARCHAR2(100) NOT NULL,
+		f_completa DATE NOT NULL,
+		asunto VARCHAR2(1500) NOT NULL,
+		valoracion NUMBER(3),
+		CONSTRAINT PK_OPINIONES PRIMARY KEY (miembro_club, miembro_usuario, pelicula_titulo, pelicula_director),
+		CONSTRAINT FK_OPINIONES_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
+		ON DELETE CASCADE,
+		CONSTRAINT FK_OPINIONES_miembro FOREIGN KEY (miembro_usuario, miembro_club) REFERENCES MEMBRESIA (usuario, club)
+		ON DELETE CASCADE
+	);
 
 CREATE TABLE INVITACIONES(
-	miembro_usuario VARCHAR2(100) NOT NULL,
-	miembro_club VARCHAR2(100) NOT NULL,
-	invitado VARCHAR(100) NOT NULL,
-	f_completa DATE NOT NULL,
-	aceptado NUMBER(1),
-	CONSTRAINT PK_INVITACIONES PRIMARY KEY (miembro_club, miembro_usuario, invitado),
-	CONSTRAINT FK_INVITACIONES_miembro FOREIGN KEY (miembro_usuario, miembro_club) REFERENCES MEMBRESIA (usuario, club)
-	ON DELETE CASCADE,
-	CONSTRAINT FK_INVITACIONES_invitado FOREIGN KEY (invitado) REFERENCES USUARIOS (nombre_usuario)
-	ON DELETE CASCADE
-);
+		miembro_usuario VARCHAR2(100) NOT NULL,
+		miembro_club VARCHAR2(100) NOT NULL,
+		invitado VARCHAR(100) NOT NULL,
+		f_completa DATE NOT NULL,
+		CONSTRAINT PK_INVITACIONES PRIMARY KEY (miembro_club, miembro_usuario, invitado),
+		CONSTRAINT FK_INVITACIONES_miembro FOREIGN KEY (miembro_usuario, miembro_club) REFERENCES MEMBRESIA (usuario, club)
+		ON DELETE CASCADE,
+		CONSTRAINT FK_INVITACIONES_invitado FOREIGN KEY (invitado) REFERENCES USUARIOS (nombre_usuario)
+		ON DELETE CASCADE
+	);--Eliminado atributo aceptado
 
-CREATE TABLE SOLICITUDES(
-	usuario VARCHAR2(100) NOT NULL,
-	club varchar2(100) NOT NULL,
-	f_completa DATE NOT NULL,
-	aceptado NUMBER(1),
-	CONSTRAINT PK_SOLICITUDES PRIMARY KEY(usuario, club),
-	CONSTRAINT FK_SOLICITUDES_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
-	 ON DELETE CASCADE,
-	CONSTRAINT FK_SOLICITUDES_club FOREIGN KEY(club) REFERENCES CLUBES(nombre)
-	 ON DELETE CASCADE
-);
+
+	CREATE TABLE SOLICITUDES(
+		usuario VARCHAR2(100) NOT NULL,
+		club varchar2(100) NOT NULL,
+		f_completa DATE NOT NULL,
+		frase_aceptacion VARCHAR2(100) NOT NULL,
+		CONSTRAINT PK_SOLICITUDES PRIMARY KEY(usuario, club),
+		CONSTRAINT FK_SOLICITUDES_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
+		 ON DELETE CASCADE,
+		CONSTRAINT FK_SOLICITUDES_club FOREIGN KEY(club) REFERENCES CLUBES(nombre)
+		 ON DELETE CASCADE
+	); --Eliminamos aceptado e introducimos frase_aceptacion
 
 CREATE TABLE CREACIONES_CLUB (
 	usuario VARCHAR2(100) NOT NULL,
@@ -256,11 +257,11 @@ CREATE TABLE CREACIONES_CLUB (
 INSERT INTO USUARIOS (nombre_usuario, password, email)
  SELECT nickname, passw, eMail
  FROM old_users
- WHERE (LENGTH(passw)>8); --Anotar en memoria que descartamos entradas que tienen pass menor de 8 letras
+ WHERE (LENGTH(passw)>8);
 
 INSERT INTO PERFILES (dni, nombre_pila, apellido1, apellido2, f_nacimiento, telf, edad, usuario)
 	SELECT citizenID, name, surname, sec_surname, TO_DATE(birthdate, 'YYYY-MM-DD') , phoneN, (SYSDATE-(TO_DATE(birthdate, 'YYYY-MM-DD')))/365.2422, nickname
-	FROM old_users --Que hemos sacado edad de la fehca altual y la de nacimiento, no la hemos cogido
+	FROM old_users
 	WHERE (citizenID IS NOT NULL AND LENGTH(passw)>8);
 
 INSERT INTO TIPOS_CONTRATOS (tipo)
@@ -314,6 +315,197 @@ INSERT INTO GENEROS(tipo)
 	WHERE (genre5 IS NOT NULL AND genre5 NOT IN (SELECT tipo FROM GENEROS));
 
 INSERT INTO IMDBS (link, puntuacion, cantidad_users, cantidad_criticos)
-		SELECT DISTINCT movie_imdb_link, TO_NUMBER(imdb_score,'99.9'), TO_NUMBER(num_user_for_reviews, '99999'), TO_NUMBER(num_critic_for_reviews, '99999')
-		FROM old_movies --Hemos cambiado los tipos de datos a enteros, documentar.
-		WHERE (movie_imdb_link IS NOT NULL AND num_critic_for_reviews IS NOT NULL AND num_user_for_reviews IS NOT NULL);
+	SELECT DISTINCT movie_imdb_link, TO_NUMBER(imdb_score,'99.9'), TO_NUMBER(num_user_for_reviews, '99999'), TO_NUMBER(num_critic_for_reviews, '99999')
+	FROM old_movies
+	WHERE (movie_imdb_link IS NOT NULL AND num_critic_for_reviews IS NOT NULL AND num_user_for_reviews IS NOT NULL);
+--BORRAR SERVICIOS EN DISEÑO REALCIONAL
+INSERT INTO PELICULAS (titulo, director, duracion,color,ratio,estreno,calif_edad,pais,idioma, presupuesto,ingresos,imdb, n_rostros, l_dir,l_peli )
+	SELECT DISTINCT movie_title, director_name,TO_NUMBER(duration,'9999999'),color,aspect_ratio,TO_NUMBER(title_year,'999999'),content_rating,country, language, TO_NUMBER(budget,'9999999999999'),TO_NUMBER(gross,'9999999999999'),movie_imdb_link,TO_NUMBER(facenumber_in_poster,'9999999999'),TO_NUMBER(director_facebook_likes,'9999999999999'),TO_NUMBER(movie_facebook_likes,'9999999999999')
+	FROM old_movies
+	WHERE (movie_title IS NOT NULL AND director_name IS NOT NULL AND content_rating IS NOT NULL AND aspect_ratio IS NOT NULL AND budget IS NOT NULL AND gross IS NOT NULL AND facenumber_in_poster IS NOT NULL AND director_facebook_likes IS NOT NULL AND movie_facebook_likes IS NOT NULL AND language IS NOT NULL AND color IS NOT NULL AND movie_imdb_link IN (SELECT link FROM IMDBS));
+
+ --DOCUMENTAR QUE HEMOS CAMBIADO TIPOS DE DATOS PAR QUE SE ADAPTEN MEJOR, Y HEMOS DEJADO FUERA LAS PELICULAS CON CAMPOS VACIOS Y HABIA LINKS DE IMDBS QUE NO TENIAMOS REGISTRADOS EN NUESTRA TABLA DE IMDBS
+
+INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
+	SELECT DISTINCT movie_title, director_name, keyword1
+ 	FROM old_movies
+ 	WHERE (keyword1 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
+ 	SELECT DISTINCT movie_title, director_name, keyword2
+ 	FROM old_movies
+ 	WHERE (keyword2 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
+ 	SELECT DISTINCT movie_title, director_name, keyword3
+ 	FROM old_movies
+ 	WHERE (keyword3 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
+ 	SELECT DISTINCT movie_title, director_name, keyword4
+ 	FROM old_movies
+ 	WHERE (keyword4 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+
+INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
+ 	SELECT DISTINCT movie_title, director_name, keyword5
+ 	FROM old_movies
+ 	WHERE (keyword5 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+	INSERT INTO GENEROS_PELICULA (pelicula_titulo,pelicula_director,genero)
+	SELECT DISTINCT movie_title, director_name, genre1
+	FROM old_movies
+	WHERE(genre1 IS NOT NULL  AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+INSERT INTO GENEROS_PELICULA (pelicula_titulo,pelicula_director,genero)
+	SELECT DISTINCT movie_title, director_name, genre2
+	FROM old_movies
+	WHERE(genre2 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+INSERT INTO GENEROS_PELICULA (pelicula_titulo,pelicula_director,genero)
+	SELECT  DISTINCT movie_title, director_name, genre3
+	FROM old_movies
+	WHERE(genre3 IS NOT NULL  AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+INSERT INTO GENEROS_PELICULA (pelicula_titulo,pelicula_director,genero)
+	SELECT DISTINCT movie_title, director_name, genre4
+	FROM old_movies
+	WHERE(genre4 IS NOT NULL  AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+INSERT INTO GENEROS_PELICULA (pelicula_titulo,pelicula_director,genero)
+	SELECT DISTINCT movie_title, director_name, genre5
+	FROM old_movies
+	WHERE(genre5 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+INSERT INTO PROTAGONISTAS(pelicula_titulo, pelicula_director, nombre, likes)
+	SELECT DISTINCT movie_title, director_name, actor_1_name, actor_1_facebook_likes
+	FROM old_movies
+	WHERE(actor_1_name IS NOT NULL AND actor_1_facebook_likes IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+INSERT INTO PROTAGONISTAS(pelicula_titulo, pelicula_director, nombre, likes)
+		SELECT DISTINCT movie_title, director_name, actor_3_name, actor_3_facebook_likes
+		FROM old_movies
+		WHERE(actor_3_name IS NOT NULL AND actor_3_facebook_likes IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+INSERT INTO PROTAGONISTAS(pelicula_titulo, pelicula_director, nombre, likes)
+	SELECT DISTINCT movie_title, director_name, actor_2_name, actor_2_facebook_likes
+	FROM old_movies
+	WHERE(actor_2_name IS NOT NULL AND actor_2_facebook_likes IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+INSERT INTO PROTAGONISTAS(pelicula_titulo, pelicula_director, nombre, likes)
+	SELECT  DISTINCT movie_title, director_name, actor_3_name, actor_3_facebook_likes
+	FROM old_movies
+	WHERE(actor_3_name IS NOT NULL AND actor_3_facebook_likes IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS) AND actor_3_name NOT IN (SELECT nombre FROM PROTAGONISTAS));
+--Hemos restringido que compruebe que previamente no haya sigo introducido el actor para esa pelicula. De esta manera hay datos de actor_3_name que no se han almacenada.
+INSERT INTO CLUBES(nombre, abierto, slogan, f_creacion)
+	SELECT DISTINCT club, details1, subject, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI')
+	FROM old_events
+	WHERE (Etype='foundation' AND club IS NOT NULL);
+
+INSERT INTO MEMBRESIA (club, usuario)
+SELECT DISTINCT club, subject
+FROM old_events
+WHERE (club IS NOT NULL and usuario IS NOT NULL AND usuario IN (SELECT nombre_usuario FROM USUARIOS)); --Se habian introducido usuarios no existentes, que hemos controlado con la consulta IN
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO VISUALIZACIONES(usuario_club, usuario_nombre, media_actividad)
+	SELECT DISTINCT club, subject, count('x')
+	FROM old_events
+	WHERE ()
+	GROUP BY subject
+	;
+INSERT INTO MEMBRESIA (club, usuario, media_actividad)
+	SELECT DISTINCT club, subject
+	FROM old_events
+	WHERE (Etype = 'aceptance' AND club IS NOT NULL AND usuario IS NOT NULL AND LENGTH(passw)>8 )
+	SELECT DISTINCT club, subject, count('x')
+	FROM old_events
+	WHERE (Etype = 'viewing' AND EXTRACT(YEAR FROM TO_DATE(ev_date,'YYYY-MM-DD')) = EXTRACT(YEAR FROM SYSDATE))
+	GROUP BY subject;
+
+
+INSERT INTO MEMBRESIA(club, usuario, media_actividad)
+	WITH b AS SELECT DISTINCT subject, count('x')
+		FROM old_events
+		WHERE (Etype='viewing' AND EXTRACT(YEAR FROM TO_DATE(ev_date,'YYYY-MM-DD')))
+		GROUP BY subject
+	SELECT DISTINCT a.club, a.subject, b.count('x')
+	FROM old_events a, b
+	WHERE(a.subject=b.subject AND a.Etype = 'acceptance' AND a.club IcS NOT NULL AND a.subject IS NOT NULL);
+
+	INSERT INTO MEMBRESIA(club, usuario, media_actividad)
+		SELECT DISTINCT a.club, a.subject, b.count('x')
+		FROM old_events a JOIN b AS (SELECT DISTINCT subject, count('x')
+															FROM old_events
+															WHERE (Etype='viewing' AND EXTRACT(YEAR FROM TO_DATE(ev_date,'YYYY-MM-DD')))
+															GROUP BY subject)
+															ON (a.subject=b.subject)
+		WHERE(a.Etype = 'acceptance' AND a.club IS NOT NULL AND a.subject IS NOT NULL);
+
+INSERT INTO MEMBRESIA (club,usuario, media_actividad)
+	SELECT club, subject, SELECT DISTINCT count('x') FROM old_events WHERE (Etype = 'Viewing' AND EXTRACT(YEAR FROM TO_DATE(ev_date, 'YYYY-MM-DD')) = EXTRACT(YEAR FROM SYSDATE) FROM DUAL)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO PROPUESTAS(miembro_club, miembro_usuario, pelicula_titulo, pelicula_director, f_completa, asunto, mensaje)
+			 SELECT DISTINCT club, client, details1, details2, to_date(ev_date||ev_hour,'YYYY-MM-DD HH24:MI'), subject, message
+			 FROM old_events
+			 WHERE(Etype='proposal' AND club IS NOT NULL AND client IS NOT NULL AND details1 IN (SELECT titulo FROM PELICULAS) AND client IN (SELECT usuario FROM MEMBRESIA));
+--Poner que suponemos obligatorio asunto y mensaje
+--Hemos detectso peliculas que no estaban en la tabla peliculas, usuarios que no pertenecian a ningun club, ...
+
+
+INSERT INTO TABLE CLUBES_HISTORICOS(nombre, abierto, f_creacion, f_cierre)
+	SELECT DISTINCT club, details1, TO_DATE(,'YYYY-MM-DD'), TO_DATE(ev_date,'YYYY-MM-DD')
+	WHERE (Etype = 'clausure' AND club IS NOT NULL)
+	;
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	INSERT INTO TABLE CLUBES_HISTORICOS(nombre, abierto, f_creacion, f_cierre)
+		SELECT DISTINCT a.club, a.details1, TO_DATE(b.f_creacion,'YYYY-MM-DD'), TO_DATE(a.ev_date,'YYYY-MM-DD')
+		FROM old_events a, CLUBES b
+		WHERE (a.Etype = 'ceasing' AND a.club IS NOT NULL);
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO MEMBRESIA_HISTORICAS(club,usuario)
+	SELECT DISTINCT club,usuario
+  FROM membresia
+	WHERE (club IN (SELECT nombre FROM CLUBES_HISTORICOS));
+
+	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	INSERT INTO OPINIONES(miembro_club, miembro_usuario, pelicula_titulo, pelicula_director, f_completa, asunto, valoracion)
+		SELECT DISTINCT club, client, details1, details2, to_date(ev_date||ev_hour,'YYYY-MM-DD HH24:MI'), subject, TO_NUMBER(ltrim(Etype,'opinion:'),'99')
+		FROM old_events
+		WHERE (substr(Etype,0,9)='opinion' AND client IN (SELECT usuario FROM MEMBRESIA) AND club IN (SELECT nombre FROM CLUBES);
+		----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		INSERT INTO OPINIONES(miembro_club, miembro_usuario, pelicula_titulo, pelicula_director, f_completa, asunto, valoracion)
+	 	SELECT DISTINCT club, client, details1, details2, to_date(ev_date||ev_hour,'YYYY-MM-DD HH24:MI'), subject, ltrim(Etype,'opinion:')
+	 	FROM old_events
+	 	WHERE (Etype='opinion:6' AND client IN (SELECT usuario FROM MEMBRESIA) AND club IN (SELECT nombre FROM CLUBES) AND details1 IN (SELECT titulo FROM PELICULAS));
+
+
+
+
+
+INSERT INTO INVITACIONES (miembro_usuario, miembro_club,invitado,f_completa)
+ 		SELECT DISTINCT client, club, subject, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI')
+ 		FROM old_events
+ 		WHERE (Etype = 'invitation' AND client IS NOT NULL AND club IS NOT NULL AND subject IS NOT NULL AND client IN (SELECT usuario FROM MEMBRESIA) AND club IN (SELECT nombre FROM CLUBES) AND subject IN (SELECT nombre_usuario FROM USUARIOS) );
+ 		--Aqui se introducian personas que invitaban que no eran miembros de un club, clubs que no pertenecian a nuestra base y personas invitadas que no eran usuarios, que hemos controlado con IN
+
+
+		INSERT INTO SOLICITUDES (usuario, club,frase_aceptacion, f_completa)
+SELECT DISTINCT client,club,subject, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI')
+FROM old_events
+WHERE (Etype = 'application' AND client IS NOT NULL AND club IS NOT NULL AND client IN (SELECT nombre_usuario FROM USUARIOS));
+
+		--Se introducen personas que no son usuarios, por lo que se impone la condicion en el WHERE
+
+INSERT INTO CREACIONES_CLUB(usuario, club, f_completa)
+	SELECT DISTINCT client, club, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI')
+	FROM old_events
+	WHERE (Etype='foundation' AND client IS NOT NULL AND club IS NOT NULL AND subject IS NOT NULL AND client IN (SELECT usuario FROM MEMBRESIA) AND club IN (SELECT nombre FROM CLUBES));
