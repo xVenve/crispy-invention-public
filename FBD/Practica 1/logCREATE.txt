@@ -1,3 +1,4 @@
+
 SQL> DROP TABLE USUARIOS CASCADE CONSTRAINTS;
 
 Tabla borrada.
@@ -58,6 +59,10 @@ SQL> DROP TABLE MEMBRESIA CASCADE CONSTRAINTS;
 
 Tabla borrada.
 
+SQL> DROP TABLE VISUALIZACIONES CASCADE CONSTRAINTS;
+
+Tabla borrada.
+
 SQL> DROP TABLE PROPUESTAS CASCADE CONSTRAINTS;
 
 Tabla borrada.
@@ -87,15 +92,13 @@ SQL> DROP TABLE CREACIONES_CLUB CASCADE CONSTRAINTS;
 Tabla borrada.
 
 SQL>
-SQL>
-SQL>
 SQL> CREATE TABLE USUARIOS(
   2  nombre_usuario VARCHAR2(100) NOT NULL,
   3  password VARCHAR2(100) NOT NULL,
   4  email VARCHAR2(100) NOT NULL,
   5  CONSTRAINT PK_USUARIOS PRIMARY KEY (nombre_usuario),
   6  CONSTRAINT FK_USUARIOS_email UNIQUE(email),
-  7  CONSTRAINT password_valid CHECK (password>8)
+  7  CONSTRAINT password_valid CHECK (LENGTH(password) >8)
   8  );
 
 Tabla creada.
@@ -107,7 +110,7 @@ SQL> CREATE TABLE PERFILES(
   4  apellido1 VARCHAR2(100),
   5  apellido2 VARCHAR(100),
   6  f_nacimiento DATE,
-  7  telf VARCHAR2(14),
+  7  telf VARCHAR2(14), --Revisar si es un numero
   8  edad NUMBER(3),
   9  usuario VARCHAR2(100) NOT NULL,
  10  CONSTRAINT PK_PERFILES PRIMARY KEY (dni),
@@ -130,7 +133,7 @@ SQL> CREATE TABLE CONTRATOS(
   2  id VARCHAR2(100) NOT NULL,
   3  tipo_contrato VARCHAR2(50) NOT NULL,
   4  perfil VARCHAR2(9) NOT NULL,
-  5  cod_postal VARCHAR2(10) NOT NULL,
+  5  cod_postal VARCHAR2(10) NOT NULL, --revisar si es un numero
   6  ciudad VARCHAR2(100) NOT NULL,
   7  pais VARCHAR2(100) NOT NULL,
   8  f_inicio DATE NOT NULL,
@@ -144,7 +147,7 @@ Tabla creada.
 
 SQL>
 SQL> CREATE TABLE RATIOS(
-  2  tipo DECIMAL(5) NOT NULL,
+  2  tipo VARCHAR2(100) NOT NULL, --revisar si es un numero
   3  CONSTRAINT PK_RATIOS PRIMARY KEY (tipo)
   4  );
 
@@ -160,7 +163,7 @@ Tabla creada.
 
 SQL>
 SQL> CREATE TABLE CALIFICACIONES(
-  2  tipo VARCHAR2(8) NOT NULL,
+  2  tipo VARCHAR2(100) NOT NULL,
   3  CONSTRAINT PK_CALIFICACIONES PRIMARY KEY (tipo)
   4  );
 
@@ -177,9 +180,9 @@ Tabla creada.
 SQL>
 SQL> CREATE TABLE IMDBS(
   2  link VARCHAR2(200) NOT NULL,
-  3  puntuacion NUMBER(2) NOT NULL,
-  4  cantidad_users NUMBER(25) NOT NULL,
-  5  cantidad_criticos NUMBER(20) NOT NULL,
+  3  puntuacion NUMBER(2,1) NOT NULL, --2 para la parte entera y 1 para el decimal.
+  4  cantidad_users NUMBER(4) NOT NULL,
+  5  cantidad_criticos NUMBER(4) NOT NULL,
   6  CONSTRAINT PK_IMDBS_link PRIMARY KEY (link)
   7  );
 
@@ -188,29 +191,27 @@ Tabla creada.
 SQL>
 SQL> CREATE TABLE PELICULAS(
   2  titulo VARCHAR2(100) NOT NULL,
-  3  director VARCHAR2(100) NOT NULL,
-  4  duracion NUMBER(3) NOT NULL,
-  5  color VARCHAR2(100) NOT NULL,
-  6  ratio DECIMAL(5) NOT NULL,
-  7  año_estreno DATE NOT NULL,
-  8  calif_edad VARCHAR2(8) NOT NULL,
-  9  pais VARCHAR2(100) NOT NULL,
+  3  director VARCHAR2(100)NOT NULL,
+  4  duracion NUMBER(7)NOT NULL,
+  5  color VARCHAR2(100)NOT NULL,
+  6  ratio VARCHAR2(100)NOT NULL,
+  7  estreno NUMBER(6)NOT NULL,
+  8  calif_edad VARCHAR2(100)NOT NULL,
+  9  pais VARCHAR2(100)NOT NULL,
  10  idioma VARCHAR2(100) NOT NULL,
- 11  presupuesto NUMBER(30) NOT NULL,
- 12  ingresos NUMBER(30) NOT NULL,
- 13  imdb VARCHAR2(100) NOT NULL,
- 14  n_rostros NUMBER(8) NOT NULL,
- 15  l_dir NUMBER(25) NOT NULL,
- 16  l_peli NUMBER(25) NOT NULL,
- 17  servicio VARCHAR2(100) NOT NULL,
- 18  CONSTRAINT PK_PELICULAS PRIMARY KEY(titulo, director),
- 19  CONSTRAINT CHECK_PELICULAS_COLOR CHECK (color IN('Color','Black and White')),
- 20  CONSTRAINT FK_PELICULAS_RATIO FOREIGN KEY(ratio) REFERENCES RATIOS(tipo),
- 21  CONSTRAINT FK_PELICULAS_CALIFICACION FOREIGN KEY(calif_edad) REFERENCES CALIFICACIONES(TIPO),
- 22  CONSTRAINT FK_PELICULAS_IDIOMA FOREIGN KEY(idioma) REFERENCES IDIOMAS(NOMBRE),
- 23  CONSTRAINT FK_PELICULAS_IMDB FOREIGN KEY(imdb) REFERENCES IMDBS(link),
- 24  CONSTRAINT FK_PELICULAS_SERVICIO FOREIGN KEY(servicio) REFERENCES TIPOS_CONTRATOS(tipo)
- 25  );
+ 11  presupuesto NUMBER(13)NOT NULL,
+ 12  ingresos NUMBER(13)NOT NULL,
+ 13  imdb VARCHAR2(100)NOT NULL,
+ 14  n_rostros NUMBER(10)NOT NULL,
+ 15  l_dir NUMBER(10)NOT NULL,
+ 16  l_peli NUMBER(10)NOT NULL,
+ 17  CONSTRAINT PK_PELICULAS PRIMARY KEY(titulo, director),
+ 18  CONSTRAINT CHECK_PELICULAS_COLOR CHECK (color IN('Color','Black and White')),
+ 19  CONSTRAINT FK_PELICULAS_RATIO FOREIGN KEY(ratio) REFERENCES RATIOS(tipo),
+ 20  CONSTRAINT FK_PELICULAS_CALIFICACION FOREIGN KEY(calif_edad) REFERENCES CALIFICACIONES(TIPO),
+ 21  CONSTRAINT FK_PELICULAS_IDIOMA FOREIGN KEY(idioma) REFERENCES IDIOMAS(NOMBRE),
+ 22  CONSTRAINT FK_PELICULAS_IMDB FOREIGN KEY(imdb) REFERENCES IMDBS(link)
+ 23  );
 
 Tabla creada.
 
@@ -219,7 +220,7 @@ SQL> CREATE TABLE PALABRAS_PELICULA(
   2  pelicula_titulo VARCHAR2(100) NOT NULL,
   3  pelicula_director VARCHAR2(100) NOT NULL,
   4  palabra VARCHAR2(100) NOT NULL,
-  5  CONSTRAINT PK_PALABRASPELICULA PRIMARY KEY(pelicula_titulo, pelicula_director),
+  5  CONSTRAINT PK_PALABRASPELICULA PRIMARY KEY(pelicula_titulo, pelicula_director, palabra), --Añadido como clave principal palabra
   6  CONSTRAINT FK_PALABRASPELICULA_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
   7   ON DELETE CASCADE
   8  );
@@ -231,7 +232,7 @@ SQL> CREATE TABLE GENEROS_PELICULA(
   2  pelicula_titulo VARCHAR2(100) NOT NULL,
   3  pelicula_director VARCHAR(100) NOT NULL,
   4  genero VARCHAR2(100) NOT NULL,
-  5  CONSTRAINT PK_GENEROSPELICULA PRIMARY KEY(pelicula_titulo, pelicula_director),
+  5  CONSTRAINT PK_GENEROSPELICULA PRIMARY KEY(pelicula_titulo, pelicula_director, genero), --añadido como clave principal genero
   6  CONSTRAINT FK_GENEROSPELICULA_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
   7   ON DELETE CASCADE,
   8  CONSTRAINT FK_GENEROSPELICULA_genero FOREIGN KEY (genero) REFERENCES GENEROS(tipo)
@@ -243,25 +244,23 @@ SQL>
 SQL> CREATE TABLE PROTAGONISTAS(
   2  pelicula_titulo VARCHAR2(100) NOT NULL,
   3  pelicula_director VARCHAR2(100) NOT NULL,
-  4  nombre VARCHAR2(50) NOT NULL,
-  5  apellido VARCHAR2(50) NOT NULL,
-  6  likes NUMBER (25) NOT NULL,
-  7  CONSTRAINT PK_PROTAGONISTAS PRIMARY KEY(pelicula_titulo, pelicula_director, nombre, apellido),
-  8  CONSTRAINT FK_PROTAGONISTAS_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
-  9  );
+  4  nombre VARCHAR2(100) NOT NULL, --Hemos eliminado el atributo apellido, ya que el nombre se proporciona en un unico campo
+  5  likes NUMBER (25) NOT NULL,
+  6  CONSTRAINT PK_PROTAGONISTAS PRIMARY KEY(pelicula_titulo, pelicula_director, nombre),
+  7  CONSTRAINT FK_PROTAGONISTAS_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
+  8  );
 
 Tabla creada.
 
 SQL>
 SQL> CREATE TABLE CLUBES(
   2  nombre VARCHAR2(100) NOT NULL,
-  3  abierto NUMBER(1) NOT NULL,
-  4  ciudad VARCHAR2(50) NOT NULL,
-  5  cod_postal VARCHAR2(60) NOT NULL,
-  6  pais VARCHAR2(50) NOT NULL,
-  7  f_creacion DATE NOT NULL,
-  8  CONSTRAINT PK_CLUBES PRIMARY KEY(nombre)
-  9  );
+  3  abierto VARCHAR2(100) NOT NULL, --Antes era un NUMBER(1)
+  4  slogan VARCHAR2(100), --Añadido slogan, ya que estaba almacenado en la base de datos antigua
+  5  f_creacion DATE NOT NULL,
+  6  CONSTRAINT PK_CLUBES PRIMARY KEY(nombre)
+  7  --hemos quitao cod_postal ciudad y pais porque si
+  8  );
 
 Tabla creada.
 
@@ -269,14 +268,28 @@ SQL>
 SQL> CREATE TABLE MEMBRESIA(
   2  club VARCHAR2(100) NOT NULL,
   3  usuario VARCHAR2(100) NOT NULL,
-  4  media_actividad NUMBER(10) NOT NULL,
-  5  CONSTRAINT PK_MEMBRESIA PRIMARY KEY(club, usuario),
-  6  CONSTRAINT FK_MEMBRESIA_club FOREIGN KEY(club) REFERENCES CLUBES(nombre),
-  7  CONSTRAINT FK_MEMBRESIA_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
+  4  CONSTRAINT PK_MEMBRESIA PRIMARY KEY(club, usuario),
+  5  CONSTRAINT FK_MEMBRESIA_club FOREIGN KEY(club) REFERENCES CLUBES(nombre),
+  6  CONSTRAINT FK_MEMBRESIA_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
+  7  );
+
+Tabla creada.
+
+SQL> --Membresia no almacena media_actidad, pero en visualizaciones estan solo las medias de los miembros de algun grupo, por lo que esta restringido
+SQL> --Decir que para que se puedan alamcenar medias de otros años, se ha includio el año de la que corresponde
+SQL>
+SQL> CREATE TABLE VISUALIZACIONES(
+  2  usuario_club VARCHAR2(100) NOT NULL,
+  3    usuario_nombre VARCHAR2(100) NOT NULL,
+  4    anio VARCHAR2(100) NOT NULL,
+  5  media_actividad NUMBER(4,2) NOT NULL,
+  6  CONSTRAINT PK_VISUALIZACIONES PRIMARY KEY(usuario_club, usuario_nombre, anio, media_actividad), --Es media_actividad clave primaria ¿?, lo ponemos solo para el ultimo años ¿?
+  7  CONSTRAINT FK_VISUALIZACIONES FOREIGN KEY(usuario_club, usuario_nombre) REFERENCES MEMBRESIA(club, usuario)
   8  );
 
 Tabla creada.
 
+SQL> --HAY QUE AÑADIR LA TABLA DE VISUALIZACIONES EN EL DISEÑO RElacional, es VISUALIZACIONES al dia, si
 SQL>
 SQL> CREATE TABLE PROPUESTAS(
   2  miembro_club VARCHAR(100) NOT NULL,
@@ -284,42 +297,38 @@ SQL> CREATE TABLE PROPUESTAS(
   4  pelicula_titulo VARCHAR(100) NOT NULL,
   5  pelicula_director VARCHAR(100) NOT NULL,
   6  f_completa DATE NOT NULL,
-  7  aceptado NUMBER(1) NOT NULL,
-  8  asunto VARCHAR(100) NOT NULL,
-  9  mensaje VARCHAR (1500) NOT NULL,
- 10  CONSTRAINT PK_PROPUESTAS PRIMARY KEY(miembro_club, miembro_usuario, f_completa),
- 11  CONSTRAINT FK_PROPUESTAS_miembro FOREIGN KEY(miembro_club, miembro_usuario) REFERENCES MEMBRESIA(club, usuario)
- 12   ON DELETE CASCADE,
- 13  CONSTRAINT FK_PROPUESTAS_peliculas FOREIGN KEY(pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
- 14  );
+  7  asunto VARCHAR(100) NOT NULL,
+  8  mensaje VARCHAR (1500) NOT NULL,
+  9  CONSTRAINT PK_PROPUESTAS PRIMARY KEY(miembro_club, miembro_usuario, f_completa),
+ 10  CONSTRAINT FK_PROPUESTAS_miembro FOREIGN KEY(miembro_club, miembro_usuario) REFERENCES MEMBRESIA(club, usuario)
+ 11   ON DELETE CASCADE,
+ 12  CONSTRAINT FK_PROPUESTAS_peliculas FOREIGN KEY(pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
+ 13  );
 
 Tabla creada.
 
 SQL>
-SQL> CREATE TABLE CLUBES_HISTORICOS(
+SQL> CREATE TABLE CLUBES_HISTORICOS( --CAMBIAR EN EL ESQUEMA RELACIONAL
   2  nombre VARCHAR2(100) NOT NULL,
-  3  abierto NUMBER(1) NOT NULL,
-  4  ciudad VARCHAR2(50) NOT NULL,
-  5  cod_postal VARCHAR2(60) NOT NULL,
-  6  pais VARCHAR2(50) NOT NULL,
-  7  f_creacion DATE,
-  8  f_cierre DATE,
-  9  CONSTRAINT PK_CLUBES_HISTORICOS PRIMARY KEY(nombre)
- 10  );
+  3  abierto VARCHAR2(100) NOT NULL,
+  4  slogan VARCHAR2(100), --añadir al diagrama relacional
+  5  f_creacion DATE NOT NULL,
+  6  f_cierre DATE NOT NULL,
+  7  CONSTRAINT PK_CLUBES_HISTORICOS PRIMARY KEY(nombre)
+  8  );
 
 Tabla creada.
 
 SQL>
 SQL> CREATE TABLE MEMBRESIA_HISTORICAS (
   2  club VARCHAR2(100) NOT NULL,
-  3  usuario VARCHAR2(100) NOT NULL,
-  4  media_actividad NUMBER(10) NOT NULL,
-  5  CONSTRAINT PK_MEMBRESIA_HISTORICAS PRIMARY KEY(club, usuario),
-  6  CONSTRAINT FK_MEMBRESIA_HISTORICAS_club FOREIGN KEY(club) REFERENCES CLUBES_HISTORICOS(nombre)
-  7   ON DELETE CASCADE,
-  8  CONSTRAINT FK_MEMBRESIA_HISTRORICAS_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
-  9   ON DELETE CASCADE
- 10  );
+  3  usuario VARCHAR2(100),
+  4  CONSTRAINT PK_MEMBRESIA_HISTORICAS PRIMARY KEY(club, usuario),
+  5  CONSTRAINT FK_MEMBRESIA_HISTORICAS_club FOREIGN KEY(club) REFERENCES CLUBES_HISTORICOS(nombre)
+  6   ON DELETE CASCADE,
+  7  CONSTRAINT FK_MEMBRESIA_HISTORICAS_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
+  8   ON DELETE CASCADE
+  9  );
 
 Tabla creada.
 
@@ -331,7 +340,7 @@ SQL> CREATE TABLE OPINIONES(
   5  pelicula_director VARCHAR2(100) NOT NULL,
   6  f_completa DATE NOT NULL,
   7  asunto VARCHAR2(1500) NOT NULL,
-  8  valoracion NUMBER(2),
+  8  valoracion NUMBER(3),
   9  CONSTRAINT PK_OPINIONES PRIMARY KEY (miembro_club, miembro_usuario, pelicula_titulo, pelicula_director),
  10  CONSTRAINT FK_OPINIONES_pelicula FOREIGN KEY (pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
  11  ON DELETE CASCADE,
@@ -347,31 +356,32 @@ SQL> CREATE TABLE INVITACIONES(
   3  miembro_club VARCHAR2(100) NOT NULL,
   4  invitado VARCHAR(100) NOT NULL,
   5  f_completa DATE NOT NULL,
-  6  aceptado NUMBER(1),
-  7  CONSTRAINT PK_INVITACIONES PRIMARY KEY (miembro_club, miembro_usuario, invitado),
-  8  CONSTRAINT FK_INVITACIONES_miembro FOREIGN KEY (miembro_usuario, miembro_club) REFERENCES MEMBRESIA (usuario, club)
-  9  ON DELETE CASCADE,
- 10  CONSTRAINT FK_INVITACIONES_invitado FOREIGN KEY (invitado) REFERENCES USUARIOS (nombre_usuario)
- 11  ON DELETE CASCADE
- 12  );
+  6  CONSTRAINT PK_INVITACIONES PRIMARY KEY (miembro_club, miembro_usuario, invitado),
+  7  CONSTRAINT FK_INVITACIONES_miembro FOREIGN KEY (miembro_usuario, miembro_club) REFERENCES MEMBRESIA (usuario, club)
+  8  ON DELETE CASCADE,
+  9  CONSTRAINT FK_INVITACIONES_invitado FOREIGN KEY (invitado) REFERENCES USUARIOS (nombre_usuario)
+ 10  ON DELETE CASCADE
+ 11  );
 
 Tabla creada.
 
+SQL> --Eliminado atributo aceptado
 SQL>
 SQL> CREATE TABLE SOLICITUDES(
   2  usuario VARCHAR2(100) NOT NULL,
   3  club varchar2(100) NOT NULL,
   4  f_completa DATE NOT NULL,
-  5  aceptado NUMBER(1),
+  5  frase_aceptacion VARCHAR2(100) NOT NULL,
   6  CONSTRAINT PK_SOLICITUDES PRIMARY KEY(usuario, club),
   7  CONSTRAINT FK_SOLICITUDES_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
   8   ON DELETE CASCADE,
   9  CONSTRAINT FK_SOLICITUDES_club FOREIGN KEY(club) REFERENCES CLUBES(nombre)
  10   ON DELETE CASCADE
- 11  );
+ 11   );
 
 Tabla creada.
 
+SQL> --Eliminamos aceptado e introducimos frase_aceptacion
 SQL>
 SQL> CREATE TABLE CREACIONES_CLUB (
   2  usuario VARCHAR2(100) NOT NULL,
