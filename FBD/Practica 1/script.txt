@@ -165,8 +165,8 @@ CREATE TABLE MEMBRESIA(
 
 CREATE TABLE VISUALIZACIONES(
 	usuario_club VARCHAR2(100) NOT NULL,
-  usuario_nombre VARCHAR2(100) NOT NULL,
-  anio VARCHAR2(100) NOT NULL,
+	usuario_nombre VARCHAR2(100) NOT NULL,
+	anio VARCHAR2(100) NOT NULL,
 	media_actividad NUMBER(4,2) NOT NULL,
 	CONSTRAINT PK_VISUALIZACIONES PRIMARY KEY(usuario_club, usuario_nombre, anio, media_actividad), --Es media_actividad clave primaria ¿?, lo ponemos solo para el ultimo años ¿?
 	CONSTRAINT FK_VISUALIZACIONES FOREIGN KEY(usuario_club, usuario_nombre) REFERENCES MEMBRESIA(club, usuario)
