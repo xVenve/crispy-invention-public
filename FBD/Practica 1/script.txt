@@ -41,6 +41,7 @@ CREATE TABLE PERFILES(
 	edad NUMBER(3),
 	usuario VARCHAR2(100) NOT NULL,
 	CONSTRAINT PK_PERFILES PRIMARY KEY(dni),
+	CONSTRAINT FK_PERFILES_usuario UNIQUE(usuario),
 	CONSTRAINT FK_PERFILES_perfil_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
 	ON DELETE CASCADE
 );
@@ -87,7 +88,7 @@ CREATE TABLE GENEROS(
 
 CREATE TABLE IMDBS(
 	link VARCHAR2(200) NOT NULL,
-	puntuacion NUMBER(2,1) NOT NULL, --2 para la parte entera y 1 para el decimal.
+	puntuacion NUMBER(2,1) NOT NULL,
 	cantidad_users NUMBER(4) NOT NULL,
 	cantidad_criticos NUMBER(4) NOT NULL,
 	CONSTRAINT PK_IMDBS_link PRIMARY KEY(link)
