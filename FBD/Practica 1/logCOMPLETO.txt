@@ -1,0 +1,251 @@
+
+Table USUARIOS borrado.
+
+
+Table PERFILES borrado.
+
+
+Table TIPOS_CONTRATOS borrado.
+
+
+Table CONTRATOS borrado.
+
+
+Table RATIOS borrado.
+
+
+Table IDIOMAS borrado.
+
+
+Table CALIFICACIONES borrado.
+
+
+Table GENEROS borrado.
+
+
+Table IMDBS borrado.
+
+
+Table PELICULAS borrado.
+
+
+Table PALABRAS_PELICULA borrado.
+
+
+Table GENEROS_PELICULA borrado.
+
+
+Table PROTAGONISTAS borrado.
+
+
+Table CLUBES borrado.
+
+
+Table MEMBRESIA borrado.
+
+
+Table VISUALIZACIONES borrado.
+
+
+Table PROPUESTAS borrado.
+
+
+Table CLUBES_HISTORICOS borrado.
+
+
+Table MEMBRESIA_HISTORICAS borrado.
+
+
+Table OPINIONES borrado.
+
+
+Table INVITACIONES borrado.
+
+
+Table SOLICITUDES borrado.
+
+
+Table CREACIONES_CLUB borrado.
+
+
+Table USUARIOS creado.
+
+
+Table PERFILES creado.
+
+
+Table TIPOS_CONTRATOS creado.
+
+
+Table CONTRATOS creado.
+
+
+Table RATIOS creado.
+
+
+Table IDIOMAS creado.
+
+
+Table CALIFICACIONES creado.
+
+
+Table GENEROS creado.
+
+
+Table IMDBS creado.
+
+
+Table PELICULAS creado.
+
+
+Table PALABRAS_PELICULA creado.
+
+
+Table GENEROS_PELICULA creado.
+
+
+Table PROTAGONISTAS creado.
+
+
+Table CLUBES creado.
+
+
+Table MEMBRESIA creado.
+
+
+Table VISUALIZACIONES creado.
+
+
+Table PROPUESTAS creado.
+
+
+Table CLUBES_HISTORICOS creado.
+
+
+Table MEMBRESIA_HISTORICAS creado.
+
+
+Table OPINIONES creado.
+
+
+Table INVITACIONES creado.
+
+
+Table SOLICITUDES creado.
+
+
+Table CREACIONES_CLUB creado.
+
+
+10.510 filas insertadas.
+
+
+10.275 filas insertadas.
+
+
+8 filas insertadas.
+
+
+6.814 filas insertadas.
+
+
+21 filas insertadas.
+
+
+47 filas insertadas.
+
+
+15 filas insertadas.
+
+
+20 filas insertadas.
+
+
+4 filas insertadas.
+
+
+0 filas insertadas.
+
+
+0 filas insertadas.
+
+
+0 filas insertadas.
+
+
+4.771 filas insertadas.
+
+
+3.675 filas insertadas.
+
+
+3.661 filas insertadas.
+
+
+3.652 filas insertadas.
+
+
+3.650 filas insertadas.
+
+
+3.642 filas insertadas.
+
+
+3.634 filas insertadas.
+
+
+3.675 filas insertadas.
+
+
+3.328 filas insertadas.
+
+
+2.366 filas insertadas.
+
+
+1.129 filas insertadas.
+
+
+370 filas insertadas.
+
+
+3.676 filas insertadas.
+
+
+3.671 filas insertadas.
+
+
+3.675 filas insertadas.
+
+
+0 filas insertadas.
+
+
+399 filas insertadas.
+
+
+4.965 filas insertadas.
+
+
+166 filas insertadas.
+
+
+9.876 filas insertadas.
+
+
+37 filas insertadas.
+
+
+474 filas insertadas.
+
+
+79.275 filas insertadas.
+
+
+4.056 filas insertadas.
+
+
+162 filas insertadas.
+
+
+348 filas insertadas.

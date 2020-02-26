@@ -1,0 +1,305 @@
+
+SQL> INSERT INTO USUARIOS(nombre_usuario, password, email)
+  2   SELECT nickname, passw, eMail
+  3   FROM old_users
+  4   WHERE (LENGTH(passw)>8);
+
+10510 filas creadas.
+
+SQL>
+SQL> INSERT INTO PERFILES(dni, nombre_pila, apellido1, apellido2, f_nacimiento, telf, edad, usuario)
+  2  SELECT citizenID, name, surname, sec_surname, TO_DATE(birthdate, 'YYYY-MM-DD') , phoneN, (SYSDATE-(TO_DATE(birthdate, 'YYYY-MM-DD')))/365.2422, nickname
+  3  FROM old_users
+  4  WHERE (citizenID IS NOT NULL AND LENGTH(passw)>8);
+
+10275 filas creadas.
+
+SQL>
+SQL> INSERT INTO TIPOS_CONTRATOS(tipo)
+  2  SELECT DISTINCT contract_type
+  3  FROM old_users
+  4  WHERE (contractId IS NOT NULL);
+
+8 filas creadas.
+
+SQL>
+SQL> INSERT INTO CONTRATOS(id, tipo_contrato, perfil, cod_postal, ciudad, pais, f_inicio, f_fin)
+  2  SELECT contractId, contract_type, citizenID, ZIPcode, town, country, TO_DATE(startdate, 'YYYY-MM-DD'), TO_DATE(enddate, 'YYYY-MM-DD')
+  3  FROM old_users
+  4  WHERE (contractId IS NOT NULL AND citizenID IS NOT NULL AND LENGTH(passw)>8);
+
+6814 filas creadas.
+
+SQL>
+SQL> INSERT INTO RATIOS(tipo)
+  2  SELECT DISTINCT aspect_ratio
+  3  FROM old_movies
+  4  WHERE (aspect_ratio IS NOT NULL);
+
+21 filas creadas.
+
+SQL>
+SQL> INSERT INTO IDIOMAS(nombre)
+  2  SELECT DISTINCT language
+  3  FROM old_movies
+  4  WHERE (language IS NOT NULL);
+
+47 filas creadas.
+
+SQL>
+SQL> INSERT INTO CALIFICACIONES(tipo)
+  2  SELECT DISTINCT content_rating
+  3  FROM old_movies
+  4  WHERE (content_rating IS NOT NULL);
+
+15 filas creadas.
+
+SQL>
+SQL> INSERT INTO GENEROS(tipo)
+  2  SELECT DISTINCT genre1
+  3  FROM old_movies
+  4  WHERE (genre1 IS NOT NULL);
+
+20 filas creadas.
+
+SQL> INSERT INTO GENEROS(tipo)
+  2  SELECT DISTINCT genre2
+  3  FROM old_movies
+  4  WHERE (genre2 IS NOT NULL AND genre2 NOT IN (SELECT tipo FROM GENEROS));
+
+4 filas creadas.
+
+SQL> INSERT INTO GENEROS(tipo)
+  2  SELECT DISTINCT genre3
+  3  FROM old_movies
+  4  WHERE (genre3 IS NOT NULL AND genre3 NOT IN (SELECT tipo FROM GENEROS));
+
+0 filas creadas.
+
+SQL> INSERT INTO GENEROS(tipo)
+  2  SELECT DISTINCT genre4
+  3  FROM old_movies
+  4  WHERE (genre4 IS NOT NULL AND genre4 NOT IN (SELECT tipo FROM GENEROS));
+
+0 filas creadas.
+
+SQL> INSERT INTO GENEROS(tipo)
+  2  SELECT DISTINCT genre5
+  3  FROM old_movies
+  4  WHERE (genre5 IS NOT NULL AND genre5 NOT IN (SELECT tipo FROM GENEROS));
+
+0 filas creadas.
+
+SQL> --Para evitar que aparezcan valores repetidos y de error hacemos: atrib NOT IN (query)
+SQL>
+SQL> INSERT INTO IMDBS(link, puntuacion, cantidad_users, cantidad_criticos)
+  2  SELECT DISTINCT movie_imdb_link, TO_NUMBER(imdb_score,'99.9'), TO_NUMBER(num_user_for_reviews, '99999'), TO_NUMBER(num_critic_for_reviews, '99999')
+  3  FROM old_movies
+  4  WHERE (movie_imdb_link IS NOT NULL AND num_critic_for_reviews IS NOT NULL AND num_user_for_reviews IS NOT NULL);
+
+4771 filas creadas.
+
+SQL>
+SQL> --BORRAR SERVICIOS EN DISEÑO REALCIONAL
+SQL> INSERT INTO PELICULAS(titulo, director, duracion,color,ratio,estreno,calif_edad,pais,idioma, presupuesto,ingresos,imdb, n_rostros, l_dir,l_peli )
+  2  SELECT DISTINCT movie_title, director_name,TO_NUMBER(duration,'9999999'),color,aspect_ratio,TO_NUMBER(title_year,'999999'),content_rating,country, language, TO_NUMBER(budget,'9999999999999'),TO_NUMBER(gross,'9999999999999'),movie_imdb_link,TO_NUMBER(facenumber_in_poster,'9999999999'),TO_NUMBER(director_facebook_likes,'9999999999999'),TO_NUMBER(movie_facebook_likes,'9999999999999')
+  3  FROM old_movies
+  4  WHERE (movie_title IS NOT NULL AND director_name IS NOT NULL AND content_rating IS NOT NULL AND aspect_ratio IS NOT NULL AND budget IS NOT NULL AND gross IS NOT NULL AND facenumber_in_poster IS NOT NULL AND director_facebook_likes IS NOT NULL AND movie_facebook_likes IS NOT NULL AND language IS NOT NULL AND color IS NOT NULL AND movie_imdb_link IN (SELECT link FROM IMDBS));
+
+3675 filas creadas.
+
+SQL>
+SQL>  --DOCUMENTAR QUE HEMOS CAMBIADO TIPOS DE DATOS PAR QUE SE ADAPTEN MEJOR, Y HEMOS DEJADO FUERA LAS PELICULAS CON CAMPOS VACIOS Y HABIA LINKS DE IMDBS QUE NO TENIAMOS REGISTRADOS EN NUESTRA TABLA DE IMDBS
+SQL>
+SQL> INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
+  2  SELECT DISTINCT movie_title, director_name, keyword1
+  3   FROM old_movies
+  4   WHERE (keyword1 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+3661 filas creadas.
+
+SQL> INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
+  2   SELECT DISTINCT movie_title, director_name, keyword2
+  3   FROM old_movies
+  4   WHERE (keyword2 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+3652 filas creadas.
+
+SQL> INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
+  2   SELECT DISTINCT movie_title, director_name, keyword3
+  3   FROM old_movies
+  4   WHERE (keyword3 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+3650 filas creadas.
+
+SQL> INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
+  2   SELECT DISTINCT movie_title, director_name, keyword4
+  3   FROM old_movies
+  4   WHERE (keyword4 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+3642 filas creadas.
+
+SQL> INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
+  2   SELECT DISTINCT movie_title, director_name, keyword5
+  3   FROM old_movies
+  4   WHERE (keyword5 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+3634 filas creadas.
+
+SQL>
+SQL> INSERT INTO GENEROS_PELICULA (pelicula_titulo,pelicula_director,genero)
+  2  SELECT DISTINCT movie_title, director_name, genre1
+  3  FROM old_movies
+  4  WHERE(genre1 IS NOT NULL  AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+3675 filas creadas.
+
+SQL>
+SQL> INSERT INTO GENEROS_PELICULA(pelicula_titulo,pelicula_director,genero)
+  2  SELECT DISTINCT movie_title, director_name, genre2
+  3  FROM old_movies
+  4  WHERE(genre2 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+3328 filas creadas.
+
+SQL> INSERT INTO GENEROS_PELICULA(pelicula_titulo,pelicula_director,genero)
+  2  SELECT  DISTINCT movie_title, director_name, genre3
+  3  FROM old_movies
+  4  WHERE(genre3 IS NOT NULL  AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+2366 filas creadas.
+
+SQL> INSERT INTO GENEROS_PELICULA(pelicula_titulo,pelicula_director,genero)
+  2  SELECT DISTINCT movie_title, director_name, genre4
+  3  FROM old_movies
+  4  WHERE(genre4 IS NOT NULL  AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+1129 filas creadas.
+
+SQL> INSERT INTO GENEROS_PELICULA(pelicula_titulo,pelicula_director,genero)
+  2  SELECT DISTINCT movie_title, director_name, genre5
+  3  FROM old_movies
+  4  WHERE(genre5 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+370 filas creadas.
+
+SQL>
+SQL> INSERT INTO PROTAGONISTAS(pelicula_titulo, pelicula_director, nombre, likes)
+  2  SELECT DISTINCT movie_title, director_name, actor_1_name, actor_1_facebook_likes
+  3  FROM old_movies
+  4  WHERE(actor_1_name IS NOT NULL AND actor_1_facebook_likes IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+3676 filas creadas.
+
+SQL> INSERT INTO PROTAGONISTAS(pelicula_titulo, pelicula_director, nombre, likes)
+  2  SELECT DISTINCT movie_title, director_name, actor_3_name, actor_3_facebook_likes
+  3  FROM old_movies
+  4  WHERE(actor_3_name IS NOT NULL AND actor_3_facebook_likes IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+3671 filas creadas.
+
+SQL> INSERT INTO PROTAGONISTAS(pelicula_titulo, pelicula_director, nombre, likes)
+  2  SELECT DISTINCT movie_title, director_name, actor_2_name, actor_2_facebook_likes
+  3  FROM old_movies
+  4  WHERE(actor_2_name IS NOT NULL AND actor_2_facebook_likes IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
+
+3675 filas creadas.
+
+SQL> INSERT INTO PROTAGONISTAS(pelicula_titulo, pelicula_director, nombre, likes)
+  2  SELECT  DISTINCT movie_title, director_name, actor_3_name, actor_3_facebook_likes
+  3  FROM old_movies
+  4  WHERE(actor_3_name IS NOT NULL AND actor_3_facebook_likes IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS) AND actor_3_name NOT IN (SELECT nombre FROM PROTAGONISTAS));
+
+0 filas creadas.
+
+SQL> --Hemos restringido que compruebe que previamente no haya sigo introducido el actor para esa pelicula. De esta manera hay datos de actor_3_name que no se han almacenada.
+SQL>
+SQL> INSERT INTO CLUBES(nombre, abierto, slogan, f_creacion)
+  2  SELECT DISTINCT club, details1, subject, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI')
+  3  FROM old_events
+  4  WHERE (Etype='foundation' AND club IS NOT NULL);
+
+399 filas creadas.
+
+SQL>
+SQL> INSERT INTO MEMBRESIA(club, usuario)
+  2  SELECT DISTINCT club, client
+  3  FROM old_events
+  4  WHERE (club IS NOT NULL and client IS NOT NULL AND client IN (SELECT nombre_usuario FROM USUARIOS));
+
+4965 filas creadas.
+
+SQL> --Se habian introducido usuarios no existentes, que hemos controlado con la consulta IN
+SQL> --No almacena las medias, pero visualizaciones guarda todas las de miembrso de clubes.
+SQL>
+SQL> INSERT INTO VISUALIZACIONES(usuario_club, usuario_nombre, anio, media_actividad)
+  2    SELECT Distinct b.club, a.CLIENT,  EXTRACT(YEAR FROM SYSDATE), count('x')
+  3    FROM old_EVENTS a JOIN membresia b ON (a.client=b.usuario)
+  4    WHERE (Etype='viewing' AND EXTRACT(YEAR FROM TO_DATE(ev_date, 'YYYY-MM-DD')) = EXTRACT(YEAR FROM SYSDATE) and a.client in (select usuario from membresia))
+  5    GROUP BY a.CLIENT, b.club;
+
+166 filas creadas.
+
+SQL> --Para calcular la media, se puede dividir entre 365, pero sale valores muy bajos y hay que definir decimales
+SQL>
+SQL> INSERT INTO PROPUESTAS(miembro_club, miembro_usuario, pelicula_titulo, pelicula_director, f_completa, asunto, mensaje)
+  2  SELECT DISTINCT club, client, details1, details2, to_date(ev_date||ev_hour,'YYYY-MM-DD HH24:MI'), subject, message
+  3  FROM old_events
+  4  WHERE(Etype='proposal' AND club IS NOT NULL AND client IS NOT NULL AND details1 IN (SELECT titulo FROM PELICULAS) AND client IN (SELECT usuario FROM MEMBRESIA));
+
+9876 filas creadas.
+
+SQL> --Poner que suponemos obligatorio asunto y mensaje
+SQL> --Hemos detectso peliculas que no estaban en la tabla peliculas, usuarios que no pertenecian a ningun club, ...
+SQL>
+SQL> INSERT INTO CLUBES_HISTORICOS(nombre, abierto, slogan, f_creacion, f_cierre)
+  2  SELECT DISTINCT b.nombre, b.abierto, b.slogan, TO_DATE(b.f_creacion,'YYYY-MM-DD'), TO_DATE(ev_date,'YYYY-MM-DD')
+  3    FROM old_events a JOIN CLUBES b ON a.club=b.nombre
+  4  WHERE (a.Etype = 'ceasing' AND club IS NOT NULL);
+
+37 filas creadas.
+
+SQL> --Añadido slogan como dato a almacenar cuando cierra.
+SQL>
+SQL> INSERT INTO MEMBRESIA_HISTORICAS(club,usuario)
+  2  SELECT DISTINCT club,usuario
+  3    FROM membresia
+  4  WHERE (club IN (SELECT nombre FROM CLUBES_HISTORICOS));
+
+474 filas creadas.
+
+SQL>
+SQL> INSERT INTO OPINIONES(miembro_club, miembro_usuario, pelicula_titulo, pelicula_director, f_completa, asunto, valoracion)
+  2  SELECT DISTINCT club, client, details1, details2, to_date(ev_date||ev_hour,'YYYY-MM-DD HH24:MI'), subject, TO_NUMBER(ltrim(Etype,'opinion:'),'99')
+  3  FROM old_events
+  4  WHERE ((substr(Etype,0,9)='opinion' OR ltrim(Etype,'opinion:') Between '0' and '9') AND (details1, details2) IN (SELECT titulo, director FROM PELICULAS) AND client IN (SELECT usuario FROM MEMBRESIA));
+
+79275 filas creadas.
+
+SQL> --Hay personas que han opinado que no son miembros de ningun club, y ademas hay miembros de clubs que ha comentado peliculas que no estan en la base de datos. Ambos casos controlados.
+SQL> --Tambien controlado que Etype puede ser opinion o opinion:XX, recoge ambos casos y almacena correctamente la columna
+SQL>
+SQL> INSERT INTO INVITACIONES (miembro_usuario, miembro_club,invitado,f_completa)
+  2   SELECT DISTINCT client, club, subject, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI')
+  3   FROM old_events
+  4   WHERE (Etype = 'invitation' AND client IS NOT NULL AND club IS NOT NULL AND subject IS NOT NULL AND client IN (SELECT usuario FROM MEMBRESIA) AND club IN (SELECT nombre FROM CLUBES) AND subject IN (SELECT nombre_usuario FROM USUARIOS) );
+
+4056 filas creadas.
+
+SQL> --Aqui se introducian personas que invitaban que no eran miembros de un club, clubs que no pertenecian a nuestra base y personas invitadas que no eran usuarios, que hemos controlado con IN
+SQL>
+SQL> INSERT INTO SOLICITUDES (usuario, club,frase_aceptacion, f_completa)
+  2  SELECT DISTINCT client,club,subject, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI')
+  3  FROM old_events
+  4  WHERE (Etype = 'application' AND client IS NOT NULL AND club IS NOT NULL AND client IN (SELECT nombre_usuario FROM USUARIOS));
+
+162 filas creadas.
+
+SQL> --Se introducen personas que no son usuarios, por lo que se impone la condicion en el WHERE
+SQL>
+SQL> INSERT INTO CREACIONES_CLUB(usuario, club, f_completa)
+  2  SELECT DISTINCT client, club, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI')
+  3  FROM old_events
+  4  WHERE (Etype='foundation' AND client IS NOT NULL AND club IS NOT NULL AND subject IS NOT NULL AND client IN (SELECT usuario FROM MEMBRESIA) AND club IN (SELECT nombre FROM CLUBES));
+
+348 filas creadas.
