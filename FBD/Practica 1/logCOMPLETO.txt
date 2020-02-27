@@ -1,71 +1,71 @@
 
-Table USUARIOS borrado.
-
-
-Table PERFILES borrado.
-
-
-Table TIPOS_CONTRATOS borrado.
-
-
-Table CONTRATOS borrado.
-
-
-Table RATIOS borrado.
-
-
-Table IDIOMAS borrado.
-
-
-Table CALIFICACIONES borrado.
-
-
-Table GENEROS borrado.
-
-
-Table IMDBS borrado.
-
-
-Table PELICULAS borrado.
-
-
-Table PALABRAS_PELICULA borrado.
-
-
-Table GENEROS_PELICULA borrado.
-
-
-Table PROTAGONISTAS borrado.
-
-
-Table CLUBES borrado.
-
-
-Table MEMBRESIA borrado.
-
-
-Table VISUALIZACIONES borrado.
-
-
-Table PROPUESTAS borrado.
-
-
-Table CLUBES_HISTORICOS borrado.
-
-
-Table MEMBRESIA_HISTORICAS borrado.
-
-
-Table OPINIONES borrado.
-
-
-Table INVITACIONES borrado.
+Table CREACIONES_CLUB borrado.
 
 
 Table SOLICITUDES borrado.
 
 
-Table CREACIONES_CLUB borrado.
+Table INVITACIONES borrado.
+
+
+Table OPINIONES borrado.
+
+
+Table MEMBRESIA_HISTORICAS borrado.
+
+
+Table CLUBES_HISTORICOS borrado.
+
+
+Table PROPUESTAS borrado.
+
+
+Table VISUALIZACIONES borrado.
+
+
+Table MEMBRESIA borrado.
+
+
+Table CLUBES borrado.
+
+
+Table PROTAGONISTAS borrado.
+
+
+Table GENEROS_PELICULA borrado.
+
+
+Table PALABRAS_PELICULA borrado.
+
+
+Table PELICULAS borrado.
+
+
+Table IMDBS borrado.
+
+
+Table GENEROS borrado.
+
+
+Table CALIFICACIONES borrado.
+
+
+Table IDIOMAS borrado.
+
+
+Table RATIOS borrado.
+
+
+Table CONTRATOS borrado.
+
+
+Table TIPOS_CONTRATOS borrado.
+
+
+Table PERFILES borrado.
+
+
+Table USUARIOS borrado.
 
 
 Table USUARIOS creado.
@@ -146,7 +146,7 @@ Table CREACIONES_CLUB creado.
 8 filas insertadas.
 
 
-6.814 filas insertadas.
+5.294 filas insertadas.
 
 
 21 filas insertadas.
@@ -158,19 +158,7 @@ Table CREACIONES_CLUB creado.
 15 filas insertadas.
 
 
-20 filas insertadas.
-
-
-4 filas insertadas.
-
-
-0 filas insertadas.
-
-
-0 filas insertadas.
-
-
-0 filas insertadas.
+24 filas insertadas.
 
 
 4.771 filas insertadas.
@@ -179,58 +167,13 @@ Table CREACIONES_CLUB creado.
 3.675 filas insertadas.
 
 
-3.661 filas insertadas.
+18.239 filas insertadas.
 
 
-3.652 filas insertadas.
+10.868 filas insertadas.
 
 
-3.650 filas insertadas.
-
-
-3.642 filas insertadas.
-
-
-3.634 filas insertadas.
-
-
-3.675 filas insertadas.
-
-
-3.328 filas insertadas.
-
-
-2.366 filas insertadas.
-
-
-1.129 filas insertadas.
-
-
-370 filas insertadas.
-
-
-3.676 filas insertadas.
-
-
-3.671 filas insertadas.
-
-
-3.675 filas insertadas.
-
-
-0 filas insertadas.
-
-
-399 filas insertadas.
-
-
-4.965 filas insertadas.
-
-
-166 filas insertadas.
-
-
-9.876 filas insertadas.
+11.022 filas insertadas.
 
 
 37 filas insertadas.
@@ -239,13 +182,25 @@ Table CREACIONES_CLUB creado.
 474 filas insertadas.
 
 
-79.275 filas insertadas.
+314 filas insertadas.
 
 
-4.056 filas insertadas.
+4.004 filas insertadas.
 
 
-162 filas insertadas.
+149 filas insertadas.
 
 
-348 filas insertadas.
+8.235 filas insertadas.
+
+
+66.796 filas insertadas.
+
+
+1.360 filas insertadas.
+
+
+125 filas insertadas.
+
+
+314 filas insertadas.
