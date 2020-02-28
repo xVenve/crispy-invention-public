@@ -2,8 +2,8 @@ package Semana3;
 
 public class Ejercicio6 {
     public static void main(String[] arg) {
-        float a = (float) 1234567890.0;
-        float b = (float) 1234567899.0;
+        float a = (float)1234567890.0;
+        float b = (float)1234567899.0;
         System.out.println(a - b);
         //El resultado es 0.0
 
