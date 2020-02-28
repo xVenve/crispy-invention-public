@@ -2,8 +2,8 @@ package Semana4;
 
 public class Ejercicio3 {
 
-	public static void main(String[] args) {
-		/*
+    public static void main(String[] args) {
+        /*
 		int a = 23;
 		byte b = (byte)a;//SI
 		short s = (short)a;//SI
@@ -13,7 +13,7 @@ public class Ejercicio3 {
 		char f=(char)a;//SI
 		boolean g=(boolean)a;//NO
 		String h=(String)a;//NO
-		
+
 		byte aa = (byte)23;
 		int bb = (int)aa;//SI
 		short ss = (short)aa;//SI
@@ -23,7 +23,7 @@ public class Ejercicio3 {
 		char ff=(char)aa;//SI
 		boolean gg=(boolean)aa;//NO
 		String hh=(String) aa;//NO
-		
+
 		short a3 = 23;
 		byte s3 = (byte)a3;//SI
 		int b3 = (long)a3;//NO
@@ -33,7 +33,7 @@ public class Ejercicio3 {
 		char f3=(char)a3;//SI
 		boolean g3=(boolean)a3;//NO
 		String h3=(String)a3;//NO
-		
+
 		long a4=23;
 		byte c4 = (byte)a4;//SI
 		int b4 = (int)a4;//SI
@@ -43,7 +43,7 @@ public class Ejercicio3 {
 		char f4=(char)a4;//SI
 		boolean g4=(boolean)a4;//NO
 		String h4=(String)a4;//NO
-		
+
 		float a5=23f;
 		byte d5 = (byte)a5;//SI
 		int b5 = (int)a5;//SI
@@ -53,7 +53,7 @@ public class Ejercicio3 {
 		char f5=(char)a5;//SI
 		boolean g5=(boolean)a5;//NO
 		String h5=a5;//NO
-		
+
 		double a6=23;
 		byte e6 = (byte)a6;//SI
 		int b6 = (int)a6;//SI
@@ -63,7 +63,7 @@ public class Ejercicio3 {
 		char f6=a6;//SI
 		boolean g6=(boolean)a6;//NO
 		String h6=(String)a6;//NO
-		
+
 		char a7='a';
 		byte f7 = (byte)a7;//SI
 		int b7 = (int)a7;//SI
@@ -73,7 +73,7 @@ public class Ejercicio3 {
 		double e7=(double)a7;//SI
 		boolean g7=(boolean)a7;//NO
 		String h7=(String)a7;//NO
-		
+
 		boolean a8=true;
 		byte g8 = (byte)a8;//NO
 		int b8 = (int)a8;//NO
@@ -83,7 +83,7 @@ public class Ejercicio3 {
 		double e8=(double)a8;//NO
 		char f8=(char)a8;//NO
 		String h8=(String)a8;//NO
-		
+
 		String a9="aa";
 		byte h9 = (byte)a9;//NO
 		int b9 = (int)a9;//NO
@@ -93,12 +93,11 @@ public class Ejercicio3 {
 		double e9=(double)a9;//NO
 		char f9=(char)a9;//NO
 		boolean g9=(boolean)a9;//NO
-		
+
 		//Siguen quedando casillas con NO, porque hay variables que no son compatibles
 		//como las variables numéricas y los tipos boolean, String, etc.
 */
-		
 
-	}
+    }
 
 }

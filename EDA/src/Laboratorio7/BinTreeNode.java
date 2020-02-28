@@ -1,19 +1,14 @@
 package Laboratorio7;
 
-
-
 public class BinTreeNode {
-	String elem;
+    String elem;
 
-	BinTreeNode parent;
-	BinTreeNode left;
-	BinTreeNode right;
+    BinTreeNode parent;
+    BinTreeNode left;
+    BinTreeNode right;
 
-	public BinTreeNode(String element) {
-		elem = element;
-	}
-	
-	
-	
-	
+    public BinTreeNode(String element) {
+        elem = element;
+    }
+
 }

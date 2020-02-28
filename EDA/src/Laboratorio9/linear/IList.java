@@ -1,43 +1,40 @@
 package Laboratorio9.linear;
 
 /**
- * Lista de objetos de tipo String 
+ * Lista de objetos de tipo String
  * @author isegura
  *
  */
 public interface IList {
 
-	public void addFirst(int v, float f);
+    public void addFirst(int v, float f);
 
-	public void addLast(int v, float f);
+    public void addLast(int v, float f);
 
-	public void removeFirst();
+    public void removeFirst();
 
-	public void removeLast();
-	
-	
-	public void insertAt(int index, int v, float f);
-	
-	public boolean isEmpty();
+    public void removeLast();
 
-	public boolean contains(int v);
+    public void insertAt(int index, int v, float f);
 
-	public int getSize();
+    public boolean isEmpty();
 
-	public int getIndexOf(int v);
+    public boolean contains(int v);
 
-	public Integer getFirst();
+    public int getSize();
 
-	public Integer getLast();
+    public int getIndexOf(int v);
 
-	public DNodeVertex getAt(int index);
+    public Integer getFirst();
 
-	public String toString();
+    public Integer getLast();
 
-	public void removeAll(int vertex);
+    public DNodeVertex getAt(int index);
 
-	public void removeAt(int index);
+    public String toString();
+
+    public void removeAll(int vertex);
+
+    public void removeAt(int index);
 
 }
-
-
