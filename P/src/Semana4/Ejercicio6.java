@@ -3,7 +3,7 @@ package Semana4;
 public class Ejercicio6 {
     public static void main(String[] arg) {
         int a = 4;
-        float b = 13.3 F;
+        float b = 13.3f;
         boolean c = false;
         a += 2; //Le suma a "a" 2.
         System.out.println(a);

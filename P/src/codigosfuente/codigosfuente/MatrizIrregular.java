@@ -17,7 +17,7 @@ public class MatrizIrregular {
         //Rellenamos el array y lo imprimimos a la vez
         for (int filas = 0; filas < matriz.length; filas++) {
             for (int cols = 0; cols < matriz[filas].length; cols++) {
-                matriz[filas][cols] = 1.0 F;
+                matriz[filas][cols] = 1.0f;
                 System.out.print(matriz[filas][cols] + "\t");
             }
             System.out.println();
