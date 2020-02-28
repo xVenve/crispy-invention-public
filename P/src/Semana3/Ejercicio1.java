@@ -7,7 +7,7 @@ public class Ejercicio1 {
         short c = 2;
         int d = 3;
         long e = 4;
-        float f = 3.5 f;
+        float f = (float) 3.5;
         double g = 5.6;
         boolean h = true;
         String i = "Hello";
