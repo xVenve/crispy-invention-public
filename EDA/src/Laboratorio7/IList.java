@@ -1,43 +1,40 @@
 package Laboratorio7;
 
 /**
- * Lista de objetos de tipo String 
+ * Lista de objetos de tipo String
  * @author isegura
  *
  */
 public interface IList {
 
-	public void addFirst(String newElem);
+    public void addFirst(String newElem);
 
-	public void addLast(String newElem);
+    public void addLast(String newElem);
 
-	public void removeFirst();
+    public void removeFirst();
 
-	public void removeLast();
-	
-	
-	public void insertAt(int index, String newElem);
-	
-	public boolean isEmpty();
+    public void removeLast();
 
-	public boolean contains(String elem);
+    public void insertAt(int index, String newElem);
 
-	public int getSize();
+    public boolean isEmpty();
 
-	public int getIndexOf(String elem);
+    public boolean contains(String elem);
 
-	public String getFirst();
+    public int getSize();
 
-	public String getLast();
+    public int getIndexOf(String elem);
 
-	public String getAt(int index);
-	
-	public String toString();
+    public String getFirst();
 
-	public void removeAll(String elem);
+    public String getLast();
 
-	public void removeAt(int index);
+    public String getAt(int index);
+
+    public String toString();
+
+    public void removeAll(String elem);
+
+    public void removeAt(int index);
 
 }
-
-

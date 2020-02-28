@@ -1,47 +1,47 @@
 package Semana11;
 
 public class Ej4Pasajero {
-	private String nombre;
-	private String apellidos;
-	private String iden;
-	private String billete;
-	
-	public String getNombre() {
-		return nombre;
-	}
+    private String nombre;
+    private String apellidos;
+    private String iden;
+    private String billete;
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public String getApellidos() {
-		return apellidos;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
+    public String getApellidos() {
+        return apellidos;
+    }
 
-	public String getIden() {
-		return iden;
-	}
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
-	public void setIden(String iden) {
-		this.iden = iden;
-	}
+    public String getIden() {
+        return iden;
+    }
 
-	public String getBillete() {
-		return billete;
-	}
+    public void setIden(String iden) {
+        this.iden = iden;
+    }
 
-	public void setBillete(String billete) {
-		this.billete = billete;
-	}
+    public String getBillete() {
+        return billete;
+    }
 
-	public Ej4Pasajero(String nombre, String apellidos, String iden, String billete) {
-		setNombre(nombre);
-		setApellidos(apellidos);
-		setIden(iden);
-		setBillete(billete);
-	}
+    public void setBillete(String billete) {
+        this.billete = billete;
+    }
+
+    public Ej4Pasajero(String nombre, String apellidos, String iden, String billete) {
+        setNombre(nombre);
+        setApellidos(apellidos);
+        setIden(iden);
+        setBillete(billete);
+    }
 }
