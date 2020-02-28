@@ -10,7 +10,7 @@ public class Ejercicio14 {
         //operacion, las operaciones se hacen dentro del rango del tipo, si se excede tanto por arriba como por
         //abajo el resultado tomara un valor incorrecto pero siempre dentro del rango.
 
-        float b = (float) 3.40282347E+38;
+        float b = (float)3.40282347E+38;
         b = b * 10;
         System.out.print(b);
         //Se va al infinito.
