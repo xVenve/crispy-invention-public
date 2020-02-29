@@ -1,7 +1,10 @@
 DROP TABLE CREACIONES_CLUB;
 DROP TABLE SOLICITUDES;
 DROP TABLE INVITACIONES;
+DROP TABLE OPINIONES_HISTORICAS;
 DROP TABLE OPINIONES;
+DROP TABLE PROPUESTAS_HISTORICAS;
+DROP TABLE VISUALIZACIONES_HISTORICAS;
 DROP TABLE MEMBRESIA_HISTORICAS;
 DROP TABLE CLUBES_HISTORICOS;
 DROP TABLE PROPUESTAS;
@@ -197,7 +200,7 @@ CREATE TABLE CLUBES_HISTORICOS( --CAMBIAR EN EL ESQUEMA RELACIONAL
 	CONSTRAINT PK_CLUBES_HISTORICOS PRIMARY KEY(nombre)
 );
 
-CREATE TABLE MEMBRESIA_HISTORICAS (
+CREATE TABLE MEMBRESIA_HISTORICAS(
 	club VARCHAR2(100) NOT NULL,
 	usuario VARCHAR2(100),
 	CONSTRAINT PK_MEMBRESIA_HISTORICAS PRIMARY KEY(club, usuario),
@@ -205,6 +208,29 @@ CREATE TABLE MEMBRESIA_HISTORICAS (
 	 ON DELETE CASCADE,
 	CONSTRAINT FK_MEMBRESIA_HISTORICAS_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
 	 ON DELETE CASCADE
+);
+
+CREATE TABLE VISUALIZACIONES_HISTORICAS(
+	usuario_club VARCHAR2(100) NOT NULL,
+	usuario_nombre VARCHAR2(100) NOT NULL,
+	anio VARCHAR2(100) NOT NULL,
+	media_actividad NUMBER(4,2) NOT NULL,
+	CONSTRAINT PK_VISUALIZACIONES_HISTORICAS PRIMARY KEY(usuario_club, usuario_nombre, anio),
+	CONSTRAINT FK_VISUALIZACIONES_HISTORICAS FOREIGN KEY(usuario_club, usuario_nombre) REFERENCES MEMBRESIA_HISTORICAS(club, usuario)
+);
+
+CREATE TABLE PROPUESTAS_HISTORICAS(
+	miembro_club VARCHAR(100) NOT NULL,
+	miembro_usuario VARCHAR(100) NOT NULL,
+	pelicula_titulo VARCHAR(100) NOT NULL,
+	pelicula_director VARCHAR(100) NOT NULL,
+	f_completa DATE NOT NULL,
+	asunto VARCHAR(100) NOT NULL,
+	mensaje VARCHAR (1500) NOT NULL,
+	CONSTRAINT PK_PROPUESTAS_HISTORICAS PRIMARY KEY(miembro_club, miembro_usuario, f_completa),
+	CONSTRAINT FK_PROPUESTAS_HISTORICAS_miembro FOREIGN KEY(miembro_club, miembro_usuario) REFERENCES MEMBRESIA_HISTORICAS(club, usuario)
+	 ON DELETE CASCADE,
+	CONSTRAINT FK_PROPUESTAS_HISTORICAS_peliculas FOREIGN KEY(pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
 );
 
 CREATE TABLE OPINIONES(
@@ -219,6 +245,21 @@ CREATE TABLE OPINIONES(
 	CONSTRAINT FK_OPINIONES_pelicula FOREIGN KEY(pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
 	ON DELETE CASCADE,
 	CONSTRAINT FK_OPINIONES_miembro FOREIGN KEY(miembro_usuario, miembro_club) REFERENCES MEMBRESIA(usuario, club)
+	ON DELETE CASCADE
+);
+
+CREATE TABLE OPINIONES_HISTORICAS(
+	miembro_club VARCHAR2(100) NOT NULL,
+	miembro_usuario VARCHAR2(100) NOT NULL,
+	pelicula_titulo VARCHAR2(100) NOT NULL,
+	pelicula_director VARCHAR2(100) NOT NULL,
+	f_completa DATE NOT NULL,
+	asunto VARCHAR2(1500) NOT NULL,
+	valoracion NUMBER(3),
+	CONSTRAINT PK_OPINIONES_HISTORICAS PRIMARY KEY(miembro_club, miembro_usuario,pelicula_titulo,pelicula_director,f_completa),--supuesto implicito
+	CONSTRAINT FK_OPINIONES_HISTORICAS_pelicula FOREIGN KEY(pelicula_titulo, pelicula_director) REFERENCES PELICULAS(titulo, director)
+	ON DELETE CASCADE,
+	CONSTRAINT FK_OPINIONES_HISTORICAS_miembro FOREIGN KEY(miembro_usuario, miembro_club) REFERENCES MEMBRESIA_HISTORICAS(usuario, club)
 	ON DELETE CASCADE
 );
 
@@ -246,7 +287,7 @@ CREATE TABLE SOLICITUDES(
 	 ON DELETE CASCADE
  );
 
-CREATE TABLE CREACIONES_CLUB (
+CREATE TABLE CREACIONES_CLUB(
 	usuario VARCHAR2(100) NOT NULL,
 	club VARCHAR2(100) NOT NULL,
 	f_completa DATE NOT NULL,
@@ -345,7 +386,7 @@ INSERT INTO PALABRAS_PELICULA(pelicula_titulo, pelicula_director, palabra)
  	FROM old_movies
  	WHERE (keyword5 IS NOT NULL AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS));
 
-INSERT INTO GENEROS_PELICULA (pelicula_titulo,pelicula_director,genero)
+INSERT INTO GENEROS_PELICULA(pelicula_titulo,pelicula_director,genero)
 	SELECT DISTINCT movie_title, director_name, genre1
 	FROM old_movies
 	WHERE(genre1 IS NOT NULL  AND movie_title  IN (SELECT titulo FROM PELICULAS) AND director_name IN (SELECT director FROM PELICULAS))
@@ -408,7 +449,13 @@ INSERT INTO MEMBRESIA(club, usuario)
 INSERT INTO VISUALIZACIONES(usuario_club, usuario_nombre, anio, media_actividad)
   SELECT Distinct b.club, a.CLIENT,  EXTRACT(YEAR FROM SYSDATE), count('x')
   FROM old_EVENTS a JOIN membresia b ON (a.client=b.usuario)
-  WHERE (Etype='viewing' AND EXTRACT(YEAR FROM TO_DATE(ev_date, 'YYYY-MM-DD')) = EXTRACT(YEAR FROM SYSDATE) AND a.client in (SELECT usuario FROM membresia))
+  WHERE (Etype='viewing' AND EXTRACT(YEAR FROM TO_DATE(ev_date, 'YYYY-MM-DD')) = EXTRACT(YEAR FROM SYSDATE) AND a.client in (SELECT usuario FROM MEMBRESIA))
+  GROUP BY a.CLIENT, b.club;
+
+INSERT INTO VISUALIZACIONES_HISTORICAS(usuario_club, usuario_nombre, anio, media_actividad)
+  SELECT Distinct b.club, a.CLIENT,  EXTRACT(YEAR FROM SYSDATE), count('x')
+  FROM old_EVENTS a JOIN MEMBRESIA_HISTORICAS b ON (a.client=b.usuario)
+  WHERE (Etype='viewing' AND EXTRACT(YEAR FROM TO_DATE(ev_date, 'YYYY-MM-DD')) = EXTRACT(YEAR FROM SYSDATE) AND a.client in (SELECT usuario FROM MEMBRESIA_HISTORICAS))
   GROUP BY a.CLIENT, b.club;
 
 INSERT INTO PROPUESTAS(miembro_club, miembro_usuario, pelicula_titulo, pelicula_director, f_completa, asunto, mensaje)
@@ -416,19 +463,29 @@ INSERT INTO PROPUESTAS(miembro_club, miembro_usuario, pelicula_titulo, pelicula_
 	FROM old_events
 	WHERE(Etype='proposal' AND club IS NOT NULL AND client IS NOT NULL AND details1 IN (SELECT titulo FROM PELICULAS) AND client IN (SELECT usuario FROM MEMBRESIA));
 
-INSERT INTO OPINIONES (miembro_club, miembro_usuario, pelicula_titulo, pelicula_director, f_completa, asunto, valoracion)
+INSERT INTO PROPUESTAS_HISTORICAS(miembro_club, miembro_usuario, pelicula_titulo, pelicula_director, f_completa, asunto, mensaje)
+	SELECT DISTINCT club, client, details1, details2, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI'), subject, message
+	FROM old_events
+	WHERE(Etype='proposal' AND club IS NOT NULL AND client IS NOT NULL AND details1 IN (SELECT titulo FROM PELICULAS) AND client IN (SELECT usuario FROM MEMBRESIA_HISTORICAS));
+
+INSERT INTO OPINIONES(miembro_club, miembro_usuario, pelicula_titulo, pelicula_director, f_completa, asunto, valoracion)
 	SELECT DISTINCT club, client, details1,details2, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI'), subject, TO_NUMBER(ltrim(Etype,'opinion:'),'99')
 	FROM old_events
 	WHERE ((SUBSTR(Etype,0,9)='opinion' OR ltrim(Etype,'opinion:') BETWEEN '0' AND '9') AND (details1, details2) IN (SELECT titulo, director FROM PELICULAS) AND client IN (SELECT usuario FROM MEMBRESIA));
 --Tambien controlado que Etype puede ser opinion o opinion:XX, recoge ambos casos y almacena correctamente la columna
 
-INSERT INTO INVITACIONES (miembro_usuario, miembro_club,invitado,f_completa)
+INSERT INTO OPINIONES_HISTORICAS(miembro_club, miembro_usuario, pelicula_titulo, pelicula_director, f_completa, asunto, valoracion)
+	SELECT DISTINCT club, client, details1,details2, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI'), subject, TO_NUMBER(ltrim(Etype,'opinion:'),'99')
+	FROM old_events
+	WHERE ((SUBSTR(Etype,0,9)='opinion' OR ltrim(Etype,'opinion:') BETWEEN '0' AND '9') AND (details1, details2) IN (SELECT titulo, director FROM PELICULAS) AND client IN (SELECT usuario FROM MEMBRESIA_HISTORICAS));
+
+INSERT INTO INVITACIONES(miembro_usuario, miembro_club,invitado,f_completa)
  	SELECT DISTINCT client, club, subject, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI')
  	FROM old_events a JOIN clubes b ON (a.club = b.nombre)
  	WHERE (Etype = 'invitation' AND client IS NOT NULL AND club IS NOT NULL AND subject IS NOT NULL AND (client,club) IN (SELECT usuario,club FROM MEMBRESIA) AND club IN (SELECT nombre FROM CLUBES) AND subject IN (SELECT nombre_usuario FROM USUARIOS) AND (TO_DATE(a.ev_date, 'YYYY-MM-DD')> b.f_creacion));
 --Aqui se introducian personas que invitaban que no eran miembros de un club, clubs que no pertenecian a nuestra base y personas invitadas que no eran usuarios, que hemos controlado con IN
 --NUEVO JOIN
-INSERT INTO SOLICITUDES (usuario, club,frase_aceptacion, f_completa)
+INSERT INTO SOLICITUDES(usuario, club,frase_aceptacion, f_completa)
 	SELECT DISTINCT a.client,a.club,a.subject, TO_DATE(a.ev_date||a.ev_hour,'YYYY-MM-DD HH24:MI')
 	FROM old_events a JOIN clubes B ON (b.nombre = a.club)
 	WHERE (Etype = 'application' AND b.abierto = 'Open' AND client IS NOT NULL AND club IS NOT NULL AND client IN (SELECT nombre_usuario FROM USUARIOS) AND (TO_DATE(a.ev_date, 'YYYY-MM-DD')> b.f_creacion));
@@ -438,4 +495,3 @@ INSERT INTO CREACIONES_CLUB(usuario, club, f_completa)
 	SELECT DISTINCT client, club, TO_DATE(ev_date||ev_hour,'YYYY-MM-DD HH24:MI')
 	FROM old_events
 	WHERE (Etype='foundation' AND client IS NOT NULL AND club IS NOT NULL AND subject IS NOT NULL AND client IN (SELECT usuario FROM MEMBRESIA) AND club IN (SELECT nombre FROM CLUBES));
---¿Añadir tabla de VISUALIZACIONES_HISTORICAS, OPINIONES_HISTORICAS Y PROPUESTAS_HISTORICAS?
