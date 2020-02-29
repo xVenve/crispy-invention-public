@@ -1,7 +1,7 @@
 package Laboratorio6;
 
 public class recursion7 {
-    /**
+	/**
 	 * Método recursivo que toma un array de enteros y un entero y
 	 * devuelve el índice de este entero en el array. Si el entero
 	 * no existe en el array, el método devuelve -1.
@@ -12,14 +12,14 @@ public class recursion7 {
 	 * @retun Indice del valor x en el array a. Y -1 si el array
 	 * esta vacio o no se ha encontrado
 	 */
-    public static int find(int a[], int x) {
-        if (a == null || a.length == 0) {
-            System.out.println("Array vacio");
-            return -1;
-        }
-        return find(a, x, 0);
-    }
-    /**
+	public static int find(int a[], int x) {
+		if (a == null || a.length == 0) {
+			System.out.println("Array vacio");
+			return -1;
+		}
+		return find(a, x, 0);
+	}
+	/**
 	 * Método auxiliar de find
 	 *
 	 * @param a Array en el que buscar el entero x
@@ -29,14 +29,14 @@ public class recursion7 {
 	 * @retun Indice del valor x en el array a. Y -1 si el array
 	 * esta vacio o no se ha encontrado
 	 */
-    private static int find(int a[], int x, int pos) {
-        if (a[pos] == x) 
-            return pos;
-        
-        if (pos == a.length - 1) 
-            return -1;
-        else 
-            return find(a, x, pos + 1);
+	private static int find(int a[], int x, int pos) {
+		if (a[pos] == x) 
+			return pos;
+		
+		if (pos == a.length - 1) 
+			return -1;
+		else 
+			return find(a, x, pos + 1);
 
-        }
-    }
+		}
+	}

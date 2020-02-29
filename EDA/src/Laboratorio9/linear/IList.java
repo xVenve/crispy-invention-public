@@ -7,34 +7,34 @@ package Laboratorio9.linear;
  */
 public interface IList {
 
-    public void addFirst(int v, float f);
+	public void addFirst(int v, float f);
 
-    public void addLast(int v, float f);
+	public void addLast(int v, float f);
 
-    public void removeFirst();
+	public void removeFirst();
 
-    public void removeLast();
+	public void removeLast();
 
-    public void insertAt(int index, int v, float f);
+	public void insertAt(int index, int v, float f);
 
-    public boolean isEmpty();
+	public boolean isEmpty();
 
-    public boolean contains(int v);
+	public boolean contains(int v);
 
-    public int getSize();
+	public int getSize();
 
-    public int getIndexOf(int v);
+	public int getIndexOf(int v);
 
-    public Integer getFirst();
+	public Integer getFirst();
 
-    public Integer getLast();
+	public Integer getLast();
 
-    public DNodeVertex getAt(int index);
+	public DNodeVertex getAt(int index);
 
-    public String toString();
+	public String toString();
 
-    public void removeAll(int vertex);
+	public void removeAll(int vertex);
 
-    public void removeAt(int index);
+	public void removeAt(int index);
 
 }

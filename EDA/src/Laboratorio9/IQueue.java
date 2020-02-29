@@ -2,14 +2,14 @@ package Laboratorio9;
 
 public interface IQueue {
 
-    public boolean isEmpty();
+	public boolean isEmpty();
 
-    public void enqueue(Integer elem);
+	public void enqueue(Integer elem);
 
-    public Integer dequeue();
+	public Integer dequeue();
 
-    public Integer front();
+	public Integer front();
 
-    public int getSize();
+	public int getSize();
 
 }

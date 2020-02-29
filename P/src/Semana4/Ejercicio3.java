@@ -2,8 +2,8 @@ package Semana4;
 
 public class Ejercicio3 {
 
-    public static void main(String[] args) {
-        /*
+	public static void main(String[] args) {
+		/*
 		int a = 23;
 		byte b = (byte)a;//SI
 		short s = (short)a;//SI
@@ -98,6 +98,6 @@ public class Ejercicio3 {
 		//como las variables numéricas y los tipos boolean, String, etc.
 */
 
-    }
+	}
 
 }
