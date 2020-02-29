@@ -259,8 +259,8 @@ public class GraphLA implements IGraph {
 		GraphLA graph = new GraphLA(8, 8, true);
 		// graph.show(); code for creating a graph with random weights 		Random rn=new Random(); 	 initializes a directed graph
 		// with random numbers 		for (int i=0; i<graph.numVertices;i++) { 			for (int j=0; j<graph.numVertices;j++) { 			 add an
-		// edge with a random weight 	 			graph.addEdge(i, j,rn.nextInt(5)); 	 		 graph.addEdge(i, j,1); 	 		} 		} //			0	1	2	3
-		// 4	5	6	7
+		// edge with a random weight 	 			graph.addEdge(i, j,rn.nextInt(5)); 	 		 graph.addEdge(i, j,1); 	 		} 		} 			0	1	2	3 4
+		// 5	6	7
 		//		0	-	1	1	-	-	-	-	-
 		//		1	-	-	1	1	-	-	-	-
 		//		2	-	-	-	1	-	1	-	-
