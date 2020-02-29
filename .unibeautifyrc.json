@@ -1,13 +1,16 @@
 {
   "C": {
-    "beautifiers": ["ClangFormat"]
+    "beautifiers": [
+      "ClangFormat"
+    ]
   },
-  {
-    "Java": {
-      "beautifiers": ["Pretty Diff"],
-      "indent_size": 1,
-      "indent_style": "tab",
-      "max_preserve_newlines": 0,
-      "wrap_line_length": 120
-    }
+  "Java": {
+    "beautifiers": [
+      "Pretty Diff"
+    ],
+    "indent_size": 1,
+    "indent_style": "tab",
+    "max_preserve_newlines": 0,
+    "wrap_line_length": 120
   }
+}
