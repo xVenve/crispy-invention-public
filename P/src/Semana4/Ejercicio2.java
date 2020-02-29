@@ -2,8 +2,8 @@ package Semana4;
 
 public class Ejercicio2 {
 
-    public static void main(String[] args) {
-        /*
+	public static void main(String[] args) {
+		/*
 		int a = 23;
 		byte b = a;//NO
 		short s = a;//NO
@@ -94,9 +94,9 @@ public class Ejercicio2 {
 		char f9=a9;//NO
 		boolean g9=a9;//NO
 		*/
-        //Si asignamos un literal a una variable de tipo float, dará el mismo
-        //error que en el ejercicio anterior al intentar transformarlo a double.
+		// Si asignamos un literal a una variable de tipo float, dará el mismo error que en el ejercicio anterior al intentar
+		// transformarlo a double.
 
-    }
+	}
 
 }
