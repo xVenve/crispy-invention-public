@@ -166,7 +166,6 @@ CREATE TABLE MEMBRESIA(
 	CONSTRAINT FK_MEMBRESIA_usuario FOREIGN KEY(usuario) REFERENCES USUARIOS(nombre_usuario)
 );
 
-
 CREATE TABLE VISUALIZACIONES(
 	usuario_club VARCHAR2(100) NOT NULL,
 	usuario_nombre VARCHAR2(100) NOT NULL,
@@ -358,7 +357,6 @@ INSERT INTO IMDBS(link, puntuacion, cantidad_users, cantidad_criticos)
 	FROM old_movies
 	WHERE (movie_imdb_link IS NOT NULL AND num_critic_for_reviews IS NOT NULL AND num_user_for_reviews IS NOT NULL);
 
-
 INSERT INTO PELICULAS(titulo, director, duracion,color,ratio,estreno,calif_edad,pais,idioma, presupuesto,ingresos,imdb, n_rostros, l_dir,l_rep,l_peli )
 	SELECT DISTINCT movie_title, director_name,TO_NUMBER(duration,'9999'),color,aspect_ratio,TO_NUMBER(title_year,'999999'),content_rating,country, language, TO_NUMBER(budget,'9999999999999'),TO_NUMBER(gross,'9999999999999'),movie_imdb_link,TO_NUMBER(facenumber_in_poster,'9999999999'),TO_NUMBER(director_facebook_likes,'9999999999999'),TO_NUMBER(cast_total_facebook_likes,'9999999999999'),TO_NUMBER(movie_facebook_likes,'9999999999999')
 	FROM old_movies
@@ -427,7 +425,6 @@ INSERT INTO CLUBES_HISTORICOS(nombre, abierto, slogan, f_creacion, f_cierre)
 	SELECT DISTINCT b.club, 'Closed', b.subject, TO_DATE(b.ev_date,'YYYY-MM-DD'), TO_DATE(a.ev_date,'YYYY-MM-DD')
   FROM old_events a JOIN old_events b ON a.club=b.club
 	WHERE (a.Etype = 'ceasing' AND b.Etype='foundation' AND a.club IS NOT NULL AND TO_DATE(b.ev_date,'YYYY-MM-DD') < TO_DATE(a.ev_date, 'YYYY-MM-DD'));
-
 
 INSERT INTO MEMBRESIA_HISTORICAS(club,usuario)
 	SELECT DISTINCT club, client
