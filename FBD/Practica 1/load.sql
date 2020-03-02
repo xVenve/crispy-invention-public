@@ -14,7 +14,7 @@ INSERT INTO TIPOS_CONTRATOS(tipo)
 	WHERE (contractId IS NOT NULL);
 
 INSERT INTO CONTRATOS(id, tipo_contrato, perfil, cod_postal,direccion, ciudad, pais, f_inicio, f_fin)
-	SELECT contractId, contract_type, citizenID, ZIPcode, address,town, country, TO_DATE(startdate, 'YYYY-MM-DD'), TO_DATE(enddate, 'YYYY-MM-DD')
+	SELECT contractId, contract_type, citizenID, TO_NUMBER(ZIPcode,'9999999'), address,town, country, TO_DATE(startdate, 'YYYY-MM-DD'), TO_DATE(enddate, 'YYYY-MM-DD')
 	FROM old_users
 	WHERE (contractId IS NOT NULL AND citizenID IS NOT NULL AND LENGTH(passw)>8 AND phoneN IS NOT NULL AND (TO_DATE(enddate, 'YYYY-MM-DD') > TO_DATE(startdate, 'YYYY-MM-DD')));
 
@@ -58,7 +58,6 @@ INSERT INTO IMDBS(link, puntuacion, cantidad_users, cantidad_criticos)
 	SELECT DISTINCT movie_imdb_link, TO_NUMBER(imdb_score,'99.9'), TO_NUMBER(num_user_for_reviews, '99999'), TO_NUMBER(num_critic_for_reviews, '99999')
 	FROM old_movies
 	WHERE (movie_imdb_link IS NOT NULL AND num_critic_for_reviews IS NOT NULL AND num_user_for_reviews IS NOT NULL);
-
 
 INSERT INTO PELICULAS(titulo, director, duracion,color,ratio,estreno,calif_edad,pais,idioma, presupuesto,ingresos,imdb, n_rostros, l_dir,l_rep,l_peli )
 	SELECT DISTINCT movie_title, director_name,TO_NUMBER(duration,'9999'),color,aspect_ratio,TO_NUMBER(title_year,'999999'),content_rating,country, language, TO_NUMBER(budget,'9999999999999'),TO_NUMBER(gross,'9999999999999'),movie_imdb_link,TO_NUMBER(facenumber_in_poster,'9999999999'),TO_NUMBER(director_facebook_likes,'9999999999999'),TO_NUMBER(cast_total_facebook_likes,'9999999999999'),TO_NUMBER(movie_facebook_likes,'9999999999999')
