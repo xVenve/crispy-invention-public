@@ -58,7 +58,7 @@ CREATE TABLE CONTRATOS(
 	id VARCHAR2(100) NOT NULL,
 	tipo_contrato VARCHAR2(100) NOT NULL,
 	perfil VARCHAR2(9) NOT NULL,
-	cod_postal VARCHAR2(10) NOT NULL,
+	cod_postal NUMBER(7) NOT NULL,
 	direccion VARCHAR2(100) NOT NULL,
 	ciudad VARCHAR2(100) NOT NULL,
 	pais VARCHAR2(100) NOT NULL,
@@ -169,7 +169,7 @@ CREATE TABLE MEMBRESIA(
 CREATE TABLE VISUALIZACIONES(
 	usuario_club VARCHAR2(100) NOT NULL,
 	usuario_nombre VARCHAR2(100) NOT NULL,
-	anio VARCHAR2(100) NOT NULL,
+	anio NUMBER(6) NOT NULL,
 	media_actividad NUMBER(4,2) NOT NULL,
 	CONSTRAINT PK_VISUALIZACIONES PRIMARY KEY(usuario_club, usuario_nombre, anio),
 	CONSTRAINT FK_VISUALIZACIONES FOREIGN KEY(usuario_club, usuario_nombre) REFERENCES MEMBRESIA(club, usuario)
@@ -312,7 +312,7 @@ INSERT INTO TIPOS_CONTRATOS(tipo)
 	WHERE (contractId IS NOT NULL);
 
 INSERT INTO CONTRATOS(id, tipo_contrato, perfil, cod_postal,direccion, ciudad, pais, f_inicio, f_fin)
-	SELECT contractId, contract_type, citizenID, ZIPcode, address,town, country, TO_DATE(startdate, 'YYYY-MM-DD'), TO_DATE(enddate, 'YYYY-MM-DD')
+	SELECT contractId, contract_type, citizenID, TO_NUMBER(ZIPcode,'9999999'), address,town, country, TO_DATE(startdate, 'YYYY-MM-DD'), TO_DATE(enddate, 'YYYY-MM-DD')
 	FROM old_users
 	WHERE (contractId IS NOT NULL AND citizenID IS NOT NULL AND LENGTH(passw)>8 AND phoneN IS NOT NULL AND (TO_DATE(enddate, 'YYYY-MM-DD') > TO_DATE(startdate, 'YYYY-MM-DD')));
 
