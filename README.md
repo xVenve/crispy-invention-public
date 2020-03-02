@@ -22,14 +22,14 @@ Así estarán cada paso registrado y solo un archivo final.
     - [x] Poner comentarios
     - [x] Comprobar funcionamiento
   - [x] Comprobar que no falten documentos (autores.txt)
-- [ ] 03/03 [**Práctica 1 FBD**](https://github.com/xVenve/crispy-invention/tree/master/FBD/Practica%201)
-  - [ ] Rellenar plantilla.
+- [x] 03/03 [**Práctica 1 FBD**](https://github.com/xVenve/crispy-invention/tree/master/FBD/Practica%201)
+  - [x] Rellenar plantilla.
     - [x] Diseño relacional a mano
-    - [ ] Añadidos y resueltos los supuestos semánticos
-  - [ ] Diseño relacional en SQL
+    - [x] Añadidos y resueltos los supuestos semánticos
+  - [x] Diseño relacional en SQL
     - [x] Crear tablas.
-    - [ ] Insertar valores en tablas
-    - [ ] Comprobar que todos los datos esten introducidos y cumple las exigencias del cliente.
+    - [x] Insertar valores en tablas
+    - [x] Comprobar que todos los datos esten introducidos y cumple las exigencias del cliente.
    
 - [ ] 28/03 [**Práctica 2 SSOO**](https://github.com/xVenve/crispy-invention/tree/master/SSOO/Practica%202.%20MiniShell)
   - [ ] Redactar memoria
