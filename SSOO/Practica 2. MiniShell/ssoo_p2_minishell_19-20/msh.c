@@ -49,12 +49,12 @@ void getCompleteCommand(char*** argvv, int num_command) {
 
 
 /**
- * Main sheell  Loop  
+ * Main sheell  Loop
  */
 int main(int argc, char* argv[])
 {
     /**** Do not delete this code.****/
-    int end = 0; 
+    int end = 0;
     int executed_cmd_lines = -1;
     char *cmd_line = NULL;
     char *cmd_lines[10];
@@ -77,14 +77,14 @@ int main(int argc, char* argv[])
     int num_commands;
 
 
-	while (1) 
+	while (1)
 	{
 		int status = 0;
 	        int command_counter = 0;
 		int in_background = 0;
 		signal(SIGINT, siginthandler);
 
-		// Prompt 
+		// Prompt
 		write(STDERR_FILENO, "MSH>>", strlen("MSH>>"));
 
 		// Get command
@@ -100,14 +100,20 @@ int main(int argc, char* argv[])
 
 
               /************************ STUDENTS CODE ********************************/
-	      if (command_counter > 0) {
-                if (command_counter > MAX_COMMANDS)
-                      printf("Error: Numero máximo de comandos es %d \n", MAX_COMMANDS);
-                else {
-            	   // Print command
-		   print_command(argvv, filev, in_background);
+                if (command_counter > 0) {
+                  if (command_counter > MAX_COMMANDS)
+                    printf("Error: Numero máximo de comandos es %d \n", MAX_COMMANDS);
+                  else {
+                    // Print command
+                    print_command(argvv, filev, in_background);
+
+                    for (int i = 0; i < command_counter; i++) {
+                      getCompleteCommand(argvv, i);
+                      printf("%s\n", argv_execvp[0]);
+                    }
+                  }
                 }
-              }
+                // ESCRIBIR AQUI
         }
 	return 0;
 }
