@@ -113,7 +113,37 @@ int main(int argc, char* argv[])
                     }
                   }
                 }
+
+
+
                 // ESCRIBIR AQUI
-        }
+							 int pid = fork();
+							 switch(pid) {
+								 case -1: /* error */
+								 	perror ("error en el fork: ");
+								 	return (-1);
+								 case 0: /* hijo */
+								 	execvp (argv_execvp[0], argv_execvp);
+									break;
+								default: /* padre */
+									if (in_background == 0){
+										int status;
+										while (wait(&status)!=pid); //el padre espera por el hijo
+											if(status ==-1){
+												perror("Error: ");
+											}
+									}
+								}
+
+
+
+
+
+
+
+
+
+
+        }//Del buble  while
 	return 0;
 }
