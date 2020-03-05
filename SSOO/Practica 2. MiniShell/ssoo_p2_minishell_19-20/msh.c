@@ -100,6 +100,7 @@ int main(int argc, char* argv[])
 
 
               /************************ STUDENTS CODE ********************************/
+
                 if (command_counter > 0) {
                   if (command_counter > MAX_COMMANDS)
                     printf("Error: Numero máximo de comandos es %d \n", MAX_COMMANDS);
@@ -114,36 +115,59 @@ int main(int argc, char* argv[])
                   }
                 }
 
-
-
                 // ESCRIBIR AQUI
-							 int pid = fork();
-							 switch(pid) {
-								 case -1: /* error */
-								 	perror ("error en el fork: ");
-								 	return (-1);
-								 case 0: /* hijo */
-								 	execvp (argv_execvp[0], argv_execvp);
-									break;
-								default: /* padre */
-									if (in_background == 0){
-										int status;
-										while (wait(&status)!=pid); //el padre espera por el hijo
-											if(status ==-1){
-												perror("Error: ");
-											}
-									}
-								}
+                // PARTE 1 Y 2: INICIO
+                if (command_counter == 1) {
+                  int pid = fork();
+                  if (pid == -1) {
+                    perror("Error en fork: Reescribir");
+                    return (-1);
+                  }
+                  int stat;
+                  if (pid == 0) {
+                    execvp(argv_execvp[0], argv_execvp);
+                  } else {
+                    // Por ahora espera siempre
+                    printf("ESPERO\n");
+                    while (wait(&stat) != pid)
+                      ;
+                  }
 
+                } else if (command_counter == 2) {
+                  int tub[2];
+                  int stat2;
+                  int pid = 0;
+                  pipe(tub);
+                  for (int i = 0; i < 2; i++) {
+                    pid = fork();
+                    if (pid == 0) { // hijo
+                      if (i == 0) { // hijo 1
+                        printf("he entrado a este hijo 0\n");
+                        close(1);
+                        dup(tub[1]);
+                        close(tub[1]);
+                        close(tub[0]);
+                        execvp(argv_execvp[0], argv_execvp);
+                      } else if (i == 1) { // hijo 2
+                        printf("he entrado a este hijo 1\n");
 
+                        close(0);
+                        dup(tub[0]);
+                        close(tub[0]);
+                        close(tub[1]);
+                        printf("He creado su conexion a la pipe\n");
 
+                        execvp(argv_execvp[0], argv_execvp);
+                      }
 
-
-
-
-
-
-
-        }//Del buble  while
-	return 0;
+                    } else { // padre
+                      printf("Voy a esperar a mi hijo %d\n", i);
+                      while (pid != wait(&stat2));
+                      printf("He esperado a mi hijo %d\n", i);
+                    }
+                  }
+                }
+        }
+}
+                          return 0;
 }
