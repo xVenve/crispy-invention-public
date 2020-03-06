@@ -1,0 +1,62 @@
+
+GE/MASTER -> Creamos nueva rama GE03 
+
+Tests de prueba + ficheros + código funcional 
+
+
+CLASES DE EQUIVALENCIA
+
+Una clase de prueba invalida equivale a una clase de prueba.
+
+ENTRADAS
+	CEV1: Ruta a un fichero que existe 
+	CEI2: Ruta a un fichero que no existe
+	CEV3: El fichero de entrada cumple la sintaxis JSON
+	CEI4: El fichero de entrada no cumple la sintaxis JSON
+DEVICE NAME
+	CEV5: La etiqueta es igual a "DeviceName"
+	CEI6: La etiqueta es distinta a "DeviceName"
+	CEI7: El valor de DeviceName no es una cadena de caracteres
+	CEI8: El valor sobre DeviceName es ""
+	CEI9: El valor de una cadena de caracteres no esta entre 1 y 20 caracteres
+	CEV10: El valor esta entre 1 y 20 caracteres
+	CEI11: Aparece 0 veces
+	CEV12: Aparece 1 vez
+	CEV13: Aparece n veces (JSON solo se queda el primero)
+
+TYPE OF DEVICE
+	CEI14: Etiqueta erronea
+	CEV15: Etiqueta correcta
+	CEI16: El valor no es una cadena de caracteres
+	CEI17: Valor distinto de Sensor o Actuator
+	CEV18: Type of device sensor
+	CEV19: Type of device actuator
+	CEI20: Aparece 0 veces
+	CEV21: Aparece 1 vez
+	CEV22: Aparece n veces (JSON solo se queda el primero)
+	//No volver a poner las ocurrencias de una variable del fichero
+	
+
+EMAIL
+	CEI23: Etiqueta incorrecta
+	CEI24: El valor de email es un correo incorrecto
+	CEV25: El valor de email es un correo correcto
+	CEI26: Aparece 0 veces
+	CEV27: Aparece 1 vez
+	
+	
+CLASES DE PRUEBA
+	 CP1: Fichero no existe (CEI2)
+	 CP2: Fichero que no cumple la sintaxis JSON (CEI4)
+	 CP3: La etiqueta no se corresponde a DeviceName (CEI6)
+	 CP4: DeviceName no tiene como valor una cadena de caracteres (CEI7)
+	 CP5: DeviceName tiene como valor "" (CEI8)
+	 CP6: DeviceName tiene una longitud mayor a 20 o una menor a 1 (CEI9)
+	 CP7: DeviceName no aparece ninguna vez (CEI11)
+	 CP8: Etiqueta de TypeOfDevice erronea
+	 CP9: TypeOfDevice no es una cadena de caracteres (CEI16)
+	 CP10: TypeOfDevice tiene un valor que no es Sensor o Actuator (CEI17)
+	 CP11: TypeOfDevice no aparece ninguna vez (CV20)
+	 CP12: TypeOfDevice es un correo incorrecto (CEI24)
+	 CP13: TypeOfDevice tiene una etiqueta no valida (CEI23)
+	 CP14: TypeOfDevice aparece 0 veces (CEI26)
