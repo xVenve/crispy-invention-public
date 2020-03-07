@@ -1,7 +1,7 @@
 
-GE/MASTER -> Creamos nueva rama GE03 
+GE/MASTER -> Creamos nueva rama GE03
 
-Tests de prueba + ficheros + código funcional 
+Tests de prueba + ficheros + código funcional
 
 
 CLASES DE EQUIVALENCIA
@@ -9,10 +9,11 @@ CLASES DE EQUIVALENCIA
 Una clase de prueba invalida equivale a una clase de prueba.
 
 ENTRADAS
-	CEV1: Ruta a un fichero que existe 
+	CEV1: Ruta a un fichero que existe
 	CEI2: Ruta a un fichero que no existe
 	CEV3: El fichero de entrada cumple la sintaxis JSON
 	CEI4: El fichero de entrada no cumple la sintaxis JSON
+
 DEVICE NAME
 	CEV5: La etiqueta es igual a "DeviceName"
 	CEI6: La etiqueta es distinta a "DeviceName"
@@ -35,7 +36,6 @@ TYPE OF DEVICE
 	CEV21: Aparece 1 vez
 	CEV22: Aparece n veces (JSON solo se queda el primero)
 	//No volver a poner las ocurrencias de una variable del fichero
-	
 
 EMAIL
 	CEI23: Etiqueta incorrecta
@@ -43,10 +43,44 @@ EMAIL
 	CEV25: El valor de email es un correo correcto
 	CEI26: Aparece 0 veces
 	CEV27: Aparece 1 vez
-	
-	
+
+DRIVER VERSION
+	CEI28: Etiqueta incorrecta
+	CEI29: DriverVersion contiene caracteres no permitidos, como letras o otros caracteres que no sean '.'
+	CEV30: DriverVersion tiene el formato adecuado
+	CEI31: DriverVersion no es una cadena de caracteres
+	CEV32: DriverVersion es una cadena de caracteres
+	CEV33: DriverVersion esta entre 1 y 25 caracteres
+	CEI34: La longitud de DriverVersion no esta entre 1 y 25 caracteres
+	CEV35: La longitud de DriverVersion esta entre 1 y 25 caracteres
+	CEI36: El valor de DeviceName es ""
+	CEI37: DeviceName aparece 0 veces
+	CEV38: DeviceName aparece 1 vez
+
+SERIAL NUMBER
+	CEI39: Etiqueta incorrecta
+	CEI40: Serial Number tiene el formato incorrecto (contiene espacios u otros simbolos)
+	CEV41: Serial Number tiene el formato correcto
+	CEI42: Serial Number no es una cadena de caracteres, que no admita letras
+	CEV43: Serial Number es una cadena de caracteres
+	CEI44: Serial Number es ""
+	CEI45: Serial Number aparece 0 veces
+	CEV46: Serial Number aparece 1 vez
+
+MAC ADDRESS
+	CEI47: Etiqueta incorrecta
+	CEI48: MacAddress tiene un formato incorrecto
+	CEV49: MacAddress tiene formato correcto (6 parejas de numeros bien separados por '-' o por ':')
+	CEI50: MacAddress no es una cadena de  caracteres
+	CEV51: MacAddress es una cadena de  caracteres
+	CEI52: MacAddress es ""
+	CEV53: MacAddress tiene longitud 17 (6*2 numeros + 5 espacios)
+	CEI54: MacAddress tiene longitud entre 1 y 17 o superior a 17
+	CEI55: MacAddress aparece 0 veces
+	CEV56: MacAddress aparece 1 vez
+
 CLASES DE PRUEBA
-	 CP1: Fichero no existe (CEI2)
+	 CP1: Fichero no existe (CEI2) //DONE
 	 CP2: Fichero que no cumple la sintaxis JSON (CEI4)
 	 CP3: La etiqueta no se corresponde a DeviceName (CEI6)
 	 CP4: DeviceName no tiene como valor una cadena de caracteres (CEI7)
@@ -56,7 +90,24 @@ CLASES DE PRUEBA
 	 CP8: Etiqueta de TypeOfDevice erronea
 	 CP9: TypeOfDevice no es una cadena de caracteres (CEI16)
 	 CP10: TypeOfDevice tiene un valor que no es Sensor o Actuator (CEI17)
-	 CP11: TypeOfDevice no aparece ninguna vez (CV20)
+	 CP11: TypeOfDevice no aparece ninguna vez (CEI20)
 	 CP12: TypeOfDevice es un correo incorrecto (CEI24)
 	 CP13: TypeOfDevice tiene una etiqueta no valida (CEI23)
 	 CP14: TypeOfDevice aparece 0 veces (CEI26)
+	 CP15: DriverVersion no tiene una etiqueta correcta (CEI28)
+	 CP16: DriverVersion contiene caracteres no permitidos (CEI29)
+	 CP17: DriverVersion no es una cadena de caracteres (CEI31)
+	 CP18: DriverVersion no esta entre 1 y 25 caracteres (CEI34)
+	 CP19: El valor de DriverVersion es "" (CEI36)
+	 CP20: DriverVersion no aparece ninguna vez (CEI37)
+	 CP21: SerialNumber tiene una etiqueta incorrecta (CEI39)
+	 CP22: SerialNumber contiene espacios (CEI40)
+	 CP23: SerialNumber no es una cadena de caracteres (CEI42)
+	 CP24: SerialNumber tiene el valor "" (CEI44)
+	 CP25: SerialNumber no aparece ninguna vez (CEI45)
+	 CP26: MacAddress tiene una etiqueta incorrecta (CEI47)
+	 CP27: MacAddress tiene un formato incorrecto (CEI48)
+	 CP28: MacAddress no es una cadena de caracteres (CEI50)
+	 CP29: MacAddress tiene como valor "" (CEI52)
+	 CP30: MacAddress no tiene longitud 17 (CEI54)
+	 CP31: MacAddress no aparece ninguna vez (CEI55)
