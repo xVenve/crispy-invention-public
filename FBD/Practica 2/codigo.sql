@@ -1,3 +1,5 @@
+Dar formato weno para word: http://qbnz.com/highlighter/php_highlighter.php
+
 SELECT
     a.nick,
     a.reg_date,
