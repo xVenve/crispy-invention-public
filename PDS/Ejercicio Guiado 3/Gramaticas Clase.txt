@@ -1,0 +1,19 @@
+
+
+
+
+EJERCICIO HECHO EN CLASE:
+
+
+File ::= Apertura.Fichero	Contenido	Cierre.Fichero
+Apertura.Fichero ::= '{'
+Cierre.Fichero ::= '}'
+Contenido ::= SN SepItems PI sepItems EM sepItems TL sepItems L
+SN ::= EtiquetaSN	sepEv	ValorSN	 
+SepItems := ','
+EtiquetaSN-->Comillas NombreSN Comillas
+Comillas-->'"'
+NombreSN-->'StationName'
+SepEV-->':'
+ValorSN-->[A-Za-z0-9] (de 1 a 20)
+ 
