@@ -39,3 +39,11 @@ GROUP BY
 ORDER BY
     avg(c)
     DESC fetch FIRST ROW ONLY;
+
+//AÑADIR AL DOCUMENTO, ES LA VISTA DE LEADER
+CREATE VIEW LEADER (nickname,club, media_comentarios) AS
+    SELECT D.member, club, Z/M media_comentarios FROM (
+    SELECT A.member, B.club, COUNT ('x') Z FROM PROPOSALS A JOIN COMMENTS B ON (A.title = B.title AND A.director = B.director) GROUP BY (A.member, B.club)) C JOIN
+    (SELECT member, COUNT('x') M FROM PROPOSALS GROUP BY (member)) D ON (C.member = D.member)
+    ORDER BY (media_comentarios) DESC
+    FETCH FIRST 10 ROWS ONLY;
