@@ -81,31 +81,31 @@ MAC ADDRESS
 
 CLASES DE PRUEBA
 	 CP1: Fichero no existe (CEI2) //DONE
-	 CP2: Fichero que no cumple la sintaxis JSON (CEI4)
-	 CP3: La etiqueta no se corresponde a DeviceName (CEI6)
-	 CP4: DeviceName no tiene como valor una cadena de caracteres (CEI7)
+	 CP2: Fichero que no cumple la sintaxis JSON (CEI4) //DONE
+	 CP3: La etiqueta no se corresponde a DeviceName (CEI6)  //DONE
+	 CP4: DeviceName no tiene como valor una cadena de caracteres (CEI7) //Buscar patron correcto
 	 CP5: DeviceName tiene como valor "" (CEI8)
 	 CP6: DeviceName tiene una longitud mayor a 20 o una menor a 1 (CEI9)
 	 CP7: DeviceName no aparece ninguna vez (CEI11)
-	 CP8: Etiqueta de TypeOfDevice erronea
+	 CP8: Etiqueta de TypeOfDevice erronea //DONE
 	 CP9: TypeOfDevice no es una cadena de caracteres (CEI16)
 	 CP10: TypeOfDevice tiene un valor que no es Sensor o Actuator (CEI17)
 	 CP11: TypeOfDevice no aparece ninguna vez (CEI20)
-	 CP12: TypeOfDevice es un correo incorrecto (CEI24)
-	 CP13: TypeOfDevice tiene una etiqueta no valida (CEI23)
-	 CP14: TypeOfDevice aparece 0 veces (CEI26)
-	 CP15: DriverVersion no tiene una etiqueta correcta (CEI28)
+	 CP12: Email es un correo incorrecto (CEI24) //DONE
+	 CP13: Email tiene una etiqueta no valida (CEI23) //DONE
+	 CP14: Email aparece 0 veces (CEI26)
+	 CP15: DriverVersion no tiene una etiqueta correcta (CEI28) //DONE
 	 CP16: DriverVersion contiene caracteres no permitidos (CEI29)
 	 CP17: DriverVersion no es una cadena de caracteres (CEI31)
 	 CP18: DriverVersion no esta entre 1 y 25 caracteres (CEI34)
 	 CP19: El valor de DriverVersion es "" (CEI36)
 	 CP20: DriverVersion no aparece ninguna vez (CEI37)
-	 CP21: SerialNumber tiene una etiqueta incorrecta (CEI39)
+	 CP21: SerialNumber tiene una etiqueta incorrecta (CEI39) //DONE
 	 CP22: SerialNumber contiene espacios (CEI40)
 	 CP23: SerialNumber no es una cadena de caracteres (CEI42)
 	 CP24: SerialNumber tiene el valor "" (CEI44)
 	 CP25: SerialNumber no aparece ninguna vez (CEI45)
-	 CP26: MacAddress tiene una etiqueta incorrecta (CEI47)
+	 CP26: MacAddress tiene una etiqueta incorrecta (CEI47) //DONE
 	 CP27: MacAddress tiene un formato incorrecto (CEI48)
 	 CP28: MacAddress no es una cadena de caracteres (CEI50)
 	 CP29: MacAddress tiene como valor "" (CEI52)
