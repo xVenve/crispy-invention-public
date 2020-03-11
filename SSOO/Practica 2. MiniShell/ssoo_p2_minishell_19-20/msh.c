@@ -107,12 +107,12 @@ int main(int argc, char* argv[])
                   else {
                     // Print command
                     print_command(argvv, filev, in_background);
-
-                    for (int i = 0; i < command_counter; i++) {
-                      getCompleteCommand(argvv, i);
-                      printf("%s\n", argv_execvp[0]);
-                    }
                   }
+                }
+
+                for (int i = 0; i < command_counter; i++) {
+                  getCompleteCommand(argvv, i);
+                  printf("%s\n", argv_execvp[0]);
                 }
 
                 // ESCRIBIR AQUI
@@ -127,10 +127,14 @@ int main(int argc, char* argv[])
                   if (pid == 0) {
                     execvp(argv_execvp[0], argv_execvp);
                   } else {
-                    // Por ahora espera siempre
-                    printf("ESPERO\n");
-                    while (wait(&stat) != pid)
-                      ;
+                    // Por ahora espera siempre, no conseguido el no eperar
+                    if (!in_background) {
+                      printf("ESPERO\n");
+                      wait(&stat);
+                      if (stat < 0) {
+                        printf("Error ejecucion hijo\n"); // Cambiar todos los errores por perror
+                      }
+                    }
                   }
 
                 } else if (command_counter == 2) {
@@ -142,87 +146,94 @@ int main(int argc, char* argv[])
                     pid = fork();
                     if (pid == 0) { // hijo
                       if (i == 0) { // hijo 1
-                        printf("he entrado a este hijo 0\n");
-												close(1);
+                        printf("0.1-he entrado a este hijo 0\n");
+                        close(1);
                         dup(tub[1]);
                         close(tub[1]);
                         close(tub[0]);
+												printf("0.2-He creado su conexion a la pipe para entrar datos\n");
 
-												getCompleteCommand(argvv, i);
-
+                        getCompleteCommand(argvv, i);
+												printf("0.3-Ejecutando: %s\n", argv_execvp[0]);
                         execvp(argv_execvp[0], argv_execvp);
+												printf("Ha fallado el hijo 0\n");
                       } else if (i == 1) { // hijo 2
-                        printf("he entrado a este hijo 1\n");
-												close(0);
-												dup(tub[0]);
-												close(tub[0]);
-												close(tub[1]);
+                        printf("1.1-he entrado a este hijo 1\n");
+                        close(0);
+                        dup(tub[0]);
+                        close(tub[0]);
+                        close(tub[1]);
 
-                        printf("He creado su conexion a la pipe\n");
+                        printf("1.2-He creado su conexion a la pipe para que salgan datos\n");
 
-												getCompleteCommand(argvv, i);
-
+                        getCompleteCommand(argvv, i);
+ 												printf("1.3-Ejecutando: %s\n", argv_execvp[0]);
                         execvp(argv_execvp[0], argv_execvp);
+												printf("Ha fallado el hijo 1\n");
                       }
 
                     } else { // padre
-                      printf("Voy a esperar a mi hijo %d\n", i);
-                      while (pid != wait(&stat2));
-                      printf("He esperado a mi hijo %d\n", i);
+                      printf("%d.4-Voy a esperar a mi hijo %d\n", i, i);
+                      while (pid != wait(&stat2))
+                        ;
+                      printf("%d.5-He esperado a mi hijo %d\n", i, i);
                     }
                   }
-                }else if(command_counter == 3){
-									int tub1[2];
-									int tub2[2];
-									int pid = 0;
-									int stat3=0;
-									pid= fork();
-									pipe(tub1);
-									getCompleteCommand(argvv, 0);
-									if(pid==0){
+									close(tub[0]);
+									close(tub[1]);
+                } else if (command_counter == 3) {
+                  int tub1[2];
+                  int tub2[2];
+                  int pid = 0;
+                  int stat3 = 0;
+                  pid = fork();
+                  pipe(tub1);
+                  getCompleteCommand(argvv, 0);
+                  if (pid == 0) {
 
+                    close(1);
+                    dup(tub1[1]);
+                    close(tub1[1]);
+                    close(tub1[0]);
 
-										close(1);
-										dup(tub1[1]);
-										close(tub1[1]);
-										close(tub1[0]);
+                    printf("Hijo izq\n");
+                    execvp(argv_execvp[0], argv_execvp);
+                  } else {
+                    printf("Voy a esperar a mi hijo izq\n");
+                    while (pid != wait(&stat3))
+                      ;
+                    printf("He esperado a mi hijo izq\n");
+                  }
+                  pipe(tub2);
+                  getCompleteCommand(argvv, 1);
+                  pid = fork();
+                  if (pid == 0) {
 
-										printf("Hijo izq\n");
-										execvp(argv_execvp[0], argv_execvp);
-									} else{
-										printf("Voy a esperar a mi hijo izq\n");
-										while (pid != wait(&stat3));
-										printf("He esperado a mi hijo izq\n");
-									}
-									pipe(tub2);
-									getCompleteCommand(argvv, 1);
-									pid= fork();
-									if(pid==0){
+                    close(0);
+                    dup(tub1[0]);
+                    close(tub1[0]);
+                    close(tub1[1]);
 
-										close(0);
-										dup(tub1[0]);
-										close(tub1[0]);
-										close(tub1[1]);
+                    printf("Hijo medio\n");
+                    execvp(argv_execvp[0], argv_execvp);
+                  } else {
+                    printf("Voy a esperar a mi hijo medio\n");
+                    while (pid != wait(&stat3))
+                      ;
+                    printf("He esperado a mi hijo medio\n");
+                  }
+                  getCompleteCommand(argvv, 2);
+                  pid = fork();
+                  if (pid == 0) {
 
-										printf("Hijo medio\n");
-										execvp(argv_execvp[0], argv_execvp);
-									} else{
-										printf("Voy a esperar a mi hijo medio\n");
-										while (pid != wait(&stat3));
-										printf("He esperado a mi hijo medio\n");
-									}
-									getCompleteCommand(argvv, 2);
-									pid= fork();
-									if(pid==0){
-
-										execvp(argv_execvp[0], argv_execvp);
-									} else{
-										printf("Voy a esperar a mi hijo dch\n");
-										while (pid != wait(&stat3));
-										printf("He esperado a mi hijo dch\n");
-									}
-
-								}
+                    execvp(argv_execvp[0], argv_execvp);
+                  } else {
+                    printf("Voy a esperar a mi hijo dch\n");
+                    while (pid != wait(&stat3))
+                      ;
+                    printf("He esperado a mi hijo dch\n");
+                  }
+                }
         }
-                          return 0;
+        return 0;
 }
