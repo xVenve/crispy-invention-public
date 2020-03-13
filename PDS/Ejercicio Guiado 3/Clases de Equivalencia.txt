@@ -9,105 +9,111 @@ CLASES DE EQUIVALENCIA
 Una clase de prueba invalida equivale a una clase de prueba.
 
 ENTRADAS
-	CEV1: Ruta a un fichero que existe
-	CEI2: Ruta a un fichero que no existe
-	CEV3: El fichero de entrada cumple la sintaxis JSON
-	CEI4: El fichero de entrada no cumple la sintaxis JSON
+	CEV1: Ruta a un fichero que existe //DONE
+	CEI2: Ruta a un fichero que no existe //DONE
+	CEV3: El fichero de entrada cumple la sintaxis JSON //DONE
+	CEI4: El fichero de entrada no cumple la sintaxis JSON //DONE
 
 DEVICE NAME
-	CEV5: La etiqueta es igual a "DeviceName"
-	CEI6: La etiqueta es distinta a "DeviceName"
-	CEI7: El valor de DeviceName no es una cadena de caracteres
-	CEI8: El valor sobre DeviceName es ""
-	CEI9: El valor de una cadena de caracteres no esta entre 1 y 20 caracteres
-	CEV10: El valor esta entre 1 y 20 caracteres
-	CEI11: Aparece 0 veces
-	CEV12: Aparece 1 vez
-	CEV13: Aparece n veces (JSON solo se queda el primero)
+	CEV5: La etiqueta es igual a "DeviceName" //DONE
+	CEI6: La etiqueta es distinta a "DeviceName" //DONE
+	CEI7: El valor de DeviceName no es una cadena de caracteres //DONE
+	CEI8: El valor sobre DeviceName es "" //DONE
+	CEI9: El valor de una cadena de caracteres no esta entre 1 y 20 caracteres //DONE
+	CEV10: El valor esta entre 1 y 20 caracteres //DONE
+	CEI11: Aparece 0 veces //DONE
+	CEV12: Aparece 1 vez //DONE
+	CEV13: Aparece n veces (JSON solo se queda el primero) //DONE, indicar en la memoria que si funciona para DN sirve para el resto si se repiten
 
 TYPE OF DEVICE
-	CEI14: Etiqueta erronea
-	CEV15: Etiqueta correcta
-	CEI16: El valor no es una cadena de caracteres
-	CEI17: Valor distinto de Sensor o Actuator
-	CEV18: Type of device sensor
-	CEV19: Type of device actuator
-	CEI20: Aparece 0 veces
-	CEV21: Aparece 1 vez
-	CEV22: Aparece n veces (JSON solo se queda el primero)
+	CEI14: Etiqueta erronea //DONE
+	CEV15: Etiqueta correcta //DONE
+	CEI16: El valor no es una cadena de caracteres //DONE
+	CEI17: Valor distinto de Sensor o Actuator //DONE
+	CEV18: Type of device sensor //DONE
+	CEV19: Type of device actuator //DONE
+	CEI20: Aparece 0 veces //DONE
+	CEV21: Aparece 1 vez //DONE
+	CEV22: Aparece n veces (JSON solo se queda el primero) //DONE, indicar en la memoria que si funciona para DN sirve para el resto si se repiten
 	//No volver a poner las ocurrencias de una variable del fichero
 
 EMAIL
-	CEI23: Etiqueta incorrecta
-	CEI24: El valor de email es un correo incorrecto
-	CEV25: El valor de email es un correo correcto
-	CEI26: Aparece 0 veces
-	CEV27: Aparece 1 vez
+	CEI23: Etiqueta incorrecta //DONE
+	CEI24: El valor de email es un correo incorrecto //DONE
+	CEV25: El valor de email es un correo correcto //DONE
+	CEI26: Aparece 0 veces //DONE
+	CEV27: Aparece 1 vez //DONE
 
 DRIVER VERSION
-	CEI28: Etiqueta incorrecta
-	CEI29: DriverVersion contiene caracteres no permitidos, como letras o otros caracteres que no sean '.'
-	CEV30: DriverVersion tiene el formato adecuado
-	CEI31: DriverVersion no es una cadena de caracteres
-	CEV32: DriverVersion es una cadena de caracteres
-	CEV33: DriverVersion esta entre 1 y 25 caracteres
-	CEI34: La longitud de DriverVersion no esta entre 1 y 25 caracteres
-	CEV35: La longitud de DriverVersion esta entre 1 y 25 caracteres
-	CEI36: El valor de DeviceName es ""
-	CEI37: DeviceName aparece 0 veces
-	CEV38: DeviceName aparece 1 vez
+	CEI28: Etiqueta incorrecta //DONE
+	CEI29: DriverVersion contiene caracteres no permitidos, como letras o otros caracteres que no sean '.' //DONE
+	CEV30: DriverVersion tiene el formato adecuado //DONE
+	CEI31: DriverVersion no es una cadena de caracteres //DONE
+	CEV32: DriverVersion es una cadena de caracteres //DONE
+	CEV33: DriverVersion esta entre 3 y 25 caracteres //DONE
+	CEI34: La longitud de DriverVersion no esta entre 1 y 25 caracteres //DONE
+	CEV35: La longitud de DriverVersion esta entre 1 y 25 caracteres //DONE
+	CEI36: El valor de DeviceName es "" //DONE
+	CEI37: DeviceName aparece 0 veces //DONE
+	CEV38: DeviceName aparece 1 vez //DONE
 
 SERIAL NUMBER
-	CEI39: Etiqueta incorrecta
-	CEI40: Serial Number tiene el formato incorrecto (contiene espacios u otros simbolos)
-	CEV41: Serial Number tiene el formato correcto
-	CEI42: Serial Number no es una cadena de caracteres, que no admita letras
-	CEV43: Serial Number es una cadena de caracteres
-	CEI44: Serial Number es ""
-	CEI45: Serial Number aparece 0 veces
-	CEV46: Serial Number aparece 1 vez
+	CEI39: Etiqueta incorrecta //DONE
+	CEI40: Serial Number tiene el formato incorrecto (contiene espacios u otros simbolos) //DONE
+	CEV41: Serial Number tiene el formato correcto //DONE
+	CEI42: Serial Number no es una cadena de caracteres, que no admita letras //DONE
+	CEV43: Serial Number es una cadena de caracteres //DONE
+	CEI44: Serial Number es "" //DONE
+	CEI45: Serial Number aparece 0 veces //DONE
+	CEV46: Serial Number aparece 1 vez //DONE
 
 MAC ADDRESS
-	CEI47: Etiqueta incorrecta
-	CEI48: MacAddress tiene un formato incorrecto
-	CEV49: MacAddress tiene formato correcto (6 parejas de numeros bien separados por '-' o por ':')
-	CEI50: MacAddress no es una cadena de  caracteres
-	CEV51: MacAddress es una cadena de  caracteres
-	CEI52: MacAddress es ""
-	CEV53: MacAddress tiene longitud 17 (6*2 numeros + 5 espacios)
-	CEI54: MacAddress tiene longitud entre 1 y 17 o superior a 17
-	CEI55: MacAddress aparece 0 veces
-	CEV56: MacAddress aparece 1 vez
+	CEI47: Etiqueta incorrecta //DONE
+	CEI48: MacAddress tiene un formato incorrecto //DONE
+	CEV49: MacAddress tiene formato correcto (6 parejas de numeros bien separados por '-' o por ':') //DONE
+	CEI50: MacAddress no es una cadena de  caracteres //DONE
+	CEV51: MacAddress es una cadena de  caracteres //DONE
+	CEI52: MacAddress es "" //DONE
+	CEV53: MacAddress tiene longitud 17 (6*2 numeros + 5 espacios) //POSIBLE ELIMINACION, se puede controlar con el pattern
+	CEI54: MacAddress tiene longitud entre 1 y 17 o superior a 17 //POSIBLE ELIMINACION, se puede controlar con el pattern
+	CEI55: MacAddress aparece 0 veces //DONE
+	CEV56: MacAddress aparece 1 vez //DONE
 
 CLASES DE PRUEBA
 	 CP1: Fichero no existe (CEI2) //DONE
 	 CP2: Fichero que no cumple la sintaxis JSON (CEI4) //DONE
 	 CP3: La etiqueta no se corresponde a DeviceName (CEI6)  //DONE
-	 CP4: DeviceName no tiene como valor una cadena de caracteres (CEI7) //Buscar patron correcto
-	 CP5: DeviceName tiene como valor "" (CEI8)
-	 CP6: DeviceName tiene una longitud mayor a 20 o una menor a 1 (CEI9)
-	 CP7: DeviceName no aparece ninguna vez (CEI11)
+	 CP4: DeviceName no tiene como valor una cadena de caracteres (CEI7) //DONE
+	 CP5: DeviceName tiene como valor "" (CEI8)  //DONE
+	 CP6: DeviceName tiene una longitud mayor a 20 o una menor a 1 (CEI9) //DONE
+	 	BAV: Limite inferior ya comprobado con "", que es longitud inferior.  //DONE
+		BAV: Valores en limites, con 20 o 1 de longitud //DONE
+		BAV: Se prueba el limite superior, por ejemplo 21  //DONE
+	 CP7: DeviceName no aparece ninguna vez (CEI11) //DONE, se contempla junto a que la etiqueta no se valida, ya que no la encuentra y es como si no estuviera
 	 CP8: Etiqueta de TypeOfDevice erronea //DONE
-	 CP9: TypeOfDevice no es una cadena de caracteres (CEI16)
-	 CP10: TypeOfDevice tiene un valor que no es Sensor o Actuator (CEI17)
-	 CP11: TypeOfDevice no aparece ninguna vez (CEI20)
+	 CP9: TypeOfDevice no es una cadena de caracteres (CEI16) //DONE, se contempla junto a que la de valores incorrectos, ya que si no tiene uno de los dos da igual si es cadena o no de caracteres
+	 CP10: TypeOfDevice tiene un valor que no es Sensor o Actuator (CEI17) //DONE
+	 CP11: TypeOfDevice no aparece ninguna vez (CEI20) //DONE, se contempla junto a que la etiqueta no se valida, ya que no la encuentra y es como si no estuviera
 	 CP12: Email es un correo incorrecto (CEI24) //DONE
 	 CP13: Email tiene una etiqueta no valida (CEI23) //DONE
-	 CP14: Email aparece 0 veces (CEI26)
+	 CP14: Email aparece 0 veces (CEI26) //DONE, se contempla junto a que la etiqueta no se valida, ya que no la encuentra y es como si no estuviera
 	 CP15: DriverVersion no tiene una etiqueta correcta (CEI28) //DONE
-	 CP16: DriverVersion contiene caracteres no permitidos (CEI29)
-	 CP17: DriverVersion no es una cadena de caracteres (CEI31)
-	 CP18: DriverVersion no esta entre 1 y 25 caracteres (CEI34)
-	 CP19: El valor de DriverVersion es "" (CEI36)
-	 CP20: DriverVersion no aparece ninguna vez (CEI37)
+	 CP16: DriverVersion contiene caracteres no permitidos (CEI29) //DONE, se contempla junto a la del partron
+	 CP17: DriverVersion no es una cadena de caracteres (CEI31) //DONE, se contempla junto a la del patron
+	 CP18: DriverVersion no esta entre 3 y 25 caracteres (CEI34) //DONE
+	 	BAV: Limite inferior ya comprobado con "", que es longitud inferior.  //DONE
+	 	BAV: Valores en limites, con 25 o 3 de longitud //DONE
+	 	BAV: Se prueba el limite superior, por ejemplo 26  //DONE
+	 CP19: El valor de DriverVersion es "" (CEI36)  //DONE, pero lo controla el patron
+	 CP20: DriverVersion no aparece ninguna vez (CEI37) //DONE, se contempla junto a que la etiqueta no se valida, ya que no la encuentra y es como si no estuviera
 	 CP21: SerialNumber tiene una etiqueta incorrecta (CEI39) //DONE
-	 CP22: SerialNumber contiene espacios (CEI40)
-	 CP23: SerialNumber no es una cadena de caracteres (CEI42)
-	 CP24: SerialNumber tiene el valor "" (CEI44)
-	 CP25: SerialNumber no aparece ninguna vez (CEI45)
+	 CP22: SerialNumber contiene espacios (CEI40) //DONE
+	 CP23: SerialNumber no es una cadena de caracteres (CEI42) //DONE, se contempla junto a la del patron
+	 CP24: SerialNumber tiene el valor "" (CEI44)  //DONE
+	 CP25: SerialNumber no aparece ninguna vez (CEI45) //DONE, se contempla junto a que la etiqueta no se valida, ya que no la encuentra y es como si no estuviera
 	 CP26: MacAddress tiene una etiqueta incorrecta (CEI47) //DONE
-	 CP27: MacAddress tiene un formato incorrecto (CEI48)
-	 CP28: MacAddress no es una cadena de caracteres (CEI50)
-	 CP29: MacAddress tiene como valor "" (CEI52)
-	 CP30: MacAddress no tiene longitud 17 (CEI54)
-	 CP31: MacAddress no aparece ninguna vez (CEI55)
+	 CP27: MacAddress tiene un formato incorrecto (CEI48) //DONE
+	 CP28: MacAddress no es una cadena de caracteres (CEI50) //DONE
+	 CP29: MacAddress tiene como valor "" (CEI52)  //DONE, se contempla junto a que la de valores incorrectos, ya que si no tiene uno de los dos da igual si es cadena o no de caracteres
+	 CP30: MacAddress no tiene longitud 17 (CEI54) //POSIBLE ELIMINACION, se puede controlar con el pattern
+	 CP31: MacAddress no aparece ninguna vez (CEI55) //DONE, se contempla junto a que la etiqueta no se valida, ya que no la encuentra y es como si no estuviera
