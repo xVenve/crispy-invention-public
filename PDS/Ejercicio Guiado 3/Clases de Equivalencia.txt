@@ -90,7 +90,7 @@ CLASES DE PRUEBA
 		BAV: Valores en limites, con 20 o 1 de longitud //DONE
 		BAV: Se prueba el limite superior, por ejemplo 21  //DONE
 	 CP7: DeviceName no aparece ninguna vez (CEI11) //DONE, se contempla junto a que la etiqueta no se valida, ya que no la encuentra y es como si no estuviera
-	 CP8: Etiqueta de TypeOfDevice erronea //DONE
+	 CP8: Etiqueta de TypeOfDevice erronea (CEI14)  //DONE
 	 CP9: TypeOfDevice no es una cadena de caracteres (CEI16) //DONE, se contempla junto a que la de valores incorrectos, ya que si no tiene uno de los dos da igual si es cadena o no de caracteres
 	 CP10: TypeOfDevice tiene un valor que no es Sensor o Actuator (CEI17) //DONE
 	 CP11: TypeOfDevice no aparece ninguna vez (CEI20) //DONE, se contempla junto a que la etiqueta no se valida, ya que no la encuentra y es como si no estuviera
