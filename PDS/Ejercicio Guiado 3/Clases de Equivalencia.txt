@@ -123,9 +123,9 @@ CLASES DE EQUIVALENCIA DE TOKEN
 
 ENTRADAS
 	CEV1: Ruta a un fichero que existe
-	CEI2: Ruta a un fichero que no existe
+	CEI2: Ruta a un fichero que no existe //DONE
 	CEV3: El fichero de entrada cumple la sintaxis JSON
-	CEI4: El fichero de entrada no cumple la sintaxis JSON
+	CEI4: El fichero de entrada no cumple la sintaxis JSON //DONE
 
 DEVICE
 	CEV5: Device tiene la longitud correcta, 32 caracteres
@@ -159,12 +159,9 @@ NOTIFICATION EMAIL
 	CEV29: Notification Email aparece n veces
 
 CLASES DE PRUEBA
-	CP1: Fichero inexistente en la ruta pasada (CEI2)
-	CP2: Fichero con sintaxis JSON incorrecta (CEI4)
-	CP3: Device tiene una longitud mayor a 32 o una menor a 1 (CEI6)
-		BAV: Limite inferior ya comprobado con "", que es longitud inferior
-		BAV: Valores en limites, con 32 o 1 de longitud
-		BAV: Se prueba el limite superior, por ejemplo 33
+	CP1: Fichero inexistente en la ruta pasada (CEI2) //DONE
+	CP2: Fichero con sintaxis JSON incorrecta (CEI4) //DONE
+	CP3: Device tiene una longitud mayor a 32 o una menor a 1 (CEI6) //DONE
 	CP4: Device no tiene como valor una cadena de caracteres (CEI8)
 	CP5: Device tiene una etiqueta no valida (CEI10)
 	CP6: Device apararece 0 veces (CEI11)
