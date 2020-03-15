@@ -122,54 +122,54 @@ CLASES DE PRUEBA
 CLASES DE EQUIVALENCIA DE TOKEN
 
 ENTRADAS
-	CEV1: Ruta a un fichero que existe
+	CEV1: Ruta a un fichero que existe  //DONE
 	CEI2: Ruta a un fichero que no existe //DONE
-	CEV3: El fichero de entrada cumple la sintaxis JSON
+	CEV3: El fichero de entrada cumple la sintaxis JSON  //DONE
 	CEI4: El fichero de entrada no cumple la sintaxis JSON //DONE
 
 DEVICE
-	CEV5: Device tiene la longitud correcta, 32 caracteres
-	CEI6: Device no tiene la longitud correcta
-	CEV7: Device es una cadena de caracteres
-	CEI8: Device no es una cadena de caracteres
-	CEV9: Device tiene la etiqueta correcta
-	CEI10: Device tiene la etiqueta incorrecta
-	CEI11: Device aparece 0 veces
-	CEV12: Device aparece 1 vez
+	CEV5: Device tiene la longitud correcta, 32 caracteres  //DONE
+	CEI6: Device no tiene la longitud correcta  //DONE
+	CEV7: Device es una cadena de caracteres  //DONE
+	CEI8: Device no es una cadena de caracteres  //DONE
+	CEV9: Device tiene la etiqueta correcta  //DONE
+	CEI10: Device tiene la etiqueta incorrecta //DONE
+	CEI11: Device aparece 0 veces  //DONE
+	CEV12: Device aparece 1 vez  //DONE
 	CEV13: Device aparece n veces
-	CEI14: Device es ""
+	CEI14: Device es ""  //DONE
 
 REQUEST DATE
-	CEI15: Request Date tiene el formato incorrecto
-	CEV16: Request Date tiene el formato correcto
-	CEI17: Request Date tiene la etiqueta incorrecta
-	CEV18: Request Date tiene la etiqueta correcta
-	CEI19: Request Date aparece 0 veces
-	CEV20: Request Date aparece n veces
-	CEV21: Request Date aparece 1 vez
+	CEI15: Request Date tiene el formato incorrecto  //DONE
+	CEV16: Request Date tiene el formato correcto  //DONE
+	CEI17: Request Date tiene la etiqueta incorrecta //DONE
+	CEV18: Request Date tiene la etiqueta correcta  //DONE
+	CEI19: Request Date aparece 0 veces  //DONE
+	CEV20: Request Date aparece n veces //DONE
+	CEV21: Request Date aparece 1 vez  //DONE
 
 NOTIFICATION EMAIL
-	CEV22: Notification Email cumple el patron
-	CEI23: Notification Email no cumple el patron
-	CEV24: Notification Email tiene la etiqueta correcta
-	CEI25: Notification Email tiene la etiqueta incorrecta
-	CEI26: Notification Email tiene el valor ""
-	CEV27: Notification Email aparece 1 vez
-	CEI28: Notification Email aparece 0 veces
-	CEV29: Notification Email aparece n veces
+	CEV22: Notification Email cumple el patron  //DONE
+	CEI23: Notification Email no cumple el patron  //DONE
+	CEV24: Notification Email tiene la etiqueta correcta  //DONE
+	CEI25: Notification Email tiene la etiqueta incorrecta //DONE
+	CEI26: Notification Email tiene el valor ""  //DONE viene implicito en el patron
+	CEV27: Notification Email aparece 1 vez  //DONE
+	CEI28: Notification Email aparece 0 veces  //DONE
+	CEV29: Notification Email aparece n veces //DONE
 
 CLASES DE PRUEBA
 	CP1: Fichero inexistente en la ruta pasada (CEI2) //DONE
 	CP2: Fichero con sintaxis JSON incorrecta (CEI4) //DONE
 	CP3: Device tiene una longitud mayor a 32 o una menor a 1 (CEI6) //DONE
 	CP4: Device no tiene como valor una cadena de caracteres (CEI8)
-	CP5: Device tiene una etiqueta no valida (CEI10)
-	CP6: Device apararece 0 veces (CEI11)
-	CP7: Device tiene el valor "" (CEI14)
+	CP5: Device tiene una etiqueta no valida (CEI10) //DONE
+	CP6: Device apararece 0 veces (CEI11) //DONE se cuenta con la etiqueta invalida
+	CP7: Device tiene el valor "" (CEI14)//DONE
 	CP8: Request date no tiene el formato correcto (CEI15)
-	CP9: Request date tiene una etiqueta no valida (CEI17)
-	CP10: Request date aparece 0 veces (CEI19)
-	CP11: Notification email no tiene el formato correcto (CEI23)
-	CP12: Notification email tiene la etiqueta incorrecta (CEI25)
-	CP13: Notification email tiene el valor "" (CEI26)
-	CP14: Notification email aparece 0 veces (CEI28)
+	CP9: Request date tiene una etiqueta no valida (CEI17) //DONE
+	CP10: Request date aparece 0 veces (CEI19) //DONE se cuenta con la etiqueta invalida
+	CP11: Notification email no tiene el formato correcto (CEI23)  //DONE
+	CP12: Notification email tiene la etiqueta incorrecta (CEI25) //DONE
+	CP13: Notification email tiene el valor "" (CEI26)  //DONE, el patron ya controla que no sea vacio.
+	CP14: Notification email aparece 0 veces (CEI28) //DONE se cuenta con la etiqueta invalida
