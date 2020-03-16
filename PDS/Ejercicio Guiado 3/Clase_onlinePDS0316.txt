@@ -1,0 +1,20 @@
+Intentar tener al día todo lo que lleva explicado de práctica, por ahora nos queda hacer gramáticas y empezar a
+  plantearnos hacer la memoria.
+
+Como pronto se entrega el martes 30.
+
+La primera funcionalidad se hace clases de equivalencia y casos límites. TokenRequestGeneration
+La segunda funcionalidad se hacen gramáticas. RequestToken
+La tercera funcionalidad será para de pruebas estructurales. ########
+
+Para no hacer recursividad, hacer Backus, que indica las veces que puede ponerse cada uno.
+
+En las pruebas estructurada no se prueban todos los casos, sería inviable. Por lo que seguiremos un método.
+  Ser congruentes. Ir avanzando buscando fallo, seguir siempre izquierda y no entrar en bucles. En la siguiente no entro
+    en el fallo o voy a la izquierda o entro en el bucle. Tomo la decisión contraria a la del anterior.
+
+Re oír min 38, explica caso similar a que tendremos que implementar.
+
+Cuando hay una excepción se ponen flechas distintas que apuntan al final del grafo o al siguiente, como representativo.
+  Se ponen en el grafo para que nos indiquen cuantas pruebas debemos hacer.
+  Lo más correcto es que apunten al final del grafo.
