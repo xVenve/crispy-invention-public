@@ -1,18 +1,26 @@
 3 grupos a los que hacer hash, luego concatenar hacer H256 y luego codificar.
-Hacer mas complejos los campos de la gramatica.
-Lo mejor exportar el arbol como PDF, tener en cuenta los niveles y numerar.
+
+Hacer más complejos los campos de la gramática.
+
+Lo mejor exportar el árbol como PDF, tener en cuenta los niveles y numerar.
+
 Al hacer los casos de prueba indicar a que nodo corresponde la prueba.
-  Los no terminales, no se modifican por que no tiene valor en si, pero se pueden duplicar o eliminar.
+  Los no terminales, no se modifican porque no tiene valor en sí, pero se pueden duplicar o eliminar.
   Los terminales los podemos modificar, un ( en vez de { por ejemplo.
     Si ya se ha probado a duplicar una coma en un caso, no se prueba en todas las comas.
-    Hay que hacer pruebas de cada tipo (eliminación/duplicacion/modificacion) con cada nodo, a no ser que se repitan
+    Hay que hacer pruebas de cada tipo (eliminación/duplicación/modificación) con cada nodo, a no ser que se repitan
+
 Numerar ayuda a no liarnos, son de ayuda.
+
 Ojo al sentido de las barras en las rutas Mac / Windows \\
-Todas la lineas indicadas en las tranpararencias van dentro del metodo TokenRequest, no deberian estar dentro. En la clase TokenManager
-  Ojo el formato de la fecha es el de España, esta puesto otro. dd-mm-yyyy
+
+Todas las líneas indicadas en las trasparencias van dentro del método TokenRequest, no deberían estar dentro. En la clase TokenManager
+  Ojo el formato de la fecha es el de España, está puesto otro. dd-mm-yyyy
   Ojo control de mail de validar...
-  Los hash no tienen mayuculas
-Solo poner las dos sentencias de Guardar en un fichero que iran en TokenStore, la de TokenStore nos lo dan ellos.
-numLinesToSkip indica cuantas lineas ocupa cada pruebas
+  Los hashes no tienen mayúsculas
+
+Solo poner las dos sentencias de Guardar en un fichero que irán en TokenStore, la de TokenStore nos lo dan ellos.
+numLinesToSkip indica cuantas líneas ocupa cada prueba
+
 El csv en src/test/resources
-  Sino target-classes o algo asi
+  Sino target-classes o algo así
