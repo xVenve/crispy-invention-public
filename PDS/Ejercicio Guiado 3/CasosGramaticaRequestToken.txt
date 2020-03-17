@@ -65,7 +65,6 @@ CEI46: RDate no tiene el caracter deseado (Mal formato del fichero)
 
 CEI47: No aparece FormatoFecha (Mal formato del fichero)
 CEI48: FormatoFecha esta duplicado (Mal formato del fichero)
-CEI49: FormatoFecha no tiene el caracter deseado (Mal formato del fichero)
 
 CEI50: No aparece Nombre (Mal formato del fichero)
 CEI51: Nombre esta duplicado (Mal formato del fichero)
