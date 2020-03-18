@@ -128,86 +128,52 @@ int main(int argc, char* argv[])
                     execvp(argv_execvp[0], argv_execvp);
                   } else {
                     if (!in_background) {
-                      while (wait(&stat) > 0)
-                        ;
+                      while (wait(&stat)>0);
                       if (stat < 0) {
                         printf("Error ejecucion hijo\n"); // Cambiar todos los errores por perror
                       }
                     }
                   }
 
-                } else {
-                  int n = command_counter;
-                  int i;
-                  int fd[2];
-                  int pid, status2;
+                }else if (command_counter == 2) {
+                  int tub[2];
+                  int stat2;
+                  int pid = 0;
+                  pipe(tub);
+                  for (int i = 0; i < 2; i++) {
+                    pid = fork();
+                    if (pid == 0) { // hijo
+                      if (i == 0) { // hijo 1
 
-                  int in = dup(0);
-
-                  for (i = 0; i < n; i++) {
-                    /* se crea el siguiente pipe */
-                    if (i != n - 1) { // el último no se crea
-                      if (pipe(fd) < 0) {
-                        perror("Error en pipe\n");
-                        exit(0);
-                      }
-                    }
-
-                    /* se crea el proceso siguiente en la cadena */
-                    printf("Creando proceso \n");
-                    switch (pid = fork()) {
-
-                    case -1:
-                      perror("Error en fork\n");
-                      close(fd[0]);
-                      close(fd[1]);
-                      exit(0);
-
-                    case 0: /* proceso hijo */
-                      /* redirige la entrada estándar al pipe anterior*/
-                      /* al anterior in */
-                      close(0);
-                      dup(in);
-                      close(in);
-
-                      if (i != n - 1) { // no es último proeso
                         close(1);
-                        dup(fd[1]);
-                        close(fd[0]);
-                        close(fd[1]);
-                      }
+                        dup(tub[1]);
+                        close(tub[1]);
+                        close(tub[0]);
 
-                      if (i == 0) {
-                        //Primer proceso
+												getCompleteCommand(argvv, i);
+												execvp(argv_execvp[0], argv_execvp);
+												printf("Ha fallado el hijo 0\n");
+                      } else if (i == 1) { // hijo 2
 
-                        getCompleteCommand(argvv, i);
+                        close(0);
+                        dup(tub[0]);
+                        close(tub[0]);
+                        close(tub[1]);
+
+												getCompleteCommand(argvv, i);
                         execvp(argv_execvp[0], argv_execvp);
 
-                      } else {
-                        /* redirige el pid del primer */
-                        /* proceso al siguiente pipe */
-
-                        getCompleteCommand(argvv, i);
-                        execvp(argv_execvp[0], argv_execvp);
+												printf("Ha fallado el hijo 1\n");
                       }
 
+                    } else { // padre
 
-                      break;
-
-                    default: /* proceso padre */
-
-
-
-                      close(in); // cierra el anterior
-                      if (i != n - 1) {
-                        in = dup(fd[0]); // para el siguiente
-                        close(fd[0]);
-                        close(fd[1]);
-                      }
                     }
                   }
-                  while (wait(&status2) > 0)
-                    ;
+									while(wait(&stat2)>0);
+									printf("Ha fallado el hijo 1\n");
+									close(tub[0]);
+									close(tub[1]);
                 }
         }
         return 0;
