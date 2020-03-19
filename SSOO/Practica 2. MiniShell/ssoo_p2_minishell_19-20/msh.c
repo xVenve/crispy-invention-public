@@ -128,23 +128,21 @@ int main(int argc, char* argv[])
                     execvp(argv_execvp[0], argv_execvp);
                   } else {
                     if (!in_background) {
-                      while (wait(&stat) > 0)
-                        ;
+                      while (wait(&stat) > 0);
                       if (stat < 0) {
                         printf("Error ejecucion hijo\n"); // Cambiar todos los errores por perror
                       }
                     }
                   }
 
-                } else {
+                } else { //CONTROLAR ERRORES
                   int n = command_counter;
-                  int i;
                   int fd[2];
                   int pid, status2;
 
                   int in = dup(0);
 
-                  for (i = 0; i < n; i++) {
+                  for (int i = 0; i < n; i++) {
                     /* se crea el siguiente pipe */
                     if (i != n - 1) { // el último no se crea
                       if (pipe(fd) < 0) {
@@ -154,7 +152,6 @@ int main(int argc, char* argv[])
                     }
 
                     /* se crea el proceso siguiente en la cadena */
-                    printf("Creando proceso \n");
                     switch (pid = fork()) {
 
                     case -1:
@@ -177,26 +174,11 @@ int main(int argc, char* argv[])
                         close(fd[1]);
                       }
 
-                      if (i == 0) {
-                        //Primer proceso
-
-                        getCompleteCommand(argvv, i);
-                        execvp(argv_execvp[0], argv_execvp);
-
-                      } else {
-                        /* redirige el pid del primer */
-                        /* proceso al siguiente pipe */
-
-                        getCompleteCommand(argvv, i);
-                        execvp(argv_execvp[0], argv_execvp);
-                      }
-
-
+                      getCompleteCommand(argvv, i);
+                      execvp(argv_execvp[0], argv_execvp);
                       break;
 
                     default: /* proceso padre */
-
-
 
                       close(in); // cierra el anterior
                       if (i != n - 1) {
@@ -206,8 +188,12 @@ int main(int argc, char* argv[])
                       }
                     }
                   }
-                  while (wait(&status2) > 0)
-                    ;
+									if (!in_background) {
+										while (wait(&status2) > 0);
+										if (stat < 0) {
+											printf("Error ejecucion hijo\n"); // Cambiar todos los errores por perror
+										}
+									}
                 }
         }
         return 0;
