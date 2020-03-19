@@ -16,7 +16,6 @@
 
 #define MAX_COMMANDS 8
 
-
 // ficheros por si hay redirección
 char filev[3][64];
 
@@ -76,6 +75,7 @@ int main(int argc, char* argv[])
     char ***argvv = NULL;
     int num_commands;
 
+		int ACC=0;
 
 	while (1)
 	{
@@ -101,6 +101,10 @@ int main(int argc, char* argv[])
 
               /************************ STUDENTS CODE ********************************/
 
+
+
+
+
                 if (command_counter > 0) {
                   if (command_counter > MAX_COMMANDS)
                     printf("Error: Numero máximo de comandos es %d \n", MAX_COMMANDS);
@@ -116,8 +120,25 @@ int main(int argc, char* argv[])
                 }
 
                 // ESCRIBIR AQUI
-                // PARTE 1 Y 2: INICIO
-                if (command_counter == 1) {
+								if(strcmp(argv_execvp[0],"mycalc") == 0){
+									 printf("Esto ha leido un mycalc\n");
+									 if(command_counter = 4){
+										 if(strcmp(argv_execvp[2],"add") == 0){
+											  int x= atoi(argv_execvp[1]);
+											  int y= atoi(argv_execvp[3]);
+											 ACC = ACC + x + y;
+										 	printf("[OK] %d + %d = %d; Acc %d\n", x, y, x+y, ACC);
+										 }else if(strcmp(argv_execvp[2],"mod") == 0){
+											  int x= atoi(argv_execvp[1]);
+											  int y= atoi(argv_execvp[3]);
+											 printf("[OK] %d %% %d = %d * %d + %d\n", x, y, y, (x%y), (x-(y*(x%y))));
+										 }else{
+											 perror("[ERROR] La estructura del comando es <operando 1> <add/mod> <operando 2>");
+										 }
+									 }else{
+										 perror("[ERROR] La estructura del comando es <operando 1> <add/mod> <operando 2>");
+									 }
+								}else  if (command_counter == 1) { // PARTE 1 Y 2: INICIO
                   int pid = fork();
                   if (pid == -1) {
                     perror("Error en fork: Reescribir");
@@ -179,15 +200,16 @@ int main(int argc, char* argv[])
                       break;
 
                     default: /* proceso padre */
-
-                      close(in); // cierra el anterior
+										//El padre le da el nuevo valor a in para que pueda utilizarlo el hijo (a no ser que sea el ultimo proceso)
+                      close(in);
                       if (i != n - 1) {
-                        in = dup(fd[0]); // para el siguiente
+                        in = dup(fd[0]);
                         close(fd[0]);
                         close(fd[1]);
                       }
                     }
                   }
+									//Al terminar el bucle, el primer proceso espera al último, que irá despertando a todos
 									if (!in_background) {
 										while (wait(&status2) > 0);
 										if (stat < 0) {
