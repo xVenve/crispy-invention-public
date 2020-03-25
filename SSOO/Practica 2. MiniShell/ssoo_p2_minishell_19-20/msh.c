@@ -13,8 +13,11 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <math.h>
+
 
 #define MAX_COMMANDS 8
+
 
 // ficheros por si hay redirección
 char filev[3][64];
@@ -75,7 +78,7 @@ int main(int argc, char* argv[])
     char ***argvv = NULL;
     int num_commands;
 
-		int ACC=0;
+		int Acu=0;
 
 	while (1)
 	{
@@ -104,39 +107,102 @@ int main(int argc, char* argv[])
 
 
 
+							if (command_counter > 0) {
+								if (command_counter > MAX_COMMANDS)
+									printf("Error: Numero máximo de comandos es %d \n", MAX_COMMANDS);
+								else {
+									 //Print command
+					 // print_command(argvv, filev, in_background);
+								}
+							}
 
-                if (command_counter > 0) {
-                  if (command_counter > MAX_COMMANDS)
-                    printf("Error: Numero máximo de comandos es %d \n", MAX_COMMANDS);
-                  else {
-                    // Print command
-                    print_command(argvv, filev, in_background);
-                  }
-                }
+							for (int i = 0; i < command_counter; i++) {
+									getCompleteCommand(argvv, i);
+	//		 printf("%s\n", argv_execvp[0]);
+							}
 
-                for (int i = 0; i < command_counter; i++) {
-                  getCompleteCommand(argvv, i);
-                  printf("%s\n", argv_execvp[0]);
-                }
+
 
                 // ESCRIBIR AQUI
 								if(strcmp(argv_execvp[0],"mycalc") == 0){
-									 printf("Esto ha leido un mycalc\n");
 									 if(command_counter = 4){
 										 if(strcmp(argv_execvp[2],"add") == 0){
 											  int x= atoi(argv_execvp[1]);
 											  int y= atoi(argv_execvp[3]);
-											 ACC = ACC + x + y;
-										 	printf("[OK] %d + %d = %d; Acc %d\n", x, y, x+y, ACC);
+											 	Acu = Acu + x + y;
+												char buf[20];
+												sprintf(buf,"%d", Acu);
+												const char* p = buf;
+												setenv("Acc", p, 1);
+												char str[100];
+										 		snprintf(str, 100, "[OK] %d + %d = %d; Acc %s\n", x, y, x+y, getenv("Acc"));
+											write(2, str, strlen(str));
 										 }else if(strcmp(argv_execvp[2],"mod") == 0){
 											  int x= atoi(argv_execvp[1]);
 											  int y= atoi(argv_execvp[3]);
-											 printf("[OK] %d %% %d = %d * %d + %d\n", x, y, y, (x%y), (x-(y*(x%y))));
+												char str[100];
+
+												snprintf(str, 100, "[OK] %d %% %d = %d * %d + %d\n", x, y, y, abs(floor(x/y)), x%y);
+												write(2, str, strlen(str));
 										 }else{
-											 perror("[ERROR] La estructura del comando es <operando 1> <add/mod> <operando 2>");
+										  write(1, "[ERROR] La estructura del comando es <operando 1> <add/mod> <operando 2>",strlen("[ERROR] La estructura del comando es <operando 1> <add/mod> <operando 2>"));
 										 }
 									 }else{
-										 perror("[ERROR] La estructura del comando es <operando 1> <add/mod> <operando 2>");
+										 	write(1, "[ERROR] La estructura del comando es <operando 1> <add/mod> <operando 2>",strlen("[ERROR] La estructura del comando es <operando 1> <add/mod> <operando 2>"));
+									 }
+								}else if(strcmp(argv_execvp[0],"mycp") == 0){
+									 if(command_counter = 3){
+										 	int descorigen = open(argv_execvp[1], O_RDONLY, 0644);
+											if(descorigen>=0){
+													char buf[1024];
+													int descdestino = open (argv_execvp[2], O_TRUNC|O_WRONLY | O_CREAT, 0644);
+
+
+
+												//Vamos leyendo el fichero y lo sacamos por terminal con STDOUT_FILENO
+												int nread, nwrite;
+												while((nread=read(descorigen, buf, 1024))>0){
+
+													do{
+
+														nwrite=write(descdestino, buf, nread);
+														if(nwrite<0){
+															if(close(descdestino)<0){
+																perror("Error al cerrar el fichero\n");
+															}
+															perror("Error al escribir en la linea de comandos\n");
+														}
+														nread-=nwrite;
+
+													}while(nread>0);
+
+												}
+												if(nread<0){
+													perror("Error al leer fichero\n");
+													if(close(descorigen)<0){
+														perror("Error al cerrar el fichero\n");
+													}
+
+
+												}
+												//Cuando acabamos de leer el fichero lo cerramos, tambien lo cerramos ante un error cuando lo tenemos abierto.
+												if(close(descorigen)<0){
+													perror("Error al cerrar el fichero\n");
+												}
+												if (close(descdestino)<0){
+													perror("Error al cerrar el fichero\n");
+												}
+												char str[100];
+
+												snprintf(str, 100, "[OK] Copiado con exito el fichero %s a %s\n",argv_execvp[1], argv_execvp[2]);
+
+												write(1, str, strlen(str));
+
+										 }else{
+											 write(1, "[ERROR] Error al abrir el fichero origen : No such file or directory",strlen("[ERROR] Error al abrir el fichero origen : No such file or directory"));
+										 }
+									 }else{
+										 	write(1, "[ERROR] La estructura del comando es mycp <fichero origen> <fichero destino>",strlen("[ERROR] La estructura del comando es mycp <fichero origen> <fichero destino>"));
 									 }
 								}else  if (command_counter == 1) { // PARTE 1 Y 2: INICIO
                   int pid = fork();
@@ -144,14 +210,32 @@ int main(int argc, char* argv[])
                     perror("Error en fork: Reescribir");
                     return (-1);
                   }
+
+									int filehandle;
                   int stat;
-                  if (pid == 0) {
+                  if (pid == 0) {/*Codigo hijo*/
+										if(strcmp(filev[1],"0") != 0){
+											close(1);
+											filehandle = open (filev[1], O_TRUNC|O_WRONLY | O_CREAT, 0644);
+										}
+										if(strcmp(filev[0],"0") != 0){
+											close(0);
+											filehandle = open (filev[0], O_RDWR, 0644);
+										}
+										if(strcmp(filev[2],"0") != 0){
+												close(2);
+												filehandle = open (filev[2], O_TRUNC|O_WRONLY | O_CREAT, 0644);
+											}
                     execvp(argv_execvp[0], argv_execvp);
-                  } else {
+                  } else {/*Codigo padre*/
+										if(strcmp(filev[1],"0") != 0 || strcmp(filev[0],"0")!= 0 || strcmp(filev[2],"0")!=0){
+											close(filehandle);
+										}
+
                     if (!in_background) {
                       while (wait(&stat) > 0);
                       if (stat < 0) {
-                        printf("Error ejecucion hijo\n"); // Cambiar todos los errores por perror
+                        perror("Error ejecucion hijo\n"); // Cambiar todos los errores por perror
                       }
                     }
                   }
@@ -160,6 +244,8 @@ int main(int argc, char* argv[])
                   int n = command_counter;
                   int fd[2];
                   int pid, status2;
+									int filehandle;
+
 
                   int in = dup(0);
 
@@ -184,16 +270,34 @@ int main(int argc, char* argv[])
                     case 0: /* proceso hijo */
                       /* redirige la entrada estándar al pipe anterior*/
                       /* al anterior in */
-                      close(0);
-                      dup(in);
-                      close(in);
 
-                      if (i != n - 1) { // no es último proeso
+											//redirección de error
+											if(strcmp(filev[2],"0") != 0){
+													close(2);
+													filehandle = open (filev[2], O_TRUNC|O_WRONLY | O_CREAT, 0644);
+												}
+
+											if(i==0 && strcmp(filev[0],"0") != 0){
+												close(0);
+												filehandle = open (filev[0], O_RDWR, 0644);
+											}else{
+												close(0);
+	                      dup(in);
+	                      close(in);
+											}
+
+                      if (i != n - 1) {//no es el ultimo proceso
+
                         close(1);
                         dup(fd[1]);
                         close(fd[0]);
                         close(fd[1]);
-                      }
+                      }else{
+												if(strcmp(filev[1],"0") != 0){
+													close(1);
+													filehandle = open (filev[1], O_TRUNC|O_WRONLY | O_CREAT, 0644);
+												}
+											}
 
                       getCompleteCommand(argvv, i);
                       execvp(argv_execvp[0], argv_execvp);
@@ -209,11 +313,14 @@ int main(int argc, char* argv[])
                       }
                     }
                   }
+									if(strcmp(filev[1],"0") != 0 || strcmp(filev[0],"0")!= 0 || strcmp(filev[2],"0")!=0){
+										close(filehandle);
+									}
 									//Al terminar el bucle, el primer proceso espera al último, que irá despertando a todos
 									if (!in_background) {
 										while (wait(&status2) > 0);
 										if (stat < 0) {
-											printf("Error ejecucion hijo\n"); // Cambiar todos los errores por perror
+											perror("Error ejecucion hijo\n"); // Cambiar todos los errores por perror
 										}
 									}
                 }
