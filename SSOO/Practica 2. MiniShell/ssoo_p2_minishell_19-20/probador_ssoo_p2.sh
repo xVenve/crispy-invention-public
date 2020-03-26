@@ -390,7 +390,7 @@ echo "wc -l  foo.txt"                 	> test1
 echo "wc -l  < foo.txt"               	> test2
 echo "cat foo.txt > salida_msh"         > test3
 echo "cat foo.txt > salida_bash"        > test3.res
-echo "cat noexiste.txt >& res.txt"    	> test4
+echo "cat noexiste.txt !> res.txt"    	> test4
 cat noexiste.txt 2> res.txt    		> test4.res
 
 #1 pipe
@@ -399,7 +399,7 @@ echo "grep 1      | grep a < foo.txt"  >test6
 echo "10a"                             >test6.res
 echo "cat foo.txt | grep a > salida_msh"  >test7
 echo "cat foo.txt | grep a > salida_bash"  >test7.res
-echo "cat noexiste.txt | grep a >& salida_msh"  >test7error
+echo "cat noexiste.txt | grep a !> salida_msh"  >test7error
 echo "cat noexiste.txt | grep a"  >test7error.res
 
 #2 pipes
@@ -408,7 +408,7 @@ echo "grep 1      | grep a | wc -l < foo.txt"  >test9
 echo "1"                                       >test9.res
 echo "cat foo.txt | grep a | wc -l > salida_msh"  >test10
 echo "cat foo.txt | grep a | wc -l > salida_bash"  >test10.res
-echo "cat noexiste.txt | grep a | wc -l >& salida_msh"  >test10Error
+echo "cat noexiste.txt | grep a | wc -l !> salida_msh"  >test10Error
 echo "cat noexiste.txt | grep a | wc -l"  >test10Error.res
 
 #N pipes
