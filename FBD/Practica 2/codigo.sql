@@ -73,3 +73,35 @@ CREATE TRIGGER TG_delete_vigentes
   BEGIN
     UPDATE clubs SET end_date=sysdate WHERE (name=:OLD.name);
   END TG_delete_vigentes;
+
+--VIEW OPENPUB
+CREATE VIEW OPENPUB AS
+    select name,NUM_USERS, FLOOR(MONTHS_BETWEEN(sysdate,cre_date)) MONTHS, PROPO/FLOOR(MONTHS_BETWEEN(sysdate,cre_date)) AVG_PROP, NUM_COMMENT/PROPO COMMENT_PER_PROP
+    FROM ((CLUBS_VIGENTES JOIN (SELECT CLUB NAME ,COUNT('X') NUM_USERS FROM MEMBERSHIP WHERE (CLUB IN (SELECT NAME FROM CLUBS_VIGENTES)) GROUP BY CLUB) USING (NAME))
+     JOIN (select CLUB NAME, COUNT('X') PROPO FROM PROPOSALS GROUP BY (CLUB))USING (NAME))
+     JOIN (SELECT CLUB NAME, COUNT('X') NUM_COMMENT FROM COMMENTS GROUP BY (CLUB)) USING (NAME);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------
+CLEAR SCREEN;
+drop role usuarios_registrados;
+CREATE ROLE usuarios_registrados NOT IDENTIFIED;
+GRANT select ON CANDIDATES TO usuarios_registrados;
+REVOKE select ON CANDIDATES FROM usuarios_registrados;
