@@ -82,26 +82,27 @@ CREATE VIEW OPENPUB AS
      JOIN (SELECT CLUB NAME, COUNT('X') NUM_COMMENT FROM COMMENTS GROUP BY (CLUB)) USING (NAME);
 
 
+--VIEW ANYONE_GOES
+CREATE VIEW ANYONE_GOES AS
+select club name, count('x') NUM_SOLICITUDES from candidates where (TYPE = 'I' AND REJ_DATE IS NULL) Group by club
+ORDER BY COUNT('X') DESC
+FETCH FIRST 5 ROWS ONLY;
 
+--VIEW REPORT
+CREATE  VIEW REPORT AS
+select distinct name, founder, cre_date, end_date, slogan, open
+from clubs
+    Join
+    (select DISTINCT nick, club name
+    from
+        (select nick, club from membership where (nick = user))
+        Union
+        (select nick, club from candidates where (nick = user))
 
+    ) Using (name);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----------------------------------------------------------------
-CLEAR SCREEN;
-drop role usuarios_registrados;
+--CREACION Y GRANT DE usuarios_registrados
 CREATE ROLE usuarios_registrados NOT IDENTIFIED;
-GRANT select ON CANDIDATES TO usuarios_registrados;
-REVOKE select ON CANDIDATES FROM usuarios_registrados;
+GRANT select ON openpub TO usuarios_registrados;
+GRANT select ON any_goes TO usuarios_registrados;
+GRANT select ON REPORT TO usuarios_registrados;
