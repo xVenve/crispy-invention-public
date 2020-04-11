@@ -1,0 +1,174 @@
+
+GE/MASTER -> Creamos nueva rama GE03
+
+Tests de prueba + ficheros + código funcional
+
+
+CLASES DE EQUIVALENCIA DE TOKEN REQUEST
+
+Una clase de prueba invalida equivale a una clase de prueba.
+
+ENTRADAS
+	CEV1: Ruta a un fichero que existe
+	CEI2: Ruta a un fichero que no existe
+	CEV3: El fichero de entrada cumple la sintaxis JSON
+	CEI4: El fichero de entrada no cumple la sintaxis JSON
+
+DEVICE NAME
+	CEV5: La etiqueta es igual a "DeviceName"
+	CEI6: La etiqueta es distinta a "DeviceName"
+	CEI7: El valor de DeviceName no es una cadena de caracteres
+	CEI8: El valor sobre DeviceName es ""
+	CEI9: El valor de una cadena de caracteres no está entre 1 y 20 caracteres
+	CEV10: El valor esta entre 1 y 20 caracteres
+	CEI11: Aparece 0 veces
+	CEV12: Aparece 1 vez
+	CEV13: Aparece n veces (JSON solo se queda el primero)
+
+TYPE OF DEVICE
+	CEI14: Etiqueta errónea
+	CEV15: Etiqueta correcta
+	CEI16: El valor no es una cadena de caracteres
+	CEI17: Valor distinto de Sensor o Actuator
+	CEV18: Type of device sensor
+	CEV19: Type of device actuator
+	CEI20: Aparece 0 veces
+	CEV21: Aparece 1 vez
+	CEV22: Aparece n veces (JSON solo se queda el primero)
+
+EMAIL
+	CEI23: Etiqueta incorrecta
+	CEI24: El valor de email es un correo incorrecto
+	CEV25: El valor de email es un correo correcto
+	CEI26: Aparece 0 veces
+	CEV27: Aparece 1 vez
+
+DRIVER VERSION
+	CEI28: Etiqueta incorrecta
+	CEI29: DriverVersion contiene caracteres no permitidos, como letras u otros caracteres que no sean '.'
+	CEV30: DriverVersion tiene el formato adecuado
+	CEI31: DriverVersion no es una cadena de caracteres
+	CEV32: DriverVersion es una cadena de caracteres
+	CEV33: DriverVersion está entre 3 y 25 caracteres
+	CEI34: La longitud de DriverVersion no está entre 1 y 25 caracteres
+	CEV35: La longitud de DriverVersion está entre 1 y 25 caracteres
+	CEI36: El valor de DeviceName es ""
+	CEI37: DeviceName aparece 0 veces
+	CEV38: DeviceName aparece 1 vez
+
+SERIAL NUMBER
+	CEI39: Etiqueta incorrecta
+	CEI40: Serial Number tiene el formato incorrecto (contiene espacios u otros símbolos)
+	CEV41: Serial Number tiene el formato correcto
+	CEI42: Serial Number no es una cadena de caracteres, que no admita letras
+	CEV43: Serial Number es una cadena de caracteres
+	CEI44: Serial Number es ""
+	CEI45: Serial Number aparece 0 veces
+	CEV46: Serial Number aparece 1 vez
+
+MAC ADDRESS
+	CEI47: Etiqueta incorrecta
+	CEI48: MacAddress tiene un formato incorrecto
+	CEV49: MacAddress tiene formato correcto (6 parejas de números bien separados por '-' o por ':')
+	CEI50: MacAddress no es una cadena de  caracteres
+	CEV51: MacAddress es una cadena de  caracteres
+	CEI52: MacAddress es ""
+	CEV53: MacAddress tiene longitud 17 (6*2 números + 5 espacios) //POSIBLE ELIMINACION, se puede controlar con el pattern
+	CEI54: MacAddress tiene longitud entre 1 y 17 o superior a 17 //POSIBLE ELIMINACION, se puede controlar con el pattern
+	CEI55: MacAddress aparece 0 veces
+	CEV56: MacAddress aparece 1 vez
+
+CLASES DE PRUEBA
+	 CP1: Fichero no existe (CEI2)
+	 CP2: Fichero que no cumple la sintaxis JSON (CEI4)
+	 CP3: La etiqueta no se corresponde a DeviceName (CEI6)
+	 CP4: DeviceName no tiene como valor una cadena de caracteres (CEI7)
+	 CP5: DeviceName tiene como valor "" (CEI8)
+	 CP6: DeviceName tiene una longitud mayor a 20 o una menor a 1 (CEI9)
+	 	BAV: Límite inferior ya comprobado con "", que es longitud inferior.
+		BAV: Valores en límites, con 20 o 1 de longitud
+		BAV: Se prueba el límite superior, por ejemplo 21
+	 CP7: DeviceName no aparece ninguna vez (CEI11)
+	 CP8: Etiqueta de TypeOfDevice errónea (CEI14)
+	 CP9: TypeOfDevice no es una cadena de caracteres (CEI16)
+	 CP10: TypeOfDevice tiene un valor que no es Sensor o Actuator (CEI17)
+	 CP11: TypeOfDevice no aparece ninguna vez (CEI20)
+	 CP12: Email es un correo incorrecto (CEI24)
+	 CP13: Email tiene una etiqueta no valida (CEI23)
+	 CP14: Email aparece 0 veces (CEI26)
+	 CP15: DriverVersion no tiene una etiqueta correcta (CEI28)
+	 CP16: DriverVersion contiene caracteres no permitidos (CEI29)
+	 CP17: DriverVersion no es una cadena de caracteres (CEI31)
+	 CP18: DriverVersion no está entre 3 y 25 caracteres (CEI34)
+	 	BAV: Límite inferior ya comprobado con "", que es longitud inferior.
+	 	BAV: Valores en límites, con 25 o 3 de longitud
+	 	BAV: Se prueba el límite superior, por ejemplo 26
+	 CP19: El valor de DriverVersion es "" (CEI36)
+	 CP20: DriverVersion no aparece ninguna vez (CEI37)
+	 CP21: SerialNumber tiene una etiqueta incorrecta (CEI39)
+	 CP22: SerialNumber contiene espacios (CEI40)
+	 CP23: SerialNumber no es una cadena de caracteres (CEI42)
+	 CP24: SerialNumber tiene el valor "" (CEI44)
+	 CP25: SerialNumber no aparece ninguna vez (CEI45)
+	 CP26: MacAddress tiene una etiqueta incorrecta (CEI47)
+	 CP27: MacAddress tiene un formato incorrecto (CEI48)
+	 CP28: MacAddress no es una cadena de caracteres (CEI50)
+	 CP29: MacAddress tiene como valor "" (CEI52)
+	 CP30: MacAddress no tiene longitud 17 (CEI54)
+	 CP31: MacAddress no aparece ninguna vez (CEI55)
+
+
+CLASES DE EQUIVALENCIA DE TOKEN
+
+ENTRADAS
+	CEV1: Ruta a un fichero que existe
+	CEI2: Ruta a un fichero que no existe
+	CEV3: El fichero de entrada cumple la sintaxis JSON
+	CEI4: El fichero de entrada no cumple la sintaxis JSON
+
+DEVICE
+	CEV5: Device tiene la longitud correcta, 32 caracteres
+	CEI6: Device no tiene la longitud correcta
+	CEV7: Device es una cadena de caracteres
+	CEI8: Device no es una cadena de caracteres
+	CEV9: Device tiene la etiqueta correcta
+	CEI10: Device tiene la etiqueta incorrecta
+	CEI11: Device aparece 0 veces
+	CEV12: Device aparece 1 vez
+	CEV13: Device aparece n veces
+	CEI14: Device es ""
+
+REQUEST DATE
+	CEI15: Request Date tiene el formato incorrecto
+	CEV16: Request Date tiene el formato correcto
+	CEI17: Request Date tiene la etiqueta incorrecta
+	CEV18: Request Date tiene la etiqueta correcta
+	CEI19: Request Date aparece 0 veces
+	CEV20: Request Date aparece n veces
+	CEV21: Request Date aparece 1 vez
+
+NOTIFICATION EMAIL
+	CEV22: Notification Email cumple el patron
+	CEI23: Notification Email no cumple el patron
+	CEV24: Notification Email tiene la etiqueta correcta
+	CEI25: Notification Email tiene la etiqueta incorrecta
+	CEI26: Notification Email tiene el valor ""
+	CEV27: Notification Email aparece 1 vez
+	CEI28: Notification Email aparece 0 veces
+	CEV29: Notification Email aparece n veces
+
+CLASES DE PRUEBA
+	CP1: Fichero inexistente en la ruta pasada (CEI2)
+	CP2: Fichero con sintaxis JSON incorrecta (CEI4)
+	CP3: Device tiene una longitud mayor a 32 o una menor a 1 (CEI6)
+	CP4: Device no tiene como valor una cadena de caracteres (CEI8)
+	CP5: Device tiene una etiqueta no valida (CEI10)
+	CP6: Device aparece 0 veces (CEI11)
+	CP7: Device tiene el valor "" (CEI14)
+	CP8: Request date no tiene el formato correcto (CEI15)
+	CP9: Request date tiene una etiqueta no valida (CEI17)
+	CP10: Request date aparece 0 veces (CEI19)
+	CP11: Notification email no tiene el formato correcto (CEI23)
+	CP12: Notification email tiene la etiqueta incorrecta (CEI25)
+	CP13: Notification email tiene el valor "" (CEI26)  
+	CP14: Notification email aparece 0 veces (CEI28)

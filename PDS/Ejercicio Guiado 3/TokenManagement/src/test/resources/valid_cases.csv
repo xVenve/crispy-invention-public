@@ -1,0 +1,7 @@
+src/test/resources/CorrectSyntax.json, Prueba sintaxis correcta, nave, Sensor, 1.0, comandante@gmail.com, H0L4, 12-23-34-45-56-67
+src/test/resources/CorrectSyntax-1characterDN.json, Prueba 1characterDN, n, Sensor, 1.0, comandante@gmail.com, H0L4, 12-23-34-45-56-67
+src/test/resources/CorrectSyntax-20characterDN.json, Prueba 20characterDN, AAAAAAAAAAAAAAAAAAAA, Sensor, 1.0, comandante@gmail.com, H0L4, 12-23-34-45-56-67
+src/test/resources/CorrectSyntax-Nappears.json, Prueba sintaxis Nappears, Jorge, Sensor, 1.0, comandante@gmail.com, H0L4, 12-23-34-45-56-67
+src/test/resources/CorrectSyntax-ActuatorValue.json, Prueba sintaxis Actuator, nave, Actuator, 1.0, comandante@gmail.com, H0L4, 12-23-34-45-56-67
+src/test/resources/CorrectSyntax-3characterDV.json, Prueba 3characterDV, nave, Sensor, 1.0, comandante@gmail.com, H0L4, 12-23-34-45-56-67
+src/test/resources/CorrectSyntax-25characterDV.json, Prueba 3characterDV, nave, Sensor, 1.00000000000000000000000, comandante@gmail.com, H0L4, 12-23-34-45-56-67
