@@ -1,0 +1,119 @@
+CEI1: No aparece LlaveI(Mal formato del fichero)
+CEI2: LlaveI  esta duplicado (Mal formato del fichero)
+CEI3: LlaveI no tiene el caracter deseado (Mal formato del fichero)
+
+CEI4: No aparece Contenido (Mal formato del fichero)
+CEI5: Contenido esta duplicado (Mal formato del fichero)
+
+CEI6: No aparece LlaveF (Mal formato del fichero)
+CEI7: LlaveF  esta duplicado (Mal formato del fichero)
+CEI8: LlaveF no tiene el caracter deseado (Mal formato del fichero)
+
+CEI9: No aparece Token (Mal formato del fichero)
+CEI10: Token esta duplicado (Mal formato del fichero)
+
+CEI11: No aparece Coma (Mal formato del fichero)
+CEI12: Coma esta duplicado (Mal formato)
+CEI13: Coma no tiene el caracter deseado (Mal formato del fichero)
+
+CEI14: No aparece Email (Mal formato del fichero)
+CEI15: Email esta duplicado (Mal formato del fichero)
+
+CEI16: No aparece Date (Mal formato del fichero)
+CEI17: Date esta duplicado (Mal formato del fichero)
+
+CEI18: No aparece EtiquetaT (Mal formato del fichero)
+CEI19: EtiquetaT esta duplicado (Mal formato del fichero)
+
+CEI20: No aparece Igual (Mal formato del fichero)
+CEI21: Igual esta duplicado (Mal formato del fichero)
+CEI22: Igual no tiene el caracter deseado (Mal formato del fichero)
+
+CEI23: No aparece ValorT (Mal formato del fichero)
+CEI24: ValorT esta duplicado (Mal formato del fichero)
+
+CEI25: No aparece EtiquetaEm (Mal formato del fichero)
+CEI26: EtiquetaEm esta duplicado (Mal formato del fichero)
+
+CEI27: No aparece ValorEm (Mal formato del fichero)
+CEI28: ValorEm esta duplicado (Mal formato del fichero)
+
+CEI29: No aparece EtiquetaD (Mal formato del fichero)
+CEI30: EtiquetaD esta duplicado (Mal formato del fichero)
+
+CEI31: No aparece ValorD (Mal formato del fichero)
+CEI32: ValorD esta duplicado (Mal formato del fichero)
+
+CEI33: No aparece EtiquetaTR (Mal formato del fichero)
+CEI34: EtiquetaTR esta duplicado (Mal formato del fichero)
+CEI35: EtiquetaTR no tiene el caracter deseado (Mal formato del fichero)
+
+CEI36: No aparece ValorTR (Mal formato del fichero)
+CEI37: ValorTR esta duplicado (Mal formato del fichero)
+CEI38: ValorTR no tiene el caracter deseado (Mal formato del fichero)
+
+CEI39: No aparece NotificationEmail (Mal formato del fichero)
+CEI40: NotificationEmail esta duplicado (Mal formato del fichero)
+CEI41: NotificationEmail no tiene el caracter deseado (Mal formato del fichero)
+
+CEI42: No aparece Email (Mal formato del fichero)
+CEI43: Email esta duplicado (Mal formato del fichero)
+
+CEI44: No aparece RDate (Mal formato del fichero)
+CEI45: RDate esta duplicado (Mal formato del fichero)
+CEI46: RDate no tiene el caracter deseado (Mal formato del fichero)
+
+CEI47: No aparece FormatoFecha (Mal formato del fichero)
+CEI48: FormatoFecha esta duplicado (Mal formato del fichero)
+
+CEI50: No aparece Nombre (Mal formato del fichero)
+CEI51: Nombre esta duplicado (Mal formato del fichero)
+CEI52: Nombre no tiene el caracter deseado, cadena alfanumerica con - y _ de longitud maxima 64 (Mal formato del fichero)
+
+CEI53: No aparece Arroba (Mal formato del fichero)
+CEI54: Arroba esta duplicado (Mal formato del fichero)
+CEI55: Arroba no tiene el caracter deseado (Mal formato del fichero)
+
+CEI56: No aparece Dominio (Mal formato del fichero)
+CEI57: Dominio esta duplicado (Mal formato del fichero)
+CEI58: Dominio no tiene el caracter deseado, cadena de maximo 55 caracteres (Mal formato del fichero)
+
+CEI59: No aparece Punto (Mal formato del fichero)
+CEI60: Punto esta duplicado (Mal formato del fichero)
+CEI61: Punto no tiene el caracter deseado (Mal formato del fichero)
+
+CEI62: No aparece Extension (Mal formato del fichero)
+CEI63: Extension esta duplicado (Mal formato del fichero)
+CEI64: Extension no tiene el caracter deseado, cadena de caracteres de longitud 3 (Mal formato del fichero)
+
+CEI65: No aparece Dia (Mal formato del fichero)
+CEI66: Dia esta duplicado (Mal formato del fichero)
+CEI67: Dia no tiene el caracter deseado, valor entre 0 y 32 no incluidos (Mal formato del fichero)
+
+CEI68: No aparece Mes (Mal formato del fichero)
+CEI69: Mes esta duplicado (Mal formato del fichero)
+CEI70: Mes no tiene el caracter deseado, valor entre 0 y 13 no incluidos (Mal formato del fichero)
+
+CEI71: No aparece Barra (Mal formato del fichero)
+CEI72: Barra esta duplicado (Mal formato del fichero)
+CEI73: Barra no tiene el caracter deseado (Mal formato del fichero)
+
+CEI74: No aparece Anio (Mal formato del fichero)
+CEI75: Anio esta duplicado (Mal formato del fichero)
+CEI76: Anio no tiene el caracter deseado, valor numerico de 4 caracteres (Mal formato del fichero)
+
+CEI77: No aparece Espacio (Mal formato del fichero)
+CEI78: Espacio esta duplicado (Mal formato del fichero)
+CEI79: Espacio no tiene el caracter deseado (Mal formato del fichero)
+
+CEI80: No aparece Hora (Mal formato del fichero)
+CEI81: Hora esta duplicado (Mal formato del fichero)
+CEI82: Hora no tiene el caracter deseado, valor entre -1 y 24 (Mal formato del fichero)
+
+CEI83: No aparece Minuto (Mal formato del fichero)
+CEI84: Minuto esta duplicado (Mal formato del fichero)
+CEI85: Minuto no tiene el caracter deseado, valor entre -1 y 60 no incluidos (Mal formato del fichero)
+
+CEI86: No aparece Comillas (Mal formato del fichero)
+CEI87: Comillas esta duplicado (Mal formato del fichero)
+CEI88: Comillas no tiene el caracter deseado (Mal formato del fichero)

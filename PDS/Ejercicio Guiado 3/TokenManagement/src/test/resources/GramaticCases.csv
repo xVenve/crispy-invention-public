@@ -1,0 +1,72 @@
+src/test/resources/GramaticaCEI1.json, Prueba Falta de Llave Incial, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI2.json, Prueba Duplicada Llave Inicial, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI3.json, Prueba Valor invalido Llave Incial, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI4.json, Prueba Falta de Contenido, Error: Token Request not found.
+src/test/resources/GramaticaCEI5.json, Prueba Duplicado Contenido, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI6.json, Prueba Falta de  Llave Final, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI8.json, Prueba Valor invalido Llave Final, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI9.json, Prueba Falta de Token Request, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI10.json, Prueba Duplicado Token Request, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI11.json, Prueba Falta de Coma, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI12.json, Prueba Duplicada Coma, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI13.json, Prueba Valor invalido Coma, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI14.json, Prueba Falta de Email , Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI15.json, Prueba Duplicado de Email, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI16.json, Prueba Falta de Date, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI18.json, Prueba Falta Etiqueta TR, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI19.json, Prueba Duplicada Etiqueta TR, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI20.json, Prueba Falta de Igual, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI21.json, Prueba Duplicado de Igual, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI22.json, Prueba Valor invalido de Igual, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI23.json, Prueba Falta de ValorTR , Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI24.json, Prueba Duplicado de ValorTR, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI25.json, Prueba Falta de Etiqueta Email, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI26.json, Prueba Duplicado de Etiqueta Email, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI27.json, Prueba Falta de ValorEm, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI28.json, Prueba Duplicado de ValorEm, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI29.json, Prueba Falta de Etiqueta Request Date, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI30.json, Prueba Duplicado de Etiqueta Request Date, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI31.json, Prueba Falta de Valor Request Date, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI32.json, Prueba Duplicado Valor Request Date, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI33.json, Prueba Falta contenido Etiqueta Token Request, Error: Token Request not found.
+src/test/resources/GramaticaCEI34.json, Prueba Duplicado contenido Etiqueta Token Request, Error: Token Request not found.
+src/test/resources/GramaticaCEI35.json, Prueba Valor invalido contenido Etiqueta Token Request, Error: Token Request not found.
+src/test/resources/GramaticaCEI36.json, Prueba Falta contenido Valor Token Request, Error: invalid Device in token request.
+src/test/resources/GramaticaCEI37.json, Prueba Duplicado contenido Valor Token Request, Error: invalid Device in token request.
+src/test/resources/GramaticaCEI38.json, Prueba Valor invalido contenido Valor Token Request, Error: invalid Device in token request.
+src/test/resources/GramaticaCEI39.json, Prueba falta NotificationEmail,Error: Notification e-mail not found.
+src/test/resources/GramaticaCEI40.json, Prueba NotificationEmail duplicado, Error: Notification e-mail not found.
+src/test/resources/GramaticaCEI41.json, Prueba NotificationEmail con valor incorrecto, Error: Notification e-mail not found.
+src/test/resources/GramaticaCEI42.json, Prueba falta Email, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI43.json, Prueba Email duplicado, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI44.json, Prueba falta RDate, Error: Request Date not found.
+src/test/resources/GramaticaCEI45.json, Prueba RDate duplicado, Error: Request Date not found.
+src/test/resources/GramaticaCEI46.json, Prueba RDate con valor incorrecto, Error: Request Date not found.
+src/test/resources/GramaticaCEI47.json, Prueba falta FormatoFecha, Error: Request Date not found.
+src/test/resources/GramaticaCEI50.json, Prueba falta Nombre, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI53.json, Prueba falta Arroba, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI54.json, Prueba Arroba duplicado, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI55.json, Prueba Arroba con valor incorrecto, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI56.json, Prueba falta Dominio, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI58.json, Prueba Dominio con valor incorrecto, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI60.json, Prueba Punto duplicado, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI61.json, Prueba Punto con valor incorrecto, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI62.json, Prueba falta Extension, Error: invalid E-mail data in JSON structure.
+src/test/resources/GramaticaCEI65.json, Prueba falta Dia, Error: Request Date not found.
+src/test/resources/GramaticaCEI67.json, Prueba Dia con valor incorrecto, Error: Request Date not found.
+src/test/resources/GramaticaCEI68.json, Prueba falta Mes, Error: Request Date not found.
+src/test/resources/GramaticaCEI70.json, Prueba Mes con valor incorrecto, Error: Request Date not found.
+src/test/resources/GramaticaCEI71.json, Prueba falta Barra, Error: Request Date not found.
+src/test/resources/GramaticaCEI72.json, Prueba Barra duplicado, Error: Request Date not found.
+src/test/resources/GramaticaCEI73.json, Prueba Barra con valor incorrecto, Error: Request Date not found.
+src/test/resources/GramaticaCEI74.json, Prueba falta Anio, Error: Request Date not found.
+src/test/resources/GramaticaCEI76.json, Prueba Anio con valor incorrecto, Error: Request Date not found.
+src/test/resources/GramaticaCEI77.json, Prueba falta Espacio, Error: Request Date not found.
+src/test/resources/GramaticaCEI79.json, Prueba Espacio incorrect, Error: Request Date not found.
+src/test/resources/GramaticaCEI80.json, Prueba falta Hora, Error: Request Date not found.
+src/test/resources/GramaticaCEI82.json, Prueba Hora con valor incorrecto, Error: Request Date not found.
+src/test/resources/GramaticaCEI83.json, Prueba falta Minuto, Error: Request Date not found.
+src/test/resources/GramaticaCEI85.json, Prueba Minuto con valor incorrecto, Error: Request Date not found.
+src/test/resources/GramaticaCEI86.json, Prueba falta Comillas, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI87.json, Prueba Comillas duplicadas, Error: JSON object cannot be created due to incorrect representation
+src/test/resources/GramaticaCEI88.json, Prueba Comillas incorrectas, Error: JSON object cannot be created due to incorrect representation

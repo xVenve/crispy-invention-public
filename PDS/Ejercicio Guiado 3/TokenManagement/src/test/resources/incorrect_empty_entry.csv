@@ -1,0 +1,2 @@
+src/test/resources/EmptyEntryDN.json, Prueba empty a Device Name,Error: Device Name invalid entry.
+src/test/resources/EmptyEntrySN.json, Prueba empty a Serial Number,Error: Serial Number invalid entry.
