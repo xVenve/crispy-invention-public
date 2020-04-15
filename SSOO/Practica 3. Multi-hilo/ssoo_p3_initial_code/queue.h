@@ -9,7 +9,11 @@ struct element {
 
 typedef struct queue {
 	// Define the struct yourself
-	int param1;
+  struct element *ring;
+  int head;
+  int tail;
+  size_t size;
+
 }queue;
 
 queue* queue_init (int size);
