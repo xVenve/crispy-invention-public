@@ -11,15 +11,15 @@ declare -i incremento=1
 testeo(){
    #$1 nombre del fichero test
    echo "File: " $1 
-   echo "Nprod: " $2 
-   echo "Buffsize: " $3 
+   echo "Nprod: " $2
+   echo "Buffsize: " $3
    #echo "expected file out: " $4
    ./calculator $1 $2 $3 > out_calc  2>/dev/null
    if diff -i -w -q --ignore-all-space $4 out_calc > /dev/null; then
 	 echo " OK"
 	 cat out_calc
 	 echo -n "1 " >> excel
-	 nota=$(( nota + incremento ))  
+	 nota=$(( nota + incremento ))
    else
 	 echo " Error"
 	 echo -n "0 " >> excel
@@ -27,10 +27,10 @@ testeo(){
          cat  $1
 	 echo " === salida ./calculator  === "
 	 cat  out_calc
-	 echo " === salida esperada  === "		
+	 echo " === salida esperada  === "
 	 cat  $4
    fi
-   rm -f out* 
+   rm -f out*
    echo
    echo
 }
@@ -38,44 +38,44 @@ testeo(){
 
 testeoError(){
    #$1 nombre del fichero test
-   echo "File: " $1 
-   echo "Nprod: " $2 
-   echo "Buffsize: " $3 
+   echo "File: " $1
+   echo "Nprod: " $2
+   echo "Buffsize: " $3
    #echo "expected file out: " $4
-   eval ./calculator $1 $2 $3 > /dev/null 2> /dev/null  
-   if [ $? -eq 0 ]; 
-   then 
+   eval ./calculator $1 $2 $3 > /dev/null 2> /dev/null
+   if [ $? -eq 0 ];
+   then
        	echo " Wrong returned value"
-	echo -n "0 " >> excel 
-   else 
+	echo -n "0 " >> excel
+   else
        	echo " OK"
        	echo -n "1 " >> excel
-       	nota=$(( nota + incremento ))  
+       	nota=$(( nota + incremento ))
    fi
    echo
    echo
-    
+
 }
 
 testeoErrorParams(){
    #$1 nombre del fichero test
-   echo "File: " $1 
-   echo "Nprod: " $2 
-   echo "Buffsize: " $3 
+   echo "File: " $1
+   echo "Nprod: " $2
+   echo "Buffsize: " $3
    echo "Extra arg: " $4
-   eval ./calculator $1 $2 $3 $4> /dev/null 2> /dev/null  
-   if [ $? -eq 0 ]; 
-   then 
+   eval ./calculator $1 $2 $3 $4> /dev/null 2> /dev/null
+   if [ $? -eq 0 ];
+   then
        	echo " Wrong returned value"
-	echo -n "0 " >> excel 
-   else 
+	echo -n "0 " >> excel
+   else
        	echo " OK"
        	echo -n "1 " >> excel
-       	nota=$(( nota + incremento ))  
+       	nota=$(( nota + incremento ))
    fi
    echo
    echo
-    
+
 }
 
 
@@ -92,7 +92,7 @@ clear
 
 echo "*** PROBANDO P3 "
 
- 
+
 TDIR="./testdir"
 mkdir $TDIR
 cp $1 $TDIR
@@ -107,7 +107,7 @@ echo "Fichero : $1"
 
 cd $TDIR
 
-text="500  
+text="500
 1 1 105
 2 2 387
 3 3 545
@@ -610,7 +610,7 @@ text="500
 500 1 218"
 echo -e "$text" > 500-500.test
 
-text2="2000  
+text2="2000
 1 1 105
 2 2 387
 3 3 545
@@ -1113,7 +1113,7 @@ text2="2000
 500 1 218"
 echo -e "$text2" > 500-2000.test
 
-text3="500  
+text3="500
 1 1 105
 2 2 387
 3 3 545
@@ -3116,7 +3116,7 @@ text3="500
 500 1 218"
 echo -e "$text3" > 2000-500.test
 
-text4="2000  
+text4="2000
 1 1 105
 2 2 387
 3 3 545
@@ -5191,10 +5191,4 @@ echo $final > ../nota.txt
 cp Autores.txt ..
 cd ..
 
-rm -rf testdir 
-
-
-
-
-
-
+rm -rf testdir
