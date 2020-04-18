@@ -13,8 +13,6 @@ typedef struct queue {
   int head;
   int tail;
   int size;
-  //size_t size;
-
 } queue;
 
 queue *queue_init(int size);
