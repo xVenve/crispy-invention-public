@@ -4,7 +4,7 @@
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
 # attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
-# 
+#
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
 # The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
@@ -137,7 +137,7 @@ class SearchAgent(Agent):
 #####################################################
 # SEARCH PROBLEM 1                                  #
 #####################################################
-        
+
 class PositionSearchProblem(search.SearchProblem):
     """
     A search problem defines the state space, start state, goal test, successor
@@ -264,7 +264,7 @@ class StayWestSearchAgent(SearchAgent):
         costFn = lambda pos: 2 ** pos[0]
         self.searchType = lambda state: PositionSearchProblem(state, costFn)
 
-    
+
 def manhattanHeuristic(position, problem, info={}):
     "The Manhattan distance heuristic for a PositionSearchProblem"
     return manhattanDistance(position, problem.goal)
@@ -331,7 +331,7 @@ class FoodSearchProblem:
 #----------------------------------------------------
 # AGENT 1: astar  ClosestFoodManhattan              -
 #----------------------------------------------------
-   
+
 class AStarFoodSearchAgent_ClosestFoodManhattanDistance(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
     def __init__(self):
@@ -348,11 +348,11 @@ def foodHeuristicManhattan(state, problem):
     problem.  For example, problem.walls gives you a Grid of where the walls
     are.
     """
-    
+
     position, foodGrid = state
     heuristic = 0
     food = foodGrid.asList()
-    
+
     if len(food) == 0:
         return 0
 
@@ -362,19 +362,19 @@ def foodHeuristicManhattan(state, problem):
             heuristic = distance
     return heuristic
 
-        
+
 #----------------------------------------------------
 # AGENT 2: astar  ClosestFoodMazeDistance           -
 #----------------------------------------------------
 
-        
+
 class AStarFoodSearchAgent_ClosestFoodMazeDistance(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
     def __init__(self):
         self.searchFunction = lambda prob: search.aStarSearch(prob, foodHeuristicMazeDistance)
         self.searchType = FoodSearchProblem
 
-        
+
 def foodHeuristicMazeDistance(state, problem):
     """
     The state is a tuple ( pacmanPosition, foodGrid ) where foodGrid is a Grid
@@ -388,7 +388,7 @@ def foodHeuristicMazeDistance(state, problem):
     position, foodGrid = state
     heuristic = 0
     food = foodGrid.asList()
-    
+
     if len(food) == 0:
         return 0
 
@@ -437,7 +437,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         foodPositions = self.food.asList()
 
         # The goal is if pacman's current position is a location where there is
-        # a piece of food. 
+        # a piece of food.
         return (x, y) in foodPositions
 
 
@@ -478,7 +478,7 @@ class ClosestDotSearchAgent(SearchAgent):
         closest food might not be on the path of the shortest path through them
         maze. For example, if there are two dots to choose from, the algorithm
         may pick one arbitratily, which could leave the other food as the only
-        food left in that area of the maze. Then, Pacman will eat everything 
+        food left in that area of the maze. Then, Pacman will eat everything
         else before finally returning to eat that food.
         """
 
@@ -491,8 +491,8 @@ class ClosestDotSearchAgent(SearchAgent):
 
         fringe.push((initial, action_list))
 
-        while fringe: 
-            node, actions = fringe.pop() 
+        while fringe:
+            node, actions = fringe.pop()
             if not node in visited:
                 visited.append(node)
                 if problem.isGoalState(node):
@@ -502,7 +502,7 @@ class ClosestDotSearchAgent(SearchAgent):
                     coordinate, direction, cost = successor
                     fringe.push((coordinate, actions + [direction]))
 
-                    
+
 #####################################################
 # FUNCTIONS TO COMPUTE DISTANCES                    #
 #####################################################
@@ -512,12 +512,12 @@ def manhattanDistance(point1, point2):
     x2, y2 = point2
     return abs(x1 - x2) + abs(y1 - y2)
 
-def euclideanDistance(point1, point2):    
+def euclideanDistance(point1, point2):
     x1, y1 = point1
     x2, y2 = point2
     return ( (x1 - x2) ** 2 + (y1 - y2) ** 2 ) ** 0.5
 
-    
+
 def mazeDistance(point1, point2, gameState):
     """
     Returns the maze distance between any two points, using the search functions
