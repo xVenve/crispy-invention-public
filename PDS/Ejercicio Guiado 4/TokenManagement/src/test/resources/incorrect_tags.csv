@@ -1,0 +1,6 @@
+src/test/resources/InvalidTagDN.json, Prueba tag a Device Name,Error: Device Name not found.
+src/test/resources/InvalidTagToD.json, Prueba tag a Type of Device, Error: Type of Device not found.
+src/test/resources/InvalidTagDV.json, Prueba tag a Driver Version, Error: Driver Version not found.
+src/test/resources/InvalidTagSN.json, Prueba tag a Serial Number, Error: Serial Number not found.
+src/test/resources/InvalidTagSE.json, Prueba tag a Support e-mail,Error: Support e-mail not found.
+src/test/resources/InvalidTagMAC.json, Prueba tag a MAC Address, Error: MAC Address not found.
