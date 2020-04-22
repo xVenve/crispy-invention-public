@@ -1,10 +1,11 @@
 package Transport4Future.TokenManagement;
 
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +16,7 @@ class Verifytokentest
 	
 	public Verifytokentest () 
 	{
-		 my_manager = Tokenmanager.GET_INSTANCE();
+		 my_manager = new Tokenmanager ();
 	}
 	
 	private void RESET_TOKEN_STORE () throws Tokenmanagementexception 

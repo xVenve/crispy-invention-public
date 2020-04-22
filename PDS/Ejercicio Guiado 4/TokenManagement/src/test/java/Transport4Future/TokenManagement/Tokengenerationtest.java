@@ -1,11 +1,11 @@
 package Transport4Future.TokenManagement;
 
-import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 public class Tokengenerationtest 
 {
@@ -13,7 +13,7 @@ public class Tokengenerationtest
 	
 	public Tokengenerationtest () 
 	{
-		 my_manager = Tokenmanager.GET_INSTANCE();
+		 my_manager = new Tokenmanager ();
 	}
 	
 	@DisplayName ("Invalid Test Cases")
