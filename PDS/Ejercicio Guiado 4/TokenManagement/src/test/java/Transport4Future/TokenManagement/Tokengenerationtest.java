@@ -1,35 +1,39 @@
 package Transport4Future.TokenManagement;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class TokenRequestGenerationTest {
-	private TokenManager myManager;
+
+public class Tokengenerationtest 
+{
+	private Tokenmanager my_manager;
 	
-	public TokenRequestGenerationTest () {
-		 myManager = new TokenManager ();
+	public Tokengenerationtest () 
+	{
+		 my_manager = new Tokenmanager ();
 	}
 	
 	@DisplayName ("Invalid Test Cases")
 	@ParameterizedTest(name = "{index} -with the input ''{0}'' error expected is ''{1}''")
 	@CsvFileSource(resources = "/invalidTestCasesRequestGenerationTest.csv")
-	void InvalidTestCases(String InputFilePath, String expectedMessage) {
-		TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
-			myManager.TokenRequestGeneration(InputFilePath);
+	void InvalidTestCases(String InputFilePath, String expectedMessage) 
+	{
+		Tokenmanagementexception ex = Assertions.assertThrows(Tokenmanagementexception.class, ()-> 
+		{
+			my_manager.TOKEN_REQUEST_GENERATION(InputFilePath);
 		});
-		assertEquals (expectedMessage,ex.getMessage());
+		assertEquals (expectedMessage,ex.GET_MESSAGE());
 	}
 	
 	@DisplayName ("Valid Test Cases")
 	@ParameterizedTest(name = "{index} -with the input ''{0}'' output expected is ''{1}''")
 	@CsvFileSource(resources = "/validTestCasesRequestGenerationTest.csv")
-	void ValidTestCases(String InputFilePath, String Result) throws TokenManagementException {
-		String myResult = myManager.TokenRequestGeneration(InputFilePath);
+	void ValidTestCases(String InputFilePath, String Result) throws Tokenmanagementexception
+	{
+		String myResult = my_manager.TOKEN_REQUEST_GENERATION(InputFilePath);
 		assertEquals (Result,myResult);
 	}
 }
