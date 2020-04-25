@@ -5,7 +5,7 @@ import java.util.HashMap;
 import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 import Transport4Future.TokenManagement.IO.Tokenrequestparser;
 import Transport4Future.TokenManagement.Store.Tokenrequeststore;
-import Transport4Future.TokenManagement.Utils.Hashermd;
+import Transport4Future.TokenManagement.Utils.Hasher;
 
 public class Tokenrequest 
 {
@@ -21,7 +21,7 @@ public class Tokenrequest
 	public Tokenrequest(String json_license) throws Tokenmanagementexception 
 	{
 		Tokenrequestparser myParser = new Tokenrequestparser();
-		HashMap<String, String> items = myParser.PARSE(json_license);
+		HashMap<String, String> items = myParser.PARSER(json_license);
 		
 		this.device_name = new Devicename(items.get(Tokenrequestparser.DEVICE_NAME));
 		this.type_of_device = new Typeofdevice(items.get(Tokenrequestparser.TYPE_OF_DEVICE));
@@ -35,15 +35,19 @@ public class Tokenrequest
 	
 	public String GENERATE_HASH() throws Tokenmanagementexception 
 	{
-		Hashermd myHasher = new Hashermd();
-			
-		String hex = myHasher.HASH(this.toString());
+		Hasher myHasher = new Hasher();
+		
+		String type = "MD5";
+		String inicialString = "Stardust-";	
+		String inputMD5 = inicialString + this.toString();
+		
+		String hex = myHasher.HASHING(inputMD5,type);
 		return hex;
 	}
 	
 	private void STORE_REQUEST() throws Tokenmanagementexception 
 	{
-		Tokenrequeststore myStore = Tokenrequeststore.GET_INSTANCE();
+		Tokenrequeststore myStore = new Tokenrequeststore();
 		myStore.SAVE_TOKEN_REQUEST(this, this.hash_md5);
 	}
 	

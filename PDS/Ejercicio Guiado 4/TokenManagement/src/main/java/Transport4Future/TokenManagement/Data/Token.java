@@ -9,11 +9,9 @@ import java.util.HashMap;
 
 import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 import Transport4Future.TokenManagement.IO.Tokenparser;
-import Transport4Future.TokenManagement.Store.Tokenrequeststore;
 import Transport4Future.TokenManagement.Store.Tokenstore;
 import Transport4Future.TokenManagement.Utils.Encoder;
-import Transport4Future.TokenManagement.Utils.Hashersha;
-
+import Transport4Future.TokenManagement.Utils.Hasher;
 
 public class Token 
 {
@@ -30,14 +28,13 @@ public class Token
 	public Token (String file_name) throws Tokenmanagementexception 
 	{
 		Tokenparser myParser = new Tokenparser();
-		HashMap<String, String> items = myParser.PARSE(file_name);
+		HashMap<String, String> items = myParser.PARSER(file_name);
 
 		this.algorithm = "HS256";
 		this.type = "PDS";
 		this.device = new Device(items.get(Tokenparser.TOKEN_REQUEST));
 		this.request_date = new Dateclass(items.get(Tokenparser.REQUEST_DATE));
 		this.notification_email = new Email(items.get(Tokenparser.NOTIFICATION_E_MAIL));
-		this.CHECK_TOKEN_REQUEST_EMISSION();
 		//this.creation_date = System.currentTimeMillis();
 		//this.expiration_date = this.creation_date + 604800000l
 		//Fechas para las pruebas
@@ -63,7 +60,7 @@ public class Token
 
 	private void STORE_TOKEN() throws Tokenmanagementexception 
 	{
-		Tokenstore myStore = Tokenstore.GET_INSTANCE();
+		Tokenstore myStore = new Tokenstore ();
 		myStore.ADD(this);
 	}
 	
@@ -84,9 +81,8 @@ public class Token
 	
 	private String GENERATE_SIGNATURE() throws Tokenmanagementexception 
 	{
-		Hashersha myHasher = new Hashersha();
-		String dataToSign = this.GET_HEADER() + this.GET_PAYLOAD();
-		return (myHasher.HASH(dataToSign));
+		Hasher myHasher = new Hasher();
+		return (myHasher.HASH_SHA256(this.GET_HEADER() + this.GET_PAYLOAD()));
 	}
 	
 	public boolean IS_GRANTED () 
@@ -154,15 +150,5 @@ public class Token
 	{
 		return this.token_value;
 	}	
-	
-	private void CHECK_TOKEN_REQUEST_EMISSION() throws Tokenmanagementexception
-    {
-        Tokenrequeststore myStore = Tokenrequeststore.GET_INSTANCE();
-        if (!myStore.FIND(this.GET_DEVICE())) 
-        {
-            throw new Tokenmanagementexception ("Error: Token Request not previously registered");
-        }
-
-    }
 	
 }

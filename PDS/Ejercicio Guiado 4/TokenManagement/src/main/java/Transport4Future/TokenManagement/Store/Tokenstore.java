@@ -19,30 +19,10 @@ public class Tokenstore
 	private static final String PATH = System.getProperty("user.dir") + "/Store/tokenStore.json";
 	private List<Token> tokens_list;
 	
-	private static Tokenstore tokenstore;
-	
-	private Tokenstore() 
+	public Tokenstore() 
 	{
-		this.LOAD();	
+		this.LOAD();
 	}
-	
-	public static Tokenstore GET_INSTANCE() 
-	{
-		if(tokenstore==null)
-			tokenstore=new Tokenstore();
-		return tokenstore;
-	}
-	
-	public Tokenstore CLONE() 
-	{
-		try {
-			throw new CloneNotSupportedException();
-		}catch(CloneNotSupportedException exception) {
-			System.out.println("Token manager object cannot be cloned");
-		}
-		return null;
-	}
-	
 	
 	private void LOAD () 
 	{

@@ -15,30 +15,6 @@ import java.lang.reflect.Type;
 public class Tokenrequeststore 
 {
 	
-	private static Tokenrequeststore tokenrequeststore;
-	
-	private Tokenrequeststore() 
-	{
-		
-	}
-	
-	public static Tokenrequeststore GET_INSTANCE() 
-	{
-		if(tokenrequeststore==null)
-			tokenrequeststore=new Tokenrequeststore();
-		return tokenrequeststore;
-	}
-	
-	public Tokenrequeststore CLONE() 
-	{
-		try {
-			throw new CloneNotSupportedException();
-		}catch(CloneNotSupportedException exception) {
-			System.out.println("Token manager object cannot be cloned");
-		}
-		return null;
-	}
-	
 	private static final String STOREPATH = System.getProperty("user.dir") + "/Store/tokenRequestsStore.json";
 	
 	public void SAVE_TOKEN_REQUEST(Tokenrequest request, String hex)
@@ -85,17 +61,5 @@ public class Tokenrequeststore
 		}
 	return clonedMap;
 	}
-	
-	public boolean FIND(String device) throws Tokenmanagementexception
-    {
-        Tokenrequeststore requestStore = new Tokenrequeststore();
-        HashMap <String, Tokenrequest> clonedMap = requestStore.LOAD_TOKENREQUEST_STORE();
-        if (clonedMap == null)
-            return false;
-        else if (!clonedMap.containsKey(device))
-            return false;
-        else
-            return true;
-    }
 	
 }
