@@ -1,5 +1,7 @@
 package Transport4Future.TokenManagement;
 
+import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
+
 public interface ITokenManagement 
 {
 	
@@ -8,6 +10,5 @@ public interface ITokenManagement
 	String REQUEST_TOKEN (String input_file) throws Tokenmanagementexception;
 
 	boolean VERIFY_TOKEN (String token) throws Tokenmanagementexception;
-
 
 }
