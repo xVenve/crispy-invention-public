@@ -20,7 +20,9 @@
  * @param argv
  * @return
  */
-
+//Creacion de mutex, variables condición y descriptor de fichero:
+//ring controla el buffer
+//des controla el descriptor de fichero
 pthread_mutex_t ring;
 pthread_mutex_t des;
 pthread_cond_t lleno;
@@ -41,7 +43,7 @@ void *producir(void *arg) {
   // Sacar parametros
   struct param *p = arg;
 
-  // Hallamos el descriptor que corresponde al primer indice, para que no se mezclen bloquemas y desbloqueamos
+  // Hallamos el descriptor que corresponde al primer indice, para que no se mezclen bloqueamos y desbloqueamos
   if(pthread_mutex_lock(&des) < 0){
     perror("Error de mutex");
     exit(-1);
@@ -59,8 +61,9 @@ void *producir(void *arg) {
     if (chr == '\n') {
       counter++;
     }
-  }                            // fin while
-  FILE *current = descriptorP; // Almacenamos la posicion por la que va, de esta manera la podemos recuperar.
+  }
+  // Almacenamos la posicion por la que va, de esta manera la podemos recuperar.
+  FILE *current = descriptorP;
 
 
   if(pthread_mutex_unlock(&des) < 0){
@@ -70,8 +73,8 @@ void *producir(void *arg) {
 
   int i, i1, i2 = 0;
   for (int j = p->op; j > 0; j--) {
-    // Sacamos los valores a introducir en el buffer del puntero, y salvamos la nueva posicion del mismo.
 
+    // Sacamos los valores a introducir en el buffer del puntero, y salvamos la nueva posicion del mismo.
     if(pthread_mutex_lock(&des) < 0){
       perror("Error de mutex");
       exit(-1);
@@ -121,7 +124,7 @@ void *producir(void *arg) {
 
 void *consumir(int *numValores) {
   struct element data;
-  // Bucle de todo mientras no se hallar leido todas las ops esperadas.
+  // Bucle de todo mientras no se hallan leido todas las ops esperadas.
   for (int k = 0; k < *numValores; k++) {
 
     if(pthread_mutex_lock(&ring) < 0){
@@ -144,16 +147,14 @@ void *consumir(int *numValores) {
     switch (data->type) {
     case 1:
       total += 1 * data->time;
-      // printf("1 %d\n",data->time);
+
       break;
     case 2:
       total += 3 * data->time;
-      /// printf("3 %d\n",data->time );
 
       break;
     case 3:
       total += 10 * data->time;
-      // printf("10 %d\n",data->time );
 
       break;
     default:
@@ -190,7 +191,7 @@ int calculo_lineas(const char filename[]) {
 }
 
 int main(int argc, const char *argv[]) {
-
+  //Control de errores de los datos iniciales
   if (argc > 4) {
     perror("Numero de argumentos invalido");
     return -1;
@@ -241,7 +242,7 @@ int main(int argc, const char *argv[]) {
     perror("Error inicializar mutex");
     exit(-1);
   }
-
+  //Creamos los hilos y establecemos el nº de operaciones que hará cada uno
   int operaciones = floor((numVal / productores));
   int id_inicio = 1;
   pthread_t hilosP[productores];
@@ -250,6 +251,7 @@ int main(int argc, const char *argv[]) {
     perror("Error al crear hilo");
     exit(-1);
   }
+  //Ejecución de las operaciones
   int i;
   fichero = malloc(sizeof(char[strlen(argv[1])]));
   fichero = argv[1];
@@ -269,6 +271,7 @@ int main(int argc, const char *argv[]) {
   args[productores - 1].op = op_ultimo;
   args[productores - 1].id_ini = id_inicio;
 
+  //Control de errores de operaciones y valores finales
   if(pthread_create(&hilosP[productores - 1], NULL, (void *)producir, &args[productores - 1]) < 0){
     perror("Error al crear hilo");
     exit(-1);
