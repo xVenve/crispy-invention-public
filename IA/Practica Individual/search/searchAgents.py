@@ -4,7 +4,7 @@
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
 # attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
-#
+# 
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
 # The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
@@ -71,15 +71,17 @@ class SearchAgent(Agent):
     Note: You should NOT change any code in SearchAgent
     """
 
-    def __init__(self, fn='depthFirstSearch', prob='PositionSearchProblem', heuristic='nullHeuristic'):
+    def __init__(self, fn='depthFirstSearch', prob='PositionSearchProblem', heuristic='nullHeuristic', predefined_alg=True):
         # Warning: some advanced Python magic is employed below to find the right functions and problems
 
         # Get the search function from the name and heuristic
-        if fn not in dir(search):
+        if fn not in dir(search) and predefined_alg:
             raise AttributeError, fn + ' is not a search function in search.py.'
         func = getattr(search, fn)
-        if 'heuristic' not in func.func_code.co_varnames:
-            print('[SearchAgent] using function ' + fn)
+        
+        if ('heuristic' not in func.func_code.co_varnames):
+            if predefined_alg: 
+                print('[SearchAgent] using function ' + fn)
             self.searchFunction = func
         else:
             if heuristic in globals().keys():
@@ -93,10 +95,11 @@ class SearchAgent(Agent):
             self.searchFunction = lambda x: func(x, heuristic=heur)
 
         # Get the search problem type from the name
-        if prob not in globals().keys() or not prob.endswith('Problem'):
+        if (prob not in globals().keys() or not prob.endswith('Problem')) and predefined_alg:
             raise AttributeError, prob + ' is not a search problem type in SearchAgents.py.'
         self.searchType = globals()[prob]
-        print('[SearchAgent] using problem type ' + prob)
+        if predefined_alg:
+            print('[SearchAgent] using problem type ' + prob)
 
     def registerInitialState(self, state):
         """
@@ -114,7 +117,7 @@ class SearchAgent(Agent):
         self.actions  = self.searchFunction(problem) # Find a path
         print "Search finished"
         totalCost = problem.getCostOfActions(self.actions)
-        print('Path found with total cost of %d in %.11f seconds' % (totalCost, time.time() - starttime))
+        print('Path found with total cost of %d in %.1f seconds' % (totalCost, time.time() - starttime))
         if '_expanded' in dir(problem): print('Search nodes expanded: %d' % problem._expanded)
 
     def getAction(self, state):
@@ -137,7 +140,7 @@ class SearchAgent(Agent):
 #####################################################
 # SEARCH PROBLEM 1                                  #
 #####################################################
-
+        
 class PositionSearchProblem(search.SearchProblem):
     """
     A search problem defines the state space, start state, goal test, successor
@@ -264,7 +267,7 @@ class StayWestSearchAgent(SearchAgent):
         costFn = lambda pos: 2 ** pos[0]
         self.searchType = lambda state: PositionSearchProblem(state, costFn)
 
-
+    
 def manhattanHeuristic(position, problem, info={}):
     "The Manhattan distance heuristic for a PositionSearchProblem"
     return manhattanDistance(position, problem.goal)
@@ -331,7 +334,7 @@ class FoodSearchProblem:
 #----------------------------------------------------
 # AGENT 1: astar  ClosestFoodManhattan              -
 #----------------------------------------------------
-
+   
 class AStarFoodSearchAgent_ClosestFoodManhattanDistance(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
     def __init__(self):
@@ -348,11 +351,11 @@ def foodHeuristicManhattan(state, problem):
     problem.  For example, problem.walls gives you a Grid of where the walls
     are.
     """
-
+    
     position, foodGrid = state
     heuristic = 0
     food = foodGrid.asList()
-
+    
     if len(food) == 0:
         return 0
 
@@ -362,19 +365,19 @@ def foodHeuristicManhattan(state, problem):
             heuristic = distance
     return heuristic
 
-
+        
 #----------------------------------------------------
 # AGENT 2: astar  ClosestFoodMazeDistance           -
 #----------------------------------------------------
 
-
+        
 class AStarFoodSearchAgent_ClosestFoodMazeDistance(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
     def __init__(self):
         self.searchFunction = lambda prob: search.aStarSearch(prob, foodHeuristicMazeDistance)
         self.searchType = FoodSearchProblem
 
-
+        
 def foodHeuristicMazeDistance(state, problem):
     """
     The state is a tuple ( pacmanPosition, foodGrid ) where foodGrid is a Grid
@@ -388,7 +391,7 @@ def foodHeuristicMazeDistance(state, problem):
     position, foodGrid = state
     heuristic = 0
     food = foodGrid.asList()
-
+    
     if len(food) == 0:
         return 0
 
@@ -437,19 +440,27 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         foodPositions = self.food.asList()
 
         # The goal is if pacman's current position is a location where there is
-        # a piece of food.
+        # a piece of food. 
         return (x, y) in foodPositions
 
 
 class ClosestDotSearchAgent(SearchAgent):
+
+    def __init__(self):
+        SearchAgent.__init__(self, predefined_alg=False)
+    
     "Search for all food using a sequence of searches"
     def registerInitialState(self, state):
-        starttime = time.time()
         self.actions = []
         currentState = state
-        problem = self.searchType(state) # Makes a new search problem
+        starttime = time.time()
+        totalExpanded = 0
+        totalCost = 0
+        print "Starting search ..."
         while(currentState.getFood().count() > 0):
-            nextPathSegment = self.findPathToClosestDot(currentState) # The missing piece
+            nextPathSegment, expanded, cost = self.findPathToClosestDot(currentState) # The missing piece
+            totalExpanded += expanded
+            totalCost += cost
             self.actions += nextPathSegment
             for action in nextPathSegment:
                 legal = currentState.getLegalActions()
@@ -458,9 +469,10 @@ class ClosestDotSearchAgent(SearchAgent):
                     raise Exception, 'findPathToClosestDot returned an illegal move: %s!\n%s' % t
                 currentState = currentState.generateSuccessor(0, action)
         self.actionIndex = 0
-        print('Path found with total cost of %d in %.11f seconds' % (len(self.actions), time.time() - starttime))
-        totalCost = problem.getCostOfActions(self.actions)
-        if '_expanded' in dir(problem): print('Search nodes expanded: %d' % totalCost)
+        print "Search finished"
+        print('Path found with total cost of %d in %.1f seconds' % (totalCost, time.time() - starttime))
+        print('Search nodes expanded: %d' % totalExpanded)
+
 
     def findPathToClosestDot(self, gameState):
         """
@@ -478,7 +490,7 @@ class ClosestDotSearchAgent(SearchAgent):
         closest food might not be on the path of the shortest path through them
         maze. For example, if there are two dots to choose from, the algorithm
         may pick one arbitratily, which could leave the other food as the only
-        food left in that area of the maze. Then, Pacman will eat everything
+        food left in that area of the maze. Then, Pacman will eat everything 
         else before finally returning to eat that food.
         """
 
@@ -488,21 +500,23 @@ class ClosestDotSearchAgent(SearchAgent):
         action_list = []    # List of actions taken to get to the current node
         total_cost = 0      # Cost to get to the current node
         initial = problem.getStartState()   # Starting state of the problem
-
+        
         fringe.push((initial, action_list))
 
-        while fringe:
-            node, actions = fringe.pop()
+        while fringe: 
+            node, actions = fringe.pop() 
             if not node in visited:
                 visited.append(node)
+                """
+                Added so it displays stats for every sub-search
+                """
                 if problem.isGoalState(node):
-                    return actions
+                    return actions, problem._expanded, problem.getCostOfActions(actions)         
                 successors = problem.getSuccessors(node)
                 for successor in successors:
                     coordinate, direction, cost = successor
                     fringe.push((coordinate, actions + [direction]))
-
-
+                    
 #####################################################
 # FUNCTIONS TO COMPUTE DISTANCES                    #
 #####################################################
@@ -512,12 +526,12 @@ def manhattanDistance(point1, point2):
     x2, y2 = point2
     return abs(x1 - x2) + abs(y1 - y2)
 
-def euclideanDistance(point1, point2):
+def euclideanDistance(point1, point2):    
     x1, y1 = point1
     x2, y2 = point2
     return ( (x1 - x2) ** 2 + (y1 - y2) ** 2 ) ** 0.5
 
-
+    
 def mazeDistance(point1, point2, gameState):
     """
     Returns the maze distance between any two points, using the search functions
