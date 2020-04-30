@@ -6,6 +6,7 @@ import org.bouncycastle.crypto.BlockCipher;
 import org.bouncycastle.crypto.CipherParameters;
 import org.bouncycastle.crypto.engines.AESEngine;
 import org.bouncycastle.crypto.engines.DESEngine;
+import org.bouncycastle.crypto.engines.RijndaelEngine;
 import org.bouncycastle.crypto.modes.CBCBlockCipher;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.bouncycastle.crypto.params.KeyParameter;
@@ -129,7 +130,7 @@ public class AES {
 		try {
 			// Creamos el cifrador
 			PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(
-					new CBCBlockCipher(new AESEngine()));
+					new CBCBlockCipher(new RijndaelEngine()));
 			// Procesamos la clave y el IV
 			CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(
 					key), iv);
@@ -157,7 +158,7 @@ public class AES {
 	private static byte[] encrypt(byte[] plain, byte[] key, byte[] iv) {
 		try {
 			PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(
-					new CBCBlockCipher(new AESEngine()));
+					new CBCBlockCipher(new RijndaelEngine()));
 			CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(
 					key), iv);
 			aes.init(true, ivAndKey);
