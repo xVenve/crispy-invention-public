@@ -20,6 +20,8 @@ import org.bouncycastle.crypto.engines.DESedeEngine;
 import org.bouncycastle.crypto.generators.DESKeyGenerator;
 import org.bouncycastle.crypto.generators.DESedeKeyGenerator;
 import org.bouncycastle.crypto.modes.CBCBlockCipher;
+import org.bouncycastle.crypto.modes.CFBBlockCipher;
+import org.bouncycastle.crypto.modes.OFBBlockCipher;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.bouncycastle.crypto.params.DESParameters;
 import org.bouncycastle.crypto.params.DESedeParameters;
@@ -98,7 +100,7 @@ public class DES {
 	protected byte[] encrypt(byte[] key, byte[] ptBytes) {
 		// Creamos un cifrador de Bloque con Padding y con el modo de bloque CBC
 		BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(
-				new CBCBlockCipher(engine));
+				new OFBBlockCipher(engine, 64));
 		// Lo inicializamos con la clave
 		cipher.init(true, new KeyParameter(key));
 		// Reservamos espacio para el texto cifrado
@@ -127,7 +129,7 @@ public class DES {
 	public byte[] decrypt(byte[] key, byte[] cipherText) {
 		// Creamos un cifrador de Bloque con Padding y con el modo de bloque CBC
 		BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(
-				new CBCBlockCipher(engine));
+				new OFBBlockCipher(engine, 64));
 		// Lo inicializamos con la clave
 		cipher.init(false, new KeyParameter(key));
 		// Reservamos espacio para el texto descifrado
