@@ -1,0 +1,375 @@
+768,37902832
+____________________________________________________
+
+ORGANIZACION 0:
+RESULTS AT 01/05/20
+TIME CONSUMPTION: 67773,7 milliseconds.
+CONSISTENT GETS: 71693 blocks
+
+Procedimiento PL/SQL terminado correctamente.
+
+Transcurrido: 00:21:54.57
+__________________________________________________________
+
+--utilizamos esta indización ya que la peliculas es lo que más se busca y creemos que es lo más optimo--
+CREATE INDEX director_index_movies ON movies(director) TABLESPACE TAB_8K;
+___________________________________________________________
+Transcurrido: 00:00:11.80
+
+Plan de Ejecucion
+----------------------------------------------------------
+Plan hash value: 1020340360
+
+--------------------------------------------------------------------------------
+--
+
+| Id  | Operation            | Name      | Rows  | Bytes | Cost (%CPU)| Time
+ |
+
+--------------------------------------------------------------------------------
+--
+
+|   0 | SELECT STATEMENT     |           | 13854 |   365K|    22   (0)| 00:00:01
+ |
+
+|   1 |  INDEX FAST FULL SCAN| MOVIES_PK | 13854 |   365K|    22   (0)| 00:00:01
+ |
+
+--------------------------------------------------------------------------------
+--
+
+
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+
+Estadisticas
+----------------------------------------------------------
+          6  recursive calls
+          0  db block gets
+        813  consistent gets
+          0  physical reads
+          0  redo size
+     246898  bytes sent via SQL*Net to client
+       7756  bytes received via SQL*Net from client
+        675  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+      10110  rows processed
+
+Estadisticas
+----------------------------------------------------------
+          6  recursive calls
+          0  db block gets
+        716  consistent gets
+         31  physical reads
+          0  redo size
+     246898  bytes sent via SQL*Net to client
+       7760  bytes received via SQL*Net from client
+        675  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+      10110  rows processed
+__________________________________________________________________________________________
+
+CREATE INDEX director_index_movies ON movies(director) TABLESPACE TAB_8K;
+
+Acceso a un director especifico con indice: select /*+ INDEX(movies director_index_movies) */ title from movies where director='Zack Snyder';
+__________________________________________________________________________________________
+Transcurrido: 00:00:00.00
+
+Plan de Ejecucion
+----------------------------------------------------------
+Plan hash value: 3795561416
+
+--------------------------------------------------------------------------------
+-----------------------------
+
+| Id  | Operation                           | Name                  | Rows  | By
+tes | Cost (%CPU)| Time     |
+
+--------------------------------------------------------------------------------
+-----------------------------
+
+|   0 | SELECT STATEMENT                    |                       |     7 |
+553 |     4   (0)| 00:00:01 |
+
+|   1 |  TABLE ACCESS BY INDEX ROWID BATCHED| MOVIES                |     7 |
+553 |     4   (0)| 00:00:01 |
+
+|*  2 |   INDEX RANGE SCAN                  | DIRECTOR_INDEX_MOVIES |     7 |
+    |     1   (0)| 00:00:01 |
+
+--------------------------------------------------------------------------------
+-----------------------------
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("DIRECTOR"='Zack Snyder')
+
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+         10  consistent gets
+          0  physical reads
+          0  redo size
+        768  bytes sent via SQL*Net to client
+        422  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          7  rows processed
+__________________________________________________________________________________________
+Acceso normal a un director especifico: select /*+ no_INDEX(movies director_index_movies) */ title from movies where director='Zack Snyder';
+__________________________________________________________________________________________
+Transcurrido: 00:00:00.00
+
+Plan de Ejecucion
+----------------------------------------------------------
+Plan hash value: 1020340360
+
+--------------------------------------------------------------------------------
+--
+
+| Id  | Operation            | Name      | Rows  | Bytes | Cost (%CPU)| Time
+ |
+
+--------------------------------------------------------------------------------
+--
+
+|   0 | SELECT STATEMENT     |           |    23 |  1817 |    22   (0)| 00:00:01
+ |
+
+|*  1 |  INDEX FAST FULL SCAN| MOVIES_PK |    23 |  1817 |    22   (0)| 00:00:01
+ |
+
+--------------------------------------------------------------------------------
+--
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - filter("DIRECTOR"='Zack Snyder')
+
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+         79  consistent gets
+          0  physical reads
+          0  redo size
+        768  bytes sent via SQL*Net to client
+        425  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          7  rows processed
+__________________________________________________________________________________________
+
+
+CREATE INDEX MEMBER_INDEX_PROPOSALS ON PROPOSALS(MEMBER) TABLESPACE TAB_8K;
+
+Usando indice: Acceso a la totalidad
+________________________________________________________________________________________________
+Transcurrido: 00:00:01.07
+
+Plan de Ejecucion
+----------------------------------------------------------
+Plan hash value: 3296588120
+
+--------------------------------------------------------------------------------
+----------------
+
+| Id  | Operation             | Name                   | Rows  | Bytes | Cost (%
+CPU)| Time     |
+
+--------------------------------------------------------------------------------
+----------------
+
+|   0 | SELECT STATEMENT      |                        | 12738 |   236K|    15
+ (7)| 00:00:01 |
+
+|   1 |  HASH UNIQUE          |                        | 12738 |   236K|    15
+ (7)| 00:00:01 |
+
+|   2 |   INDEX FAST FULL SCAN| MEMBER_INDEX_PROPOSALS | 12738 |   236K|    14
+ (0)| 00:00:01 |
+
+--------------------------------------------------------------------------------
+----------------
+
+
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+         45  consistent gets
+          0  physical reads
+          0  redo size
+      96090  bytes sent via SQL*Net to client
+       3674  bytes received via SQL*Net from client
+        303  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+       4525  rows processed
+
+
+Sin usar indice: Acceso a la totalidad.
+________________________________________________________________________________________________
+Transcurrido: 00:00:01.04
+
+Plan de Ejecucion
+----------------------------------------------------------
+Plan hash value: 3601422770
+
+--------------------------------------------------------------------------------
+------
+
+| Id  | Operation             | Name         | Rows  | Bytes | Cost (%CPU)| Time
+     |
+
+--------------------------------------------------------------------------------
+------
+
+|   0 | SELECT STATEMENT      |              | 12738 |   236K|    34   (6)| 00:0
+0:01 |
+
+|   1 |  HASH UNIQUE          |              | 12738 |   236K|    34   (6)| 00:0
+0:01 |
+
+|   2 |   INDEX FAST FULL SCAN| UK_PROPOSALS | 12738 |   236K|    32   (0)| 00:0
+0:01 |
+
+--------------------------------------------------------------------------------
+------
+
+
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+        110  consistent gets
+          0  physical reads
+          0  redo size
+      96090  bytes sent via SQL*Net to client
+       3674  bytes received via SQL*Net from client
+        303  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+       4525  rows processed
+
+CP_Aragna sin indice, a un miembro especifico:
+________________________________________________________________________________________________
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+        143  consistent gets
+          0  physical reads
+          0  redo size
+        634  bytes sent via SQL*Net to client
+        367  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+
+
+
+CP_Aragna con indice, a un miembro especifico:
+___________________________________________________________________________________________
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+         43  consistent gets
+          0  physical reads
+          0  redo size
+        634  bytes sent via SQL*Net to client
+        367  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE INDEX NICK_INDEX_COMMENTS ON COMMENTS(NICK) TABLESPACE TAB_8K;
+
+CP_Aragna con indice, a un miembro especifico:
+___________________________________________________________________________________________
+
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+         40  consistent gets
+          0  physical reads
+          0  redo size
+        634  bytes sent via SQL*Net to client
+        367  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+
+CP_Aragna sin indice, a un miembro especifico:
+________________________________________________________________________________________________
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+        143  consistent gets
+          0  physical reads
+          0  redo size
+        634  bytes sent via SQL*Net to client
+        367  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+
+Leader no se ha podido optimizar con indice, revisar si se puede con Clusteres.
