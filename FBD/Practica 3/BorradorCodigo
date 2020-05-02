@@ -373,3 +373,388 @@ Estadisticas
 
 
 Leader no se ha podido optimizar con indice, revisar si se puede con Clusteres.
+
+EJECUCION DE RUNTEST SOBRE LOS INDICES CREADOS EN LA PARTE SUPERIOR:
+
+RESULTS AT 01/05/20
+TIME CONSUMPTION: 66777,1 milliseconds.
+CONSISTENT GETS: 67586,6 blocks
+
+
+
+LAS PRUEBAS ANTES DE CREAR EL PRIMER CLUSTER SON CON LOS DATOS AÑADIDOS POR LA PRUEBA
+
+Precluster Leader:
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+      21307  consistent gets
+          0  physical reads
+          0  redo size
+        976  bytes sent via SQL*Net to client
+        696  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+         10  rows processed
+
+
+Precluster cp_aragna:
+
+Estadisticas
+----------------------------------------------------------
+          7  recursive calls
+          0  db block gets
+      21327  consistent gets
+          0  physical reads
+          0  redo size
+       7135  bytes sent via SQL*Net to client
+        838  bytes received via SQL*Net from client
+         15  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+        207  rows processed
+
+create cluster CLUSTER_PC (NICK VARCHAR2(35), CLUB VARCHAR2(60));
+CREATE INDEX INDEX_CLUTER_PC ON CLUSTER CLUSTER_PC TABLESPACE TAB_8K;
+
+Postcluster cp_aragna:
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+      66732  consistent gets
+          0  physical reads
+          0  redo size
+       7135  bytes sent via SQL*Net to client
+        904  bytes received via SQL*Net from client
+         15  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+        207  rows processed
+
+Postcluter leader:
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+      14094  consistent gets
+          0  physical reads
+          0  redo size
+        976  bytes sent via SQL*Net to client
+        696  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+         10  rows processed
+
+
+create cluster CLUSTER_PC (NICK VARCHAR2(35));
+Postcluster cp_aragna:
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+      68209  consistent gets
+          0  physical reads
+          0  redo size
+       7132  bytes sent via SQL*Net to client
+        837  bytes received via SQL*Net from client
+         15  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+        207  rows processed
+Postcluter leader:
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+      14347  consistent gets
+          0  physical reads
+          0  redo size
+        976  bytes sent via SQL*Net to client
+        696  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+         10  rows processed
+
+create cluster CLUSTER_PC (club VARCHAR2(60));
+
+
+Aragna solo club:
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+     566429  consistent gets
+          0  physical reads
+          0  redo size
+       7132  bytes sent via SQL*Net to client
+        837  bytes received via SQL*Net from client
+         15  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+        207  rows processed
+
+Leader solo con club:
+Estadisticas
+----------------------------------------------------------
+         38  recursive calls
+          0  db block gets
+      11855  consistent gets
+          0  physical reads
+          0  redo size
+        976  bytes sent via SQL*Net to client
+        697  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+         10  rows processed
+
+
+
+Mejora de:
+ SELECT title,director
+      FROM GENRES_MOVIES WHERE UPPER(genre)='COMEDY'
+   INTERSECT
+   SELECT title,director
+      FROM GENRES_MOVIES WHERE UPPER(genre)='DRAMA';
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+        184  consistent gets
+          0  physical reads
+          0  redo size
+      29275  bytes sent via SQL*Net to client
+        953  bytes received via SQL*Net from client
+         44  SQL*Net roundtrips to/from client
+          2  sorts (memory)
+          0  sorts (disk)
+        645  rows processed
+
+drop index genre_movies_index;
+create index genre_movies_index on genres_movies(genre) tablespace tab_8k;
+
+ SELECT /*+ index(genres_movies genre_movies_index) */ title,director
+      FROM GENRES_MOVIES WHERE UPPER(genre)='COMEDY'
+   INTERSECT
+   SELECT /*+ index(genres_movies genre_movies_index) */ title,director
+      FROM GENRES_MOVIES WHERE UPPER(genre)='DRAMA';
+
+Estadisticas
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+        238  consistent gets
+          0  physical reads
+          0  redo size
+      29275  bytes sent via SQL*Net to client
+       1054  bytes received via SQL*Net from client
+         44  SQL*Net roundtrips to/from client
+          2  sorts (memory)
+          0  sorts (disk)
+        645  rows processed
+
+Mejora de:
+
+SELECT nick FROM users WHERE (sysdate-reg_date)>182
+   MINUS
+   SELECT nick FROM membership
+   MINUS
+   SELECT nick FROM contracts JOIN profiles USING(citizenID);
+
+Concluster:
+create cluster CLUSTER_NICK (NICK VARCHAR2(35));
+CREATE INDEX INDEX_CLUTER_NICK ON CLUSTER CLUSTER_NICK TABLESPACE TAB_8K;
+
+Precluster:
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+        460  consistent gets
+          0  physical reads
+          0  redo size
+      52602  bytes sent via SQL*Net to client
+       2247  bytes received via SQL*Net from client
+        162  SQL*Net roundtrips to/from client
+          3  sorts (memory)
+          0  sorts (disk)
+       2408  rows processed
+
+Postcluster:
+
+Estadisticas
+----------------------------------------------------------
+          4  recursive calls
+          0  db block gets
+      12748  consistent gets
+          0  physical reads
+          0  redo size
+      52602  bytes sent via SQL*Net to client
+       2247  bytes received via SQL*Net from client
+        162  SQL*Net roundtrips to/from client
+          3  sorts (memory)
+          0  sorts (disk)
+       2408  rows processed
+
+Con indices, los otros dos ya existen:
+Se han probado los otros tablespaces y el mejor es 8k 460 2k y 425 16k.
+
+create index nick_membership_index on membership(nick) tablespace tab_8k;
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+        318  consistent gets
+          0  physical reads
+          0  redo size
+      41355  bytes sent via SQL*Net to client
+       1834  bytes received via SQL*Net from client
+        130  SQL*Net roundtrips to/from client
+          2  sorts (memory)
+          0  sorts (disk)
+       1934  rows processed
+
+Mejorar:
+SELECT * FROM (
+     SELECT * FROM (
+       SELECT director, avg(coms) meancomm
+          FROM (SELECT title,director,count('c') coms
+                  FROM comments
+                  GROUP BY title,director)
+          GROUP BY director
+     ) ORDER BY meancomm DESC
+   ) WHERE rownum=1;
+
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+      10873  consistent gets
+          0  physical reads
+          0  redo size
+        652  bytes sent via SQL*Net to client
+        620  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+
+
+CREATE INDEX DirectorTitle_INDEX_COMMENTS ON COMMENTS(title, director) TABLESPACE TAB_8K;
+
+Estadisticas
+----------------------------------------------------------
+                    0  recursive calls
+                    0  db block gets
+                  724  consistent gets
+                    0  physical reads
+                    0  redo size
+                  652  bytes sent via SQL*Net to client
+                  620  bytes received via SQL*Net from client
+                    2  SQL*Net roundtrips to/from client
+                    1  sorts (memory)
+                    0  sorts (disk)
+                    1  rows processed
+
+
+CREATE INDEX MEMBER_INDEX_PROPOSALS ON PROPOSALS(MEMBER) TABLESPACE TAB_8K;
+CREATE INDEX NICK_INDEX_COMMENTS ON COMMENTS(NICK) TABLESPACE TAB_8K;
+create index nick_membership_index on membership(nick) tablespace tab_8k;
+CREATE INDEX DirectorTitle_INDEX_COMMENTS ON COMMENTS(title, director) TABLESPACE TAB_8K;
+CREATE INDEX director_index_movies ON movies(director) TABLESPACE TAB_8K;
+
+
+
+drop index MEMBER_INDEX_PROPOSALS;
+drop index NICK_INDEX_COMMENTS;
+drop index NICK_MEMBERSHIP_INDEX;
+drop index DIRECTORTITLE_INDEX_COMMENTS;
+drop index DIRECTOR_INDEX_movies;
+
+
+
+
+Leader con los 5 indices creados:
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+      11131  consistent gets
+          0  physical reads
+          0  redo size
+        976  bytes sent via SQL*Net to client
+        696  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+         10  rows processed
+
+Aragna con los 5 indices creados:
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+      11133  consistent gets
+          0  physical reads
+          0  redo size
+       7135  bytes sent via SQL*Net to client
+        837  bytes received via SQL*Net from client
+         15  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+        207  rows processed
+
+Leader sin ningun indice nuestro:
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+      11877  consistent gets
+          0  physical reads
+          0  redo size
+        976  bytes sent via SQL*Net to client
+        696  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          1  sorts (memory)
+          0  sorts (disk)
+         10  rows processed
+
+Aragna sin indices nuestros:
+
+Estadisticas
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+      11878  consistent gets
+          0  physical reads
+          0  redo size
+       7135  bytes sent via SQL*Net to client
+        837  bytes received via SQL*Net from client
+         15  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+        207  rows processed
+
+RESULTADO DE RUNTEST CON LOS 5 INDICES QUE ESTAN DEFINIDOS ARRIBA, CON LA TABLA RECIEN CREADA:
+RESULTS AT 02/05/20
+TIME CONSUMPTION: 68606,8 milliseconds.
+CONSISTENT GETS: 48501,6 blocks
+
+Procedimiento PL/SQL terminado correctamente.
+
+Transcurrido: 00:13:00.20
+
+HEMOS MEJORADO CON LA ORIGINAL, SOLO CON INDICES: 23192 ACCESOS A BLOQUES 
