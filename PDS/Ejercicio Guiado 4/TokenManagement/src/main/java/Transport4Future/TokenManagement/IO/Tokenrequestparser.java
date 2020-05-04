@@ -6,7 +6,7 @@ import javax.json.JsonObject;
 
 import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
-public class Tokenrequestparser extends Jsonparser 
+public class Tokenrequestparser extends Jsonparser implements ITokenManagementParser
 {
 
 	public static final String MAC_ADDRESS = "MAC Address";
@@ -18,9 +18,9 @@ public class Tokenrequestparser extends Jsonparser
 	public static final String ERROR_INVALID_INPUT_DATA_IN_JSON_STRUCTURE = 
 			"Error: invalid input data in JSON structure.";
 
-	public HashMap<String, String> PARSER(String file_name) throws Tokenmanagementexception 
+	public HashMap<String, String> PARSE(String file_name) throws Tokenmanagementexception 
 	{
-		JsonObject myJSON = this.JSON_FILE_PARSER(file_name);
+		JsonObject myJSON = (JsonObject) super.PARSE(file_name);
 		HashMap<String, String> items= new HashMap<String, String>();
 
 		try {			

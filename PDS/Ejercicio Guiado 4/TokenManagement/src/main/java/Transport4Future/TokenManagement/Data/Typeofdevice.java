@@ -4,7 +4,6 @@ import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public class Typeofdevice extends Attribute 
 {
-
 	
 	Typeofdevice(String value) throws Tokenmanagementexception
 	{
