@@ -11,7 +11,8 @@ import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 import Transport4Future.TokenManagement.IO.Tokenparser;
 import Transport4Future.TokenManagement.Store.Tokenstore;
 import Transport4Future.TokenManagement.Utils.Encoder;
-import Transport4Future.TokenManagement.Utils.Hasher;
+import Transport4Future.TokenManagement.Utils.Hashersha;
+
 
 public class Token 
 {
@@ -28,7 +29,7 @@ public class Token
 	public Token (String file_name) throws Tokenmanagementexception 
 	{
 		Tokenparser myParser = new Tokenparser();
-		HashMap<String, String> items = myParser.PARSER(file_name);
+		HashMap<String, String> items = myParser.PARSE(file_name);
 
 		this.algorithm = "HS256";
 		this.type = "PDS";
@@ -60,7 +61,7 @@ public class Token
 
 	private void STORE_TOKEN() throws Tokenmanagementexception 
 	{
-		Tokenstore myStore = new Tokenstore ();
+		Tokenstore myStore = Tokenstore.GET_INSTANCE();
 		myStore.ADD(this);
 	}
 	
@@ -81,8 +82,9 @@ public class Token
 	
 	private String GENERATE_SIGNATURE() throws Tokenmanagementexception 
 	{
-		Hasher myHasher = new Hasher();
-		return (myHasher.HASH_SHA256(this.GET_HEADER() + this.GET_PAYLOAD()));
+		Hashersha myHasher = new Hashersha();
+		String dataToSign = this.GET_HEADER() + this.GET_PAYLOAD();
+		return (myHasher.HASH(dataToSign));
 	}
 	
 	public boolean IS_GRANTED () 
