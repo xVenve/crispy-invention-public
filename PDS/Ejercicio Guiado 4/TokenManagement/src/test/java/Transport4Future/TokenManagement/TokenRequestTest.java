@@ -7,8 +7,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-
 class TokenRequestTest 
 {
 
@@ -16,7 +14,7 @@ class TokenRequestTest
 	
 	public TokenRequestTest () 
 	{
-		 my_manager = new Tokenmanager ();
+		 my_manager = Tokenmanager.GET_INSTANCE();
 	}
 	
 	@DisplayName ("Invalid Test Cases")

@@ -15,7 +15,7 @@ class Verifytokentest
 	
 	public Verifytokentest () 
 	{
-		 my_manager = new Tokenmanager ();
+		 my_manager = Tokenmanager.GET_INSTANCE();
 	}
 	
 	private void RESET_TOKEN_STORE () throws Tokenmanagementexception 

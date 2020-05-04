@@ -15,6 +15,30 @@ import java.lang.reflect.Type;
 public class Tokenrequeststore 
 {
 	
+	private static Tokenrequeststore tokenrequeststore;
+	
+	private Tokenrequeststore() 
+	{
+		
+	}
+	
+	public static Tokenrequeststore GET_INSTANCE() 
+	{
+		if(tokenrequeststore==null)
+			tokenrequeststore=new Tokenrequeststore();
+		return tokenrequeststore;
+	}
+	
+	public Tokenrequeststore CLONE() 
+	{
+		try {
+			throw new CloneNotSupportedException();
+		}catch(CloneNotSupportedException exception) {
+			System.out.println("Token manager object cannot be cloned");
+		}
+		return null;
+	}
+	
 	private static final String STOREPATH = System.getProperty("user.dir") + "/Store/tokenRequestsStore.json";
 	
 	public void SAVE_TOKEN_REQUEST(Tokenrequest request, String hex)

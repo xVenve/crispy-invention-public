@@ -7,10 +7,10 @@ import javax.json.JsonObject;
 
 import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
-public class Jsonparser 
+public class Jsonparser implements ITokenManagementParser
 {
 	
-	public JsonObject JSON_FILE_PARSER(String input_file)
+	public Object PARSE(String input_file)
 			throws Tokenmanagementexception 
 	{
 		Datareader myReader = new Datareader();
