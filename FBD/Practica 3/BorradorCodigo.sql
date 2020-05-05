@@ -1208,7 +1208,7 @@ INSERT INTO movies(title,director) SELECT DISTINCT 'workload_'||nick,'Common' FR
 drop index index end_clubs_index;
 create index end_clubs_index on clubs(name,end_date) tablespace tab_8k;
 
-INSERT INTO proposals(title, director, club, member, prop_date, slogan, message) SELECT 'workload_'||nick,'Common',club,nick,sysdate,DBMS_RANDOM.string('P',TRUNC(DBMS_RANDOM.value(20,96))), DBMS_RANDOM.string('P',TRUNC(DBMS_RANDOM.value(200,1496)))FROM (SELECT /*+ index(clubs end_clubs_index) */ name club FROM clubs WHERE end_date is null)  JOIN membership USING(club);
+INSERT INTO proposals(title, director, club, member, prop_date, slogan, message) SELECT 'workload_'||nick,'Common',club,nick,sysdate,DBMS_RANDOM.string('P',TRUNC(DBMS_RANDOM.value(20,96))), DBMS_RANDOM.string('P',TRUNC(DBMS_RANDOM.value(200,1496)))FROM (SELECT name club FROM clubs WHERE end_date is null)  JOIN membership USING(club);
 
 Sin indice: Media 2108
 Estadisticas
@@ -1522,5 +1522,68 @@ CONSISTENT GETS: 137774,3 blocks
 Prueba de lo anterior cambiando TableSpaces de tablas:  genres TAB_2K; products TAB_2K; clubs TAB_2K; proposals TAB_16K; comments TAB_16K;
 
 RESULTS AT 05/05/20
+TIME CONSUMPTION: 79249 milliseconds.
+CONSISTENT GETS: 198225,6 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 79639 milliseconds.
+CONSISTENT GETS: 189212,2 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 82108,2 milliseconds.
+CONSISTENT GETS: 189140,8 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 82250 milliseconds.
+CONSISTENT GETS: 187912 blocks
+
+Prueba de lo anterior cambiando TableSpaces de tablas, incluyendo end_clubs_index:  genres TAB_2K; products TAB_2K; clubs TAB_2K; proposals TAB_16K; comments TAB_16K;
+
+RESULTS AT 05/05/20
 TIME CONSUMPTION: 71570,2 milliseconds.
 CONSISTENT GETS: 24522,9 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 78157,2 milliseconds.
+CONSISTENT GETS: 193114,6 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 83012,5 milliseconds.
+CONSISTENT GETS: 196313 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 79657,6 milliseconds.
+CONSISTENT GETS: 192025,3 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 80377,8 milliseconds.
+CONSISTENT GETS: 194329 blocks
+
+
+Calculo de nuevo de la base sin ninguna modificacion:
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 68265,7 milliseconds.
+CONSISTENT GETS: 72122,7 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 67619 milliseconds.
+CONSISTENT GETS: 71141,9 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 69304,5 milliseconds.
+CONSISTENT GETS: 71133 blocks
+
+Calculo de nuevo de los 5 indices con su correspondiente cambio de TABLESPACE y tamben el indice end_clubs_index:
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 69363,8 milliseconds.
+CONSISTENT GETS: 226950,2 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 69977,6 milliseconds.
+CONSISTENT GETS: 227752,2 blocks
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 69575,6 milliseconds.
+CONSISTENT GETS: 222726,4 blocks
