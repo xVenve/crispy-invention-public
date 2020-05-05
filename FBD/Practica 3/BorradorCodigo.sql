@@ -1511,3 +1511,16 @@ CONSISTENT GETS: 117680,4 blocks
 RESULTS AT 03/05/20
 TIME CONSUMPTION: 69146,5 milliseconds.
 CONSISTENT GETS: 61816,5 blocks
+
+
+Prueba de ejecucion de run_test con los indices que se han comprobado seguros:
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 72177 milliseconds.
+CONSISTENT GETS: 137774,3 blocks
+
+Prueba de lo anterior cambiando TableSpaces de tablas:  genres TAB_2K; products TAB_2K; clubs TAB_2K; proposals TAB_16K; comments TAB_16K;
+
+RESULTS AT 05/05/20
+TIME CONSUMPTION: 71570,2 milliseconds.
+CONSISTENT GETS: 24522,9 blocks

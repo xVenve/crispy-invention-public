@@ -240,7 +240,10 @@ drop index NICK_INDEX_COMMENTS;
 drop index NICK_MEMBERSHIP_INDEX;
 drop index DIRECTORTITLE_INDEX_COMMENTS;
 drop index DIRECTOR_INDEX_movies;
+drop index end_clubs_index;
 
+
+create index end_clubs_index on clubs(name,end_date) tablespace tab_8k;
 CREATE INDEX MEMBER_INDEX_PROPOSALS ON PROPOSALS(MEMBER) TABLESPACE TAB_8K;
 CREATE INDEX NICK_INDEX_COMMENTS ON COMMENTS(NICK) TABLESPACE TAB_2K;
 create index nick_membership_index on membership(nick) tablespace tab_8k;
