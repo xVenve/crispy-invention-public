@@ -15,7 +15,7 @@ oid_section		= new_oids
 # To use this configuration file with the "-extfile" option of the
 # "openssl x509" utility, name here the section containing the
 # X.509v3 extensions to use:
-# extensions		= 
+# extensions		=
 # (Alternatively, use a configuration file that has only
 # X.509v3 extensions in its main [= default] section.)
 
@@ -78,8 +78,8 @@ policy		= policy_match
 # For the CA policy
 [ policy_match ]
 countryName		= match
-stateOrProvinceName	= match
-organizationName	= match
+stateOrProvinceName	= optional
+organizationName	= optional
 organizationalUnitName	= optional
 commonName		= supplied
 emailAddress		= optional
@@ -100,8 +100,8 @@ emailAddress		= optional
 [ req ]
 default_bits		= 1024
 default_keyfile 	= ./privado/ca2key.pem
-default_md		= sha1	
-prompt			= no 
+default_md		= sha1
+prompt			= no
 distinguished_name	= req_distinguished_name
 # attributes		= req_attributes
 
@@ -111,7 +111,7 @@ x509_extensions		= v3_ca	# The extentions to add to the self signed cert
 # input_password = secret
 # output_password = secret
 
-# This sets a mask for permitted string types. There are several options. 
+# This sets a mask for permitted string types. There are several options.
 # default: PrintableString, T61String, BMPString.
 # pkix	 : PrintableString, BMPString.
 # utf8only: only UTF8Strings.
