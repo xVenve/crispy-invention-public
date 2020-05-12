@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 import Transport4Future.TokenManagement.IO.Tokenparser;
+import Transport4Future.TokenManagement.Store.Tokenrequeststore;
 import Transport4Future.TokenManagement.Store.Tokenstore;
 import Transport4Future.TokenManagement.Utils.Encoder;
 import Transport4Future.TokenManagement.Utils.Hashersha;
@@ -36,6 +37,7 @@ public class Token
 		this.device = new Device(items.get(Tokenparser.TOKEN_REQUEST));
 		this.request_date = new Dateclass(items.get(Tokenparser.REQUEST_DATE));
 		this.notification_email = new Email(items.get(Tokenparser.NOTIFICATION_E_MAIL));
+		this.CHECK_TOKEN_REQUEST_EMISSION();
 		//this.creation_date = System.currentTimeMillis();
 		//this.expiration_date = this.creation_date + 604800000l
 		//Fechas para las pruebas
@@ -152,5 +154,15 @@ public class Token
 	{
 		return this.token_value;
 	}	
+	
+	private void CHECK_TOKEN_REQUEST_EMISSION() throws Tokenmanagementexception
+    {
+        Tokenrequeststore myStore = Tokenrequeststore.GET_INSTANCE();
+        if (!myStore.FIND(this.GET_DEVICE())) 
+        {
+            throw new Tokenmanagementexception ("Error: Token Request not previously registered");
+        }
+
+    }
 	
 }

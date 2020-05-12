@@ -86,4 +86,16 @@ public class Tokenrequeststore
 	return clonedMap;
 	}
 	
+	public boolean FIND(String device) throws Tokenmanagementexception
+    {
+        Tokenrequeststore requestStore = new Tokenrequeststore();
+        HashMap <String, Tokenrequest> clonedMap = requestStore.LOAD_TOKENREQUEST_STORE();
+        if (clonedMap == null)
+            return false;
+        else if (!clonedMap.containsKey(device))
+            return false;
+        else
+            return true;
+    }
+	
 }
