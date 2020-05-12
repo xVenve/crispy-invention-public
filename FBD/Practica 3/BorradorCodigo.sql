@@ -1587,3 +1587,14 @@ CONSISTENT GETS: 227752,2 blocks
 RESULTS AT 05/05/20
 TIME CONSUMPTION: 69575,6 milliseconds.
 CONSISTENT GETS: 222726,4 blocks
+
+
+Ejecutando todos los indices, pero solo cambiando el tablespace de 2k:
+
+RESULTS AT 12/05/20
+TIME CONSUMPTION: 69252,8 milliseconds.
+CONSISTENT GETS: 231494,5 blocks
+
+RESULTS AT 12/05/20
+TIME CONSUMPTION: 73008,3 milliseconds.
+CONSISTENT GETS: 232552,2 blocks
