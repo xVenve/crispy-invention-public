@@ -1,0 +1,51 @@
+set PATH=%PATH%;C:\Program Files\OpenSSL-Win64\bin
+
+Las pass son 1234
+
+openssl help
+
+openSSL aes-128-cbc -in ComoEjecutarENT.txt -out hola.txt
+
+
+openssl
+rand		generar numeros aleatorios
+-out r1000	Fichero de salida
+-rand File	Fichero de entrada como semilla
+-base64 	Salida en base 64, para que se pueda leer
+1000		Numero de bytes que generar a partir de esa semilla
+
+
+ca 		Firmar y certificar certifados
+req		Crear y gestionar una peticion de certificado
+x509		Gestionar un certificado ya creado. -x509 lo mete directamente
+verify		Verificar un certificado
+
+
+enc ó -e	Para encriptar, seguido del metodo. -d o nada hacen lo mismo.
+
+enc -d		Desencripta la entrada
+
+-newkey 	Genera nuevas claves, va seguido del tipo y tamaño
+-days		Tiempo de validez.
+-outform	Formato de salida.
+-config		Para que use un archivo de configuracion, indicar seguido cual.
+-extensions 	Las extensiones v3_subca
+
+Los intermdios usan 2048 y la A usa 1024
+
+
+Errores en cifradores de bloque:
+	ECB no se propaga a otro bloque.
+	CBC y CFB se propaga dos bloques.
+	OFB afecta a un solo bit.
+
+En AES:
+	La diferencia entre encriptar y desencriptar es en el init, encriptar es true y desencriptar es false.
+
+En DES:
+	La diferencia entre encriptar y desencriptar es en el init, encriptar es true y desencriptar es false.	
+
+RSA no se usa para cifrar cosas demasiados grandes.
+
+BouncyCastle sa error con claves mas pequeñas de 512, pero si permite las mas grandes. Se deben usar potencias de 2, para que sea eficiente,
+este si deja, pero otros no.
