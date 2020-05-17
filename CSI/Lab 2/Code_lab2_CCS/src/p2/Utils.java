@@ -30,15 +30,14 @@ public class Utils {
 			} else {
 				Runtime.getRuntime().exec("clear");
 			}
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 	}
 
 	public boolean saveConsoleToFile() {
-		System.out
-				.println("Introduzca el texto del archivo \n(Escriba 'fin' en una línea para finalizar)");
-		String text = "", line = "";
-		Scanner scan = new Scanner(System.in);
+		System.out.println("Introduzca el texto del archivo \n(Escriba 'fin' en una línea para finalizar)");
+		String text = "",
+		line = "";
+		Scanner scan = new Scanner(System. in);
 		try {
 			while (!line.equals("fin")) {
 
@@ -63,24 +62,19 @@ public class Utils {
 	}
 
 	public boolean saveFile(String ext, byte[] data) {
-		System.out
-				.print("Introduzca el nombre del archivo a grabar \n(se almacenará con la extensión "
-						+ ext + "):");
-		String fileName = new Scanner(System.in).nextLine();
+		System.out.print("Introduzca el nombre del archivo a grabar \n(se almacenará con la extensión " + ext + "):");
+		String fileName = new Scanner(System. in).nextLine();
 		if (fileName.trim().length() == 0) {
 			saveFile(ext, data);
 		}
 		String filePath = filesPath + fileName + "." + ext;
 		try {
-			BufferedOutputStream keystream = new BufferedOutputStream(
-					new FileOutputStream(filePath));
+			BufferedOutputStream keystream = new BufferedOutputStream(new FileOutputStream(filePath));
 			keystream.write(data, 0, data.length);
 			keystream.flush();
 			keystream.close();
 		} catch (Exception e) {
-			System.out
-					.println("** Ha ocurrido un error intentando grabar el archivo '"
-							+ filePath + "'\n");
+			System.out.println("** Ha ocurrido un error intentando grabar el archivo '" + filePath + "'\n");
 			e.printStackTrace();
 			return false;
 		}
@@ -92,14 +86,13 @@ public class Utils {
 		if (message != null) {
 			System.out.print(message + ":");
 		}
-		return new Scanner(System.in).nextLine();
+		return new Scanner(System. in).nextLine();
 	}
 
 	public byte[] loadFile(String infile) {
 		try {
 			// read the key, and decode from hex encoding
-			BufferedInputStream keystream = new BufferedInputStream(
-					new FileInputStream(infile));
+			BufferedInputStream keystream = new BufferedInputStream(new FileInputStream(infile));
 			int len = keystream.available();
 			byte[] keyhex = new byte[len];
 			keystream.read(keyhex, 0, len);
@@ -120,9 +113,7 @@ public class Utils {
 			}
 		});
 		if (files.length == 0) {
-			System.out
-					.println("** No se ha encontrado ningún archivo con la extensión "
-							+ extension);
+			System.out.println("** No se ha encontrado ningún archivo con la extensión " + extension);
 			return null;
 		}
 		for (File file : files) {
