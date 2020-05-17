@@ -10,12 +10,11 @@ import org.bouncycastle.util.encoders.Hex;
  * Ejecuta distintas funciones resumen
  */
 public class Hash {
-	
+
 	/**
 	 * Establece la función resumen MD5 para el procesamiento
 	 */
-	public void doMD5() {
-	}
+	public void doMD5() {}
 
 	/**
 	 * Establece la función resumen SHA1 para el procesamiento
@@ -30,8 +29,7 @@ public class Hash {
 	 * @return
 	 */
 	protected byte[] doDigest(SHA512Digest sha512Digest) {
-		byte[] fileContent = Utils.instance().doSelectFile(
-				"Select a file", "txt");
+		byte[] fileContent = Utils.instance().doSelectFile("Select a file", "txt");
 		if (fileContent != null) {
 			byte[] result = digest(sha512Digest, fileContent);
 			System.out.println("The hash is:" + new String(Hex.encode(result)));

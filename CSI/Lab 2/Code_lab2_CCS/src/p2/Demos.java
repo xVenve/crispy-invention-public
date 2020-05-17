@@ -26,24 +26,20 @@ public class Demos {
 	protected final int MENU_OPTION_GENERATE_RSA_KEYS = 9;
 	protected final int MENU_OPTION_ENCRYPT_RSA = 10;
 	protected final int MENU_OPTION_DECRYPT_RSA = 11;
-	
+
 	/**
 	 * Muestra el menú y gestiona las solicitudes de cada una de sus opciones
 	 */
 	private void doMenu() {
-		System.out
-				.println("\n\nPruebas de algoritmos criptográficos con Java y BouncyCastle");
-		System.out
-				.println("----------------------------------------------------------------");
+		System.out.println("\n\nPruebas de algoritmos criptográficos con Java y BouncyCastle");
+		System.out.println("----------------------------------------------------------------");
 		System.out.println("\t  0. Crear un archivo de texto");
 		System.out.println("DES");
-		System.out
-				.println("\t  1. Generar clave para algoritmo de cifrado DES");
+		System.out.println("\t  1. Generar clave para algoritmo de cifrado DES");
 		System.out.println("\t  2. Cifrar archivo con DES");
 		System.out.println("\t  3. Descifrar archivo con DES");
 		System.out.println("AES");
-		System.out
-				.println("\t  4. Generar clave para algoritmo de cifrado AES");
+		System.out.println("\t  4. Generar clave para algoritmo de cifrado AES");
 		System.out.println("\t  5. Cifrar archivo con AES");
 		System.out.println("\t  6. Descifrar archivo con AES");
 		System.out.println("FUNCIONES RESUMEN");
@@ -55,55 +51,55 @@ public class Demos {
 		System.out.println("\t 11. Descifrar archivo con RSA");
 		System.out.println("\n q. Terminar ejecución");
 		System.out.print("\n\nSeleccione una opción y pulse ENTER:");
-		Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System. in);
 		String selectedOption = scanner.nextLine();
 
 		if (!selectedOption.matches("-?\\d+?") && !selectedOption.equals("q")) {
 			System.out.println("Opción incorrecta");
 		} else {
-			if(selectedOption.equals("q")){
+			if (selectedOption.equals("q")) {
 				System.exit(0);
 			}
 			switch (Integer.parseInt(selectedOption)) {
-			case MENU_OPTION_CREATE_FILE:
-				Utils.instance().saveConsoleToFile();
-				break;
-			case MENU_OPTION_GENERATE_DES_KEY:
-				new DES().doGenerateKey();
-				break;
-			case MENU_OPTION_ENCRYPT_DES:
-				new DES().doEncrypt();
-				break;
-			case MENU_OPTION_DECRYPT_DES:
-				new DES().doDecrypt();
-				break;
-			case MENU_OPTION_GENERATE_AES_KEY:
-				//new AES().doGenerateKey();
-				break;
-			case MENU_OPTION_ENCRYPT_AES:
-				//new AES().doEncrypt();
-				break;
-			case MENU_OPTION_DECRYPT_AES:
-				//new AES().doDecrypt();
-				break;
-			case MENU_OPTION_CREATE_MD5:
-				//new Hash().doMD5();
-				break;
-			case MENU_OPTION_CREATE_SHA1:
-				//new Hash().doSHA1();
-				break;
-			case MENU_OPTION_GENERATE_RSA_KEYS:
-				//new RSA().doGenerateKeys();
-				break;
-			case MENU_OPTION_ENCRYPT_RSA:
-				//new RSA().doEncrypt();
-				break;
-			case MENU_OPTION_DECRYPT_RSA:
-				//new RSA().doDecrypt();
-				break;
-			default:
-				System.out.println("Opción incorrecta");
-				break;
+				case MENU_OPTION_CREATE_FILE:
+					Utils.instance().saveConsoleToFile();
+					break;
+				case MENU_OPTION_GENERATE_DES_KEY:
+					new DES().doGenerateKey();
+					break;
+				case MENU_OPTION_ENCRYPT_DES:
+					new DES().doEncrypt();
+					break;
+				case MENU_OPTION_DECRYPT_DES:
+					new DES().doDecrypt();
+					break;
+				case MENU_OPTION_GENERATE_AES_KEY:
+					//new AES().doGenerateKey();
+					break;
+				case MENU_OPTION_ENCRYPT_AES:
+					//new AES().doEncrypt();
+					break;
+				case MENU_OPTION_DECRYPT_AES:
+					//new AES().doDecrypt();
+					break;
+				case MENU_OPTION_CREATE_MD5:
+					//new Hash().doMD5();
+					break;
+				case MENU_OPTION_CREATE_SHA1:
+					//new Hash().doSHA1();
+					break;
+				case MENU_OPTION_GENERATE_RSA_KEYS:
+					//new RSA().doGenerateKeys();
+					break;
+				case MENU_OPTION_ENCRYPT_RSA:
+					//new RSA().doEncrypt();
+					break;
+				case MENU_OPTION_DECRYPT_RSA:
+					//new RSA().doDecrypt();
+					break;
+				default:
+					System.out.println("Opción incorrecta");
+					break;
 			}
 		}
 		Utils.instance().clearConsole();

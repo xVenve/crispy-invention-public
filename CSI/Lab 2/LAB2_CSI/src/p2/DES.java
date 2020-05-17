@@ -51,15 +51,13 @@ public class DES {
 	public void doEncrypt() {
 		// Archivo a cifrar
 		byte[] text = Utils.instance().doSelectFile("Select a file to encrypt", "txt");
-		if (text!=null) {
+		if (text != null) {
 			// Clave a usar
-			byte[] key = Utils.instance().doSelectFile("Select a key",
-					"deskey");
+			byte[] key = Utils.instance().doSelectFile("Select a key", "deskey");
 			if (key != null) {
 				// La almacenamos en hexadecimal para que sea legible en el archivo
-				byte[] res = encrypt(Hex.decode(key),text);
-				System.out.println("Ciphertext (hexadecimal):"
-						+ new String(Hex.encode(res)));
+				byte[] res = encrypt(Hex.decode(key), text);
+				System.out.println("Ciphertext (hexadecimal):" + new String(Hex.encode(res)));
 				Utils.instance().saveFile("encdes", Hex.encode(res));
 			}
 		} else {
@@ -72,20 +70,17 @@ public class DES {
 	 */
 	public void doDecrypt() {
 		// Archivo a descifrar
-		byte[] fileContent = Utils.instance().doSelectFile(
-				"Select an encrypted file to decrypt", "encdes");
+		byte[] fileContent = Utils.instance().doSelectFile("Select an encrypted file to decrypt", "encdes");
 		if (fileContent == null) {
 			return;
 		}
 		// Clave a usar
-		byte[] key = Utils.instance().doSelectFile("Select a key",
-				"deskey");
+		byte[] key = Utils.instance().doSelectFile("Select a key", "deskey");
 		if (key != null) {
 			// Desciframos el archivo
 			byte[] res = decrypt(Hex.decode(key), Hex.decode(fileContent));
 			if (res != null) {
-				System.out.println("Cleartext:"
-						+ new String(res));
+				System.out.println("Cleartext:" + new String(res));
 			}
 		}
 
@@ -99,8 +94,7 @@ public class DES {
 	 */
 	protected byte[] encrypt(byte[] key, byte[] ptBytes) {
 		// Creamos un cifrador de Bloque con Padding y con el modo de bloque CBC
-		BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(
-				new OFBBlockCipher(engine, 64));
+		BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(new OFBBlockCipher(engine, 64));
 		// Lo inicializamos con la clave
 		cipher.init(true, new KeyParameter(key));
 		// Reservamos espacio para el texto cifrado
@@ -128,8 +122,7 @@ public class DES {
 	 */
 	public byte[] decrypt(byte[] key, byte[] cipherText) {
 		// Creamos un cifrador de Bloque con Padding y con el modo de bloque CBC
-		BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(
-				new OFBBlockCipher(engine, 64));
+		BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(new OFBBlockCipher(engine, 64));
 		// Lo inicializamos con la clave
 		cipher.init(false, new KeyParameter(key));
 		// Reservamos espacio para el texto descifrado
@@ -140,7 +133,7 @@ public class DES {
 			// "flush" del cifrador
 			cipher.doFinal(rv, tam);
 		} catch (Exception ce) {
-			System.out.println("There was an error while decrypting the message:"+ce.getLocalizedMessage());
+			System.out.println("There was an error while decrypting the message:" + ce.getLocalizedMessage());
 			//			ce.printStackTrace();
 			return null;
 		}
@@ -151,7 +144,7 @@ public class DES {
 	/**
 	 * Genera una Clave para el cifrado DES a partir de un número aleatorio
 	 * "seguro"
-	 * 
+	 *
 	 * @return Clave generada con la longitud de DESParameters
 	 */
 	public byte[] generateKey() {
@@ -161,14 +154,12 @@ public class DES {
 			sr = new SecureRandom();
 			sr.setSeed("UCTresM.".getBytes());
 		} catch (Exception e) {
-			System.err
-					.println("There was an error while generating the random number");
+			System.err.println("There was an error while generating the random number");
 			return null;
 		}
-		
+
 		// Generamos la clave DES con la longitud necesaria para el algoritmo
-		KeyGenerationParameters kgp = new KeyGenerationParameters(sr,
-				(DESParameters.DES_KEY_LENGTH) * 8);
+		KeyGenerationParameters kgp = new KeyGenerationParameters(sr, (DESParameters.DES_KEY_LENGTH) * 8);
 
 		DESKeyGenerator kg = new DESKeyGenerator();
 		kg.init(kgp);

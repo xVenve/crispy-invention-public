@@ -28,11 +28,8 @@ public class AES {
 	public void doGenerateKey() {
 		byte[] key = generateKeyAndIV();
 		if (key != null) {
-			System.out.println("Clave generada:"
-					+ new String(Hex.encode(Arrays.copyOfRange(key, 0, 24))));
-			System.out.println("IV generado:"
-					+ new String(Hex.encode(Arrays.copyOfRange(key, 24,
-							blockSize + 24))));
+			System.out.println("Clave generada:" + new String(Hex.encode(Arrays.copyOfRange(key, 0, 24))));
+			System.out.println("IV generado:" + new String(Hex.encode(Arrays.copyOfRange(key, 24, blockSize + 24))));
 			Utils.instance().saveFile("aeskeyiv", Hex.encode(key));
 		}
 	}
@@ -42,17 +39,16 @@ public class AES {
 	 * clave AES)
 	 */
 	public void doEncrypt() {
-		byte[] text = Utils.instance().doSelectFile(
-				"Seleccione un archivo para cifrar", "txt");
+		byte[] text = Utils.instance().doSelectFile("Seleccione un archivo para cifrar", "txt");
 		if (text != null) {
-			byte[] key = Utils.instance().doSelectFile("Seleccione una clave",
-					"aeskeyiv");
+			byte[] key = Utils.instance().doSelectFile("Seleccione una clave", "aeskeyiv");
 			if (key != null) {
-				byte[] res = encrypt(text,
-						Arrays.copyOfRange(Hex.decode(key), 0, 24),
-						Arrays.copyOfRange(Hex.decode(key), 24, 24 + blockSize));
-				System.out.println("Texto cifrado (en hexadecimal):"
-						+ new String(Hex.encode(res)));
+				byte[] res = encrypt(
+					text,
+					Arrays.copyOfRange(Hex.decode(key), 0, 24),
+					Arrays.copyOfRange(Hex.decode(key), 24, 24 + blockSize)
+				);
+				System.out.println("Texto cifrado (en hexadecimal):" + new String(Hex.encode(res)));
 				Utils.instance().saveFile("encaes", Hex.encode(res));
 			}
 		} else {
@@ -66,17 +62,17 @@ public class AES {
 	 * clave AES)
 	 */
 	public void doDecrypt() {
-		byte[] fileContent = Utils.instance().doSelectFile(
-				"Seleccione una archivo cifrado", "encaes");
+		byte[] fileContent = Utils.instance().doSelectFile("Seleccione una archivo cifrado", "encaes");
 		if (fileContent == null) {
 			return;
 		}
-		byte[] key = Utils.instance().doSelectFile("Seleccione una clave",
-				"aeskeyiv");
+		byte[] key = Utils.instance().doSelectFile("Seleccione una clave", "aeskeyiv");
 		if (key != null) {
-			byte[] res = decrypt(Hex.decode(fileContent),
-					Arrays.copyOfRange(Hex.decode(key), 0, 24),
-					Arrays.copyOfRange(Hex.decode(key), 24, blockSize + 24));
+			byte[] res = decrypt(
+				Hex.decode(fileContent),
+				Arrays.copyOfRange(Hex.decode(key), 0, 24),
+				Arrays.copyOfRange(Hex.decode(key), 24, blockSize + 24)
+			);
 			if (res != null) {
 				System.out.println("Texto en claro:" + new String(res));
 			}
@@ -87,7 +83,7 @@ public class AES {
 	/**
 	 * Cifra/Descifra datos con el algoritmo AES. Al ser un algoritmo de cifrado
 	 * simétrico se puede usar para ambos procesos
-	 * 
+	 *
 	 * @param cipher
 	 *            Cifrador/Descifrador AES
 	 * @param data
@@ -95,8 +91,7 @@ public class AES {
 	 * @return Datos destino
 	 * @throws Exception
 	 */
-	private static byte[] cipherData(PaddedBufferedBlockCipher cipher,
-			byte[] data) throws Exception {
+	private static byte[] cipherData(PaddedBufferedBlockCipher cipher, byte[] data)throws Exception {
 		// Creamos un array de bytes del tamaño estimado de descifrado
 		int minSize = cipher.getOutputSize(data.length);
 		byte[] outBuf = new byte[minSize];
@@ -113,9 +108,9 @@ public class AES {
 
 	/**
 	 * Descifra datos usando el algoritmo AES
-	 * Tanto el método de cifrado como el de descifrado se pueden realizar como uno sólo, 
+	 * Tanto el método de cifrado como el de descifrado se pueden realizar como uno sólo,
 	 * pero se mantienen separados por claridad del código para el alumno
-	 * 
+	 *
 	 * @param ciphered
 	 *            Datos cifrados
 	 * @param key
@@ -127,24 +122,20 @@ public class AES {
 	private static byte[] decrypt(byte[] ciphered, byte[] key, byte[] iv) {
 		try {
 			// Creamos el cifrador
-			PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(
-					new CBCBlockCipher(new AESEngine()));
+			PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(new CBCBlockCipher(new AESEngine()));
 			// Procesamos la clave y el IV
-			CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(
-					key), iv);
+			CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(key), iv);
 			aes.init(false, ivAndKey);
 			return cipherData(aes, ciphered);
 		} catch (Exception e) {
-			System.out
-					.println("Ha ocurrido un error al intentar descifrar el texto:"
-							+ e);
+			System.out.println("Ha ocurrido un error al intentar descifrar el texto:" + e);
 			return null;
 		}
 	}
 
 	/**
 	 * Cifra datos usando el algoritmo AES
-	 * 
+	 *
 	 * @param datos
 	 *            a cifrar
 	 * @param key
@@ -155,16 +146,12 @@ public class AES {
 	 */
 	private static byte[] encrypt(byte[] plain, byte[] key, byte[] iv) {
 		try {
-			PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(
-					new CBCBlockCipher(new AESEngine()));
-			CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(
-					key), iv);
+			PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(new CBCBlockCipher(new AESEngine()));
+			CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(key), iv);
 			aes.init(true, ivAndKey);
 			return cipherData(aes, plain);
 		} catch (Exception e) {
-			System.out
-					.println("Ha ocurrido un error al intentar cifrar el texto:"
-							+ e);
+			System.out.println("Ha ocurrido un error al intentar cifrar el texto:" + e);
 			return null;
 		}
 	}
@@ -172,7 +159,7 @@ public class AES {
 	/**
 	 * Genera una Clave e IV para el cifrado AES a partir de un número aleatorio
 	 * "seguro"
-	 * 
+	 *
 	 * @return 24+blocksize bytes (Clave+IV)
 	 */
 	public byte[] generateKeyAndIV() {
@@ -183,12 +170,11 @@ public class AES {
 			// Lo inicializamos con una semilla
 			sr.setSeed("UCTresM.".getBytes());
 		} catch (Exception e) {
-			System.err
-					.println("Ha ocurrido un error generando el número aleatorio");
+			System.err.println("Ha ocurrido un error generando el número aleatorio");
 			return null;
 		}
 		// Lo generamos del tamaño que necesitamos (24 bytes de clave + tamaño de bloque como IV)
-		byte[] key = sr.generateSeed(24 + blockSize+10);
+		byte[] key = sr.generateSeed(24 + blockSize + 10);
 		return key;
 
 	}

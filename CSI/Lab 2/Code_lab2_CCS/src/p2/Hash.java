@@ -9,7 +9,7 @@ import org.bouncycastle.util.encoders.Hex;
  * Ejecuta distintas funciones resumen
  */
 public class Hash {
-	
+
 	/**
 	 * Establece la función resumen MD5 para el procesamiento
 	 */
@@ -30,8 +30,7 @@ public class Hash {
 	 * @return
 	 */
 	protected byte[] doDigest(GeneralDigest digest) {
-		byte[] fileContent = Utils.instance().doSelectFile(
-				"Seleccione un archivo", "txt");
+		byte[] fileContent = Utils.instance().doSelectFile("Seleccione un archivo", "txt");
 		if (fileContent != null) {
 			byte[] result = digest(digest, fileContent);
 			System.out.println("El resumen es:" + new String(Hex.encode(result)));
