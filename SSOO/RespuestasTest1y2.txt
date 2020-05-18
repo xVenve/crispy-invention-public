@@ -1,0 +1,296 @@
+Άννα02/04/2020
+Se pega la pregunta con solo la respuesta correcta, la respuesta completa no letra. Es copiar y borrar las opciones falsas. Preferiblemente todo dentro del mismo mensaje, así la búsqueda de discord aparece directamente la solución.
+EJEMPLO (Obviamente, solo lo que está entre ##)
+##
+Un usuario, que ha ejecutado una llamada al sistema umask 021, crea un fichero con permisos 0777. ¿Cuáles serían los permisos reales del fichero recién creado?
+rwxr-xrw-
+##
+SoloVaAFiestasPrivadas02/04/2020
+=====================================================================================================================
+ArmoredScissor02/04/2020
+¿Cuál de las siguientes llamadas al sistema LINUX puede dejar bloqueado un tiempo indeterminado al proceso que la invoque?
+Seleccione una:
+d. READ.
+SoloVaAFiestasPrivadas02/04/2020
+El bloque de control del proceso (BCP) es usado por el sistema operativo al:
+Seleccione una:
+
+d. Todas las anteriores.
+Fran02/04/2020
+Sea un sistema que usa un algoritmo de planificación de procesos round-robin con una rodaja de tiempo de 100 ms. En este sistema ejecutan dos procesos. El primero no realiza operaciones de E/S y el segundo solicita una operación de E/S cada 50 ms. ¿Cuál será el porcentaje de uso de la CPU?
+Seleccione una:
+
+d. 100%
+Άννα02/04/2020
+¿Cuál de los siguientes elementos NO forma parte de la imagen del proceso?
+
+c. El puntero de posición de un fichero.
+Silver Bullet02/04/2020
+¿Cómo recibe el núcleo de un sistema operativo las notificaciones de sucesos de los periféricos?
+Seleccione una:
+
+d. Interrupciones
+Fran02/04/2020
+¿Puede un proceso pasar del estado bloqueado a ejecución directamente?
+Seleccione una:
+
+b. No, debe pasar a listo primero.
+SoloVaAFiestasPrivadas02/04/2020
+¿Qué no comparten los threads de un proceso determinado?
+Seleccione una:
+
+d. El contador de programa.
+Silver Bullet02/04/2020
+¿Cuál de las siguientes NO es un API de sistema operativo?
+Seleccione una:
+a. POSIX API
+ArmoredScissor02/04/2020
+Un sistema operativo multitarea permite:
+Seleccione una:
+c. Ejecutar de forma concurrente múltiples tareas en una sola CPU.
+SoloVaAFiestasPrivadas02/04/2020
+¿Con qué política se planifican los procesos de usuario en  LINUX?
+Seleccione una:
+
+b. Prioridad con envejecimiento.
+Άννα02/04/2020
+¿Cuál de las siguientes afirmaciones es FALSA?
+
+d. La llamada EXEC, si va bien, retorna un identificador de proceso valido.
+SoloVaAFiestasPrivadas02/04/2020
+¿Qué llamada al sistema se usa para leer las entradas de un directorio?
+Seleccione una:
+
+c. readdir.
+Fran02/04/2020
+El planificador a corto plazo selecciona:
+Seleccione una:
+a. El proceso que pasa al estado de ejecución entre todos los procesos en estado LISTO.
+Silver Bullet02/04/2020
+¿Qué es FALSO respecto a la llamada al sistema exec?
+Seleccione una:
+a. Se usa siempre obligatoriamente tras un FORK.
+Άννα02/04/2020
+¿Cuáles son los objetivos de un sistema operativo?
+
+d. Todas las respuestas son correctas.
+ArmoredScissor02/04/2020
+Sea un sistema UNIX con tres procesos A, B y C. Donde B es hijo de A y C es hijo de B. Seleccionar la respuesta verdadera.
+Seleccione una:
+a. El proceso B entra en estado zombie si muere y A no esta en WAIT.
+Fran02/04/2020
+¿Cuáles son los objetivos de un sistema operativo?
+Seleccione una:
+
+c. Todas las respuestas son correctas.
+SoloVaAFiestasPrivadas02/04/2020
+¿Cómo se hace en UNIX para que un proceso cree otro proceso que ejecute otro programa?
+Seleccione una:
+a. Con un FORK seguido de un EXEC.
+Silver Bullet02/04/2020
+Se tienen 3 procesos: P1, P2 y P3, con tiempos de ejecución: 85, 45 y 118 ms, respectivamente. Si actúa el planificador según el algoritmo SJF se obtiene que:
+Seleccione una:
+a. Los procesos se encuentran en la lista de listos en el orden: P2, P1 y P3.
+SoloVaAFiestasPrivadas02/04/2020
+¿Cuál de los siguientes criterios de prioridad asegura que no se produzca inanición en la planificación de procesos?
+Seleccione una:
+
+c. Más prioridad cuanto mas larga haya sido la ultima racha de CPU del proceso.
+ArmoredScissor02/04/2020
+¿Qué es falso?
+Seleccione una:
+
+c. Una interrupción implica un cambio de contexto.
+Fran02/04/2020
+Cuando se crea un nuevo thread, este tiene acceso a:
+Seleccione una:
+
+c. El segmento de datos del proceso.
+ArmoredScissor02/04/2020
+El grado de multiprogramación corresponde a:
+Seleccione una:
+b. El numero máximo de procesos en memoria principal.
+SoloVaAFiestasPrivadas02/04/2020
+¿Cuál de las siguientes transiciones entre los estados de un proceso no se puede producir en un sistema con un algoritmo de planificación no expulsivo?
+Seleccione una:
+
+b. Ejecutando a listo.
+Fran02/04/2020
+¿Una llamada al sistema read() bloquea al proceso que la ejecuta?
+Seleccione una:
+
+b. Depende del sistema operativo.
+Silver Bullet02/04/2020
+¿Cuál de las siguientes afirmaciones es FALSA?
+Seleccione una:
+
+b. La llamada EXEC, si va bien, retorna un identificador de proceso valido.
+En la planificación por prioridad circular o Round Robin:
+Seleccione una:
+
+b. De acuerdo a su prioridad cada proceso preparado pasa a ejecución durante una cota de tiempo llamada rodaja.
+SoloVaAFiestasPrivadas02/04/2020
+El bit de modo usuario/superusuario:
+Seleccione una:
+a. Se cambia cuando se ejecuta una llamada al sistema.
+b. Es proporcionado por el sistema operativo.
+c. Ninguna de las respuestas es correcta.
+d. Solo se cambia cuando hay interrupciones.
+Άννα02/04/2020
+El planificador a medio plazo selecciona un proceso:
+
+d. De entre los suspendidos en memoria principal para pasar a la cola de LISTOS.
+Silver Bullet02/04/2020
+¿Con qué política se planifican los procesos de usuario en  LINUX?
+Seleccione una:
+a. Prioridad con envejecimiento.
+¿Qué es cierto en relación con el pipe de UNIX?
+Seleccione una:
+
+b. Se puede utilizar para sincronizar procesos.
+Fran02/04/2020
+Qué llamada de las siguientes permite enviar una señal a un proceso?
+Seleccione una:
+
+c. KILL.
+ArmoredScissor02/04/2020
+¿Qué cambio de contexto tardara menos?
+Seleccione una:
+a. El producido entre dos threads del mismo proceso implementados en el espacio de usuario.
+SoloVaAFiestasPrivadas02/04/2020
+¿Qué algoritmo de planificación será mas conveniente para optimizar el rendimiento de la CPU en un sistema que solo tiene procesos en los cuales no hay entrada/salida?
+Seleccione una:
+
+c. FIFO.
+Fran02/04/2020
+Indique qué es cierto sobre el arranque del computador:
+Seleccione una:
+
+d. Los demonios son procesos que se ejecutan en modo núcleo, puesto que son procesos del sistema operativo.
+SoloVaAFiestasPrivadas02/04/2020
+¿Qué es cierto para la planificación de procesos?
+Seleccione una:
+
+d. La política de ejecutar primero el trabajo mas corto reduce el tiempo medio de finalización de los trabajos.
+¿Cuál de los siguientes elementos NO forma parte de la imagen del proceso?
+Seleccione una:
+
+b. El puntero de posición de un fichero.
+ArmoredScissor02/04/2020
+Cuáles de las siguientes respuestas NO es un paso que realiza el sistema operativo para formar un proceso.
+Seleccione una:
+a. Aumentar en 1 el tamaño de la tabla de procesos.
+--------------------------------------------------------------------------------------------------------------------------------¿Qué tipo de procesos residen en la cola de procesos listos?
+Seleccione una:
+
+b. Los procesos que residen en memoria principal y están listos y esperando para ejecutar.
+Silver Bullet02/04/2020
+¿Qué valor retorna la llamada al sistema "read" sobre un fichero para leer 100 bytes teniendo el puntero a 50 bytes del final?
+Seleccione una:
+a. 50.
+Fran02/04/2020
+¿Qué no comparten los threads de un proceso determinado?
+Seleccione una:
+a. El contador de programa.
+Silver Bullet02/04/2020
+Dado un proceso que ha creado un pipe, ¿con cuál de estos procesos podría potencialmente comunicarse a través del mismo?
+Seleccione una:
+
+d. Con un proceso nieto.
+¿Cuáles son los objetivos de un sistema operativo?
+Seleccione una:
+a. Hacer un uso eficiente de los recursos.
+b. Proporcionar una visión de maquina virtual extendida.
+c. Todas las respuestas son correctas.
+d. Ejecutar programas.
+SoloVaAFiestasPrivadas02/04/2020
+¿Qué ocurre en LINUX cuando se ejecuta una llamada exec() y funciona correctamente?
+Seleccione una:
+a. Termina el proceso llamado con exec() y no se retorna al proceso anterior.
+ArmoredScissor02/04/2020
+Se tienen 3 procesos: P1, P2 y P3, con tiempos de ejecución: 85, 45 y 118 ms, respectivamente. Si actúa el planificador según el algoritmo SJF se obtiene que:
+Seleccione una:
+d. Los procesos se encuentran en la lista de listos en el orden: P2, P1 y P3.
+Silver Bullet02/04/2020
+¿Qué algoritmo de planificación será mas conveniente para optimizar el rendimiento de la CPU en un sistema que solo tiene procesos en los cuales no hay entrada/salida?
+Seleccione una:
+
+c. FIFO.
+ArmoredScissor02/04/2020
+¿Qué sucede cuando un proceso recibe una señal?
+Seleccione una:
+
+c. Si tiene la acción por defecto el proceso muere.
+¿Se le notifica siempre a un proceso esperando en un wait la terminación de un proceso hijo?
+Seleccione una:
+b. Siempre.
+SoloVaAFiestasPrivadas02/04/2020
+¿Qué algoritmo de planificación le asigna la CPU al primer proceso que llega?
+
+Seleccione una:
+
+d. FIFO
+ArmoredScissor02/04/2020
+¿Cuál de las siguientes secuencias de llamadas al sistema es la que correctamente redirige la salida estándar a un fichero?
+Seleccione una:
+a. close(1); open(file, 0);
+Silver Bullet02/04/2020
+La llamada al sistema wait() sirve para:
+Seleccione una:
+a. Esperar a la terminación de un proceso hijo.
+SoloVaAFiestasPrivadas02/04/2020
+Indique cual de los siguientes atributos es compartido entre todos los threads de un mismo proceso.
+Seleccione una:
+
+b. El código ejecutable del proceso.
+ArmoredScissor02/04/2020
+¿Qué es FALSO respecto a la llamada al sistema exec?
+Seleccione una:
+
+c. Se usa siempre obligatoriamente tras un FORK.
+-----------------------------------------------------------------------------------------------------------------------------
+El bit de modo usuario/superusuario:
+Seleccione una:
+b. Se cambia cuando se ejecuta una llamada al sistema.
+Άννα02/04/2020
+¿Qué ejecuta una llamada al sistema para cambia a modo kernel?
+
+b. Un trap
+¿Cuál de las siguientes NO es un API de sistema operativo?
+Seleccione una:
+a. POSIX API
+@Silver Bullet Java API
+Fran02/04/2020
+¿Una llamada al sistema read() bloquea al proceso que la ejecuta?
+Seleccione una:
+a. Nunca.
+b. Depende del sistema operativo.
+c. Siempre.
+d. Solo si no tiene threads de biblioteca (usuario).
+Silver Bullet02/04/2020
+¿Qué ejecuta una llamada al sistema para cambia a modo kernel?
+Άννα02/04/2020
+
+¿Una llamada al sistema read() bloquea al proceso que la ejecuta?
+
+b. Siempre.
+Indique qué es cierto sobre el arranque del computador:
+
+a. El iniciador ROM es un programa independiente del sistema operativo.
+Fran02/04/2020
+¿Qué es falso?
+Seleccione una:
+
+d. Un cambio de contexto implica un cambio de proceso.
+¿Cuál de los siguientes criterios de prioridad asegura que no se produzca inanición en la planificación de procesos?
+Seleccione una:
+
+d. Más prioridad cuantas menos rachas de CPU lleve ejecutadas el proceso.
+El planificador a medio plazo selecciona un proceso:
+Seleccione una:
+a. De entre los suspendidos en memoria principal para pasar a la cola de LISTOS.
+b. De entre los de la cola de LISTOS para pasar a ejecución.
+c. De entre los suspendidos en memoria secundaria para pasar a la cola de LISTOS.
+d. De entre los recién llegados para pasar a la cola de LISTOS.
+SoloVaAFiestasPrivadas02/04/2020
+De entre los suspendidos en memoria secundaria para pasar a la cola de LISTOS
