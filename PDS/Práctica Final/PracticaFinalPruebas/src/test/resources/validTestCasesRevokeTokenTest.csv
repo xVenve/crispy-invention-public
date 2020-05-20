@@ -1,0 +1,3 @@
+"./TestData/RevokeTokenTest/CorrectRevokeToken.json", "./TestData/TokenRequestGenerationTest/CorrectFileSensor.json",  "./TestData/TokenRequestTest/CorrectTokenRequest.json"
+"./TestData/RevokeTokenTest/CorrectRevokeToken0ReasonAndFinal.json", "./TestData/TokenRequestGenerationTest/CorrectFileActuator.json",  "./TestData/TokenRequestTest/SecondCorrectTokenRequest.json"
+"./TestData/RevokeTokenTest/CorrectRevokeToken100Reason.json", "./TestData/RevokeTokenTest/CorrectFileTokenToTest.json", "./TestData/RevokeTokenTest/CorrectTokenRequestToTest.json"
