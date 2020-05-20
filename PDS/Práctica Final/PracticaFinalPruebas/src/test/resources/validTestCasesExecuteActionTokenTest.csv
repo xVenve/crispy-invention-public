@@ -1,0 +1,3 @@
+"./TestData/CheckActionTest/CorrectActionActuator.json", "./TestData/RevokeTokenTest/CorrectFileTokenToTest.json", "./TestData/RevokeTokenTest/CorrectTokenRequestToTest.json"
+"./TestData/CheckActionTest/CorrectActionSensor.json", "./TestData/TokenRequestGenerationTest/CorrectFileSensor.json", "./TestData/TokenRequestTest/CorrectTokenRequest.json"
+"./TestData/CheckActionTest/CorrectActionCheckState.json", "./TestData/TokenRequestGenerationTest/CorrectFileSensor.json", "./TestData/TokenRequestTest/CorrectTokenRequest.json"
