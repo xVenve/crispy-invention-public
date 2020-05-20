@@ -9,6 +9,8 @@ import java.util.List;
 
 import Transport4Future.TokenManagement.Data.Token;
 import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
+import Transport4Future.TokenManagement.Utils.Encoder;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -66,7 +68,8 @@ public class Tokenstore
 	
 	public void ADD (Token new_token) throws Tokenmanagementexception 
 	{
-		if (FIND(new_token.GENERATE_TOKEN_VALUE())==null) 
+		Encoder myEncoder= new Encoder();	
+		if (FIND(myEncoder.URL64DECODE(new_token.GENERATE_TOKEN_VALUE()))==null) 
 		{
 			tokens_list.add(new_token);
 			this.SAVE();
