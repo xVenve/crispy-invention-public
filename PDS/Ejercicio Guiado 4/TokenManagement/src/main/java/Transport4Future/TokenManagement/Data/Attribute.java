@@ -10,7 +10,6 @@ public abstract class Attribute
 	protected String error_message;
 	protected String data;
 	
-
 	protected String VALIDATEDATA(String value)
 			throws Tokenmanagementexception 
 	{

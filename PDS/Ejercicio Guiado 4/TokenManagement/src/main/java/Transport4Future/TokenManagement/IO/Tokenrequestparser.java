@@ -8,7 +8,6 @@ import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public class Tokenrequestparser extends Jsonparser implements ITokenManagementParser
 {
-
 	public static final String MAC_ADDRESS = "MAC Address";
 	public static final String SERIAL_NUMBER = "Serial Number";
 	public static final String SUPPORT_E_MAIL = "Support e-mail";

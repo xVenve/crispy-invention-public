@@ -14,11 +14,8 @@ public class Hashermd extends Generichasher implements IHash
 
 	@Override
 	public String HASH(String text) throws Tokenmanagementexception 
-	{
-		
-		String input = key + text;
-		
+	{	
+		String input = key + text;	
 		return super.HASH(input);
 	}
-
 }

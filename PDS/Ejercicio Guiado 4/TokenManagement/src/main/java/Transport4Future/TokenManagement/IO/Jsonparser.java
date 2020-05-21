@@ -8,8 +8,7 @@ import javax.json.JsonObject;
 import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public class Jsonparser implements ITokenManagementParser
-{
-	
+{	
 	public Object PARSE(String input_file)
 			throws Tokenmanagementexception 
 	{

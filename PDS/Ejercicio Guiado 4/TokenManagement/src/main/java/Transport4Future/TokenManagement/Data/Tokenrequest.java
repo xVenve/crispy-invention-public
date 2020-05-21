@@ -8,8 +8,7 @@ import Transport4Future.TokenManagement.Store.Tokenrequeststore;
 import Transport4Future.TokenManagement.Utils.Hashermd;
 
 public class Tokenrequest 
-{
-	
+{	
 	private Devicename device_name;
 	private Typeofdevice type_of_device;
 	private Driverversion driver_version;
@@ -91,6 +90,5 @@ public class Tokenrequest
 				",\n\t\\"+ Tokenrequestparser.SUPPORT_E_MAIL + "=" + this.GET_SUPPORT_EMAIL() +	
 				",\n\t\\"+ Tokenrequestparser.SERIAL_NUMBER + "=" + this.GET_SERIAL_NUMBER() +
 				",\n\t\\"+ Tokenrequestparser.MAC_ADDRESS + "=" + this.GET_MAC_ADDRESS() + "\n]";
-	}
-	
+	}	
 }
