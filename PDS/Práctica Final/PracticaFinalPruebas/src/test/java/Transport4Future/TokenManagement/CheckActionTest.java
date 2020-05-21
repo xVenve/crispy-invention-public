@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CheckActionTest 
 {
-
 	private Checkaction my_action;
 	private Tokenmanager my_manager;
 	

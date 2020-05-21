@@ -4,7 +4,6 @@ import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public class Hashersha extends Generichasher implements IHash 
 {
-
 	public Hashersha() 
 	{
 		this.algorithm ="SHA-256";
@@ -12,9 +11,7 @@ public class Hashersha extends Generichasher implements IHash
 	}
 	@Override
 	public String HASH(String text) throws Tokenmanagementexception 
-	{
-		
+	{	
 		return super.HASH(text);
 	}
-
 }

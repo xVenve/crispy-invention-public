@@ -8,9 +8,6 @@ import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public class Actionparser extends Jsonparser implements ITokenManagementParser
 {
-
-
-
 		public static final String TOKEN_VALUE = "Token Value";
 		public static final String TYPE_OF_OPERATION = "Type of operation";
 
@@ -30,7 +27,6 @@ public class Actionparser extends Jsonparser implements ITokenManagementParser
 			}
 			return items;
 		}
-		
-	}
+}
 
 

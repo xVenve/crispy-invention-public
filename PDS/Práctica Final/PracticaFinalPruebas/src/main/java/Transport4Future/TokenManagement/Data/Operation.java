@@ -26,5 +26,4 @@ public class Operation extends Attribute
 		}
 		return value;
 	}
-
 }

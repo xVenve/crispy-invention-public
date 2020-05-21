@@ -14,12 +14,10 @@ import java.lang.reflect.Type;
 
 public class Tokenrequeststore 
 {
-	
 	private static Tokenrequeststore tokenrequeststore;
 	
 	private Tokenrequeststore() 
-	{
-		
+	{	
 	}
 	
 	public static Tokenrequeststore GET_INSTANCE() 
@@ -96,6 +94,5 @@ public class Tokenrequeststore
             return null;
         else
             return clonedMap.get(device);
-    }
-	
+    }	
 }

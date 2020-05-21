@@ -14,7 +14,6 @@ import Transport4Future.TokenManagement.Store.Tokenstore;
 import Transport4Future.TokenManagement.Utils.Encoder;
 import Transport4Future.TokenManagement.Utils.Hashersha;
 
-
 public class Token 
 {
 	private String algorithm;
@@ -135,15 +134,13 @@ public class Token
 	{
 		return this.signature;
 	}
-	
-	
+		
 	public String GENERATE_TOKEN_VALUE()
 	{
 		Encoder myEncoder = new Encoder();
 		String encode64 = myEncoder.URL64ENCODE(this, this.signature);
 		return encode64;
 	}
-	
 	
 	private void CHECK_TOKEN_REQUEST_EMISSION() throws Tokenmanagementexception
     {
@@ -152,7 +149,5 @@ public class Token
         {
             throw new Tokenmanagementexception ("Error: Token Request not previously registered");
         }
-
-    }
-	
+    }	
 }
