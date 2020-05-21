@@ -6,10 +6,8 @@ import javax.json.JsonObject;
 
 import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
-
 public class Tokenparser extends Jsonparser implements ITokenManagementParser
 {
-
 	public static final String ERROR_INVALID_INPUT_DATA_IN_JSON_STRUCTURE = 
 			"Error: invalid input data in JSON structure.";
 	public static final String REQUEST_DATE = "Request Date";
@@ -30,6 +28,5 @@ public class Tokenparser extends Jsonparser implements ITokenManagementParser
 	}
 	return items;
 	}
-
 }
 

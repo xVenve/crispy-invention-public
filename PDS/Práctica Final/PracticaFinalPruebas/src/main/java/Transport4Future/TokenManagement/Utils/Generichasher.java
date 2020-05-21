@@ -10,6 +10,7 @@ public abstract class Generichasher implements IHash
 {
 	protected String algorithm;
 	protected String format;
+	
 	public Generichasher() 
 	{
 		super();
@@ -31,5 +32,4 @@ public abstract class Generichasher implements IHash
 		String hex = String.format(format, new BigInteger(1, digest));
 		return hex;
 	}
-
 }

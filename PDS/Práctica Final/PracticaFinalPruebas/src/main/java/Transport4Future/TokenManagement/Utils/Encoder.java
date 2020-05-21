@@ -6,7 +6,6 @@ import Transport4Future.TokenManagement.Data.Token;
 
 public class Encoder 
 {
-
 	public String URL64ENCODE(Token my_token, String signature) 
 	{		
 		String stringToEncode = my_token.GET_HEADER() + my_token.GET_PAYLOAD() + my_token.GET_SIGNATURE();
@@ -14,11 +13,9 @@ public class Encoder
 	}
 	
 	public String URL64DECODE(String encoded) 
-	{
-		
+	{	
 		byte[] decoded = Base64.getMimeDecoder().decode(encoded);
 		String decodedString = new String(decoded);
 		return decodedString;
-	}
-	
+	}	
 }

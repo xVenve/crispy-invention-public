@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TokenRequestTest 
 {
-
 	private Tokenmanager my_manager;
 	
 	public TokenRequestTest () 

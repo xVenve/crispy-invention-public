@@ -104,8 +104,8 @@ class Verifytokentest
 		this.INSERT_FIRST_TOKEN();
 		this.INSERT_SECOND_TOKEN();
 		String tokenToVerify = "QWxnPUhTMjU2XG4gVHlwPVBEU1xuRGV2PTU3NjU5YmIwOTc4ZDQxMGIzYjc4YTg5MmM2MDRjY2I0XG4"
-				+ "gaWF0PTE4LTAzLTIwMjAgMTA6MjI6MjBcbiBleHA9MTYtMDItMjAyMiAxMDoyMjoyMGEwYTc2MDc1MzkzOTRiMzNiMzM"
-				+ "4NGZkYWIwNGY3ZjJkM2QzMTlkZGU3MzI2ZDQ0MmViOWQxZGRjYWYwOTU4OTg=";
+			+ "gaWF0PTE4LTAzLTIwMjAgMTA6MjI6MjBcbiBleHA9MTYtMDItMjAyMiAxMDoyMjoyMGEwYTc2MDc1MzkzOTRiMzNiMzM"
+			+ "4NGZkYWIwNGY3ZjJkM2QzMTlkZGU3MzI2ZDQ0MmViOWQxZGRjYWYwOTU4OTg=";
 		boolean result = my_manager.VERIFY_TOKEN(tokenToVerify);
 		assertEquals (true,result);
 	}
