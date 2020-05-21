@@ -10,7 +10,6 @@ import java.util.List;
 import Transport4Future.TokenManagement.Data.Token;
 import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 import Transport4Future.TokenManagement.Utils.Encoder;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
