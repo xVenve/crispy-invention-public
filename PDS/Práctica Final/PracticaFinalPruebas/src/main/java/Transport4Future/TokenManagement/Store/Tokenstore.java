@@ -17,7 +17,6 @@ import com.google.gson.stream.JsonReader;
 
 public class Tokenstore 
 {
-
 	private static final String PATH = System.getProperty("user.dir") + "/Store/tokenStore.json";
 	private List<Token> tokens_list;
 	
@@ -44,7 +43,6 @@ public class Tokenstore
 		}
 		return null;
 	}
-	
 	
 	private void LOAD() 
 	{
@@ -102,5 +100,4 @@ public class Tokenstore
 	    }
 		return result;
 	}
-	
 }

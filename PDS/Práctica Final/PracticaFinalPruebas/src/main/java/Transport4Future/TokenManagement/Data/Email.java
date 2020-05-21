@@ -4,7 +4,6 @@ import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public class Email extends Attribute 
 {
-	
 	Email(String value) throws Tokenmanagementexception
 	{
 	this.pattern="(?:(?:\\r\\n)?[ \\t])*(?:(?:(?:[^"
@@ -136,8 +135,6 @@ public class Email extends Attribute
 			+ "\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?"
 			+ "[ \\t])*))*)?;\\s*)";
 	this.error_message="Error: invalid E-mail data in JSON structure.";
-	this.data= VALIDATEDATA(value);
-		
+	this.data= VALIDATEDATA(value);	
 	}
-
 }

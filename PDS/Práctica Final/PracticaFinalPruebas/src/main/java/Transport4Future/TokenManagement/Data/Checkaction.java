@@ -11,7 +11,6 @@ import Transport4Future.TokenManagement.Utils.Encoder;
 
 public class Checkaction 
 {
-
 	private static final String SENSOR = "Sensor";
 	private static final String ACTUATOR = "Actuator";
 	private static final String ERROR_NO_SE_PUEDE_REALIZAR_LA_OPERACIÓN = 
@@ -44,7 +43,6 @@ public class Checkaction
 		{
 			throw new Tokenmanagementexception(ERROR_EL_TOKEN_NO_EXISTE_O_ESTA_REVOCADO);
 		}
-		
 		request_to_check = my_request_store.FIND(token_to_check.GET_DEVICE());
 	}
 
@@ -63,17 +61,11 @@ public class Checkaction
 				(request_to_check.GET_TYPE_OF_DEVICE().equals(ACTUATOR))) 
 		{
 			throw new Tokenmanagementexception(ERROR_NO_SE_PUEDE_REALIZAR_LA_OPERACIÓN);
-			
 		}else if (type_of_operation.GETDATA().equalsIgnoreCase(SEND_REQUEST_FROM_ACTUATOR) && 
 				(request_to_check.GET_TYPE_OF_DEVICE().equals(SENSOR)) )
 		{ 
 			throw new Tokenmanagementexception(ERROR_NO_SE_PUEDE_REALIZAR_LA_OPERACIÓN);
-			
 		}
 	}
-	
 
-	
-	
-	
 }

@@ -16,7 +16,6 @@ import com.google.gson.stream.JsonReader;
 
 public class Revoketokenstore 
 {
-	
 	private static final String PATH = System.getProperty("user.dir") + "/Store/revokeTokenStore.json";
 	private List<Revoketoken> revoketokens_list;
 	
@@ -43,7 +42,6 @@ public class Revoketokenstore
 		}
 		return null;
 	}
-	
 	
 	private void LOAD() 
 	{
@@ -87,8 +85,7 @@ public class Revoketokenstore
 		} catch (IOException exception) {
 			throw new Tokenmanagementexception
 			("Error: Unable to save a new token in the internal licenses store");
-		}
-		
+		}		
 	}
 	
 	public Revoketoken FIND(String encoded) 
@@ -101,6 +98,5 @@ public class Revoketokenstore
 	    }
 		return result;
 	}
-	
 }
 

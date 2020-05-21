@@ -9,7 +9,6 @@ import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public class Datareader
 {
-	
 	public String GET_STRING_FROM_FILE(String input_file) throws Tokenmanagementexception 
 	{
 		BufferedReader reader;
@@ -34,6 +33,5 @@ public class Datareader
 			throw new Tokenmanagementexception("Error: input file could not be closed.");
 		}
 		return fileContents;
-	}
-	
+	}	
 }

@@ -4,7 +4,6 @@ import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public class Typeofrevocation extends Attribute  
 {
-	
 	private static final String ERROR_INVALID_TYPE_OF_REVOCATION = "Error: invalid type of revocation.";
 	private static final String FINAL = "Final";
 	private static final String TEMPORAL = "Temporal";
@@ -23,6 +22,5 @@ public class Typeofrevocation extends Attribute
 			throw new Tokenmanagementexception(ERROR_INVALID_TYPE_OF_REVOCATION);	
 		}
 		return value;
-	}
-	
+	}	
 }

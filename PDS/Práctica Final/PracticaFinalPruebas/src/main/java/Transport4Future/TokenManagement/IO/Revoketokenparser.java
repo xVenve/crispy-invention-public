@@ -8,7 +8,6 @@ import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public class Revoketokenparser extends Jsonparser implements ITokenManagementParser
 {
-
 	public static final String TOKEN_VALUE = "Token Value";
 	public static final String TYPE_OF_REVOCATION = "Type of revocation";
 	public static final String REASON = "Reason";

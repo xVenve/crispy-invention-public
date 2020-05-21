@@ -9,8 +9,7 @@ import Transport4Future.TokenManagement.Store.Tokenstore;
 import Transport4Future.TokenManagement.Utils.Encoder;
 
 public class Revoketoken 
-{
-	
+{	
 	private static final String ERROR_TOKEN_INEXISTENTE = "Error: El token que se quiere revocar no existe.";
 	private static final String ERROR_TOKEN_CADUCADO = "Error: El token que se quiere revocar ya ha caducado.";
 	private static final String ERROR_TOKEN_YA_REVOCADO = "Error: El token que se quiere revocar ya está revocado.";
@@ -72,7 +71,4 @@ public class Revoketoken
 	{
 		return this.token_value;
 	}
-	
-	
-	
 }

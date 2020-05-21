@@ -11,8 +11,7 @@ public class Tokenmanager implements ITokenManagement
 	private static Tokenmanager manager;
 	
 	private Tokenmanager() 
-	{
-		
+	{	
 	}
 	
 	public static Tokenmanager GET_INSTANCE() 
@@ -30,8 +29,7 @@ public class Tokenmanager implements ITokenManagement
 			System.out.println("Token manager object cannot be cloned");
 		}
 		return null;
-	}
-			
+	}	
 	
 	public String TOKEN_REQUEST_GENERATION(String input_file) throws Tokenmanagementexception
 	{ 
@@ -45,7 +43,6 @@ public class Tokenmanager implements ITokenManagement
 		return myToken.GENERATE_TOKEN_VALUE();
 	}
 
-	
 	public boolean VERIFY_TOKEN (String token) throws Tokenmanagementexception
 	{
 		boolean result = false;

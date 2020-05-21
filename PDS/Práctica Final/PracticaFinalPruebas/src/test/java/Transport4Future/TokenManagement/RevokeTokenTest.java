@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RevokeTokenTest 
 {
-	
 	private Revoketoken my_revoke_token;
 	private Tokenmanager my_manager;
 	

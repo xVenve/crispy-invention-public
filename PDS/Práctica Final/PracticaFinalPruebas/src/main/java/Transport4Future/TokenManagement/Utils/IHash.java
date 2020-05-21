@@ -4,6 +4,5 @@ import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public interface IHash 
 {
-	public String HASH (String text) throws Tokenmanagementexception;
-	 
+	public String HASH (String text) throws Tokenmanagementexception; 
 }

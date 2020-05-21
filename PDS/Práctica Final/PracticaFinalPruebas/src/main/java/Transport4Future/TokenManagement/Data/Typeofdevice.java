@@ -3,8 +3,7 @@ package Transport4Future.TokenManagement.Data;
 import Transport4Future.TokenManagement.Exceptions.Tokenmanagementexception;
 
 public class Typeofdevice extends Attribute 
-{
-	
+{	
 	Typeofdevice(String value) throws Tokenmanagementexception
 	{
 	this.error_message="Error: invalid type of sensor.";
@@ -19,6 +18,5 @@ public class Typeofdevice extends Attribute
 			throw new Tokenmanagementexception("Error: invalid type of sensor.");	
 		}
 		return value;
-	}
-	
+	}	
 }
