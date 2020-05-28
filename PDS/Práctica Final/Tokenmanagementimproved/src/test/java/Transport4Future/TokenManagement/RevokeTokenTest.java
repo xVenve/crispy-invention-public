@@ -11,7 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.*;
 
-class RevokeTokenTest 
+public class RevokeTokenTest 
 {
 	private Revoketoken my_revoke_token;
 	private Tokenmanager my_manager;
