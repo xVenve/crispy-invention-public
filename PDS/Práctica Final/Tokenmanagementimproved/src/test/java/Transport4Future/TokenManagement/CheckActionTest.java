@@ -11,7 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CheckActionTest 
+public class CheckActionTest 
 {
 	private Checkaction my_action;
 	private Tokenmanager my_manager;
