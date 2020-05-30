@@ -1,0 +1,2 @@
+"./TestData/TokenRequestGenerationTest/CorrectFileSensor.json", "f4d3fbf4478f2f56c6e6c983fd940b4c", "Type of Device = Sensor"
+"./TestData/TokenRequestGenerationTest/CorrectFileActuator.json", "6c883f1cb2e6e15447dd1c5087c57f0d", "Type of Device = Actuator"
