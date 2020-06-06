@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
-numero= 16.61
-cadena1= 'Hola, mundo'
-print(cadena1, numero)
-cadena2='Texto de prueba de Python'
-print(cadena2)
-numeroTexto='Numero'
-numeros= ["Uno","Dos","Tres","Cuatro","Cinco"]
-for x in numeros:
-	print('\t', numeroTexto, x)
+number = 16.61
+string1 = 'Hola, mundo'
+print(string1, number)
+string2 = 'Texto de prueba de Python'
+print(string2)
+numberText = 'Numero'
+numbers = ["Uno", "Dos", "Tres", "Cuatro", "Cinco"]
+for x in numbers:
+    print('\t', numberText, x)
 
 print('Segundo bucle')
 
-for j in range(16,166116):
-	print(numeroTexto, j)
+for j in range(16, 166116):
+    print(numberText, j)
