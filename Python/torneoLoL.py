@@ -27,11 +27,15 @@ def getRank(nick):
 
     for j in tags:
         k = re.findall('.*TierRank">([A-Za-z]+\s[0-9])', str(j))
-        if k:
+        if not k:
             lock.acquire()
-            print('Rank', nick, ':\t \t ', k[0])
+            print('Rank', nick, ':\t \t ', 'Unranked')
             lock.release()
-            break
+            return
+        lock.acquire()
+        print('Rank', nick, ':\t \t ', k[0])
+        lock.release()
+        return
 
 
 if __name__ == "__main__":
