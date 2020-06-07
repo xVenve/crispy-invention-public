@@ -29,11 +29,11 @@ def getRank(nick):
         k = re.findall('.*TierRank">([A-Za-z]+\s[0-9])', str(j))
         if not k:
             lock.acquire()
-            print('Rank', nick, ':\t \t ', 'Unranked')
+            print('Rank', nick, ':\n\t', 'Unranked')
             lock.release()
             return
         lock.acquire()
-        print('Rank', nick, ':\t \t ', k[0])
+        print('Rank', nick, ':\n\t', k[0])
         lock.release()
         return
 
@@ -47,15 +47,20 @@ if __name__ == "__main__":
     sheet = client.open('SOLOQCHALLENGE').sheet1
 
     col = sheet.col_values(3)
-    threads = list()
+    while 1:
+        threads = list()
 
-    for i in range(5, len(col)):
-        name = col[i]
-        if not name:
-            exit(0)
-        exe = threading.Thread(target=getRank, args=(name,))
-        threads.append(exe)
-        exe.start()
+        for i in range(5, len(col)):
+            name = col[i]
+            if not name:
+                exit(0)
+            exe = threading.Thread(target=getRank, args=(name,))
+            threads.append(exe)
+            exe.start()
 
-    for i, thread in enumerate(threads):
-        thread.join()
+        for i, thread in enumerate(threads):
+            thread.join()
+
+        ans = input('Recalculate? y/n: \t')
+        if ans == 'n':
+            exit()

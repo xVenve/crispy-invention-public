@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "torneolol",
+  "private_key_id": "91e815443db5ece49efae1b8608be0798a33c7e8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCvexnA5ZakozpY\nZbGuZZqjrTXtPRSsAYl17rts5hMGe5mWhzKFgGyCf+Z00Ha54P8MhDjdnto8uyNn\n108zxNfDini5eNzC4SOUSOEMAmu0gRFEQ1J2pIN/Najavsia3o+r2ZkGTD7wGuot\n3p18s5X8rYvPS5Y5xdo5Yu/smiEQRjXmayVlvWtgLvgm371fxLYHr2chBvSJeroT\nw5Ws9djOAKwugCelNFq7VihpwpgJOmI1m4UfnG4HvfPq1c8RNKU/gU+gqUD90j4N\n3iwhqceJ7hFlJpneZGbwBPSoBB7ti9vLoqQCxKWXtH4H1qBUQpieONFAWzPNfyt1\ng2hytDkJAgMBAAECggEAA9p3Cq939wJPFw8Xn2Hjiw3UCfM+C5dmjHiLNNVaDFnF\nOgMawsf6ygRTPBQyUTtdummCYqp49h2xZbe6iWNcjhKRu1fqOBzPxlMx3uzELvTp\nG0fDrS+IZDAaVsBbARybSM2o0LS2qpjatNpnOKxsYh2w/OK26CqeM8WmiVpqmLP6\nlSDKPKz3446lhk7uUISbw5JTkBVFvKJZvTHU2b2TmxGSBN9zcoeLj3bFw29YxMjl\n4igCBozU5jQCgj1k8MSGt/81SvPmcOoMZPSbFqJuaLD4jslKdimA8jbJI0gouuZw\nIhcNtY4fBPEeWWe6SMRoqK51Ch8gDhsPsdpT3eQW0QKBgQD1ae0JLInvNPo0xIil\na3Y1sP1Ssqf+CsntCTZRx9LSyhAMYtiwCsnBuyJxjZPJq31KcwNo9doF5bFFlSNU\nW92VhsN7JEE8tA4+0Q4kuaMH7dO7vZs4S5ckgE0VywRCSC8ZQWaGSnjcNVJ+UhtT\nNDaCTKz2LqeJPEWpOiSMjydSGQKBgQC3DOoFo1cYXsllAGCiEc4P4fyF+56RHdal\nf3/N91aupcjlRSIhFmHGvPJHT5x1cb5O33QIldm4BRIAilL9P24OOkzGyEjn1lHO\nXNqxu9oAoKNZ8da3WFP3cOZkT2TavtCJE+4D85tPhXI+8bAPjisvlaI65CI8Qlsk\ndPUFsphccQKBgQC6sZphIEDOeL7e5aQOM3H55mrQPpkN6acza46nKBx5vr32rjup\nsItLldDeEZYcFRl7SYOOlXkGg3YYORxnUHuBBMQxKaN3SoKLxv27cn1TytkIOXWb\nneWdHv2FVqwmwEMUM2yLPJw06VuYPV4MLexJs4rgvR02iWN1GYY0Z7LCAQKBgB8h\nuSNgVk20wTfGSqkFsjANVS9MTfmMQ5c+CfRznnBxjatAiL9r2RE9zU7HgWqP/7fW\nVRuosLCVXCxvWhHsGcGdtLUSFyQm1R7tt9wGgNsedumzMbtY8F7i+qwQvKxfS4Qk\nuZQ+eCmcHoQKAtGCcmHTZxXw+smY13tp0Mo5R6RhAoGANx+Xh/3+dUSUuR42pJpO\nWVp032JygbYd5L5Szbw0mz/vEx7bfAIpE8bv2x8EjNuFnKK87IlS9ZsRJbxSVPri\nXRAC1KM2B3W62PPLAy7RC0J0QXgKrTLLnZ6wW7P8PRNwowQWCH+WFVcUxB8zrLTw\nldGXtShHpcmWzLf/vaFAIMQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "torneolol@torneolol.iam.gserviceaccount.com",
+  "client_id": "106162549839517006943",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/torneolol%40torneolol.iam.gserviceaccount.com"
+}
