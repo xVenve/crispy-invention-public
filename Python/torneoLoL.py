@@ -2,6 +2,7 @@ import re
 import ssl
 import urllib.request
 import gspread
+import threading
 from oauth2client.service_account import ServiceAccountCredentials
 
 from bs4 import BeautifulSoup
@@ -11,20 +12,8 @@ ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('TorneoLoL-91e815443db5.json', scope)
-client = gspread.authorize(creds)
-
-sheet = client.open('SOLOQCHALLENGE').sheet1
-
-col = sheet.col_values(3)
-
-for i in range(5, len(col)):
-    nombre = col[i]
-    if not nombre:
-        exit(0)
-
-    url = 'https://euw.op.gg/summoner/userName=' + nombre
+def getRank(nick):
+    url = 'https://euw.op.gg/summoner/userName=' + nick
     html = urllib.request.urlopen(url, context=ctx).read()
     soup = BeautifulSoup(html, 'lxml')
 
@@ -37,5 +26,29 @@ for i in range(5, len(col)):
     for j in tags:
         k = re.findall(".*TierRank\">([A-Za-z]+\s[0-9])", str(j))
         if k:
-            print('Rank', nombre, ':\t \t ', k[0])
+            print('Rank', nick, ':\t \t ', k[0])
             break
+
+
+if __name__ == "__main__":
+
+
+    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+    creds = ServiceAccountCredentials.from_json_keyfile_name('TorneoLoL-91e815443db5.json', scope)
+    client = gspread.authorize(creds)
+
+    sheet = client.open('SOLOQCHALLENGE').sheet1
+
+    col = sheet.col_values(3)
+    threads = list()
+
+    for i in range(5, len(col)):
+        name = col[i]
+        if not name:
+            exit(0)
+        x = threading.Thread(target=getRank, args=(name,))
+        threads.append(x)
+        x.start()
+
+    for i, thread in enumerate(threads):
+        thread.join()
