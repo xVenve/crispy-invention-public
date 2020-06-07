@@ -12,5 +12,5 @@ for x in numbers:
 
 print('Segundo bucle')
 
-for j in range(16, 166116):
+for j in range(16, 25):
     print(numberText, j)
