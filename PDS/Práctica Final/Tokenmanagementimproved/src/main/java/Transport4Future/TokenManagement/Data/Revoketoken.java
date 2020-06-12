@@ -14,7 +14,9 @@ public class Revoketoken
 	private static final String ERROR_TOKEN_CADUCADO = "Error: El token que se quiere revocar ya ha caducado.";
 	private static final String ERROR_TOKEN_YA_REVOCADO = "Error: El token que se quiere revocar ya está revocado.";
 	private String token_value;
+	@SuppressWarnings("unused")
 	private Typeofrevocation type_of_revocation;
+	@SuppressWarnings("unused")
 	private Reason reason;
 	private Tokenstore my_token_store = Tokenstore.GET_INSTANCE(); 
 	private Token token_to_revoke;
