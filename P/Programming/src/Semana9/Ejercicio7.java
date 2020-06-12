@@ -11,7 +11,7 @@ public class Ejercicio7 {
 		int op;
 		do {
 			System.out.println(
-				"Seleccione opciï¿½n \n1. Aï¿½adir producto \n2. Buscar producto \n3. Modificar stock y precio \n4. Salir"
+				"Seleccione opcion \n1. Añadir producto \n2. Buscar producto \n3. Modificar stock y precio \n4. Salir"
 			);
 			op = sc.nextInt();
 			switch (op) {
