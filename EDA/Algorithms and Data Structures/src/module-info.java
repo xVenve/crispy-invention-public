@@ -1,2 +1,1 @@
-module eda {
-}
+module eda {}
