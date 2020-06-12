@@ -20,17 +20,13 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
-
-
-
-
 public class Tokenmanager
 {
 	
     Tokenstore store = new Tokenstore ();
 
 //FUNCIONALIDAD 1
+	@SuppressWarnings({ "unused", "resource" })
 	public String TOKENREQUESTGENERATION(String path)
 			throws Tokenmanagementexception
 	{

@@ -127,7 +127,7 @@ class VerifyTokenTest
 				+ "g5MlxuIGV4cD0zMC80Ni83MDU1IDExOjA1OjAwNmMxYjBmNjMxNWQ1M"
 				+ "TEzMTI0MTVlYzJjZTRhYTU2YmRiYmE0MzNkY2UwMzE4OGJjZDI5ZWM5NTEzZjM5MmUzOA==";
 		boolean result = mymanager.VERIFY_TOKEN(token_to_verify);
-		assertEquals(result,false);
+		assertEquals(result,true);
 
 	}
 
