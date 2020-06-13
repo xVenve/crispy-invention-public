@@ -1,9 +1,5 @@
 package Laboratorio9.linear;
 
-import Laboratorio9.linear.SQueue;
-import Laboratorio9.linear.DNodeVertex;
-import Laboratorio9.linear.DListVertex;
-
 public class GraphLA implements IGraph {
 
 	int numVertices;

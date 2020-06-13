@@ -10,10 +10,10 @@ public class Ejercicio3 {
 		System.out.println("Introduzca el numero y la cantidad de multiplos que desea: ");
 		c = sc.nextInt();
 		m = sc.nextInt();
+		sc.close();
 		for (n = c; n <= c * m; n = n + c) {
 			System.out.println(n);
 		}
-		sc.close();
 	}
 
 }
