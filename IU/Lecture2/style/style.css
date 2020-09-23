@@ -1,0 +1,40 @@
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.yellow{
+  background-color: yellow;
+}
+
+.brown{
+  color: brown;
+}
+
+#pink{
+  color: pink;
+}
+
+div > h3{
+  color: red;
+}
+
+h1:hover{
+    color: grey;
+}
+
+#columna1 {
+  background-color: pink;
+  width: 40%;
+  float: left;
+  padding: 30px;
+  border: 10px solid black;
+  margin: 30px;
+}
+
+#columna2 {
+  background-color: green;
+  width: 40%;
+  float: left;
+}
