@@ -20,6 +20,21 @@ div > h3{
   color: red;
 }
 
+/* unvisited link */
+a:link {
+  color: #FF0000;
+}
+
+/* visited link */
+a:visited {
+  color: #00FF00;
+}
+
+/* mouse over link */
+a:hover {
+  color: #FF00FF;
+
+
 h1:hover{
     color: grey;
 }
