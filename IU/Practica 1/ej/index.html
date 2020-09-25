@@ -2,91 +2,89 @@
   <html>
    <meta charset="utf-8">
     <style>
+      *{
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
 
-    *{
-      margin: 0;
-      padding: 0;
-      border: 0;
+      header {
+        background-color: lightgreen;
+        font-size: 3vw;
+      }
+
+      a{
+        padding: 15px;
+      }
+
+      p{
+        padding-top: 15px;
+      }
+
+      img{
+        padding-top: 20px;
+        width: 190px;
+      }
+
+      #LOGO {
+         width: 350px;
+      }
+
+      #OPTIONS {
+        background:orange;
+        font-size: 20;
+        text-align: center;
+      }
+
+      #LINKS {
+        padding-left: 1%;
+        padding-right: 1%;
+        float: left;
+        background-color: lightblue;
+        width: 23%;
+        height: 100%;
+      }
+
+     #CENTRAL {
+       padding-left: 2%;
+       padding-right: 2%;
+       float: left;
+       background-color: red;
+       width: 46%;
+       height: 100%;
+     }
+
+     .VIDEO_DESCRIPTION {
+       float:right;
+       width: 23vw;
     }
 
-    header {
-      background-color: lightgreen;
-      font-size: 3vw;
-    }
+     #RIGHT{
+       padding-left: 1%;
+       padding-right: 1%;
+       float: left;
+       width:23%;
+       background-color: yellow;
+       height: 100%;
+     }
 
-    a{
-      padding: 15px;
-    }
+     .NEWS {
+       margin: 10;
+     }
 
-    p{
-      padding-top: 15px;
-    }
-
-    img{
-      padding-top: 20px;
-      width: 190px;
-    }
-
-    #LOGO {
-       width: 350px;
-    }
-
-    #OPTIONS {
-      background:orange;
-      font-size: 20;
-      text-align: center;
-    }
-
-    #LINKS {
-      padding-left: 1%;
-      padding-right: 1%;
-      float: left;
-      background-color: lightblue;
-      width: 23%;
-      height: 100%;
-    }
-
-   #CENTRAL {
-     padding-left: 2%;
-     padding-right: 2%;
-     float: left;
-     background-color: red;
-     width:46%;
-     height: 100%;
-   }
-
-   #VIDEO_DESCRIPTION {
-     float:right;
-     width: 23vw;
-  }
-
-   #RIGHT{
-     padding-left: 1%;
-     padding-right: 1%;
-     float: left;
-    width:23%;
-    background-color: yellow;
-    height: 100%;
-   }
-
-   #NEWS {
-     margin: 10;
-   }
-
-   #TEMA{
-     margin: 20;
-     text-align: justify;
-   }
-
-
+     .TEMA{
+       margin: 20;
+       text-align: justify;
+     }
     </style>
     <head>
       <title>Interfaces de Usuario</title>
     </head>
     <body>
       <header>
-        <img src="./images/uc3m_logo.png"  alt="UC3M Logo" width="350" heigh="100"/>
+        <img id="LOGO" src="./images/uc3m_logo.png"  alt="UC3M Logo"/>
         Clase virtual de Interfaces de Usuario
+        <!-- Barra superior con enlaces de interes -->
         <section id="OPTIONS">
             <a href="https://aulaglobal.uc3m.es/">Aula Global</a>
             <a href="http://ocw.uc3m.es/ingenieria-informatica/interfaces-de-usuario">OCW</a>
@@ -94,48 +92,144 @@
         </section>
       </header>
       <section>
+        <!-- Barra lateral izquierda con enlaces -->
         <nav id="LINKS">
+          <p><b>Interfaces de Usuario</b></p>
 
-          <b>Interfaces de Usuario</b>
-          <p></p>
-          <a href="#students"><div>Listado de estudiantes</div></a>
-          <p></p>
-          <a href="#course"><div>Foro de la asignatura</div></a>
-          <p></p>
-          <a href="#marks"><div>Califiaciones</div></a>
+          <p><a href="#students">Listado de estudiantes</a></p>
+          <p><a href="#course">Foro de la asignatura</a></p>
+          <p><a href="#marks">Calificaciones</a></p>
         </nav>
+        <!-- Seccion central -->
         <article id = "CENTRAL">
           <!-- Tema 1 -->
-          <article id = "TEMA1">
-                <img src="./images/tema_1.jpg"  alt="Tema 1" width="190"/>
-            <b>Tema 1</b>
-            <p>En este apartado se mostrará una versión global del concepto de interacción persona ordenador, partiendo de algunos objetos de la vida cotidiana se hará hincapié en como esos objetos tienen que ser diseñados de manera que se puedan utilizar.</p>
-          <!-- Video Tema 1 -->
-            <section id="VIDEO">
-              <iframe width="350" height="200" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-              <aside id ="VIDEO_DESCRIPTION">
-                esto es un video de los muppets jiijfkfjkajkdsdjfsafffffffffffffffffffffffffffffffffffffffffffds
+          <article class="TEMA">
+                <img src="./images/tema_1.jpg"  alt="Tema 1"/>
+            <p><b>Tema 1 -  Interacción Persona-Ordenador</b></p>
+            <p>En este apartado se mostrará una versión global del concepto de interacción persona ordenador, partiendo
+              de algunos objetos de la vida cotidiana se hará hincapié en como esos objetos tienen que ser diseñados de
+              manera que se puedan utilizar.</p>
+          <!-- Video 1 Tema 1 -->
+            <p><section>
+              <p>VIDEO 1: INTRODUCCIÓN</p>
+              <iframe  src="https://www.youtube.com/embed/HG5JF7G8fjM"></iframe>
+              <aside class="VIDEO_DESCRIPTION">
+                Cuando los seres humanos y los ordenadores interactúan lo hacen a través de un medio o interfaz. Una
+                interfaz es una superficie de contacto que refleja las propiedades físicas de los que interactúan, las
+                funciones a realizar y el balance de poder y control.
               </aside>
-            </section>
+            </section></p>
+            <!-- Video 2 Tema 1 -->
+              <p><section>
+                <p>VIDEO 2: CHARLA SOBRE INTERACCIÓN PERSONA-ORDENADOR</p>
+                <iframe src="https://www.youtube.com/embed/QOuS98pFS1M"></iframe>
+                <aside class="VIDEO_DESCRIPTION">
+                Pequeño extracto del programa de radio Zona Tres Noticias, presentado por Jorge Eduardo Garcia.
+                </aside>
+              </section></p>
+            <!-- Video 3  Tema 1 -->
+              <p><section >
+                <p>VIDEO 3: MODELO DE INTERACCIÓN DE NORMAN</p>
+                <iframe src="https://www.youtube.com/embed/axKhU701LxU"></iframe>
+                <aside class="VIDEO_DESCRIPTION">
+                  Explicación del modelo de interacción de Norman por el Insitituto de Tecnología de Walchand.
+                </aside>
+              </section></p>
 
           </article>
+
+          <!-- Tema 2 -->
+          <article class="TEMA">
+                <img src="./images/tema_2.jpg"  alt="Tema 2"/>
+            <p><b>Tema 2 -  Ingeniería de la usabilidad:</b></p>
+            <p> Este tema introduce el término "usabilidad" (en castellano, capacidad de ser usado"), sus objetivos y la
+              perspectiva de la misma desde el punto de vista del usuario. Se presentan también algunos principios de
+              diseño y de usabilidad, para finalizar con las principales ideas de la ingeniería de la usabilidad y su
+              incorporación en el proceso de desarrollo en distintos ciclos de vida.</p>
+          <!-- Video 1 Tema 2 -->
+            <p><section>
+              <p>VIDEO 1: INTRODUCCIÓN</p>
+              <iframe  src="https://www.youtube.com/embed/r7hPyEMkiIM"></iframe>
+              <aside class="VIDEO_DESCRIPTION">
+              Introducción al tema 2 sobre ingeniería de la usabilidad, sus pasos, sus características, y el por qué es
+              importante aplicarlo a nuestro trabajo.
+              </aside>
+            </section></p>
+            <!-- Video 2 Tema 2 -->
+              <p><section >
+                <p>VIDEO 2: REGLAS DE LA USABILIDAD</p>
+                <iframe src="https://www.youtube.com/embed/qUYyChhTWLo"></iframe>
+                <aside class="VIDEO_DESCRIPTION">
+                  Explicación de las 10 reglas generales de la usabilidad con ejemplos para la comprensión.
+                </aside>
+              </section></p>
+            <!-- Video 3  Tema 2 -->
+              <p><section>
+                <p>VIDEO 3: METODO DEL CONDUCTOR</p>
+                <iframe src="https://www.youtube.com/embed/NDsBotazQew"></iframe>
+                <aside class="VIDEO_DESCRIPTION">
+                  Explicación del metodo del conductor, sus características y sus puntos fuertes.
+                </aside>
+              </section></p>
+
+          </article>
+
+          <!-- Tema 3 -->
+          <article class="TEMA">
+                <img src="./images/tema_3.png"  alt="Tema 3"/>
+            <p><b>Tema 3 -  Interfaces web</b></p>
+            <p>  Las interfaces web son un tipo de interfaz concreta que tiene sus características y reglas propias. En
+              este tema se hablará de forma concreta de la arquitectura de la información,  es decir, cómo poder
+              estructurar correctamente la información y como beneficiarse de esa estructura desde el punto de vista del
+              proceso de interacción. Además, se hablará del diseño de los principales componentes: homepage, sitio web,
+              página y contenidos.</p>
+          <!-- Video 1 Tema 2 -->
+            <p><section>
+              <p>VIDEO 1: INTRODUCCIÓN</p>
+              <iframe  src="https://www.youtube.com/embed/jMEjKzlSbfE"></iframe>
+              <aside class="VIDEO_DESCRIPTION">
+                En esta sesión introducimos la importancia de las interfaces de usuario y explicamos los procesos
+                necesarios para el diseño web.
+              </aside>
+            </section></p>
+            <!-- Video 2 Tema 2 -->
+              <p><section >
+                <p>VIDEO 2: HERRAMIENTAS UTILES</p>
+                <iframe src="https://www.youtube.com/embed/BwJC6kdrWvc"></iframe>
+                <aside class="VIDEO_DESCRIPTION">
+                  Figma, Atomic y Gravit Designer son 3 herramientas que ofrecen planes gratuitos para comenzar a
+                  diseñar interfaces! Vamos a explorarlas en este video.
+                </aside>
+              </section></p>
+            <!-- Video 3  Tema 2 -->
+              <p><section>
+                <p>VIDEO 3: BUENAS PRACTICAS DEL DISEÑO DE INTERFACES</p>
+                <iframe src="https://www.youtube.com/embed/mSAmP3HAW6E"></iframe>
+                <aside class="VIDEO_DESCRIPTION">
+                  Consejos a tener en cuenta a la hora de diseñar y crear nuestra interfaz web.
+                </aside>
+              </section></p>
+
+          </article>
+
         </article>
+
+        <!-- Barra lateral derecha con noticias y novedades -->
         <aside id="RIGHT">
-          <section id="NEWS">
-          <b>Novedades</b>
+          <section class="NEWS">
+          <p><b>Novedades</b></p>
             <p>1/10/2020: Nuevo video subido: La historia de la web</p>
             <p>29/9/2020: Nuevo articulo subido: Introduccion a HTML</p>
             <p>18/9/2020: Foro de la asignatura habilitado</p>
             <p>14/9/2020: Bienvenida a la asignatura</p>
-          </section>
 
-          <section id="NEWS">
-          <b>Noticias</b>
+          </section>
+          <section class="NEWS">
+          <p><b>Noticias</b></p>
             <p>5/10/2020: Entrega practica en dos días</p>
             <p>1/10/2020: Clase online magistral para el dia 3 de octubre</p>
             <p>28/9/2020: Tutoria colectiva en tres días</p>
           </section>
-
         </aside>
       </section>
     </body>
