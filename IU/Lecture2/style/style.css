@@ -1,22 +1,22 @@
-*{
+* {
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-.yellow{
+.yellow {
   background-color: yellow;
 }
 
-.brown{
+.brown {
   color: brown;
 }
 
-#pink{
+#pink {
   color: pink;
 }
 
-div > h3{
+div>h3 {
   color: red;
 }
 
@@ -33,10 +33,10 @@ a:visited {
 /* mouse over link */
 a:hover {
   color: #FF00FF;
+}
 
-
-h1:hover{
-    color: grey;
+h1:hover {
+  color: grey;
 }
 
 #columna1 {
