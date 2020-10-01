@@ -8,11 +8,46 @@
         padding:0;
         border:0;
         box-sizing: border-box;
+
+      }
+
+      .HAMBURGUER {
+        display: none;
+       }
+
+      .HAMBURGUER > li {
+        float:left;
+      }
+
+      .HAMBURGUER li a {
+        background-color: lightgreen;
+        color:black;
+        text-decoration:none;
+        padding: 0 0;
+        display:block;
+      }
+
+      .HAMBURGUER li ul {
+        display:none;
+        position:absolute;
+      }
+
+      .HAMBURGUER li:hover > ul {
+        display:block;
+      }
+
+      .GUION{
+        width: 20px;
+        height: 3px;
+        background-color: black;
+        margin: 4px 0;
       }
 
       header {
         background-color: lightgreen;
+
       }
+
       #TITULO{
         font-size: 45px;
       }
@@ -40,6 +75,18 @@
         text-align: center;
       }
 
+      .T-LINKS{
+        display: none;
+      }
+
+      footer {
+        text-align: center;
+        padding: 3px;
+        background-color: DarkSalmon;
+        color: white;
+        display: grid;
+      }
+
       #LINKS {
         padding: 20px;
         float: left;
@@ -58,6 +105,7 @@
     }
 
      #RIGHT{
+       display: grid;
        padding: 20px;
        float: left;
        background-color: yellow;
@@ -95,6 +143,21 @@
         float: left;
         width: 100%;
       }
+
+       #TITULO{
+         font-size: 20px;
+         padding-left: 20px;
+
+       }
+
+       #LINKS, #RIGHT, #LOGO, #OPTIONS {
+         display: none;
+       }
+
+       .HAMBURGUER {
+         display: block;
+       }
+
      }
 
      @media only screen and (max-width: 768px) and (min-width: 600px) {
@@ -111,7 +174,24 @@
        .col-t-10 {width: 83.33%;}
        .col-t-11 {width: 91.66%;}
        .col-t-12 {width: 100%;}
+
+       #RIGHT{
+        display: none;
+       }
+
+
+
+       .T-LINKS{
+         display: block;
+       }
+
+       #TITULO{
+         font-size: 25px;
+       }
+
      }
+
+
 
     </style>
     <head>
@@ -119,8 +199,23 @@
     </head>
     <body>
       <header>
-        <img id="LOGO" src="./images/uc3m_logo.png"  alt="UC3M Logo"/>
-        <b id="TITULO">Clase virtual de Interfaces de Usuario </b>
+        <ul class="HAMBURGUER">
+          <li><a href=""><div class="GUION"></div>
+                          <div class="GUION"></div>
+                          <div class="GUION"></div></a>
+            <ul>
+              <li><a href="#students">Estudiantes</a></li>
+              <li><a href="#course">Foro</a></li>
+              <li><a href="#marks">Calificaciones</a></li>
+              <li><a href="#novelties">Últ. novedades</a></li>
+              <li><a href="#news">Últ. noticias</a></li>
+            </ul>
+          </li>
+        </ul>
+        <p>
+          <img id="LOGO" src="./images/uc3m_logo.png"  alt="UC3M Logo"/>
+          <b id="TITULO">Clase virtual de Interfaces de Usuario </b>
+        </p>
         <!-- Barra superior con enlaces de interes -->
         <section id="OPTIONS">
             <a href="https://aulaglobal.uc3m.es/">Aula Global</a>
@@ -133,11 +228,22 @@
         <nav  class="col-3 col-t-3" id="LINKS">
           <ul>
             <b>Interfaces de Usuario</b>
-  		      <li><a href="#students">Listado de estudiantes</a></li>
-  		      <li><a href="#course">Foro de la asignatura</a></li>
+  		      <li><a href="#students">Estudiantes</a></li>
+  		      <li><a href="#course">Foro</a></li>
   		      <li><a href="#marks">Calificaciones</a></li>
+            <li class="T-LINKS"><a href="#novelties">Últ. novedades</a></li>
+            <li class="T-LINKS"><a href="#news">Últ. noticias</a></li>
   		    </ul>
         </nav>
+
+
+
+
+
+
+
+
+
 
         <!-- Seccion central -->
         <article class ="col-6 col-t-9" id = "CENTRAL">
@@ -151,8 +257,8 @@
           <!-- Video 1 Tema 1 -->
             <p><section>
               <p>VIDEO 1: INTRODUCCIÓN</p>
-              <iframe  class="col-6 col-t-6"  src="https://www.youtube.com/embed/HG5JF7G8fjM"></iframe>
-              <aside class="VIDEO_DESCRIPTION col-6 col-t-6">
+              <iframe  class="col-6 col-t-12"  src="https://www.youtube.com/embed/HG5JF7G8fjM"></iframe>
+              <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
                 Cuando los seres humanos y los ordenadores interactúan lo hacen a través de un medio o interfaz. Una
                 interfaz es una superficie de contacto que refleja las propiedades físicas de los que interactúan, las
                 funciones a realizar y el balance de poder y control.
@@ -161,16 +267,16 @@
             <!-- Video 2 Tema 1 -->
               <p><section>
                 <p>VIDEO 2: CHARLA SOBRE INTERACCIÓN PERSONA-ORDENADOR</p>
-                <iframe  class="col-6 col-t-6" src="https://www.youtube.com/embed/QOuS98pFS1M"></iframe>
-                <aside class="VIDEO_DESCRIPTION col-6 col-t-6">
+                <iframe  class="col-6 col-t-12" src="https://www.youtube.com/embed/QOuS98pFS1M"></iframe>
+                <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
                 Pequeño extracto del programa de radio Zona Tres Noticias, presentado por Jorge Eduardo Garcia.
                 </aside>
               </section></p>
             <!-- Video 3  Tema 1 -->
               <p><section >
                 <p>VIDEO 3: MODELO DE INTERACCIÓN DE NORMAN</p>
-                <iframe  class="col-6 col-t-6" src="https://www.youtube.com/embed/axKhU701LxU"></iframe>
-                <aside class="VIDEO_DESCRIPTION col-6 col-t-6">
+                <iframe  class="col-6 col-t-12" src="https://www.youtube.com/embed/axKhU701LxU"></iframe>
+                <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
                   Explicación del modelo de interacción de Norman por el Insitituto de Tecnología de Walchand.
                 </aside>
               </section></p>
@@ -188,8 +294,8 @@
           <!-- Video 1 Tema 2 -->
             <p><section>
               <p>VIDEO 1: INTRODUCCIÓN</p>
-              <iframe  class="col-6 col-t-6" src="https://www.youtube.com/embed/r7hPyEMkiIM"></iframe>
-              <aside class="VIDEO_DESCRIPTION col-6 col-t-6">
+              <iframe  class="col-6 col-t-12" src="https://www.youtube.com/embed/r7hPyEMkiIM"></iframe>
+              <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
               Introducción al tema 2 sobre ingeniería de la usabilidad, sus pasos, sus características, y el por qué es
               importante aplicarlo a nuestro trabajo.
               </aside>
@@ -197,16 +303,16 @@
             <!-- Video 2 Tema 2 -->
               <p><section >
                 <p>VIDEO 2: REGLAS DE LA USABILIDAD</p>
-                <iframe  class="col-6 col-t-6" src="https://www.youtube.com/embed/qUYyChhTWLo"></iframe>
-                <aside class="VIDEO_DESCRIPTION col-6 col-t-6">
+                <iframe  class="col-6 col-t-12" src="https://www.youtube.com/embed/qUYyChhTWLo"></iframe>
+                <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
                   Explicación de las 10 reglas generales de la usabilidad con ejemplos para la comprensión.
                 </aside>
               </section></p>
             <!-- Video 3  Tema 2 -->
               <p><section>
                 <p>VIDEO 3: METODO DEL CONDUCTOR</p>
-                <iframe  class="col-6 col-t-6" src="https://www.youtube.com/embed/NDsBotazQew"></iframe>
-                <aside class="VIDEO_DESCRIPTION col-6 col-t-6">
+                <iframe  class="col-6 col-t-12" src="https://www.youtube.com/embed/NDsBotazQew"></iframe>
+                <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
                   Explicación del metodo del conductor, sus características y sus puntos fuertes.
                 </aside>
               </section></p>
@@ -225,8 +331,8 @@
           <!-- Video 1 Tema 2 -->
             <p><section>
               <p>VIDEO 1: INTRODUCCIÓN</p>
-              <iframe  class="col-6 col-t-6" src="https://www.youtube.com/embed/jMEjKzlSbfE"></iframe>
-              <aside class="VIDEO_DESCRIPTION col-6 col-t-6">
+              <iframe  class="col-6 col-t-12" src="https://www.youtube.com/embed/jMEjKzlSbfE"></iframe>
+              <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
                 En esta sesión introducimos la importancia de las interfaces de usuario y explicamos los procesos
                 necesarios para el diseño web.
               </aside>
@@ -234,8 +340,8 @@
             <!-- Video 2 Tema 2 -->
               <p><section >
                 <p>VIDEO 2: HERRAMIENTAS UTILES</p>
-                <iframe  class="col-6 col-t-6" src="https://www.youtube.com/embed/BwJC6kdrWvc"></iframe>
-                <aside class="VIDEO_DESCRIPTION col-6 col-t-6">
+                <iframe  class="col-6 col-t-12" src="https://www.youtube.com/embed/BwJC6kdrWvc"></iframe>
+                <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
                   Figma, Atomic y Gravit Designer son 3 herramientas que ofrecen planes gratuitos para comenzar a
                   diseñar interfaces! Vamos a explorarlas en este video.
                 </aside>
@@ -243,8 +349,8 @@
             <!-- Video 3  Tema 2 -->
               <p><section>
                 <p>VIDEO 3: BUENAS PRACTICAS DEL DISEÑO DE INTERFACES</p>
-                <iframe  class="col-6 col-t-6" src="https://www.youtube.com/embed/mSAmP3HAW6E"></iframe>
-                <aside class="VIDEO_DESCRIPTION col-6 col-t-6">
+                <iframe  class="col-6 col-t-12" src="https://www.youtube.com/embed/mSAmP3HAW6E"></iframe>
+                <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
                   Consejos a tener en cuenta a la hora de diseñar y crear nuestra interfaz web.
                 </aside>
               </section></p>
@@ -253,7 +359,7 @@
         </article>
 
         <!-- Barra lateral derecha con noticias y novedades -->
-        <aside class= "col-3 col-t-12" id="RIGHT">
+        <aside class= "col-3 col-t-3" id="RIGHT">
           <section>
             <ul>
               <b>Novedades</b>
@@ -272,6 +378,11 @@
           </ul>
           </section>
         </aside>
+
       </section>
+      <!-- Pie de pagina -->
+      <footer class="col-12 col-t-12">
+          <p>© 1998-2020 UC3M, inc. All rights reserved. |  <a href="https://www.uc3m.es/">UC3M</a> |  <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad"> Privacidad </a> </p>
+      </footer>
     </body>
   </html>
