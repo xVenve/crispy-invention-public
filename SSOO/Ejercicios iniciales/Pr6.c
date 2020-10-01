@@ -57,8 +57,7 @@ bcl:;
   Leer_numero(&y);
   resul = suma(x, y);
   reducir(resul);
-  fprintf(archivo, "%d/%d + %d/%d = %d/%d\n", x.num, x.den, y.num, y.den,
-          resul.num, resul.den);
+  fprintf(archivo, "%d/%d + %d/%d = %d/%d\n", x.num, x.den, y.num, y.den, resul.num, resul.den);
   printf("Desea introducir mas pares?(1/0)\n");
 
   scanf("%d", &op);

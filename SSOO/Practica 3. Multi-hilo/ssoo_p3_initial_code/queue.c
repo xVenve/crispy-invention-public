@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 // To create a queue
 queue *queue_init(int size) {
   queue *q = (queue *)malloc(sizeof(queue));
