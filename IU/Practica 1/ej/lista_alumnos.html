@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-       <title>Interfaces de Usuario</title>
-       <meta charset="utf-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <LINK rel="stylesheet" href="./style/lista_alumnos_style.css">
-  </head>
-    <body>
-      <header>
+<html>
+
+<head>
+  <title>Interfaces de Usuario</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <LINK rel="stylesheet" href="./style/lista_alumnos_style.css">
+</head>
+
+<body>
+  <header>
     <!-- Boton  para acceder a las opciones desde movil -->
     <ul class="HAMBURGUER">
       <li><a href="">
@@ -36,139 +38,140 @@
       <a href="https://twitter.com/uc3m">Conócenos</a>
     </section>
   </header>
+  <section>
+    <!-- Barra lateral izquierda con enlaces -->
+    <nav class="col-3 col-t-3" id="LINKS">
+      <ul>
+        <b>Interfaces de Usuario</b>
+        <li><a href="#students">Estudiantes</a></li>
+        <li><a href="#course">Foro</a></li>
+        <li><a href="#marks">Calificaciones</a></li>
+        <li class="T-LINKS"><a href="#novelties">Últ. novedades</a></li>
+        <li class="T-LINKS"><a href="#news">Últ. noticias</a></li>
+      </ul>
+    </nav>
+    <!-- Seccion central -->
+    <article class="col-6 col-t-9" id="CENTRAL">
+      <p id="TITLECENTRAL"><b>Listado de estudiantes</b></p>
+      <table class="col-12 col-t-12">
+        <tr>
+          <th></th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th></th>
+        </tr>
+
+        <!-- Alumno 1 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Carlos.jpg" alt="CarlosRubio" /></td>
+          <td>Carlos</td>
+          <td>Rubio Olivares</td>
+          <td>100405834@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 2 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Jorge.jpg" alt="JorgeRodriguez" /></td>
+          <td>Jorge</td>
+          <td>Rodriguez Fraile</td>
+          <td>100405951@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 3 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Ivan.jpg" alt="IvanSerrano" /></td>
+          <td>Ivan</td>
+          <td>Serrano Garcia</td>
+          <td>100405836@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 4 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Fran.jpg" alt="FranciscoJoseRuiz" /></td>
+          <td>Francisco José</td>
+          <td>Ruiz de la Cruz</td>
+          <td>100405807@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 6 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Daniel.jpg" alt="DanielCano" /></td>
+          <td>Daniel</td>
+          <td>Cano Robledo</td>
+          <td>100405810@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 7 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Maria.jpg" alt="MariaSanchez" /></td>
+          <td>Maria</td>
+          <td>Sanchez Blazquez</td>
+          <td>100405838@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 8 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Luis.jpg" alt="LuisAcero" /></td>
+          <td>Luis</td>
+          <td>Acero Morata</td>
+          <td>100405985@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 9 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Paula.jpg" alt="PaulaAlvarez" /></td>
+          <td>Paula</td>
+          <td>Alvarez Rey</td>
+          <td>100366670@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 10 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Xu.jpg" alt="XuChen" /></td>
+          <td>Xu</td>
+          <td>Chen</td>
+          <td>100406010@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button">Enviar mensaje</button></td>
+        </tr>
+
+      </table>
+
+    </article>
+
+    <!-- Barra lateral derecha con noticias y novedades -->
+    <aside class="col-3 col-t-3" id="RIGHT">
       <section>
-        <!-- Barra lateral izquierda con enlaces -->
-        <nav class="col-3 col-t-3" id="LINKS">
-          <ul>
-            <b>Interfaces de Usuario</b>
-            <li><a href="#students">Estudiantes</a></li>
-            <li><a href="#course">Foro</a></li>
-            <li><a href="#marks">Calificaciones</a></li>
-            <li class="T-LINKS"><a href="#novelties">Últ. novedades</a></li>
-            <li class="T-LINKS"><a href="#news">Últ. noticias</a></li>
-          </ul>
-        </nav>
-        <!-- Seccion central -->
-        <article class="col-6 col-t-9" id="CENTRAL">
-           <p id="TITLECENTRAL"><b>Listado de estudiantes</b></p>
-          <table>
-            <tr>
-              <th></th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Correo</th>
-              <th></th>
-            </tr>
-
-            <!-- Alumno 1 -->
-          <tr>
-            <td><img class="AVATAR" src="./images/Carlos.jpg"  alt="CarlosRubio"/></td>
-            <td>Carlos</td>
-            <td>Rubio Olivares</td>
-            <td>100405834@alumnos.uc3m.es</td>
-            <td><button class = "BUTTON" type="button">Enviar mensaje</button></td>
-          </tr>
-
-              <!-- Alumno 2 -->
-            <tr>
-              <td><img class="AVATAR" src="./images/Jorge.jpg"  alt="JorgeRodriguez"/></td>
-              <td>Jorge</td>
-              <td>Rodriguez Fraile</td>
-              <td>100405951@alumnos.uc3m.es</td>
-              <td><button class = "BUTTON" type="button">Enviar mensaje</button></td>
-            </tr>
-
-              <!-- Alumno 3 -->
-            <tr>
-              <td><img class="AVATAR" src="./images/Ivan.jpg"  alt="IvanSerrano"/></td>
-              <td>Ivan</td>
-              <td>Serrano Garcia</td>
-              <td>100405836@alumnos.uc3m.es</td>
-              <td><button class = "BUTTON" type="button">Enviar mensaje</button></td>
-            </tr>
-
-              <!-- Alumno 4 -->
-            <tr>
-              <td><img class="AVATAR" src="./images/Fran.jpg"  alt="FranciscoJoseRuiz"/></td>
-              <td>Francisco José</td>
-              <td>Ruiz de la Cruz</td>
-              <td>100405807@alumnos.uc3m.es</td>
-              <td><button class = "BUTTON" type="button">Enviar mensaje</button></td>
-            </tr>
-
-              <!-- Alumno 6 -->
-            <tr>
-              <td><img class="AVATAR" src="./images/Daniel.jpg"  alt="DanielCano"/></td>
-              <td>Daniel</td>
-              <td>Cano Robledo</td>
-              <td>100405810@alumnos.uc3m.es</td>
-              <td><button class = "BUTTON" type="button">Enviar mensaje</button></td>
-            </tr>
-
-              <!-- Alumno 7 -->
-            <tr>
-              <td><img class="AVATAR" src="./images/Maria.jpg"  alt="MariaSanchez"/></td>
-              <td>Maria</td>
-              <td>Sanchez Blazquez</td>
-              <td>100405838@alumnos.uc3m.es</td>
-              <td><button class = "BUTTON" type="button">Enviar mensaje</button></td>
-            </tr>
-
-              <!-- Alumno 8 -->
-            <tr>
-              <td><img class="AVATAR" src="./images/Luis.jpg"  alt="LuisAcero"/></td>
-              <td>Luis</td>
-              <td>Acero Morata</td>
-              <td>100405985@alumnos.uc3m.es</td>
-              <td><button class = "BUTTON" type="button">Enviar mensaje</button></td>
-            </tr>
-
-              <!-- Alumno 9 -->
-            <tr>
-              <td><img class="AVATAR" src="./images/Paula.jpg"  alt="PaulaAlvarez"/></td>
-              <td>Paula</td>
-              <td>Alvarez Rey</td>
-              <td>100366670@alumnos.uc3m.es</td>
-              <td><button class = "BUTTON" type="button">Enviar mensaje</button></td>
-            </tr>
-
-              <!-- Alumno 10 -->
-            <tr>
-              <td><img class="AVATAR" src="./images/Xu.jpg"  alt="XuChen"/></td>
-              <td>Xu</td>
-              <td>Chen</td>
-              <td>100406010@alumnos.uc3m.es</td>
-              <td><button class = "BUTTON" type="button">Enviar mensaje</button></td>
-            </tr>
-
-          </table>
-
-        </article>
-
-        <!-- Barra lateral derecha con noticias y novedades -->
-        <aside class="col-3 col-t-3" id="RIGHT">
-          <section>
-            <ul>
-              <b>Novedades</b>
-              <li>1/10/2020: Nuevo video subido: La historia de la web</li>
-              <li>29/9/2020: Nuevo articulo subido: Introduccion a HTML</li>
-              <li>18/9/2020: Foro de la asignatura habilitado</li>
-              <li>14/9/2020: Bienvenida a la asignatura</li>
-            </ul>
-          </section>
-          <section>
-            <ul>
-              <b>Noticias</b>
-              <li>5/10/2020: Entrega practica en dos días</li>
-              <li>1/10/2020: Clase online magistral para el dia 3 de octubre</li>
-              <li>28/9/2020: Tutoria colectiva en tres días</li>
-            </ul>
-          </section>
-        </aside>
+        <ul>
+          <b>Novedades</b>
+          <li>1/10/2020: Nuevo video subido: La historia de la web</li>
+          <li>29/9/2020: Nuevo articulo subido: Introduccion a HTML</li>
+          <li>18/9/2020: Foro de la asignatura habilitado</li>
+          <li>14/9/2020: Bienvenida a la asignatura</li>
+        </ul>
       </section>
-      <!-- Pie de pagina -->
-      <footer class="col-12 col-t-12">
-        <p>© 1998-2020 UC3M, inc. All rights reserved. | <a href="https://www.uc3m.es/">UC3M</a> | <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad"> Privacidad </a> </p>
-      </footer>
-    </body>
-  </html>
+      <section>
+        <ul>
+          <b>Noticias</b>
+          <li>5/10/2020: Entrega practica en dos días</li>
+          <li>1/10/2020: Clase online magistral para el dia 3 de octubre</li>
+          <li>28/9/2020: Tutoria colectiva en tres días</li>
+        </ul>
+      </section>
+    </aside>
+  </section>
+  <!-- Pie de pagina -->
+  <footer class="col-12 col-t-12">
+    <p>© 1998-2020 UC3M, inc. All rights reserved. | <a href="https://www.uc3m.es/">UC3M</a> | <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad"> Privacidad </a> </p>
+  </footer>
+</body>
+
+</html>

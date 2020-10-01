@@ -1,127 +1,127 @@
 <!DOCTYPE html>
-  <html>
+<html>
 
+<head>
+  <title>Interfaces de Usuario</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <LINK rel="stylesheet" href="./style/foro_style.css">
+</head>
 
-  <head>
-    <title>Interfaces de Usuario</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <LINK rel="stylesheet" href="./style/foro_style.css">
-  </head>
-    <body>
-      <header>
-        <!-- Boton  para acceder a las opciones desde movil -->
-        <ul class="HAMBURGUER">
-          <li><a href="">
-              <div class="GUION"></div>
-              <div class="GUION"></div>
-              <div class="GUION"></div>
-            </a>
-            <ul>
-              <li><a href="#students">Estudiantes</a></li>
-              <li><a href="#course">Foro</a></li>
-              <li><a href="#marks">Calificaciones</a></li>
-              <li><a href="#novelties">Últ. novedades</a></li>
-              <li><a href="#news">Últ. noticias</a></li>
-            </ul>
-          </li>
+<body>
+  <header>
+    <!-- Boton  para acceder a las opciones desde movil -->
+    <ul class="HAMBURGUER">
+      <li><a href="">
+          <div class="GUION"></div>
+          <div class="GUION"></div>
+          <div class="GUION"></div>
+        </a>
+        <ul>
+          <li><a href="#students">Estudiantes</a></li>
+          <li><a href="#course">Foro</a></li>
+          <li><a href="#marks">Calificaciones</a></li>
+          <li><a href="#novelties">Últ. novedades</a></li>
+          <li><a href="#news">Últ. noticias</a></li>
         </ul>
-        <p>
-        <img id="LOGO" src="./images/uc3m_logo.png"  alt="UC3M Logo"/>
-          <b id="TITULO">Clase virtual de Interfaces de Usuario </b>
-        </p>
-        <!-- Barra superior con enlaces de interes -->
-        <section id="OPTIONS">
-          <a href="https://aulaglobal.uc3m.es/">Aula Global</a>
-          <a href="http://ocw.uc3m.es/ingenieria-informatica/interfaces-de-usuario">OCW</a>
-          <a href="https://twitter.com/uc3m">Conócenos</a>
-        </section>
-      </header>
+      </li>
+    </ul>
+    <!-- Cabecera con la imagen y titulo -->
+    <p>
+      <img id="LOGO" src="./images/uc3m_logo.png" alt="UC3M Logo" />
+      <b id="TITULO">Clase virtual de Interfaces de Usuario </b>
+    </p>
+    <!-- Barra superior con enlaces de interes -->
+    <section id="OPTIONS">
+      <a href="https://aulaglobal.uc3m.es/">Aula Global</a>
+      <a href="http://ocw.uc3m.es/ingenieria-informatica/interfaces-de-usuario">OCW</a>
+      <a href="https://twitter.com/uc3m">Conócenos</a>
+    </section>
+  </header>
+  <section>
+    <!-- Barra lateral izquierda con enlaces -->
+    <nav class="col-3 col-t-3" id="LINKS">
+      <ul>
+        <b>Interfaces de Usuario</b>
+        <li><a href="#students">Estudiantes</a></li>
+        <li><a href="#course">Foro</a></li>
+        <li><a href="#marks">Calificaciones</a></li>
+        <li class="T-LINKS"><a href="#novelties">Últ. novedades</a></li>
+        <li class="T-LINKS"><a href="#news">Últ. noticias</a></li>
+      </ul>
+    </nav>
+    <!-- Seccion central -->
+    <article class="col-6 col-t-9" id="CENTRAL">
+      <p id="TITLECENTRAL"><b>Foro de la asignatura</b></p>
+
+      <p><button id="BUTTON" type="button">Crear tema</button></p>
+      <table>
+        <tr class="TIT-TABLA">
+          <th>Tema</th>
+          <th>Nº Mensajes</th>
+          <th>Últ. mensaje</th>
+        </tr>
+
+        <!-- Tema 1 -->
+        <tr class="DESC-TABLA">
+          <td>Composición de equipos</td>
+          <td>17</td>
+          <td>18/09/2020 17:44</td>
+        </tr>
+
+        <!-- Tema 2 -->
+        <tr class="DESC-TABLA">
+          <td>Preguntas frecuentes</td>
+          <td>30</td>
+          <td>31/08/2020 12:22</td>
+        </tr>
+        <!-- Tema 3 -->
+        <tr class="DESC-TABLA">
+          <td>Problema con la Práctica 1</td>
+          <td>2</td>
+          <td>29/08/2020 08:13</td>
+        </tr>
+        <!-- Tema 4 -->
+        <tr class="DESC-TABLA">
+          <td>Problemas de horarios</td>
+          <td>9</td>
+          <td>23/08/2020 19:03</td>
+        </tr>
+        <!-- Tema 5 -->
+        <tr class="DESC-TABLA">
+          <td>Fechas para tutorías</td>
+          <td>32</td>
+          <td>15/08/2020 10:54</td>
+        </tr>
+      </table>
+
+    </article>
+
+    <!-- Barra lateral derecha con noticias y novedades -->
+    <aside class="col-3 col-t-3" id="RIGHT">
       <section>
-        <!-- Barra lateral izquierda con enlaces -->
-        <nav class="col-3 col-t-3" id="LINKS">
-          <ul>
-            <b>Interfaces de Usuario</b>
-            <li><a href="#students">Estudiantes</a></li>
-            <li><a href="#course">Foro</a></li>
-            <li><a href="#marks">Calificaciones</a></li>
-            <li class="T-LINKS"><a href="#novelties">Últ. novedades</a></li>
-            <li class="T-LINKS"><a href="#news">Últ. noticias</a></li>
-          </ul>
-        </nav>
-        <!-- Seccion central -->
-        <article class="col-6 col-t-9" id = "CENTRAL">
-           <p class="col-6 col-t-9" id="TITLECENTRAL"><b>Foro de la asignatura</b></p>
-
-             <p><button id="BUTTON" type="button">Crear tema</button></p>
-          <table>
-            <tr>
-              <th class = "TIT-TABLA">Tema</th>
-              <th class = "TIT-TABLA">Nº Mensajes</th>
-              <th class = "TIT-TABLA">Últ. mensaje</th>
-            </tr>
-
-              <!-- Tema 1 -->
-            <tr>
-              <td class = "DESC-TABLA">Composición de equipos</td>
-              <td class = "DESC-TABLA">17</td>
-              <td class = "DESC-TABLA">18/09/2020 17:44</td>
-            </tr>
-
-              <!-- Tema 2 -->
-            <tr>
-              <td class = "DESC-TABLA">Preguntas frecuentes</td>
-              <td class = "DESC-TABLA">30</td>
-              <td class = "DESC-TABLA">31/08/2020 12:22</td>
-            </tr>
-              <!-- Tema 3 -->
-            <tr>
-              <td class = "DESC-TABLA">Problema con la Práctica 1</td>
-              <td class = "DESC-TABLA">2</td>
-              <td class = "DESC-TABLA">29/08/2020 08:13</td>
-            </tr>
-              <!-- Tema 4 -->
-            <tr>
-              <td class = "DESC-TABLA">Problemas de horarios</td>
-              <td class = "DESC-TABLA">9</td>
-              <td class = "DESC-TABLA">23/08/2020 19:03</td>
-            </tr>
-              <!-- Tema 5 -->
-            <tr>
-              <td class = "DESC-TABLA">Fechas para tutorías</td>
-              <td class = "DESC-TABLA">32</td>
-              <td class = "DESC-TABLA">15/08/2020 10:54</td>
-            </tr>
-          </table>
-
-
-
-        </article>
-
-        <!-- Barra lateral derecha con noticias y novedades -->
-        <aside class="col-3 col-t-3" id="RIGHT">
-          <section>
-            <ul>
-              <b>Novedades</b>
-              <li>1/10/2020: Nuevo video subido: La historia de la web</li>
-              <li>29/9/2020: Nuevo articulo subido: Introduccion a HTML</li>
-              <li>18/9/2020: Foro de la asignatura habilitado</li>
-              <li>14/9/2020: Bienvenida a la asignatura</li>
-            </ul>
-          </section>
-          <section>
-            <ul>
-              <b>Noticias</b>
-              <li>5/10/2020: Entrega practica en dos días</li>
-              <li>1/10/2020: Clase online magistral para el dia 3 de octubre</li>
-              <li>28/9/2020: Tutoria colectiva en tres días</li>
-            </ul>
-          </section>
-        </aside>
+        <ul>
+          <b>Novedades</b>
+          <li>1/10/2020: Nuevo video subido: La historia de la web</li>
+          <li>29/9/2020: Nuevo articulo subido: Introduccion a HTML</li>
+          <li>18/9/2020: Foro de la asignatura habilitado</li>
+          <li>14/9/2020: Bienvenida a la asignatura</li>
+        </ul>
       </section>
-      <!-- Pie de pagina -->
-      <footer class="col-12 col-t-12">
-        <p>© 1998-2020 UC3M, inc. All rights reserved. | <a href="https://www.uc3m.es/">UC3M</a> | <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad"> Privacidad </a> </p>
-      </footer>
-    </body>
-  </html>
+      <section>
+        <ul>
+          <b>Noticias</b>
+          <li>5/10/2020: Entrega practica en dos días</li>
+          <li>1/10/2020: Clase online magistral para el dia 3 de octubre</li>
+          <li>28/9/2020: Tutoria colectiva en tres días</li>
+        </ul>
+      </section>
+    </aside>
+  </section>
+  <!-- Pie de pagina -->
+  <footer class="col-12 col-t-12">
+    <p>© 1998-2020 UC3M, inc. All rights reserved. | <a href="https://www.uc3m.es/">UC3M</a> | <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad"> Privacidad </a> </p>
+  </footer>
+</body>
+
+</html>
