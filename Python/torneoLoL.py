@@ -40,8 +40,10 @@ def getRank(nick):
 
 if __name__ == "__main__":
 
-    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('TorneoLoL-91e815443db5.json', scope)
+    scope = ['https://spreadsheets.google.com/feeds',
+             'https://www.googleapis.com/auth/drive']
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+        'TorneoLoL-91e815443db5.json', scope)
     client = gspread.authorize(credentials)
 
     sheet = client.open('SOLOQCHALLENGE').sheet1

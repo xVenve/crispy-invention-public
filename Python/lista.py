@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-
+# - * - coding : utf - 8 - * -
 
 lissaNumbers = [1, 2, 3, 4]  # Crear array
 
