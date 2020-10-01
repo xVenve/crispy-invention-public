@@ -2,21 +2,21 @@
 #include <stdio.h>
 #include <time.h>
 
-int main(){
+int main() {
 
-clcok_t tiempo_inicio, tiempo_final;
-double segundos;
+  clcok_t tiempo_inicio, tiempo_final;
+  double segundos;
 
-tiempo_inicio = clock();
+  tiempo_inicio = clock();
 
-/*operación a medir tiempos, operación básica del código, normalmente bucles*/
+  /*operación a medir tiempos, operación básica del código, normalmente bucles*/
 
-tiempo_final = clock();
+  tiempo_final = clock();
 
-segundos = (double)(tiempo_inicio - timpo_final) / CLOCKS_PER_SEC; /*según que estes midiendo el tiempo en segundos es demasiado grande*/
+  segundos = (double)(tiempo_inicio - timpo_final) /
+             CLOCKS_PER_SEC; /*según que estes midiendo el tiempo en segundos es demasiado grande*/
 
-printf("%f",segundos);
+  printf("%f", segundos);
 
-
-return 0;
+  return 0;
 }

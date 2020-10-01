@@ -20,9 +20,9 @@
  * @param argv
  * @return
  */
-//Creacion de mutex, variables condición y descriptor de fichero:
-//ring controla el buffer
-//des controla el descriptor de fichero
+// Creacion de mutex, variables condición y descriptor de fichero:
+// ring controla el buffer
+// des controla el descriptor de fichero
 pthread_mutex_t ring;
 pthread_mutex_t des;
 pthread_cond_t lleno;
@@ -44,13 +44,13 @@ void *producir(void *arg) {
   struct param *p = arg;
 
   // Hallamos el descriptor que corresponde al primer indice, para que no se mezclen bloqueamos y desbloqueamos
-  if(pthread_mutex_lock(&des) < 0){
+  if (pthread_mutex_lock(&des) < 0) {
     perror("Error de mutex");
     exit(-1);
   }
 
   descriptorP = fopen(fichero, "r");
-  if( descriptorP == NULL){
+  if (descriptorP == NULL) {
     perror("Error al abrir fichero");
     exit(-1);
   }
@@ -65,8 +65,7 @@ void *producir(void *arg) {
   // Almacenamos la posicion por la que va, de esta manera la podemos recuperar.
   FILE *current = descriptorP;
 
-
-  if(pthread_mutex_unlock(&des) < 0){
+  if (pthread_mutex_unlock(&des) < 0) {
     perror("Error de mutex");
     exit(-1);
   }
@@ -75,46 +74,44 @@ void *producir(void *arg) {
   for (int j = p->op; j > 0; j--) {
 
     // Sacamos los valores a introducir en el buffer del puntero, y salvamos la nueva posicion del mismo.
-    if(pthread_mutex_lock(&des) < 0){
+    if (pthread_mutex_lock(&des) < 0) {
       perror("Error de mutex");
       exit(-1);
     }
 
     descriptorP = current;
-    if(fscanf(descriptorP, "%d %d %d", &i, &i1, &i2) < 0){
+    if (fscanf(descriptorP, "%d %d %d", &i, &i1, &i2) < 0) {
       perror("Error al extraer datos archivo");
       exit(-1);
     }
     current = descriptorP;
 
-
-    if(pthread_mutex_unlock(&des) < 0){
+    if (pthread_mutex_unlock(&des) < 0) {
       perror("Error de mutex");
       exit(-1);
     }
 
     struct element temporal = {i1, i2};
 
-    if(pthread_mutex_lock(&ring) < 0){
+    if (pthread_mutex_lock(&ring) < 0) {
       perror("Error de mutex");
       exit(-1);
     }
     while (queue_full(cola))
-      if(pthread_cond_wait(&lleno, &ring) < 0){
+      if (pthread_cond_wait(&lleno, &ring) < 0) {
         perror("Error de variable de condicion");
         exit(-1);
       }
 
-
-    if(queue_put(cola, &temporal) < 0){
+    if (queue_put(cola, &temporal) < 0) {
       perror("Error al insertar");
       exit(-1);
     }
-    if(pthread_cond_signal(&vacio) < 0){
+    if (pthread_cond_signal(&vacio) < 0) {
       perror("Error de variable de condicion");
       exit(-1);
     }
-    if(pthread_mutex_unlock(&ring) < 0){
+    if (pthread_mutex_unlock(&ring) < 0) {
       perror("Error de mutex");
       exit(-1);
     }
@@ -127,19 +124,19 @@ void *consumir(int *numValores) {
   // Bucle de todo mientras no se hallan leido todas las ops esperadas.
   for (int k = 0; k < *numValores; k++) {
 
-    if(pthread_mutex_lock(&ring) < 0){
+    if (pthread_mutex_lock(&ring) < 0) {
       perror("Error de mutex");
       exit(-1);
     }
 
     while (queue_empty(cola))
-      if(pthread_cond_wait(&vacio, &ring) < 0){
+      if (pthread_cond_wait(&vacio, &ring) < 0) {
         perror("Error de variable de condicion");
         exit(-1);
       }
 
     struct element *data = queue_get(cola);
-    if(data==NULL){
+    if (data == NULL) {
       perror("Error al extraer");
       exit(-1);
     }
@@ -160,11 +157,11 @@ void *consumir(int *numValores) {
     default:
       perror("Valor no valido");
     }
-    if(pthread_cond_signal(&lleno) < 0){
+    if (pthread_cond_signal(&lleno) < 0) {
       perror("Error de variable de condicion");
       exit(-1);
     }
-    if(pthread_mutex_unlock(&ring) < 0){
+    if (pthread_mutex_unlock(&ring) < 0) {
       perror("Error de mutex");
       exit(-1);
     }
@@ -174,7 +171,7 @@ void *consumir(int *numValores) {
 
 int calculo_lineas(const char filename[]) {
   FILE *file = fopen(filename, "r");
-  if(file == NULL){
+  if (file == NULL) {
     perror("Error al abrir fichero");
     exit(-1);
   }
@@ -191,20 +188,20 @@ int calculo_lineas(const char filename[]) {
 }
 
 int main(int argc, const char *argv[]) {
-  //Control de errores de los datos iniciales
+  // Control de errores de los datos iniciales
   if (argc > 4) {
     perror("Numero de argumentos invalido");
     return -1;
   }
 
   FILE *descriptor = fopen(argv[1], "r");
-  if(descriptor == NULL){
+  if (descriptor == NULL) {
     perror("Error al abrir fichero");
     exit(-1);
   }
 
   int numVal;
-  if(fscanf(descriptor, "%d", &numVal) < 0){
+  if (fscanf(descriptor, "%d", &numVal) < 0) {
     perror("Error al extraer datos archivo");
     exit(-1);
   }
@@ -226,32 +223,32 @@ int main(int argc, const char *argv[]) {
   }
 
   cola = queue_init(size);
-  if(pthread_mutex_init(&ring, NULL) < 0){
+  if (pthread_mutex_init(&ring, NULL) < 0) {
     perror("Error inicializar variable de condicion");
     exit(-1);
   }
-  if(pthread_mutex_init(&des, NULL) < 0){
+  if (pthread_mutex_init(&des, NULL) < 0) {
     perror("Error inicializar variable de condicion");
     exit(-1);
   }
-  if(pthread_cond_init(&lleno, NULL) < 0){
+  if (pthread_cond_init(&lleno, NULL) < 0) {
     perror("Error inicializar mutex");
     exit(-1);
   }
-  if(pthread_cond_init(&vacio, NULL) < 0){
+  if (pthread_cond_init(&vacio, NULL) < 0) {
     perror("Error inicializar mutex");
     exit(-1);
   }
-  //Creamos los hilos y establecemos el nº de operaciones que hará cada uno
+  // Creamos los hilos y establecemos el nº de operaciones que hará cada uno
   int operaciones = floor((numVal / productores));
   int id_inicio = 1;
   pthread_t hilosP[productores];
   pthread_t hiloC;
-  if(pthread_create(&hiloC, NULL, (void *)consumir, &numVal) < 0){
+  if (pthread_create(&hiloC, NULL, (void *)consumir, &numVal) < 0) {
     perror("Error al crear hilo");
     exit(-1);
   }
-  //Ejecución de las operaciones
+  // Ejecución de las operaciones
   int i;
   fichero = malloc(sizeof(char[strlen(argv[1])]));
   fichero = argv[1];
@@ -260,7 +257,7 @@ int main(int argc, const char *argv[]) {
     args[i].op = operaciones;
     args[i].id_ini = id_inicio;
 
-    if(pthread_create(&hilosP[i], NULL, (void *)producir, &args[i]) < 0){
+    if (pthread_create(&hilosP[i], NULL, (void *)producir, &args[i]) < 0) {
       perror("Error al crear hilo");
       exit(-1);
     }
@@ -271,46 +268,46 @@ int main(int argc, const char *argv[]) {
   args[productores - 1].op = op_ultimo;
   args[productores - 1].id_ini = id_inicio;
 
-  //Control de errores de operaciones y valores finales
-  if(pthread_create(&hilosP[productores - 1], NULL, (void *)producir, &args[productores - 1]) < 0){
+  // Control de errores de operaciones y valores finales
+  if (pthread_create(&hilosP[productores - 1], NULL, (void *)producir, &args[productores - 1]) < 0) {
     perror("Error al crear hilo");
     exit(-1);
   }
 
   for (int i = 0; i < productores; i++) {
-    if(pthread_join(hilosP[i], NULL) < 0){
+    if (pthread_join(hilosP[i], NULL) < 0) {
       perror("Error al esperar al hilo");
       exit(-1);
     }
   }
-  if(pthread_join(hiloC, NULL) < 0){
+  if (pthread_join(hiloC, NULL) < 0) {
     perror("Error al esperar al hilo");
     exit(-1);
   }
 
   printf("Total: %i €.\n", total);
   queue_destroy(cola);
-  if(pthread_mutex_destroy(&des) < 0){
+  if (pthread_mutex_destroy(&des) < 0) {
     perror("Error al destruir mutex");
     exit(-1);
   }
-  if(pthread_mutex_destroy(&ring) < 0){
+  if (pthread_mutex_destroy(&ring) < 0) {
     perror("Error al destruir mutex");
     exit(-1);
   }
-  if(  pthread_cond_destroy(&lleno) < 0){
+  if (pthread_cond_destroy(&lleno) < 0) {
     perror("Error al destruir variable condicion");
     exit(-1);
   }
-  if(pthread_cond_destroy(&vacio) < 0){
+  if (pthread_cond_destroy(&vacio) < 0) {
     perror("Error al destruir variable condicion");
     exit(-1);
   }
-  if(fclose(descriptorP) < 0){
+  if (fclose(descriptorP) < 0) {
     perror("Error al cerrar descriptor");
     exit(-1);
   }
-  if(fclose(descriptor) < 0){
+  if (fclose(descriptor) < 0) {
     perror("Error al cerrar descriptor");
     exit(-1);
   }
