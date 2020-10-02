@@ -15,6 +15,6 @@ int main(){
     int edad;
     cin >>edad;
 
-    cout <<"Hola, " <<nombre <<" " <<apellido1 <<" "<<apellido2 <<" de " <<edad <<" años";
+    cout <<"Hola, " <<nombre <<" " <<apellido1 <<" "<<apellido2 <<" de " <<edad <<" años \n";
     return 0;
 }
