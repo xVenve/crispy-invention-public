@@ -67,10 +67,6 @@ p {
   padding-top: 15px;
 }
 
-#LOGO {
-  width: 350px;
-}
-
 /*Estilo para menu de opciones*/
 #OPTIONS {
   font-family: Helvetica;
@@ -279,6 +275,10 @@ td {
   padding-right: 1%;
   text-align: center;
   border: 1px solid black;
+}
+
+.NOMBRE {
+  text-align: left;
 }
 
 table {

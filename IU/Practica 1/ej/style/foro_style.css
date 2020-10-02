@@ -67,10 +67,6 @@ p {
   padding-top: 15px;
 }
 
-#LOGO {
-  width: 350px;
-}
-
 /*Estilo para menu de opciones*/
 #OPTIONS {
   font-family: Helvetica;
@@ -121,10 +117,6 @@ ul {
 
 li {
   padding: 5px;
-}
-
-img {
-  width: 190px;
 }
 
 th {
