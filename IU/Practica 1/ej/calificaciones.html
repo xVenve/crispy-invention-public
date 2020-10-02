@@ -18,17 +18,18 @@
           <div class="GUION"></div>
         </a>
         <ul>
-          <li><a href="#students">Estudiantes</a></li>
-          <li><a href="#course">Foro</a></li>
-          <li><a href="#marks">Calificaciones</a></li>
+          <li><a href="./lista_alumnos.html">Estudiantes</a></li>
+          <li><a href="./foro.html">Foro</a></li>
+          <li><a href="./calificaciones.html">Calificaciones</a></li>
           <li><a href="#novelties">Últ. novedades</a></li>
           <li><a href="#news">Últ. noticias</a></li>
         </ul>
       </li>
     </ul>
-    <!-- Cabecera con la imagen y titulo -->    <p>
-      <img id="LOGO" src="./images/uc3m_logo.png" alt="UC3M Logo" />
-      <b id="TITULO">Clase virtual de Interfaces de Usuario </b>
+    <!-- Cabecera con la imagen y titulo -->
+    <p>
+      <a href="./main.html"><img class="col-3" src="./images/uc3m_logo.png" alt="UC3M Logo" /></a>
+      <b id="TITULO" class="col-9">Clase virtual de Interfaces de Usuario </b>
     </p>
     <!-- Barra superior con enlaces de interes -->
     <section id="OPTIONS">
@@ -42,9 +43,9 @@
     <nav class="col-3 col-t-3" id="LINKS">
       <ul>
         <b>Interfaces de Usuario</b>
-        <li><a href="#students">Estudiantes</a></li>
-        <li><a href="#course">Foro</a></li>
-        <li><a href="#marks">Calificaciones</a></li>
+        <li><a href="./lista_alumnos.html">Estudiantes</a></li>
+        <li><a href="./foro.html">Foro</a></li>
+        <li><a href="./calificaciones.html">Calificaciones</a></li>
         <li class="T-LINKS"><a href="#novelties">Últ. novedades</a></li>
         <li class="T-LINKS"><a href="#news">Últ. noticias</a></li>
       </ul>
@@ -63,7 +64,7 @@
 
         <!-- Alumno 1 -->
         <tr>
-          <td>Carlos Rubio Olivares</td>
+          <td class="NOMBRE">Carlos Rubio Olivares</td>
           <td>8.00</td>
           <td>8.50</td>
           <td>9.00</td>
@@ -71,7 +72,7 @@
 
         <!-- Alumno 2 -->
         <tr>
-          <td>Jorge Rodriguez Fraile</td>
+          <td class="NOMBRE">Jorge Rodriguez Fraile</td>
           <td>10.00</td>
           <td>7.75</td>
           <td>8.50</td>
@@ -80,7 +81,7 @@
 
         <!-- Alumno 3 -->
         <tr>
-          <td>Ivan Serrano Garcia</td>
+          <td class="NOMBRE">Ivan Serrano Garcia</td>
           <td>7.40</td>
           <td>7.75</td>
           <td>8.00</td>
@@ -88,7 +89,7 @@
 
         <!-- Alumno 4 -->
         <tr>
-          <td>Francisco José Ruiz de la Cruz</td>
+          <td class="NOMBRE">Francisco José Ruiz de la Cruz</td>
           <td>7.00</td>
           <td>7.30</td>
           <td>6.70</td>
@@ -96,7 +97,7 @@
 
         <!-- Alumno 6 -->
         <tr>
-          <td>Daniel Cano Robledo</td>
+          <td class="NOMBRE">Daniel Cano Robledo</td>
           <td>9.00</td>
           <td>8.75</td>
           <td>9.20</td>
@@ -104,7 +105,7 @@
 
         <!-- Alumno 7 -->
         <tr>
-          <td>Maria Sanchez Blazquez</td>
+          <td class="NOMBRE">Maria Sanchez Blazquez</td>
           <td>6.20</td>
           <td>5.50</td>
           <td>4.75</td>
@@ -112,7 +113,7 @@
 
         <!-- Alumno 8 -->
         <tr>
-          <td>Luis Acero Morata</td>
+          <td class="NOMBRE">Luis Acero Morata</td>
           <td>5.20</td>
           <td>4.50</td>
           <td>6.50</td>
@@ -120,7 +121,7 @@
 
         <!-- Alumno 9 -->
         <tr>
-          <td>Paula Alvarez Rey</td>
+          <td class="NOMBRE">Paula Alvarez Rey</td>
           <td>7.50</td>
           <td>7.00</td>
           <td>6.75</td>
@@ -128,7 +129,7 @@
 
         <!-- Alumno 10 -->
         <tr>
-          <td>Xu Chen</td>
+          <td class="NOMBRE">Xu Chen</td>
           <td>6.50</td>
           <td>7.30</td>
           <td>7.75</td>
@@ -141,22 +142,22 @@
     <!-- Barra lateral derecha con noticias y novedades -->
     <aside class="col-3 col-t-3" id="RIGHT">
       <section>
-        <ul>
-          <b>Novedades</b>
-          <li>1/10/2020: Nuevo video subido: La historia de la web</li>
-          <li>29/9/2020: Nuevo articulo subido: Introduccion a HTML</li>
-          <li>18/9/2020: Foro de la asignatura habilitado</li>
-          <li>14/9/2020: Bienvenida a la asignatura</li>
-        </ul>
-      </section>
-      <section>
-        <ul>
-          <b>Noticias</b>
-          <li>5/10/2020: Entrega practica en dos días</li>
-          <li>1/10/2020: Clase online magistral para el dia 3 de octubre</li>
-          <li>28/9/2020: Tutoria colectiva en tres días</li>
-        </ul>
-      </section>
+  <ul>
+    <b>Novedades</b>
+    <li>1/10/2020 - Nuevo video subido: La historia de la web</li>
+    <li>29/9/2020 - Nuevo articulo subido: Introduccion a HTML</li>
+    <li>18/9/2020 - Foro de la asignatura habilitado</li>
+    <li>14/9/2020 - Bienvenida a la asignatura</li>
+  </ul>
+</section>
+<section>
+  <ul>
+    <b>Noticias</b>
+    <li>5/10/2020 - Entrega practica en dos días</li>
+    <li>1/10/2020 - Clase online magistral para el dia 3 de octubre</li>
+    <li>28/9/2020 - Tutoria colectiva en tres días</li>
+  </ul>
+</section>
     </aside>
   </section>
   <!-- Pie de pagina -->

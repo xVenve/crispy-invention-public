@@ -67,10 +67,6 @@ p {
   padding-top: 15px;
 }
 
-#LOGO {
-  width: 350px;
-}
-
 /*Estilo para menu de opciones*/
 #OPTIONS {
   font-family: Helvetica;
@@ -123,17 +119,13 @@ li {
   padding: 5px;
 }
 
-img {
-  width: 190px;
-}
-
 .BUTTON {
   background-color: #a2798f;
 }
 
 .AVATAR {
-  height: 30px;
-  width: 30px;
+  height: 50px;
+  width: 50px;
 }
 
 /*Version movil*/
