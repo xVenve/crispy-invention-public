@@ -1,0 +1,53 @@
+data;
+
+set FRANJA := F1 F2 F3 F4 F5 F6;
+set PISTA := P1 P2 P3 P4;
+set AVION := A1 A2 A3 A4 A5;
+set SLOT :=
+-----------set PLANE within ZONE;
+
+param ocupado binary: F1 F2 F3 F4 F5 F6:=
+P1  1 1 1 1 0 0
+P2  1 1 0 0 1 1
+P3  0 0 0 1 1 0
+P4  0 1 1 1 0 0;
+
+param hora_programada  :=
+A1  550
+A2  535
+A3  580
+A4  595
+A5  610;
+
+param hora_limite :=
+A1  615
+A2  570
+A3  600
+A4  615
+A5  630;
+
+param coste :=
+A1  100
+A2  200
+A3  150
+A4  250
+A5  200;
+
+
+param inicio :=
+F1  540
+F2  570
+F3  600
+F4  630
+F5  660
+F6  680;
+
+param fin :=
+F1  555
+F2  585
+F3  615
+F4  645
+F5  675
+F6  695;
+
+end;
