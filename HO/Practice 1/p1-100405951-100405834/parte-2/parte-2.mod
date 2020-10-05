@@ -15,17 +15,28 @@ param fin{f in FRANJA};
 
 /* variables */
 
-var binary avion-slot (a in AVION, s in SLOT)
+var avion_franja{a in AVION, f in FRANJA} binary;
+var horario{p in PISTA, f in FRANJA} binary;
+
 
 /* funcion objetivo */
 
-minimize gastos_extras: sum{a in AVION, f in FRANJA} coste[a]*(hora_limite[a]-inicio[f])
+minimize gastos_extras: sum{a in AVION, f in FRANJA} coste[a]*(hora_limite[a]-inicio[f]*avion_franja[a,f]);
 
-s.d. cadaAvionTieneUnSlot {a in AVION} := sum (avion-slot[a]) >= 1
+/* restricciones */
+
+s.t. cadaAvionTieneUnSlot{a in AVION} : sum{f in FRANJA} avion_franja[a,f] = 1;
+
+s.t. obligarNoDisponibles{p in PISTA, f in FRANJA} : horario[p,f] >= ocupado[p,f];
+s.t. noMasDe1PorSlot{p in PISTA, f in FRANJA} : horario[p,f] <= 1;
+
 
 end;
 
+/*ideas 2*/
 
+s.t. asignarfranja{a in AVION, f in FRANJA} : sum{p in PISTA} horario[p,f] = avion_franja[a,f];
+s.t. noDeLosPosiblesPorFranja{f in FRANJA} : 4 - sum{p in PISTA} horario[p,f] <= sum{a in AVION} avion_franja[a,f];
 
 
 
@@ -36,16 +47,16 @@ var tabla_slot{p in PISTA, f in FRANJA} binary >= 0;
 
 minimize gastos_extras: sum{a in AVION, f in FRANJA} coste[a]*(hora_limite[a]-inicio[f])
 
-s.d. llega {a in AVION}:= asigL[a,f]*inicio[f] >= hora_llegada[a]
-s.d. llega {a in AVION}:= asigS[a,f]*fin[f] <= hora_limite[a]
+s.t. llega {a in AVION}:= asigL[a,f]*inicio[f] >= hora_llegada[a]
+s.t. llega {a in AVION}:= asigS[a,f]*fin[f] <= hora_limite[a]
 [a,f]
-s.d. aviontengaslot {}:=
+s.t. aviontengaslot {}:=
 
 
 
-s.d. cadaAvionTieneUnSlot
-s.d. llega {a in AVION}:= asigL[a,f]*inicio[f] >= hora_llegada[a]
-s.d. llegaYlibre {a in AVION}:= matriz[i,j]*asigL[a,f] <= 0 --> todas las libres y que ademas son factibles para el vuelo
+s.t. cadaAvionTieneUnSlot
+s.t. llega {a in AVION}:= asigL[a,f]*inicio[f] >= hora_llegada[a]
+s.t. llegaYlibre {a in AVION}:= matriz[i,j]*asigL[a,f] <= 0 --> todas las libres y que ademas son factibles para el vuelo
 
 1--> ocupado
 0--> libre
@@ -58,7 +69,7 @@ s.d. llegaYlibre {a in AVION}:= matriz[i,j]*asigL[a,f] <= 0 --> todas las libres
 
 a in avion      ij=
 
-s.d. slottenga1avion {
+s.t. slottenga1avion {
 
 {
 0 0 0 0 1 1
@@ -68,7 +79,7 @@ s.d. slottenga1avion {
 
 
 
-s.d. asignar {a in AVION} := sum{f in FRANJA} asig[a,f] <= 1
+s.t. asignar {a in AVION} := sum{f in FRANJA} asig[a,f] <= 1
 
 asigL
     0 1 0 0 0 0

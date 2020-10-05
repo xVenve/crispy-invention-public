@@ -3,10 +3,8 @@ data;
 set FRANJA := F1 F2 F3 F4 F5 F6;
 set PISTA := P1 P2 P3 P4;
 set AVION := A1 A2 A3 A4 A5;
-set SLOT :=
------------set PLANE within ZONE;
 
-param ocupado binary: F1 F2 F3 F4 F5 F6:=
+param ocupado: F1 F2 F3 F4 F5 F6:=
 P1  1 1 1 1 0 0
 P2  1 1 0 0 1 1
 P3  0 0 0 1 1 0
