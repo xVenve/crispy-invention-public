@@ -58,8 +58,9 @@ header {
   font-family: Arial;
 }
 
-.TIT-TEMA {
-  font-size: 17px;
+h2 {
+  padding-top: 15px;
+  font-size: 22px;
   font-family: Arial;
 }
 
