@@ -28,8 +28,8 @@ minimize gastos_extras: sum{a in AVION, f in FRANJA} coste[a]*(hora_limite[a]-in
 s.t. cadaAvionTieneUnSlot{a in AVION} : sum{f in FRANJA} avion_franja[a,f] = 1;
 
 s.t. obligarNoDisponibles{p in PISTA, f in FRANJA} : horario[p,f] >= ocupado[p,f];
+/* s.t. tenerEnCuentaElTotal : sum{p in PISTA, f in FRANJA} horario[p,f] = sum{p in PISTA, f in FRANJA} (ocupado[p,f])+(sum{a in AVION, f in FRANJA}avion_franja[a,f]); */
 s.t. noMasDe1PorSlot{p in PISTA, f in FRANJA} : horario[p,f] <= 1;
-
 
 end;
 
