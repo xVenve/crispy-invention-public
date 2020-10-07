@@ -59,7 +59,6 @@ footer {
 
 section::after {
   content: "";
-  clear: both;
   display: table;
 }
 
