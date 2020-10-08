@@ -1,0 +1,293 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+/*Estilo para el cuerpo de la web*/
+body {
+  background-color: #8caba8;
+}
+
+/* Estilo para el menu hamburguesa*/
+.HAMBURGUER {
+  display: none;
+}
+
+.HAMBURGUER>li {
+  float: left;
+}
+
+.HAMBURGUER li a {
+  background-color: #ebdada;
+  color: black;
+  text-decoration: none;
+  padding: 0 0;
+  display: block;
+}
+
+.HAMBURGUER li ul {
+  display: none;
+  position: absolute;
+}
+
+.HAMBURGUER li:hover>ul {
+  display: block;
+}
+
+.GUION {
+  width: 20px;
+  height: 3px;
+  background-color: black;
+  margin: 4px 0;
+}
+
+/*Estilo para la cabezera*/
+header {
+  background-color: #ebdada;
+}
+
+/*Estilo para los titulos*/
+#TITULO {
+  font-size: 45px;
+  font-family: Helvetica;
+}
+
+/*Estilo para parrafos, links e imagenes*/
+a {
+  padding: 15px;
+}
+
+.T-LINKS {
+  display: none;
+}
+
+p {
+  padding-top: 15px;
+}
+
+/*Estilo para menu de opciones*/
+#OPTIONS {
+  font-family: Helvetica;
+  background: #a2798f;
+  font-size: 25px;
+  text-align: center;
+}
+
+/*Estilo del footer*/
+footer {
+  text-align: center;
+  padding: 3px;
+  background-color: #a2798f;
+  color: white;
+  display: grid;
+  font-family: Helvetica;
+  font-size: 13px;
+}
+
+/*Estilo de la parte izquierda*/
+#LINKS {
+  font-family: Helvetica;
+  padding: 20px;
+  float: left;
+  background-color: #8caba8;
+}
+
+/*Estilo de la parte central*/
+#CENTRAL {
+  padding: 20px;
+  float: left;
+  background-color: #dfdfde;
+}
+
+/*Estilo de la parte derecha*/
+#RIGHT {
+  display: grid;
+  padding: 20px;
+  float: left;
+  font-family: Helvetica;
+  background-color: #8caba8;
+}
+
+/*Estio de las listas*/
+ul {
+  list-style-type: none;
+}
+
+li {
+  padding: 5px;
+}
+
+.BUTTON {
+  background-color: #a2798f;
+}
+
+.AVATAR {
+  height: 50px;
+  width: 50px;
+}
+
+/*Version movil*/
+.col-1 {
+  width: 8.33%;
+}
+
+.col-2 {
+  width: 16.66%;
+}
+
+.col-3 {
+  width: 25%;
+}
+
+.col-4 {
+  width: 33.33%;
+}
+
+.col-5 {
+  width: 41.66%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+.col-7 {
+  width: 58.33%;
+}
+
+.col-8 {
+  width: 66.66%;
+}
+
+.col-9 {
+  width: 75%;
+}
+
+.col-10 {
+  width: 83.33%;
+}
+
+.col-11 {
+  width: 91.66%;
+}
+
+.col-12 {
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+
+  /*Movil*/
+  [class*="col-"] {
+    float: left;
+    width: 100%;
+  }
+
+  #TITULO {
+    font-size: 18px;
+    padding-left: 20px;
+  }
+
+  #LINKS, #RIGHT, #LOGO, #OPTIONS {
+    display: none;
+  }
+
+  .HAMBURGUER {
+    display: block;
+    font-family: Helvetica;
+  }
+}
+
+/*Version para tablet*/
+@media only screen and (max-width: 768px) and (min-width: 600px) {
+
+  /*Tablet*/
+  .col-t-1 {
+    width: 8.33%;
+  }
+
+  .col-t-2 {
+    width: 16.66%;
+  }
+
+  .col-t-3 {
+    width: 25%;
+  }
+
+  .col-t-4 {
+    width: 33.33%;
+  }
+
+  .col-t-5 {
+    width: 41.66%;
+  }
+
+  .col-t-6 {
+    width: 50%;
+  }
+
+  .col-t-7 {
+    width: 58.33%;
+  }
+
+  .col-t-8 {
+    width: 66.66%;
+  }
+
+  .col-t-9 {
+    width: 75%;
+  }
+
+  .col-t-10 {
+    width: 83.33%;
+  }
+
+  .col-t-11 {
+    width: 91.66%;
+  }
+
+  .col-t-12 {
+    width: 100%;
+  }
+
+  #RIGHT {
+    display: none;
+  }
+
+  .T-LINKS {
+    display: block;
+  }
+
+  #TITULO {
+    font-size: 22px;
+  }
+}
+
+th {
+  border: 1px solid black;
+  text-align: center;
+  font-size: 16px;
+}
+
+td {
+  font-size: 14px;
+  padding-left: 1%;
+  padding-right: 1%;
+  text-align: center;
+  border: 1px solid black;
+  word-wrap: break-word;
+}
+
+table {
+  font-family: Verdana;
+  border-collapse: collapse;
+}
+
+#TITLECENTRAL {
+  text-align: center;
+  font-size: 35px;
+  font-family: Helvetica;
+  padding-bottom: 10px;
+}
