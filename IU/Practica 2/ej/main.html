@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 
+
+
 <head>
   <title>Interfaces de Usuario</title>
   <meta charset="utf-8">
@@ -18,17 +20,18 @@
           <div class="GUION"></div>
         </a>
         <ul>
-          <li><a href="./lista_alumnos.html">Estudiantes</a></li>
-          <li><a href="./foro.html">Foro</a></li>
-          <li><a href="./calificaciones.html">Calificaciones</a></li>
-          <li><a href="#novelties">Últ. novedades</a></li>
-          <li><a href="#news">Últ. noticias</a></li>
+          <li id="linkmain_h">Interfaces de Usuario</li>
+          <li id="linkestudiantes_h">Estudiantes</li>
+          <li id="linkforo_h">Foro</li>
+          <li id="linkcalificaciones_h">Calificaciones</li>
+          <li class="T-LINKS">Últ. novedades</li>
+          <li class="T-LINKS">Últ. noticias</li>
         </ul>
       </li>
     </ul>
     <!-- Cabecera con la imagen y titulo -->
     <p>
-      <a href="./main.html"><img class="col-3" src="./images/uc3m_logo.png" alt="UC3M Logo" /></a>
+      <img class="col-3" src="./images/uc3m_logo.png" alt="UC3M Logo" />
       <b id="TITULO" class="col-9">Clase virtual de Interfaces de Usuario </b>
     </p>
     <!-- Barra superior con enlaces de interes -->
@@ -42,16 +45,16 @@
     <!-- Barra lateral izquierda con enlaces -->
     <nav class="col-3 col-t-3" id="LINKS">
       <ul>
-        <li><h3>Interfaces de Usuario</h3></li>
-        <li><a href="./lista_alumnos.html">Estudiantes</a></li>
-        <li><a href="./foro.html">Foro</a></li>
-        <li><a href="./calificaciones.html">Calificaciones</a></li>
-        <li class="T-LINKS"><a href="#novelties">Últ. novedades</a></li>
-        <li class="T-LINKS"><a href="#news">Últ. noticias</a></li>
+        <li><h3 id="linkmain">Interfaces de Usuario</h3></li>
+        <li id="linkestudiantes">Estudiantes</li>
+        <li id="linkforo">Foro</li>
+        <li id="linkcalificaciones">Calificaciones</li>
+        <li class="T-LINKS">Últ. novedades</li>
+        <li class="T-LINKS">Últ. noticias</li>
       </ul>
     </nav>
-    <!-- Seccion central -->
-    <article class="col-6 col-t-9" id="CENTRAL">
+    <!-- Seccion central main -->
+    <article class="col-6 col-t-9" id="CENTRAL_MAIN">
 
       <!-- Tema 1 -->
       <article class="TEMA">
@@ -163,6 +166,239 @@
 
     </article>
 
+    <!-- Seccion central calificaciones -->
+    <article class="col-6 col-t-9" id="CENTRAL_CALIFICACIONES">
+      <p id="TITLECENTRAL"><b>Calificaciones</b></p>
+
+      <table class="col-12">
+        <tr>
+          <th>Estudiante</th>
+          <th>Actividad 1</th>
+          <th>Actividad 2</th>
+          <th>Actividad 3</th>
+        </tr>
+
+        <!-- Alumno 1 -->
+        <tr>
+          <td class="NOMBRE">Carlos Rubio Olivares</td>
+          <td>8.00</td>
+          <td>8.50</td>
+          <td>9.00</td>
+        </tr>
+
+        <!-- Alumno 2 -->
+        <tr>
+          <td class="NOMBRE">Jorge Rodriguez Fraile</td>
+          <td>10.00</td>
+          <td>7.75</td>
+          <td>8.50</td>
+
+        </tr>
+
+        <!-- Alumno 3 -->
+        <tr>
+          <td class="NOMBRE">Ivan Serrano Garcia</td>
+          <td>7.40</td>
+          <td>7.75</td>
+          <td>8.00</td>
+        </tr>
+
+        <!-- Alumno 4 -->
+        <tr>
+          <td class="NOMBRE">Francisco José Ruiz de la Cruz</td>
+          <td>7.00</td>
+          <td>7.30</td>
+          <td>6.70</td>
+        </tr>
+
+        <!-- Alumno 6 -->
+        <tr>
+          <td class="NOMBRE">Daniel Cano Robledo</td>
+          <td>9.00</td>
+          <td>8.75</td>
+          <td>9.20</td>
+        </tr>
+
+        <!-- Alumno 7 -->
+        <tr>
+          <td class="NOMBRE">Maria Sanchez Blazquez</td>
+          <td>6.20</td>
+          <td>5.50</td>
+          <td>4.75</td>
+        </tr>
+
+        <!-- Alumno 8 -->
+        <tr>
+          <td class="NOMBRE">Luis Acero Morata</td>
+          <td>5.20</td>
+          <td>4.50</td>
+          <td>6.50</td>
+        </tr>
+
+        <!-- Alumno 9 -->
+        <tr>
+          <td class="NOMBRE">Paula Alvarez Rey</td>
+          <td>7.50</td>
+          <td>7.00</td>
+          <td>6.75</td>
+        </tr>
+
+        <!-- Alumno 10 -->
+        <tr>
+          <td class="NOMBRE">Xu Chen</td>
+          <td>6.50</td>
+          <td>7.30</td>
+          <td>7.75</td>
+        </tr>
+
+      </table>
+
+    </article>
+
+    <!-- Seccion central foro-->
+    <article class="col-6 col-t-9" id="CENTRAL_FORO">
+      <p id="TITLECENTRAL"><b>Foro de la asignatura</b></p>
+
+      <p><button id="BUTTON" type="button">Crear tema</button></p>
+      <table>
+        <tr class="TIT-TABLA">
+          <th>Tema</th>
+          <th>Nº Mensajes</th>
+          <th>Últ. mensaje</th>
+        </tr>
+
+        <!-- Tema 1 -->
+        <tr class="DESC-TABLA">
+          <td>Composición de equipos</td>
+          <td>17</td>
+          <td>18/09/2020 17:44</td>
+        </tr>
+
+        <!-- Tema 2 -->
+        <tr class="DESC-TABLA">
+          <td>Preguntas frecuentes</td>
+          <td>30</td>
+          <td>31/08/2020 12:22</td>
+        </tr>
+        <!-- Tema 3 -->
+        <tr class="DESC-TABLA">
+          <td>Problema con la Práctica 1</td>
+          <td>2</td>
+          <td>29/08/2020 08:13</td>
+        </tr>
+        <!-- Tema 4 -->
+        <tr class="DESC-TABLA">
+          <td>Problemas de horarios</td>
+          <td>9</td>
+          <td>23/08/2020 19:03</td>
+        </tr>
+        <!-- Tema 5 -->
+        <tr class="DESC-TABLA">
+          <td>Fechas para tutorías</td>
+          <td>32</td>
+          <td>15/08/2020 10:54</td>
+        </tr>
+      </table>
+
+    </article>
+
+    <!-- Seccion central lista_alumnos -->
+    <article class="col-6 col-t-9" id="CENTRAL_LISTA">
+      <p id="TITLECENTRAL"><b>Listado de estudiantes</b></p>
+      <table class="col-12 col-t-12">
+        <tr>
+          <th></th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th></th>
+        </tr>
+
+        <!-- Alumno 1 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Carlos.jpg" alt="CarlosRubio" /></td>
+          <td>Carlos</td>
+          <td>Rubio Olivares</td>
+          <td>100405834@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405834@alumnos.uc3m.es';">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 2 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Jorge.jpg" alt="JorgeRodriguez" /></td>
+          <td>Jorge</td>
+          <td>Rodriguez Fraile</td>
+          <td>100405951@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405951@alumnos.uc3m.es';">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 3 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Ivan.jpg" alt="IvanSerrano" /></td>
+          <td>Ivan</td>
+          <td>Serrano Garcia</td>
+          <td>100405836@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405836@alumnos.uc3m.es';">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 4 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Fran.jpg" alt="FranciscoJoseRuiz" /></td>
+          <td>Francisco José</td>
+          <td>Ruiz de la Cruz</td>
+          <td>100405807@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405807@alumnos.uc3m.es';">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 6 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Daniel.jpg" alt="DanielCano" /></td>
+          <td>Daniel</td>
+          <td>Cano Robledo</td>
+          <td>100405810@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405810@alumnos.uc3m.es';">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 7 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Maria.jpg" alt="MariaSanchez" /></td>
+          <td>Maria</td>
+          <td>Sanchez Blazquez</td>
+          <td>100405838@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405838@alumnos.uc3m.es';">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 8 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Luis.jpg" alt="LuisAcero" /></td>
+          <td>Luis</td>
+          <td>Acero Morata</td>
+          <td>100405985@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405985@alumnos.uc3m.es';">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 9 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Paula.jpg" alt="PaulaAlvarez" /></td>
+          <td>Paula</td>
+          <td>Alvarez Rey</td>
+          <td>100366670@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100366670@alumnos.uc3m.es';">Enviar mensaje</button></td>
+        </tr>
+
+        <!-- Alumno 10 -->
+        <tr>
+          <td><img class="AVATAR" src="./images/Xu.jpg" alt="XuChen" /></td>
+          <td>Xu</td>
+          <td>Chen</td>
+          <td>100406010@alumnos.uc3m.es</td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100406010@alumnos.uc3m.es';">Enviar mensaje</button></td>
+        </tr>
+
+      </table>
+
+    </article>
+
     <!-- Barra lateral derecha con noticias y novedades -->
     <aside class="col-3 col-t-3" id="RIGHT">
       <section>
@@ -189,5 +425,5 @@
     <p>© 1998-2020 UC3M, inc. All rights reserved. | <a href="https://www.uc3m.es/">UC3M</a> | <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad"> Privacidad </a> </p>
   </footer>
 </body>
-
+<script src="./script/script_main.js"></script>
 </html>
