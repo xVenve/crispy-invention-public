@@ -105,10 +105,59 @@ footer {
 }
 
 /*Estilo de la parte central*/
-#CENTRAL {
+#CENTRAL_MAIN {
   padding: 20px;
   float: left;
   background-color: #dfdfde;
+}
+/*Estilo de la parte central de calificaciones*/
+#CENTRAL_CALIFICACIONES {
+  padding: 20px;
+  float: left;
+  background-color: #dfdfde;
+}
+/*Estilo de la parte central de foro*/
+#CENTRAL_FORO {
+  padding: 20px;
+  float: left;
+  background-color: #dfdfde;
+}
+/*Estilo de la parte central de la lista*/
+#CENTRAL_LISTA {
+  padding: 20px;
+  float: left;
+  background-color: #dfdfde;
+}
+/*Estilo para tabla de lista*/
+.BUTTON {
+  background-color: #a2798f;
+}
+
+.AVATAR {
+  height: 50px;
+  width: 50px;
+}
+ 
+/*Estilo para boton*/
+#BUTTON {
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 10px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: #a2798f;
+}
+
+/*Estilo para tabla de foro*/
+.DESC-TABLA {
+  font-family: Arial;
+  font-size: 16px;
+}
+
+.TIT-TABLA {
+  font-family: Arial;
+  font-size: 17px;
 }
 
 .VIDEO_DESCRIPTION {
@@ -281,4 +330,36 @@ li {
   #TITULO {
     font-size: 22px;
   }
+
+}
+/*ESTILO PARA TABLA DE CALIFACIONES*/
+th {
+  border: 1px solid black;
+  text-align: center;
+  font-size: 16px;
+}
+
+td {
+  font-size: 14px;
+  padding-left: 1%;
+  padding-right: 1%;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.NOMBRE {
+  text-align: left;
+}
+
+table {
+  font-family: Verdana;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#TITLECENTRAL {
+  text-align: center;
+  font-size: 35px;
+  font-family: Helvetica;
+  padding-bottom: 10px;
 }
