@@ -20,7 +20,7 @@ body {
 }
 
 .HAMBURGUER li a {
-  background-color: #ebdada;
+  background-color: #8caba8;
   color: black;
   text-decoration: none;
   padding: 0 0;
@@ -110,24 +110,28 @@ footer {
   float: left;
   background-color: #dfdfde;
 }
+
 /*Estilo de la parte central de calificaciones*/
 #CENTRAL_CALIFICACIONES {
   padding: 20px;
   float: left;
   background-color: #dfdfde;
 }
+
 /*Estilo de la parte central de foro*/
 #CENTRAL_FORO {
   padding: 20px;
   float: left;
   background-color: #dfdfde;
 }
+
 /*Estilo de la parte central de la lista*/
 #CENTRAL_LISTA {
   padding: 20px;
   float: left;
   background-color: #dfdfde;
 }
+
 /*Estilo para tabla de lista*/
 .BUTTON {
   background-color: #a2798f;
@@ -137,7 +141,7 @@ footer {
   height: 50px;
   width: 50px;
 }
- 
+
 /*Estilo para boton*/
 #BUTTON {
   color: white;
@@ -257,6 +261,10 @@ li {
     padding-left: 20px;
   }
 
+  header {
+    background-color: #8caba8;
+  }
+
   #LINKS, #RIGHT, #LOGO, #OPTIONS {
     display: none;
   }
@@ -330,8 +338,8 @@ li {
   #TITULO {
     font-size: 22px;
   }
-
 }
+
 /*ESTILO PARA TABLA DE CALIFACIONES*/
 th {
   border: 1px solid black;
