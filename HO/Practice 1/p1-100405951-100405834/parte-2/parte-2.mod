@@ -33,9 +33,7 @@ s.t. asignacionUnicaAvion{a in AVION}: sum{f in FRANJA, p in PISTA} avion_franja
   s.t. noAntesDeInicio{a in AVION,f in FRANJA, p in PISTA}: inicio[f]*avion_franja_pista[a,f,p] >= hora_programada[a];
   s.t. AntesDeHoraLimite{a in AVION,f in FRANJA, p in PISTA}: hora_limite[a]*avion_franja_pista[a,f,p] >= inicio[f];
 
-  s.t. noConsecutivos{a in AVION, b in AVION, f in FRANJA, g in FRANJA, p in PISTA}: avion_franja_pista[a,f,p]+avion_franja_pista[b,g,p] <= 1;
+  s.t. noConsecutivos{a in AVION, b in AVION, f in FRANJA, g in FRANJA, p in PISTA : a<>b and f<>g}: avion_franja_pista[a,f,p]+avion_franja_pista[b,g,p] <= 1;
 */
-
-
 
 end;
