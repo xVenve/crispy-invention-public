@@ -1,0 +1,111 @@
+Problem:    parte
+Rows:       29
+Columns:    15 (15 integer, 0 binary)
+Non-zeros:  75
+Status:     INTEGER OPTIMAL
+Objective:  beneficio = 24955 (MAXimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 beneficio               24955                             
+     2 limiteAsientos[A1]
+                                  90                          90 
+     3 limiteAsientos[A2]
+                                 120                         120 
+     4 limiteAsientos[A3]
+                                 200                         200 
+     5 limiteAsientos[A4]
+                                 150                         150 
+     6 limiteAsientos[A5]
+                                 190                         190 
+     7 limiteEquipaje[A1]
+                                1698                        1700 
+     8 limiteEquipaje[A2]
+                                2684                        2700 
+     9 limiteEquipaje[A3]
+                                1300                        1300 
+    10 limiteEquipaje[A4]
+                                1700                        1700 
+    11 limiteEquipaje[A5]
+                                1993                        2000 
+    12 limiteTipo[A1,E]
+                                  38            -0               
+    13 limiteTipo[A1,L]
+                                  21            20               
+    14 limiteTipo[A1,B]
+                                  31            10               
+    15 limiteTipo[A2,E]
+                                  44            -0               
+    16 limiteTipo[A2,L]
+                                  20            20               
+    17 limiteTipo[A2,B]
+                                  56            10               
+    18 limiteTipo[A3,E]
+                                 160            -0               
+    19 limiteTipo[A3,L]
+                                  23            20               
+    20 limiteTipo[A3,B]
+                                  17            10               
+    21 limiteTipo[A4,E]
+                                 100            -0               
+    22 limiteTipo[A4,L]
+                                  20            20               
+    23 limiteTipo[A4,B]
+                                  30            10               
+    24 limiteTipo[A5,E]
+                                 133            -0               
+    25 limiteTipo[A5,L]
+                                  21            20               
+    26 limiteTipo[A5,B]
+                                  36            10               
+    27 limiteProporcion[E]
+                            0.633333           0.6               
+    28 limiteProporcion[L]
+                                0.14            -0               
+    29 limiteProporcion[B]
+                            0.226667            -0               
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 billetes_avion_tipo[A1,E]
+                    *             38                             
+     2 billetes_avion_tipo[A1,L]
+                    *             21                             
+     3 billetes_avion_tipo[A1,B]
+                    *             31                             
+     4 billetes_avion_tipo[A2,E]
+                    *             44                             
+     5 billetes_avion_tipo[A2,L]
+                    *             20                             
+     6 billetes_avion_tipo[A2,B]
+                    *             56                             
+     7 billetes_avion_tipo[A3,E]
+                    *            160                             
+     8 billetes_avion_tipo[A3,L]
+                    *             23                             
+     9 billetes_avion_tipo[A3,B]
+                    *             17                             
+    10 billetes_avion_tipo[A4,E]
+                    *            100                             
+    11 billetes_avion_tipo[A4,L]
+                    *             20                             
+    12 billetes_avion_tipo[A4,B]
+                    *             30                             
+    13 billetes_avion_tipo[A5,E]
+                    *            133                             
+    14 billetes_avion_tipo[A5,L]
+                    *             21                             
+    15 billetes_avion_tipo[A5,B]
+                    *             36                             
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output

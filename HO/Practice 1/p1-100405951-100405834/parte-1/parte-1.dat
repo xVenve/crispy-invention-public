@@ -1,0 +1,42 @@
+data;
+
+/* datos */
+
+set TIPO := E L B;
+set AVION := A1 A2 A3 A4 A5;
+
+param equipaje :=
+  E  1
+  L  20
+  B  40;
+
+param precio :=
+  E  19
+  L  40
+  B  69;
+
+param min_billetes :=
+  E  0
+  L  20
+  B  10;
+
+param propcion_min :=
+  E  0.6
+  L  0
+  B  0;
+
+param asientos :=
+  A1  90
+  A2  120
+  A3  200
+  A4  150
+  A5  190;
+
+param capacidad :=
+  A1  1700
+  A2  2700
+  A3  1300
+  A4  1700
+  A5  2000;
+
+end;
