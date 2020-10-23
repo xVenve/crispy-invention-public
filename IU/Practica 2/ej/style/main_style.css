@@ -9,7 +9,14 @@
 body {
   background-color: #8caba8;
 }
-
+/*Estilo para la zona de usuario*/
+#user_zone{
+  float: right;
+  padding: 3px;
+}
+#nombre_usuario{
+  float:right
+}
 /* Estilo para el menu hamburguesa*/
 .HAMBURGUER {
   display: none;

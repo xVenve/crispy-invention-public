@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 
+
 <head>
   <title>Interfaces de Usuario</title>
   <meta charset="utf-8">
@@ -12,11 +13,23 @@
 
 <body>
   <header>
+    <aside id = "user_zone" class= "col-3">
+      <img class = "AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" />
+      <ul id = "nombre_usuario" class = "col-9" >
+        <li>hola usuario</li>
+        <li><button class="BUTTON" type="button"> Cerrar sesión</button></li>
+      </ul>
+
+
+    </aside>
+    <article class= "col-9">
     <!-- Cabecera con la imagen y titulo -->
     <p>
       <img class="col-3" src="./images/uc3m_logo.png" alt="UC3M Logo" />
       <b id="TITULO" class="col-9">Clase virtual de Interfaces de Usuario </b>
     </p>
+  </article>
+
     <!-- Boton  para acceder a las opciones desde movil -->
     <ul class="HAMBURGUER">
       <li><a href="">
@@ -34,29 +47,14 @@
         </ul>
       </li>
     </ul>
-    <!--Pop-up de novedades-->
-    <div id = "popup" style="display: none;">
-      <div class="content-popup">
-        <div class="cerrar"><a href="#" id="cerrar">X</a></div>
-        <div>
-          <h2>Últimas Novedades</h2>
-          <div id="calendar_novedades"></div>
-          <div style="float:left; width:100%;">      </div>         </div>     </div> </div> <div class="popup-overlay"></div>
 
-          <!--Pop-up de noticias-->
-          <div id = "popup2" style="display: none;">
-            <div class="content-popup">
-              <div class="cerrar"><a href="#" id="cerrar2">X</a></div>
-              <div>
-                <h2>Últimas Noticias</h2>
-                <div id="calendar_noticias"></div>
-                <div style="float:left; width:100%;">      </div>         </div>     </div> </div> <div class="popup-overlay"></div>
     <!-- Barra superior con enlaces de interes -->
     <section id="OPTIONS">
       <a href="https://aulaglobal.uc3m.es/">Aula Global</a>
       <a href="http://ocw.uc3m.es/ingenieria-informatica/interfaces-de-usuario">OCW</a>
       <a href="https://twitter.com/uc3m">Conócenos</a>
     </section>
+
   </header>
   <section>
     <!-- Barra lateral izquierda con enlaces -->
@@ -442,6 +440,23 @@
         </ul>
       </section>
     </aside>
+    <!--Pop-up de novedades-->
+    <div id = "popup" style="display: none;">
+      <div class="content-popup">
+        <div class="cerrar"><a href="#" id="cerrar">X</a></div>
+        <div>
+          <h2>Últimas Novedades</h2>
+          <div id="calendar_novedades"></div>
+          <div style="float:left; width:100%;">      </div>         </div>     </div> </div> <div class="popup-overlay"></div>
+
+          <!--Pop-up de noticias-->
+          <div id = "popup2" style="display: none;">
+            <div class="content-popup">
+              <div class="cerrar"><a href="#" id="cerrar2">X</a></div>
+              <div>
+                <h2>Últimas Noticias</h2>
+                <div id="calendar_noticias"></div>
+                <div style="float:left; width:100%;">      </div>         </div>     </div> </div> <div class="popup-overlay"></div>
   </section>
   <!-- Pie de pagina -->
   <footer class="col-12 col-t-12">
