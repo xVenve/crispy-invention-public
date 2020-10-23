@@ -6,6 +6,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <LINK rel="stylesheet" href="./style/main_style.css">
+  <link rel="stylesheet" href="./style/simple-calendar.css">
+
 </head>
 
 <body>
@@ -32,6 +34,23 @@
         </ul>
       </li>
     </ul>
+    <!--Pop-up de novedades-->
+    <div id = "popup" style="display: none;">
+      <div class="content-popup">
+        <div class="cerrar"><a href="#" id="cerrar">X</a></div>
+        <div>
+          <h2>Últimas Novedades</h2>
+          <div id="calendar_novedades"></div>
+          <div style="float:left; width:100%;">      </div>         </div>     </div> </div> <div class="popup-overlay"></div>
+
+          <!--Pop-up de noticias-->
+          <div id = "popup2" style="display: none;">
+            <div class="content-popup">
+              <div class="cerrar"><a href="#" id="cerrar2">X</a></div>
+              <div>
+                <h2>Últimas Noticias</h2>
+                <div id="calendar_noticias"></div>
+                <div style="float:left; width:100%;">      </div>         </div>     </div> </div> <div class="popup-overlay"></div>
     <!-- Barra superior con enlaces de interes -->
     <section id="OPTIONS">
       <a href="https://aulaglobal.uc3m.es/">Aula Global</a>
@@ -404,7 +423,7 @@
       <section>
         <ul>
           <li>
-            <h3>Novedades</h3>
+            <h3 id="NOVEDADES">Novedades</h3>
           </li>
           <li>1/10/2020 - Nuevo video subido: La historia de la web</li>
           <li>29/9/2020 - Nuevo articulo subido: Introduccion a HTML</li>
@@ -415,7 +434,7 @@
       <section>
         <ul>
           <li>
-            <h3>Noticias</h3>
+            <h3 id = "NOTICIAS">Noticias</h3>
           </li>
           <li>5/10/2020 - Entrega practica en dos días</li>
           <li>1/10/2020 - Clase online magistral para el dia 3 de octubre</li>
@@ -429,6 +448,12 @@
     <p>© 1998-2020 UC3M, inc. All rights reserved. | <a href="https://www.uc3m.es/">UC3M</a> | <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad"> Privacidad </a> </p>
   </footer>
 </body>
-<script src="./script/script_main.js"></script>
+      <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script src="./script/jquery.simple-calendar.js"></script>
+        <script src="./script/script_main.js"></script>
+
 
 </html>
