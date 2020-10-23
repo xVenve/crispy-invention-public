@@ -1,6 +1,7 @@
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
-;(function ($, window, document, undefined) {
+;
+(function($, window, document, undefined) {
 
   "use strict";
 
@@ -15,12 +16,12 @@
       disableEventDetails: false, // disable showing event details
       disableEmptyDetails: false, // disable showing empty date details
       events: [], // List of event
-      onInit: function (calendar) {}, // Callback after first initialization
-      onMonthChange: function (month, year) {}, // Callback on month change
-      onDateSelect: function (date, events) {}, // Callback on date selection
-      onEventSelect: function () {},              // Callback fired when an event is selected     - see $(this).data('event')
-      onEventCreate: function( $el ) {},          // Callback fired when an HTML event is created - see $(this).data('event')
-      onDayCreate:   function( $el, d, m, y ) {}  // Callback fired when an HTML day is created   - see $(this).data('today'), .data('todayEvents')
+      onInit: function(calendar) {}, // Callback after first initialization
+      onMonthChange: function(month, year) {}, // Callback on month change
+      onDateSelect: function(date, events) {}, // Callback on date selection
+      onEventSelect: function() {}, // Callback fired when an event is selected     - see $(this).data('event')
+      onEventCreate: function($el) {}, // Callback fired when an HTML event is created - see $(this).data('event')
+      onDayCreate: function($el, d, m, y) {} // Callback fired when an HTML day is created   - see $(this).data('today'), .data('todayEvents')
     };
 
   // The actual plugin constructor
@@ -35,7 +36,7 @@
 
   // Avoid Plugin.prototype conflicts
   $.extend(Plugin.prototype, {
-    init: function () {
+    init: function() {
       var container = $(this.element);
       var todayDate = this.currentDate;
 
@@ -57,14 +58,14 @@
     },
 
     //Update the current month header
-    updateHeader: function (date, header) {
+    updateHeader: function(date, header) {
       var monthText = this.settings.months[date.getMonth()];
       monthText += this.settings.displayYear ? ' <div class="year">' + date.getFullYear() : '</div>';
       header.find('.month').html(monthText);
     },
 
     //Build calendar of a month from date
-    buildCalendar: function (fromDate, calendar) {
+    buildCalendar: function(fromDate, calendar) {
       var plugin = this;
 
       calendar.find('table').remove();
@@ -74,7 +75,8 @@
       var tbody = $('<tbody></tbody>');
 
       //setting current year and month
-      var y = fromDate.getFullYear(), m = fromDate.getMonth();
+      var y = fromDate.getFullYear(),
+        m = fromDate.getMonth();
 
       //first day of the month
       var firstDay = new Date(y, m, 1);
@@ -85,7 +87,7 @@
 
       if (this.settings.fixedStartDay !== false) {
         // Backward compatibility
-        startDayOfWeek =  this.settings.fixedStartDay ? 1 : this.settings.fixedStartDay;
+        startDayOfWeek = this.settings.fixedStartDay ? 1 : this.settings.fixedStartDay;
 
         // If first day of month is different of startDayOfWeek
         while (firstDay.getDay() !== startDayOfWeek) {
@@ -131,10 +133,10 @@
           }
 
           // associate some data available from the onDayCreate callback
-          $day.data( 'todayEvents', todayEvents );
+          $day.data('todayEvents', todayEvents);
 
           // simplify further customization
-          this.settings.onDayCreate( $day, day.getDate(), m, y );
+          this.settings.onDayCreate($day, day.getDate(), m, y);
 
           tr.append(td);
           day.setDate(day.getDate() + 1);
@@ -150,30 +152,30 @@
       calendar.append(body);
       calendar.append(eventContainer);
     },
-    changeMonth: function (value) {
+    changeMonth: function(value) {
       this.currentDate.setMonth(this.currentDate.getMonth() + value, 1);
       this.buildCalendar(this.currentDate, $(this.element).find('.calendar'));
       this.updateHeader(this.currentDate, $(this.element).find('.calendar header'));
       this.settings.onMonthChange(this.currentDate.getMonth(), this.currentDate.getFullYear())
     },
     //Init global events listeners
-    bindEvents: function () {
+    bindEvents: function() {
       var plugin = this;
 
       //Click previous month
-      $(plugin.element).on('click', '.btn-prev', function ( e ) {
+      $(plugin.element).on('click', '.btn-prev', function(e) {
         plugin.changeMonth(-1)
         e.preventDefault();
       });
 
       //Click next month
-      $(plugin.element).on('click', '.btn-next', function ( e ) {
+      $(plugin.element).on('click', '.btn-next', function(e) {
         plugin.changeMonth(1);
         e.preventDefault();
       });
 
       //Binding day event
-      $(plugin.element).on('click', '.day', function (e) {
+      $(plugin.element).on('click', '.day', function(e) {
         var date = new Date($(this).data('date'));
         var events = plugin.getDateEvents(date);
         if (!$(this).hasClass('disabled')) {
@@ -184,15 +186,15 @@
       });
 
       //Binding event container close
-      $(plugin.element).on('click', '.event-container .close', function (e) {
+      $(plugin.element).on('click', '.event-container .close', function(e) {
         plugin.empty(e.pageX, e.pageY);
       });
     },
-    displayEvents: function (events) {
+    displayEvents: function(events) {
       var plugin = this;
       var container = $(this.element).find('.event-wrapper');
 
-      events.forEach(function (event) {
+      events.forEach(function(event) {
         var startDate = new Date(event.startDate);
         var endDate = new Date(event.endDate);
         var $event = $('' +
@@ -202,17 +204,17 @@
           ' <div class="event-summary">' + event.summary + '</div>' +
           '</div>');
 
-        $event.data( 'event', event );
-        $event.click( plugin.settings.onEventSelect );
+        $event.data('event', event);
+        $event.click(plugin.settings.onEventSelect);
 
         // simplify further customization
-        plugin.settings.onEventCreate( $event );
+        plugin.settings.onEventCreate($event);
 
         container.append($event);
       })
     },
     //Small effect to fillup a container
-    fillUp: function (x, y) {
+    fillUp: function(x, y) {
       var plugin = this;
       var elem = $(plugin.element);
       var elemOffset = elem.offset();
@@ -226,13 +228,13 @@
       filler.animate({
         width: "300%",
         height: "300%"
-      }, 500, function () {
+      }, 500, function() {
         elem.find('.event-container').show();
         filler.hide();
       });
     },
     //Small effect to empty a container
-    empty: function (x, y) {
+    empty: function(x, y) {
       var plugin = this;
       var elem = $(plugin.element);
       var elemOffset = elem.offset();
@@ -248,24 +250,24 @@
       filler.animate({
         width: "0%",
         height: "0%"
-      }, 500, function () {
+      }, 500, function() {
         filler.remove();
       });
     },
-    getDateEvents: function (d) {
+    getDateEvents: function(d) {
       var plugin = this;
-      return plugin.settings.events.filter(function (event) {
+      return plugin.settings.events.filter(function(event) {
         return plugin.isDayBetween(d, new Date(event.startDate), new Date(event.endDate));
       });
     },
-    isDayBetween: function (d, dStart, dEnd) {
-      dStart.setHours(0,0,0);
-      dEnd.setHours(23,59,59,999);
-      d.setHours(12,0,0);
+    isDayBetween: function(d, dStart, dEnd) {
+      dStart.setHours(0, 0, 0);
+      dEnd.setHours(23, 59, 59, 999);
+      d.setHours(12, 0, 0);
 
       return dStart <= d && d <= dEnd;
     },
-    formatDateEvent: function (dateStart, dateEnd) {
+    formatDateEvent: function(dateStart, dateEnd) {
       var formatted = '';
       formatted += this.settings.days[dateStart.getDay()] + ' - ' + dateStart.getDate() + ' ' + this.settings.months[dateStart.getMonth()].substring(0, 3);
 
@@ -278,8 +280,8 @@
 
   // A really lightweight plugin wrapper around the constructor,
   // preventing against multiple instantiations
-  $.fn[pluginName] = function (options) {
-    return this.each(function () {
+  $.fn[pluginName] = function(options) {
+    return this.each(function() {
       if (!$.data(this, "plugin_" + pluginName)) {
         $.data(this, "plugin_" + pluginName, new Plugin(this, options));
       }
