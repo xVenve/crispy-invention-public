@@ -27,22 +27,20 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(document.getElementById("welcome").innerHTML = "Hola, " + "Don Carlos");
 
 
-
-$(function(){
+$(function() {
   $("#calendar_novedades").simpleCalendar();
 });
 
 
 $("#calendar_novedades").simpleCalendar({
-
   // displays events
   displayEvent: true,
 
   // event dates
-  events: [
-    {
+  events: [{
       startDate: new Date("2020-10-1"),
       endDate: new Date("2020-10-1"),
       summary: 'Nuevo video subido: La historia de la web'
@@ -69,22 +67,19 @@ $("#calendar_novedades").simpleCalendar({
 
   // disable showing empty date details
   disableEmptyDetails: true
-
 });
 
-$(function(){
+$(function() {
   $("#calendar_noticias").simpleCalendar();
 });
 
 
 $("#calendar_noticias").simpleCalendar({
-
   // displays events
   displayEvent: true,
 
   // event dates
-  events: [
-    {
+  events: [{
       startDate: new Date("2020-10-5"),
       endDate: new Date("2020-10-5"),
       summary: 'Entrega practica en dos días'
@@ -100,14 +95,11 @@ $("#calendar_noticias").simpleCalendar({
       summary: 'Tutoria colectiva en tres días'
     }
   ],
-
   // disable showing event details
   disableEventDetails: false,
 
   // disable showing empty date details
   disableEmptyDetails: true
-
-
 });
 
 document.addEventListener("DOMContentLoaded", start());
