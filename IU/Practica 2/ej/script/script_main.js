@@ -174,3 +174,49 @@ document.getElementById("linkmain_h").addEventListener("click",
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
   });
+
+
+
+
+
+
+
+function inicioSesion() {
+  var x = document.forms["Formulario_Inicio_Sesion"]["nombre_inicio"].value;
+  var y = document.forms["Formulario_Inicio_Sesion"]["email_inicio"].value;
+
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+  if (y==""){
+    alert("Email must be filled out");
+    return false;
+  }
+  
+  alert(document.cookie);
+  if(getCookie("email_inicio_"+x) == y){
+    alert("se mueve a pagina principal con nombre puesto");
+  }else{
+    alert("se debe registrar, cuenta no creada");
+  }
+
+
+
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
