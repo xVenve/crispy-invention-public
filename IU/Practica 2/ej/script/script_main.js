@@ -27,7 +27,6 @@ $(document).ready(function() {
   });
 });
 
-
 $(document).ready(function() {
   $('#NOTICIAS').on('click', function() {
     $('#popup_noticias').fadeIn('slow');
@@ -41,9 +40,6 @@ $(document).ready(function() {
     return false;
   });
 });
-
-
-
 
 $(function() {
   $("#calendar_novedades").simpleCalendar();
@@ -250,12 +246,12 @@ function inicioSesion() {
     alert("Name must be filled out");
     return false;
   }
-  if (y==""){
+  if (y == "") {
     alert("Email must be filled out");
     return false;
   }
 
-  if(getCookie("email_inicio_"+x) == y){
+  if (getCookie("email_inicio_" + x) == y) {
     $(document).ready(document.getElementById("welcome").innerHTML = "Hola, " + x);
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -266,7 +262,7 @@ function inicioSesion() {
     document.getElementById("OPTIONS").style.display = "block";
     document.getElementById("RIGHT").style.display = "block";
     document.getElementById("LINKS").style.display = "block";
-  }else{
+  } else {
     alert("Se debe registrar, cuenta no creada");
   }
 
@@ -278,7 +274,7 @@ function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
   var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
+  for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
     while (c.charAt(0) == ' ') {
       c = c.substring(1);
@@ -292,27 +288,27 @@ function getCookie(cname) {
 
 function rolEstudiante() {
   var x = document.getElementById("rol").value;
-  if(x == "Estudiante"){
+  if (x == "Estudiante") {
     document.getElementById("grado").style.display = "initial";
     document.getElementById("titulo_grado").style.display = "initial";
-  } else{
+  } else {
     document.getElementById("grado").style.display = "none";
     document.getElementById("titulo_grado").style.display = "none";
   }
 
 }
 
-function guardar(){
-  document.cookie="nombre_inicio_"+document.forms["Formulario_Registro"]["email_inicio"].value+"="+document.forms["Formulario_Registro"]["nombre_inicio"].value;
-  document.cookie="NIA="+document.forms["Formulario_Registro"]["NIA"].value;
-  document.cookie="contraseña="+document.forms["Formulario_Registro"]["contraseña"].value;
-  document.cookie="nombre="+document.forms["Formulario_Registro"]["nombre"].value;
-  document.cookie="apellidos="+document.forms["Formulario_Registro"]["apellidos"].value;
-  document.cookie="email_inicio_"+document.forms["Formulario_Registro"]["nombre_inicio"].value+"="+document.forms["Formulario_Registro"]["email_inicio"].value;
-  document.cookie="fecha_nacimiento="+document.forms["Formulario_Registro"]["fecha_nacimiento"].value;
-  document.cookie="DNI="+document.forms["Formulario_Registro"]["DNI"].value;
-  document.cookie="rol="+document.forms["Formulario_Registro"]["rol"].value;
-  document.cookie="grado="+document.forms["Formulario_Registro"]["grado"].value;
-  document.cookie="universidad="+document.forms["Formulario_Registro"]["universidad"].value;
-  document.cookie="idioma="+document.forms["Formulario_Registro"]["idioma"].value;
+function guardar() {
+  document.cookie = "nombre_inicio_" + document.forms["Formulario_Registro"]["email_inicio"].value + "=" + document.forms["Formulario_Registro"]["nombre_inicio"].value;
+  document.cookie = "NIA=" + document.forms["Formulario_Registro"]["NIA"].value;
+  document.cookie = "contraseña=" + document.forms["Formulario_Registro"]["contraseña"].value;
+  document.cookie = "nombre=" + document.forms["Formulario_Registro"]["nombre"].value;
+  document.cookie = "apellidos=" + document.forms["Formulario_Registro"]["apellidos"].value;
+  document.cookie = "email_inicio_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" + document.forms["Formulario_Registro"]["email_inicio"].value;
+  document.cookie = "fecha_nacimiento=" + document.forms["Formulario_Registro"]["fecha_nacimiento"].value;
+  document.cookie = "DNI=" + document.forms["Formulario_Registro"]["DNI"].value;
+  document.cookie = "rol=" + document.forms["Formulario_Registro"]["rol"].value;
+  document.cookie = "grado=" + document.forms["Formulario_Registro"]["grado"].value;
+  document.cookie = "universidad=" + document.forms["Formulario_Registro"]["universidad"].value;
+  document.cookie = "idioma=" + document.forms["Formulario_Registro"]["idioma"].value;
 }
