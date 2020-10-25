@@ -12,7 +12,7 @@ param equipaje :=
 
 param precio :=
   E  19
-  L  40
+  L  49
   B  69;
 
 param min_billetes :=
