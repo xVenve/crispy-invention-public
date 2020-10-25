@@ -1,33 +1,48 @@
 $(document).ready(function() {
   $('#NOVEDADES').on('click', function() {
-    $('#popup').fadeIn('slow');
+    $('#popup_novedades').fadeIn('slow');
     $('.popup-overlay').fadeIn('slow');
     $('.popup-overlay').height($(window).height());
     return false;
   });
   $('.cerrar').on('click', function() {
-    $('#popup').fadeOut('slow');
+    $('#popup_novedades').fadeOut('slow');
     $('.popup-overlay').fadeOut('slow');
     return false;
   });
 });
+
+
+$(document).ready(function() {
+  $('#cierre_sesion').on('click', function() {
+    $('#popup_sesion').fadeIn('slow');
+    $('.popup-overlay').fadeIn('slow');
+    $('.popup-overlay').height($(window).height());
+    return false;
+  });
+  $('.cerrar').on('click', function() {
+    $('#popup_sesion').fadeOut('slow');
+    $('.popup-overlay').fadeOut('slow');
+    return false;
+  });
+});
+
 
 $(document).ready(function() {
   $('#NOTICIAS').on('click', function() {
-    $('#popup2').fadeIn('slow');
+    $('#popup_noticias').fadeIn('slow');
     $('.popup-overlay').fadeIn('slow');
     $('.popup-overlay').height($(window).height());
     return false;
   });
   $('.cerrar').on('click', function() {
-    $('#popup2').fadeOut('slow');
+    $('#popup_noticias').fadeOut('slow');
     $('.popup-overlay').fadeOut('slow');
     return false;
   });
 });
 
 
-$(document).ready(document.getElementById("welcome").innerHTML = "Hola, " + "Don Carlos");
 
 
 $(function() {
@@ -102,14 +117,34 @@ $("#calendar_noticias").simpleCalendar({
   disableEmptyDetails: true
 });
 
-document.addEventListener("DOMContentLoaded", start());
+$(document).ready(start());
 
 function start() {
+  document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+  document.getElementById("CENTRAL_INICIO").style.display = "block";
+  document.getElementById("RIGHT").style.display = "none";
+  document.getElementById("LINKS").style.display = "none";
+  document.getElementById("OPTIONS").style.display = "none";
+  document.getElementById("user_zone").style.display = "none";
   document.getElementById("CENTRAL_FORO").style.display = "none";
-  document.getElementById("CENTRAL_MAIN").style.display = "block";
+  document.getElementById("CENTRAL_MAIN").style.display = "none";
   document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
   document.getElementById("CENTRAL_LISTA").style.display = "none";
 }
+
+document.getElementById("boton_registro").addEventListener("click",
+  function() {
+    document.getElementById("CENTRAL_REGISTRO").style.display = "block";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("RIGHT").style.display = "none";
+    document.getElementById("LINKS").style.display = "none";
+    document.getElementById("OPTIONS").style.display = "none";
+    document.getElementById("user_zone").style.display = "none";
+    document.getElementById("CENTRAL_FORO").style.display = "none";
+    document.getElementById("CENTRAL_MAIN").style.display = "none";
+    document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+    document.getElementById("CENTRAL_LISTA").style.display = "none";
+  });
 
 document.getElementById("linkforo_h").addEventListener("click",
   function() {
@@ -117,6 +152,9 @@ document.getElementById("linkforo_h").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
   });
 
 document.getElementById("linkforo").addEventListener("click",
@@ -125,6 +163,10 @@ document.getElementById("linkforo").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+
   });
 
 document.getElementById("linkcalificaciones").addEventListener("click",
@@ -133,6 +175,10 @@ document.getElementById("linkcalificaciones").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+
   });
 
 document.getElementById("linkcalificaciones_h").addEventListener("click",
@@ -141,6 +187,10 @@ document.getElementById("linkcalificaciones_h").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+
   });
 
 document.getElementById("linkestudiantes").addEventListener("click",
@@ -149,6 +199,10 @@ document.getElementById("linkestudiantes").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+
   });
 
 document.getElementById("linkestudiantes_h").addEventListener("click",
@@ -157,6 +211,10 @@ document.getElementById("linkestudiantes_h").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+
   });
 
 document.getElementById("linkmain").addEventListener("click",
@@ -165,6 +223,10 @@ document.getElementById("linkmain").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+
   });
 
 document.getElementById("linkmain_h").addEventListener("click",
@@ -173,12 +235,11 @@ document.getElementById("linkmain_h").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+
   });
-
-
-
-
-
 
 
 function inicioSesion() {
@@ -193,12 +254,20 @@ function inicioSesion() {
     alert("Email must be filled out");
     return false;
   }
-  
-  alert(document.cookie);
+
   if(getCookie("email_inicio_"+x) == y){
-    alert("se mueve a pagina principal con nombre puesto");
+    $(document).ready(document.getElementById("welcome").innerHTML = "Hola, " + x);
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("CENTRAL_FORO").style.display = "none";
+    document.getElementById("CENTRAL_MAIN").style.display = "block";
+    document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+    document.getElementById("CENTRAL_LISTA").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+    document.getElementById("OPTIONS").style.display = "block";
+    document.getElementById("RIGHT").style.display = "block";
+    document.getElementById("LINKS").style.display = "block";
   }else{
-    alert("se debe registrar, cuenta no creada");
+    alert("Se debe registrar, cuenta no creada");
   }
 
 
@@ -219,4 +288,31 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+
+function rolEstudiante() {
+  var x = document.getElementById("rol").value;
+  if(x == "Estudiante"){
+    document.getElementById("grado").style.display = "initial";
+    document.getElementById("titulo_grado").style.display = "initial";
+  } else{
+    document.getElementById("grado").style.display = "none";
+    document.getElementById("titulo_grado").style.display = "none";
+  }
+
+}
+
+function guardar(){
+  document.cookie="nombre_inicio_"+document.forms["Formulario_Registro"]["email_inicio"].value+"="+document.forms["Formulario_Registro"]["nombre_inicio"].value;
+  document.cookie="NIA="+document.forms["Formulario_Registro"]["NIA"].value;
+  document.cookie="contraseña="+document.forms["Formulario_Registro"]["contraseña"].value;
+  document.cookie="nombre="+document.forms["Formulario_Registro"]["nombre"].value;
+  document.cookie="apellidos="+document.forms["Formulario_Registro"]["apellidos"].value;
+  document.cookie="email_inicio_"+document.forms["Formulario_Registro"]["nombre_inicio"].value+"="+document.forms["Formulario_Registro"]["email_inicio"].value;
+  document.cookie="fecha_nacimiento="+document.forms["Formulario_Registro"]["fecha_nacimiento"].value;
+  document.cookie="DNI="+document.forms["Formulario_Registro"]["DNI"].value;
+  document.cookie="rol="+document.forms["Formulario_Registro"]["rol"].value;
+  document.cookie="grado="+document.forms["Formulario_Registro"]["grado"].value;
+  document.cookie="universidad="+document.forms["Formulario_Registro"]["universidad"].value;
+  document.cookie="idioma="+document.forms["Formulario_Registro"]["idioma"].value;
 }
