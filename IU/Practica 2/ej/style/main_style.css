@@ -450,13 +450,13 @@ table {
   text-align: center;
 }
 
-.boton_inicio{
+.boton_inicio {
   margin-bottom: 15px;
   padding: 3px;
   margin-top: 10px;
 }
 
-#boton_confirmar_cierre{
+#boton_confirmar_cierre {
   color: white;
   padding: 10px 20px;
   text-align: center;
@@ -465,7 +465,8 @@ table {
   cursor: pointer;
   background-color: #a2798f;
 }
-#boton_denegar_cierre{
+
+#boton_denegar_cierre {
   color: white;
   padding: 10px 20px;
   text-align: center;

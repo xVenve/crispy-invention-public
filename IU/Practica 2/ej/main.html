@@ -17,14 +17,14 @@
       <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" />
       <ul id="nombre_usuario" class="col-9">
         <li id="welcome">Hola, usuario</li>
-        <li><button id ="cierre_sesion" class="BUTTON" type="button"> Cerrar sesión</button></li>
+        <li><button id="cierre_sesion" class="BUTTON" type="button"> Cerrar sesión</button></li>
       </ul>
       <div id="popup_sesion" style="display: none;">
         <div class="content-popup">
           <div>
             <h2>¿Desea cerrar sesión?</h2>
-            <button id = "boton_confirmar_cierre" class="cerrar col-5" onclick="start()">Si</button>
-            <button id = "boton_denegar_cierre" class="cerrar col-5">No</button>
+            <button id="boton_confirmar_cierre" class="cerrar col-5" onclick="start()">Si</button>
+            <button id="boton_denegar_cierre" class="cerrar col-5">No</button>
           </div>
         </div>
       </div>
@@ -81,13 +81,13 @@
     <article class="col-12 col-t-12" id="CENTRAL_INICIO">
       <p id="TITLECENTRAL"><b>Bienvenido a la web de Interfaces de Uusuario</b></p>
 
-      <form  id ="Formulario_Inicio_Sesion" name="Formulario_Inicio_Sesion">
+      <form id="Formulario_Inicio_Sesion" name="Formulario_Inicio_Sesion" method="post">
         <label for="nombre_inicio">Nombre:</label><br>
         <input type="text" id="nombre_inicio" name="nombre_inicio"><br>
         <label for="email_inicio">Correo:</label><br>
         <input type="text" id="email_inicio" name="email_inicio"><br>
-        <button type ="button" class = "boton_inicio" onclick="inicioSesion()">Iniciar sesión</button>
-        <button type ="button" id="boton_registro" class = "boton_inicio">Registrarse</button>
+        <button type="button" class="boton_inicio" onclick="inicioSesion()">Iniciar sesión</button>
+        <button type="button" id="boton_registro" class="boton_inicio">Registrarse</button>
       </form>
     </article>
 
@@ -95,14 +95,14 @@
     <article class="col-12 col-t-12" id="CENTRAL_REGISTRO">
       <p id="TITLECENTRAL"><b>Registro</b></p>
 
-      <form id ="Formulario_Registro" name="Formulario_Registro">
+      <form id="Formulario_Registro" name="Formulario_Registro" method="post">
         <h2> Información de la cuenta</h2>
         <label for="nombre_inicio">Nombre:</label><br>
         <input type="text" id="nombre_inicio" name="nombre_inicio" required><br>
         <label for="NIA">NIA:</label><br>
         <input type="text" id="NIA" name="NIA" maxlength="9" required><br>
         <label for="contraseña">Contraseña:</label><br>
-        <input type="password" id="contraseña" name="contraseña" maxlength="8"  required><br>
+        <input type="password" id="contraseña" name="contraseña" maxlength="8" required><br>
 
         <h2> Información personal</h2>
         <label for="nombre">Nombre:</label><br>
@@ -123,27 +123,27 @@
           <option value="Profesor">Profesor</option>
         </select><br>
 
-         <label for="grado" id = "titulo_grado">Grado:</label><br>
-          <select name="grado" id="grado">
-            <option value="Informatica">Ingeniería Informática</option>
-            <option value="Administrador">Ingeniería Industrial</option>
-            <option value="Profesor">Derecho</option>
+        <label for="grado" id="titulo_grado">Grado:</label><br>
+        <select name="grado" id="grado">
+          <option value="Informatica">Ingeniería Informática</option>
+          <option value="Administrador">Ingeniería Industrial</option>
+          <option value="Profesor">Derecho</option>
         </select><br>
 
-          <label for="universidad">Universidad</label><br>
-          <input type="text" id="universidad" name="universidad" value="UC3M" readonly><br>
+        <label for="universidad">Universidad</label><br>
+        <input type="text" id="universidad" name="universidad" value="UC3M" readonly><br>
 
-          <label for="idioma">Idioma</label><br>
-          <select name="idioma" id="idioma">
-            <option></option>
-            <option value="Español">Español</option>
-            <option value="Ingles">Inglés</option>
-            <option value="Frances">Francés</option>
+        <label for="idioma">Idioma</label><br>
+        <select name="idioma" id="idioma">
+          <option></option>
+          <option value="Español">Español</option>
+          <option value="Ingles">Inglés</option>
+          <option value="Frances">Francés</option>
         </select><br>
-          <input type="checkbox" required> Acepto las condiciones y terminos de uso</input><br>
-            <button onclick="guardar()">Guardar</button>
-            <input type="reset" value="Borrar">
-          </form>
+        <input type="checkbox" required> Acepto las condiciones y terminos de uso</input><br>
+        <button onclick="guardar()">Guardar</button>
+        <input type="reset" value="Borrar">
+      </form>
 
     </article>
 
