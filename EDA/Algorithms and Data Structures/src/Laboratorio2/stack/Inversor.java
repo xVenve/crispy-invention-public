@@ -14,8 +14,9 @@ public class Inversor {
 		}
 		return B;
 	}
+
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduce la palabra a invertir");
 		String A = sc.next();
 		A = Invertir(A);

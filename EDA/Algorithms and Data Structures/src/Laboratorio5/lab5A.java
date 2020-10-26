@@ -6,10 +6,11 @@ public class lab5A {
 	public static int[] randomList(int n) {
 		int[] A = new int[n];
 		for (int i = 0; i < A.length; i++) {
-			A[i] = (int)((Math.random() * 26) - 13);
+			A[i] = (int) ((Math.random() * 26) - 13);
 		}
 		return A;
 	}
+
 	public static int sumList(int[] data) {
 		int n = 0;
 		for (int i = 0; i < data.length; i++) {
@@ -17,6 +18,7 @@ public class lab5A {
 		}
 		return n;
 	}
+
 	public boolean search(int x, int[] data) {
 		if (data == null) {
 			System.out.println("Error:	array	is	null!!!");
@@ -24,9 +26,9 @@ public class lab5A {
 		}
 		boolean found = false;
 		for (int i = 0; i < data.length && !found; i++) {
-			if (data[i] == x) 
+			if (data[i] == x)
 				found = true;
-			}
+		}
 		return found;
 	}
 
@@ -68,6 +70,7 @@ public class lab5A {
 		}
 		return e;
 	}
+
 	public static int sumPair(int[] vector) {
 		int n = 0;
 		for (int i = 0; i < vector.length; i++) {
@@ -79,15 +82,16 @@ public class lab5A {
 		}
 		return n;
 	}
+
 	public static int sumTriple0(int[] data) {
-		int result = 0; //1
-		for (int i = 0; i < data.length; i++) //2n+2
-			for (int j = 0; j < data.length; j++) //n*(2n+2)
-				for (int k = 0; k < data.length; k++) //n^2*(2n+2)=2n^3+2n^2
-					if (i != j && j != k && i != k && data[i] + data[j] + data[k] == 0) 
-						//condici�n:	n^3*(3+3+1+1)=8n^3
+		int result = 0; // 1
+		for (int i = 0; i < data.length; i++) // 2n+2
+			for (int j = 0; j < data.length; j++) // n*(2n+2)
+				for (int k = 0; k < data.length; k++) // n^2*(2n+2)=2n^3+2n^2
+					if (i != j && j != k && i != k && data[i] + data[j] + data[k] == 0)
+						// condici�n: n^3*(3+3+1+1)=8n^3
 						result++;
-	//n^3
+		// n^3
 		return result;
 	}
 
@@ -97,9 +101,7 @@ public class lab5A {
 			long start = System.nanoTime();
 			sumList(data);
 			long end = System.nanoTime();
-			System.out.println(n + "-->" + (
-				end - start
-			));
+			System.out.println(n + "-->" + (end - start));
 		}
 		int[] t = randomList(10);
 		long start = System.nanoTime();

@@ -22,6 +22,7 @@ public class DList implements IList {
 		header.next = newNode;
 		size++;
 	}
+
 	public void addLast(Integer elem) {
 		DNode newNode = new DNode(elem);
 		newNode.next = trailer;
@@ -138,7 +139,7 @@ public class DList implements IList {
 		Integer result = null;
 		if (isEmpty()) {
 			System.out.println("DList: List is empty");
-		} else 
+		} else
 			result = header.next.elem;
 		return result;
 	}
@@ -147,7 +148,7 @@ public class DList implements IList {
 		Integer result = null;
 		if (isEmpty()) {
 			System.out.println("DList: List is empty");
-		} else 
+		} else
 			result = trailer.prev.elem;
 		return result;
 	}
@@ -161,7 +162,7 @@ public class DList implements IList {
 			}
 			++i;
 		}
-		if (result == null) 
+		if (result == null)
 			System.out.println("DList: Get out of bounds");
 		return result;
 	}
@@ -175,9 +176,7 @@ public class DList implements IList {
 				result += "," + String.valueOf(nodeIt.elem);
 			}
 		}
-		return result == null
-			? "empty"
-			: result;
+		return result == null ? "empty" : result;
 	}
 
 	public static void main(String[] args) {

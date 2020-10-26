@@ -14,7 +14,7 @@ public class SListPropia implements IList {
 
 		SNode newNode = new SNode(newElem);
 		newNode.next = first;
-		if (first == null) 
+		if (first == null)
 			last = newNode;
 		first = newNode;
 		size++;
@@ -30,7 +30,7 @@ public class SListPropia implements IList {
 	public void addLast(String newElem) {
 
 		SNode node = new SNode(newElem);
-		if (isEmpty()) 
+		if (isEmpty())
 			addFirst(newElem);
 		else {
 			last.next = node;
@@ -42,7 +42,7 @@ public class SListPropia implements IList {
 
 	public void removeLast() {
 		if (!isEmpty()) {
-			if (size == 1) 
+			if (size == 1)
 				removeFirst();
 			else {
 				SNode nodeIt = first;
@@ -180,9 +180,7 @@ public class SListPropia implements IList {
 				result += "," + nodeIt.elem.toString();
 			}
 		}
-		return result == null
-			? "empty"
-			: result;
+		return result == null ? "empty" : result;
 	}
 
 	public static void main(String[] args) {
