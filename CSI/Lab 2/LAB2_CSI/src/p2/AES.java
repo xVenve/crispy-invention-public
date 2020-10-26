@@ -18,6 +18,7 @@ import org.bouncycastle.util.encoders.Hex;
  * Demostración de cifrado AES con Bouncy Castle
  *
  */
+@SuppressWarnings("unused")
 public class AES {
 	// Creamos un "motor" AES con un tamaño de bloque de 16 bytes
 	public final int blockSize = 16;

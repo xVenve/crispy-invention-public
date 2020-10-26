@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.bouncycastle.util.encoders.Hex;
 
+@SuppressWarnings("unused")
 public class Demos {
 
 	public static void main(String[] args) {
@@ -53,6 +54,7 @@ public class Demos {
 		System.out.print("\n\nSelect an option and press ENTER:");
 		Scanner scanner = new Scanner(System. in);
 		String selectedOption = scanner.nextLine();
+		scanner.close();
 
 		if (!selectedOption.matches("-?\\d+?") && !selectedOption.equals("q")) {
 			System.out.println("Invalid option");

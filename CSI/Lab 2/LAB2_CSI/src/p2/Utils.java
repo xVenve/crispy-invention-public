@@ -11,6 +11,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Scanner;
 
+@SuppressWarnings("unused")
 public class Utils {
 	private static Utils _singleton = null;
 
@@ -46,7 +47,7 @@ public class Utils {
 					text = text + line + "\n";
 				}
 			}
-			// scan.close();
+			scan.close();
 			return saveFile("txt", text.getBytes());
 		} catch (Exception e) {
 			scan.close();
@@ -63,7 +64,8 @@ public class Utils {
 
 	public boolean saveFile(String ext, byte[] data) {
 		System.out.print("Enter the name of the file\n(NOTE: it will be automatically added the extension " + ext + "):");
-		String fileName = new Scanner(System. in).nextLine();
+		@SuppressWarnings("resource")
+		String fileName = new Scanner(System.in).nextLine();
 		if (fileName.trim().length() == 0) {
 			saveFile(ext, data);
 		}
@@ -82,11 +84,12 @@ public class Utils {
 		return true;
 	}
 
+	@SuppressWarnings("resource")
 	public String readTextFromConsole(String message) {
 		if (message != null) {
 			System.out.print(message + ":");
 		}
-		return new Scanner(System. in).nextLine();
+		return new Scanner(System.in).nextLine();
 	}
 
 	public byte[] loadFile(String infile) {
@@ -96,6 +99,7 @@ public class Utils {
 			int len = keystream.available();
 			byte[] keyhex = new byte[len];
 			keystream.read(keyhex, 0, len);
+			keystream.close();
 			return keyhex;
 		} catch (Exception e) {
 			System.err.println("** Error reading file ");

@@ -43,6 +43,7 @@ import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Base64Encoder;
 import org.bouncycastle.util.encoders.Hex;
 
+@SuppressWarnings("unused")
 public class RSA {
 
 	public final int keySize = 1024;
@@ -51,7 +52,8 @@ public class RSA {
 			System.out.print(
 				"Enter the name of the file to store the pair of keys\n(they will saved with the .priv and .pub extensions):"
 			);
-			String fileName = new Scanner(System. in).nextLine();
+			@SuppressWarnings("resource")
+			String fileName = new Scanner(System.in).nextLine();
 			if (fileName.trim().length() > 0) {
 				String keyfilePath = Utils.instance().filesPath + fileName;
 				KeyPairGenerator gen = KeyPairGeneratorSpi.getInstance("RSA");
