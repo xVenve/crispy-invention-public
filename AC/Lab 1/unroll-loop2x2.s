@@ -34,23 +34,23 @@
 
 	loop2:
 
-  ldc1 F2, 0(R1)
-  ldc1 F3, 8(R1)
+	ldc1 F2, 0(R1)
+	ldc1 F3, 8(R1)
 
-  mul.d F6, F2, F4
-  mul.d F7, F3, F5
+	mul.d F6, F2, F4
+	mul.d F7, F3, F5
 
-  ldc1 F4, 0(R2)
+	ldc1 F4, 0(R2)
 	daddi R1, R1, 16
-  ldc1 F5, 8(R2)
+	ldc1 F5, 8(R2)
 
-  daddi R4, R4, 16
-  daddi R2, R2, 16
+	daddi R4, R4, 16
+	daddi R2, R2, 16
 
-  add.d F8, F8, F6
-  add.d F9, F9, F7
+	add.d F8, F8, F6
+	add.d F9, F9, F7
 
-  bne R4, R3, loop2
+	bne R4, R3, loop2
 
 	sdc1 F8, z(R0)
 	syscall 0

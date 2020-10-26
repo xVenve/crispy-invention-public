@@ -33,35 +33,35 @@
 	ldc1 F8, z(R0)
 
 	loop2:
-  ldc1 F2, 0(R1)
-  ldc1 F3, 8(R1)
-  ldc1 F5, 16(R1)
-  ldc1 F7, 24(R1)
+	ldc1 F2, 0(R1)
+	ldc1 F3, 8(R1)
+	ldc1 F5, 16(R1)
+	ldc1 F7, 24(R1)
 
-  ldc1 F4, 0(R2)
-  ldc1 F9, 8(R2)
-  ldc1 F11, 16(R2)
-  ldc1 F13, 24(R2)
+	ldc1 F4, 0(R2)
+	ldc1 F9, 8(R2)
+	ldc1 F11, 16(R2)
+	ldc1 F13, 24(R2)
 
-  mul.d F6, F2, F4
-  mul.d F15, F3, F9
+	mul.d F6, F2, F4
+	mul.d F15, F3, F9
 
 	daddi R4, R4, 32
 
-  mul.d F17, F5, F11
+	mul.d F17, F5, F11
 
 	daddi R1, R1, 32
 
-  mul.d F19, F7, F13
+	mul.d F19, F7, F13
 
 	add.d F8, F8, F6
-  daddi R2, R2, 32
+	daddi R2, R2, 32
 
-  add.d F21, F21, F15
-  add.d F23, F23, F17
-  add.d F25, F25, F19
+	add.d F21, F21, F15
+	add.d F23, F23, F17
+	add.d F25, F25, F19
 
-  bne R4, R3, loop2
-	
+	bne R4, R3, loop2
+
 	sdc1 F8, z(R0)
 	syscall 0

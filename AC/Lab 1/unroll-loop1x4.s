@@ -16,15 +16,15 @@
 
 	loop1:
 
-  dmtc1 R4, F6
-  daddi R4, R4, 8
-  dmtc1 R4, F12
-  daddi R4, R4, 8
-  dmtc1 R4, F18
-  daddi R4, R4, 8
-  dmtc1 R4, F20
+	dmtc1 R4, F6
+	daddi R4, R4, 8
+	dmtc1 R4, F12
+	daddi R4, R4, 8
+	dmtc1 R4, F18
+	daddi R4, R4, 8
+	dmtc1 R4, F20
 
- 	sdc1 F8, 0(R1)
+	sdc1 F8, 0(R1)
 	cvt.d.l F6, F6
 	mul.d F8, F2, F6
 	cvt.d.l F12, F12
@@ -39,28 +39,28 @@
 	mul.d F8, F8, F8
 
 	mul.d F28, F4, F20
-  mul.d F16, F16, F16
-  mul.d F22, F22, F22
-  mul.d F24, F24, F24
+	mul.d F16, F16, F16
+	mul.d F22, F22, F22
+	mul.d F24, F24, F24
 	mul.d F10, F4, F6
 
 	sdc1 F16, -24(R1)
 
 	mul.d F14, F4, F12
-  sdc1 F22, -16(R1)
+	sdc1 F22, -16(R1)
 
 	mul.d F26, F4, F18
-  sdc1 F24, -8(R1)
+	sdc1 F24, -8(R1)
 
-  sdc1 F10, 0(R2)
-  sdc1 F14, 8(R2)
-  sdc1 F26, 16(R2)
-  sdc1 F28, 24(R2)
+	sdc1 F10, 0(R2)
+	sdc1 F14, 8(R2)
+	sdc1 F26, 16(R2)
+	sdc1 F28, 24(R2)
 
-  daddi R2, R2, 32
-  daddi R4, R4, 8
+	daddi R2, R2, 32
+	daddi R4, R4, 8
 
-  bne R4, R3, loop1
+	bne R4, R3, loop1
 
 	daddi R1, R0, v
 	daddi R2, R0, w
