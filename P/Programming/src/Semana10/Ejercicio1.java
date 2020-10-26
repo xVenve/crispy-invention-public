@@ -1,5 +1,7 @@
 package Semana10;
+
 import java.util.Scanner;
+
 public class Ejercicio1 {
 
 	public static void main(String[] args) {
@@ -7,7 +9,7 @@ public class Ejercicio1 {
 		Ej1Hora maniana = new Ej1Hora(6, 0, 12, 0);
 		Ej1Hora tarde = new Ej1Hora(12, 0, 18, 0);
 		Ej1Hora noche = new Ej1Hora(18, 0, 0, 0);
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		int n;
 		System.out.println("Cuantos intervalos desea introducir?");
 		n = sc.nextInt();

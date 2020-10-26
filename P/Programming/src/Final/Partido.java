@@ -1,4 +1,5 @@
 package Final;
+
 public class Partido {
 
 	private Equipo local;
@@ -20,8 +21,7 @@ public class Partido {
 
 	public void jugarPartido() {
 
-		int golesLocal = (int)(Math.random() * 3),
-		golesVisitante = (int)(Math.random() * 3);
+		int golesLocal = (int) (Math.random() * 3), golesVisitante = (int) (Math.random() * 3);
 
 		if (local.getValoracionTop5() > visitante.getValoracionTop5()) {
 			golesLocal++;

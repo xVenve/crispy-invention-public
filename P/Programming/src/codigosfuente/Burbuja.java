@@ -6,7 +6,7 @@ public class Burbuja {
 		int[] burb = new int[50];
 
 		for (int i = 0; i < burb.length; i++) {
-			burb[i] = (int)(Math.random() * 100);
+			burb[i] = (int) (Math.random() * 100);
 		}
 		int nocambia = 0;
 		for (int i = 0; i < burb.length; i++) {

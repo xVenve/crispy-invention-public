@@ -7,7 +7,7 @@ public class Ejercicio1 {
 
 		int contador = 0;
 		double n, suma = 0;
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		do {
 			System.out.println("Introduzca un numero(0 para finalizar): ");
 			n = sc.nextDouble();
@@ -17,9 +17,7 @@ public class Ejercicio1 {
 		} while (n != 0);
 		if (contador == 1) {
 			System.out.println("La suma de los números es: " + suma);
-			System.out.println("La media de los números es: " + (
-				contador - 1
-			));
+			System.out.println("La media de los números es: " + (contador - 1));
 		} else {
 			System.out.println("La suma de los números es: " + suma);
 			System.out.println("La media de los números es: " + suma / (contador - 1));

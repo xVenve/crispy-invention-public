@@ -24,5 +24,6 @@ public class Ej2JugadorFutbol {
 		this.equipo = equipo;
 	}
 
-	public Ej2JugadorFutbol() {}
+	public Ej2JugadorFutbol() {
+	}
 }

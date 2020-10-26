@@ -5,6 +5,7 @@ public class Ej1Hora {
 	public int mini;
 	public int horaf;
 	public int minf;
+
 	public Ej1Hora(int horai, int mini, int horaf, int minf) {
 
 		if (mini > 59 || mini < 0) {
@@ -62,6 +63,7 @@ public class Ej1Hora {
 		this.mini = mini;
 		this.minf = minf;
 	}
+
 	void Comparar(Ej1Hora madrugada, Ej1Hora maniana, Ej1Hora tarde, Ej1Hora noche) {
 		System.out.println("Intervalo temporal: [" + horai + ":" + mini + "-" + horaf + ":" + minf + "]");
 		System.out.print("Pertenece a: ");

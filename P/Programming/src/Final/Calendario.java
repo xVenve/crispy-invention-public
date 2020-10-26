@@ -1,4 +1,5 @@
 package Final;
+
 public class Calendario {
 
 	private Equipo[] equipos;
@@ -46,9 +47,7 @@ public class Calendario {
 
 		System.out.println("\nCalendario de liga: ");
 		for (int i = 0; i < numJornadasIda; i++) {
-			System.out.println("Partidos jornada " + (
-				i + 1
-			));
+			System.out.println("Partidos jornada " + (i + 1));
 			for (int j = 0; j < numPartidosJornada; j++) {
 				if (partidos[i][j] != null) {
 					Partido p = partidos[i][j];

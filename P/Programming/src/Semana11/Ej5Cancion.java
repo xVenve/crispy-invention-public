@@ -1,10 +1,11 @@
 package Semana11;
+
 import java.util.Scanner;
 
 public class Ej5Cancion {
 	private String titulo;
 	private int duracion; // duracion>0
-	private Scanner sc = new Scanner(System. in);
+	private Scanner sc = new Scanner(System.in);
 
 	public String getTitulo() {
 		return titulo;

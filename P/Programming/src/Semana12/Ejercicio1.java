@@ -1,8 +1,10 @@
 package Semana12;
+
 import java.util.Scanner;
+
 public class Ejercicio1 {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		Ej1Persona Jesus = new Ej1Persona("Jesus", 23, 23123123, "Hombre", 131, 324);
 		Ej1Persona Mujer = new Ej1Persona();
 		System.out.println("Introduzca el nombre");

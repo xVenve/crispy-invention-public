@@ -1,10 +1,12 @@
 package Semana9;
+
 import java.util.Scanner;
 
 public class Ej4Triangulo {
-	Scanner sc = new Scanner(System. in);
+	Scanner sc = new Scanner(System.in);
 	public float base;
 	public float altura;
+
 	public Ej4Triangulo(float base, float altura) {
 		if (base <= 0) {
 			Cambiarbase();
@@ -18,6 +20,7 @@ public class Ej4Triangulo {
 		}
 
 	}
+
 	void Cambiarbase() {
 		do {
 			System.out.println("Introduzca un valor positivo para la base");
@@ -25,6 +28,7 @@ public class Ej4Triangulo {
 		} while (base <= 0);
 
 	}
+
 	void Cambiaralt() {
 		do {
 			System.out.println("Introduzca un valor positivo para la altura");
@@ -32,16 +36,14 @@ public class Ej4Triangulo {
 		} while (altura <= 0);
 
 	}
+
 	void area(float ba, float alt) {
-		System.out.println("El area es " + (
-			ba * alt / 2
-		));
+		System.out.println("El area es " + (ba * alt / 2));
 	}
+
 	void perimetro(float ba, float alt) {
-		float hip = (float)Math.sqrt((ba * ba) + (alt * alt));
-		System.out.println("El perimetro es " + (
-			ba + alt + hip
-		));
+		float hip = (float) Math.sqrt((ba * ba) + (alt * alt));
+		System.out.println("El perimetro es " + (ba + alt + hip));
 
 	}
 

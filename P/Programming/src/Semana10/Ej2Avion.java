@@ -1,4 +1,5 @@
 package Semana10;
+
 //import java.util.Random;
 public class Ej2Avion {
 	public String numero;
@@ -13,7 +14,7 @@ public class Ej2Avion {
 		this.numero = numero;
 		this.asientos = asientos;
 		if (estado != "cancelado" && estado != "puntual" && estado != "retrasado") {
-			int i = (int)(Math.random() * 3);
+			int i = (int) (Math.random() * 3);
 			if (i == 0) {
 				estado = "puntual";
 			} else if (i == 1) {

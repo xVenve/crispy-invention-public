@@ -1,18 +1,18 @@
 package Semana7;
-import java.util. *;
+
+import java.util.*;
+
 public class Ejercicio9 {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		int[] a = new int[100];
-		boolean b = false,
-		b2 = true;
-		int c = 0,
-		r;
+		boolean b = false, b2 = true;
+		int c = 0, r;
 		do {
 			do {
 				b2 = true;
-				r = (int)((Math.random() * 100) + 1);
+				r = (int) ((Math.random() * 100) + 1);
 				for (int i = 0; i <= c; i++) {
 					if (a[i] == r) {
 						b2 = false;

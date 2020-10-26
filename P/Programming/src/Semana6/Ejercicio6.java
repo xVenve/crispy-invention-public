@@ -3,18 +3,12 @@ package Semana6;
 public class Ejercicio6 {
 	public static void main(String[] args) {
 
-		int a,
-		b,
-		c,
-		v,
-		aa = 0,
-		bb = 0,
-		cc = 0;
+		int a, b, c, v, aa = 0, bb = 0, cc = 0;
 		for (v = 1; v <= 10; v++) {
 
-			a = (int)(Math.random() * 2);
-			b = (int)(Math.random() * 2);
-			c = (int)(Math.random() * 2);
+			a = (int) (Math.random() * 2);
+			b = (int) (Math.random() * 2);
+			c = (int) (Math.random() * 2);
 			System.out.println("El resultado de la tirada " + v + " es: ");
 			if (a == 1) {
 				System.out.println("El jugador 1 ha sacado CARA");
@@ -56,26 +50,23 @@ public class Ejercicio6 {
 		if (aa >= bb) {
 			if (aa >= cc) {
 				if (aa == cc) {
-					System.out.println(
-						"LOS GANADORES FINALES HAN SIDO EL JUGADOR 1 CON " + aa + " PUNTOS Y EL JUGADOR 3 CON " + cc + " PUNTOS"
-					);
+					System.out.println("LOS GANADORES FINALES HAN SIDO EL JUGADOR 1 CON " + aa
+							+ " PUNTOS Y EL JUGADOR 3 CON " + cc + " PUNTOS");
 				} else {
 					if (aa == bb) {
-						System.out.println(
-							"LOS GANADORES FINALES HAN SIDO EL JUGADOR 1 CON " + aa + " PUNTOS Y EL JUGADOR 2 CON " + bb + " PUNTOS"
-						);
-					} else 
+						System.out.println("LOS GANADORES FINALES HAN SIDO EL JUGADOR 1 CON " + aa
+								+ " PUNTOS Y EL JUGADOR 2 CON " + bb + " PUNTOS");
+					} else
 						System.out.println("EL GANADOR FINAL HA SIDO EL JUGADOR 1 CON " + aa + " PUNTOS");
-					}
-				} else {
+				}
+			} else {
 				System.out.println("EL GANADOR FINAL HA SIDO EL JUGADOR 3 CON " + cc + " PUNTOS");
 			}
 		} else {
 			if (bb >= cc) {
 				if (bb == cc) {
-					System.out.println(
-						"LOS GANADORES FINALES HAN SIDO EL JUGADOR 2 CON " + bb + " PUNTOS Y EL JUGADOR 3 CON " + cc + " PUNTOS"
-					);
+					System.out.println("LOS GANADORES FINALES HAN SIDO EL JUGADOR 2 CON " + bb
+							+ " PUNTOS Y EL JUGADOR 3 CON " + cc + " PUNTOS");
 				} else {
 					System.out.println("EL GANADOR FINAL HA SIDO EL JUGADOR 2 CON " + bb + " PUNTOS");
 				}

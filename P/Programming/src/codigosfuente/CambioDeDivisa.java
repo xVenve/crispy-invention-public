@@ -1,8 +1,10 @@
 package codigosfuente;
+
 import java.util.Scanner;
+
 public class CambioDeDivisa {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		int dol;
 		double cambio;
 		String moneda;
@@ -37,9 +39,7 @@ public class CambioDeDivisa {
 				moneda = "Dolares";
 		}
 
-		System.out.print("Cambio: " + (
-			dol / cambio
-		) + " " + moneda);
+		System.out.print("Cambio: " + (dol / cambio) + " " + moneda);
 		sc.close();
 	}
 }

@@ -1,4 +1,5 @@
 package Final;
+
 public class Equipo {
 
 	private String nombreEquipo;
@@ -7,9 +8,9 @@ public class Equipo {
 	public Equipo(String nombre) {
 		this.nombreEquipo = nombre;
 		this.jugadores = new Jugador[10];
-		this.jugadores[0] = new Jugador("jugador_" + 0, "P", (int)(Math.random() * 50 + 1));
+		this.jugadores[0] = new Jugador("jugador_" + 0, "P", (int) (Math.random() * 50 + 1));
 		for (int i = 1; i < this.jugadores.length; i++) {
-			this.jugadores[i] = new Jugador("jugador_" + i, "J", (int)(Math.random() * 50 + 1));
+			this.jugadores[i] = new Jugador("jugador_" + i, "J", (int) (Math.random() * 50 + 1));
 		}
 	}
 
@@ -42,8 +43,7 @@ public class Equipo {
 
 		double valoracion = 0.0;
 		Jugador[] jugadoresOrdenado = OrdenarSegunValoracion();
-		int contador = 0,
-		i = 0;
+		int contador = 0, i = 0;
 
 		while (contador < 5) {
 			if (jugadoresOrdenado[i].getposicion().equals("J")) {

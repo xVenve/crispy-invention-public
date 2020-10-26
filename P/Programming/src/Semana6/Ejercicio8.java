@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Ejercicio8 {
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		int n, g;
 		System.out.println("De que orden quieres el cuadrado latino: ");
 		n = sc.nextInt();

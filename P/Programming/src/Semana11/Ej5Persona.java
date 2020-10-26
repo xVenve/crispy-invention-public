@@ -1,10 +1,11 @@
 package Semana11;
+
 import java.util.Scanner;
 
 public class Ej5Persona {
 	private String nombre;
-	private int nacimiento; //anio>1800
-	Scanner sc = new Scanner(System. in);
+	private int nacimiento; // anio>1800
+	Scanner sc = new Scanner(System.in);
 
 	public String getNombre() {
 		return nombre;

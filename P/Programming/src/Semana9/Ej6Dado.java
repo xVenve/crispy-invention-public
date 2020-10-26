@@ -1,10 +1,12 @@
 package Semana9;
+
 import java.util.Scanner;
+
 //import java.util.Random;
 public class Ej6Dado {
 	public int suma = 0;
 	public int repe = 0;
-	public Scanner sc = new Scanner(System. in);
+	public Scanner sc = new Scanner(System.in);
 	public String nombre;
 	public int tiradas;
 	public int[] array;
@@ -29,7 +31,7 @@ public class Ej6Dado {
 	void Rellenar(int[] array, int tiradas) {
 		this.array = new int[tiradas];
 		for (int i = 0; i < tiradas; i++) {
-			this.array[i] = (int)(Math.random() * 6 + 1);
+			this.array[i] = (int) (Math.random() * 6 + 1);
 		}
 	}
 

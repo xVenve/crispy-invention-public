@@ -1,10 +1,11 @@
 package Semana12;
+
 public class Ejercicio2 {
 
 	public static void main(String[] args) {
-		Ej2Rectangulo[] R = new Ej2Rectangulo[(int)(Math.random() * 1000) + 10];
+		Ej2Rectangulo[] R = new Ej2Rectangulo[(int) (Math.random() * 1000) + 10];
 		for (int i = 0; i < R.length; i++) {
-			R[i] = new Ej2Rectangulo((int)(Math.random() * 10) + 1, (int)(Math.random() * 10) + 1);
+			R[i] = new Ej2Rectangulo((int) (Math.random() * 10) + 1, (int) (Math.random() * 10) + 1);
 		}
 		System.out.println("Cuadrados: ");
 		for (int i = 0; i < R.length; i++) {
