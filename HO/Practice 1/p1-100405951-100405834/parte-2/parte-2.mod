@@ -11,7 +11,6 @@ param hora_limite{a in AVION};
 param coste{a in AVION};
 
 param inicio{f in FRANJA};
-param fin{f in FRANJA};
 
 /* variables */
 
