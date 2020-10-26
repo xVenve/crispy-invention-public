@@ -1,0 +1,78 @@
+data;
+
+set TIPO := E L B;
+set AVION := A1 A2 A3 A4 A5;
+set FRANJA := F1 F2 F3 F4 F5 F6;
+set PISTA := P1 P2 P3 P4;
+
+param equipaje :=
+  E  1
+  L  20
+  B  40;
+
+param precio :=
+  E  19
+  L  49
+  B  69;
+
+param min_billetes :=
+  E  0
+  L  20
+  B  10;
+
+param propcion_min :=
+  E  0.6
+  L  0
+  B  0;
+
+param asientos :=
+  A1  90
+  A2  120
+  A3  200
+  A4  150
+  A5  190;
+
+param capacidad :=
+  A1  1700
+  A2  2700
+  A3  1300
+  A4  1700
+  A5  2000;
+
+param ocupado: F1 F2 F3 F4 F5 F6:=
+P1  1 1 1 1 0 0
+P2  1 1 0 0 1 1
+P3  0 0 0 1 1 0
+P4  0 1 1 1 0 0;
+
+param hora_programada  :=
+A1  550
+A2  535
+A3  580
+A4  595
+A5  610;
+
+param hora_limite :=
+A1  615
+A2  570
+A3  600
+A4  615
+A5  630;
+
+param coste :=
+A1  100
+A2  200
+A3  150
+A4  250
+A5  200;
+
+
+param inicio :=
+F1  540
+F2  555
+F3  570
+F4  585
+F5  600
+F6  615;
+
+end;
