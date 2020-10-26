@@ -5,16 +5,17 @@ public class Test {
 		int n = 0;
 		SStack aux = new SStack();
 		while (!s.isEmpty()) {
-			if (s.top().equals(c)) 
+			if (s.top().equals(c))
 				n++;
 			aux.push(s.pop());
 		}
-		while (!aux.isEmpty()) 
+		while (!aux.isEmpty())
 			s.push(aux.pop());
 		return n;
 	}
+
 	public static void main(String[] args) {
-		//Test00
+		// Test00
 		char f = 'x';
 		SStack h = new SStack();
 		h.push('x');
@@ -25,9 +26,9 @@ public class Test {
 		h.push('f');
 		h.push('x');
 		h.push('x');
-		//5 x
+		// 5 x
 		System.out.println(count(h, f));
-		//Test01
+		// Test01
 		char g = 'j';
 		SStack l = new SStack();
 		l.push('j');
@@ -40,7 +41,7 @@ public class Test {
 		l.push('y');
 		l.push('f');
 		l.push('d');
-		//3 j
+		// 3 j
 		System.out.print(count(l, g));
 	}
 }

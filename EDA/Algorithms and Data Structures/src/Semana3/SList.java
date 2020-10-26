@@ -13,15 +13,16 @@ public class SList implements IList {
 	public void addFirst(Book newElem) {
 		SNode newNode = new SNode(newElem);
 		newNode.next = first;
-		if (first == null) 
+		if (first == null)
 			last = newNode;
 		first = newNode;
 		size++;
 	}
+
 	public void removeFirst() {
 		if (!isEmpty()) {
 			first = first.next;
-			if (first == null) 
+			if (first == null)
 				last = null;
 			size--;
 		}
@@ -29,7 +30,7 @@ public class SList implements IList {
 
 	public void addLast(Book newElem) {
 		SNode node = new SNode(newElem);
-		if (isEmpty()) 
+		if (isEmpty())
 			addFirst(newElem);
 		else {
 			last.next = node;
@@ -38,9 +39,10 @@ public class SList implements IList {
 		}
 
 	}
+
 	public void removeLast() {
 		if (!isEmpty()) {
-			if (size == 1) 
+			if (size == 1)
 				removeFirst();
 			else {
 				SNode nodeIt = first;
@@ -76,6 +78,7 @@ public class SList implements IList {
 			return null;
 		}
 	}
+
 	public void insertAt(int index, Book newElem) {
 		System.out.println("adding : " + newElem.title + " at position: " + index);
 		if (index <= size) {
@@ -105,6 +108,7 @@ public class SList implements IList {
 		}
 		return c;
 	}
+
 	public boolean containsGe(String elem) {
 		boolean c = false;
 		for (SNode NodeIt = first; c == false && NodeIt != null; NodeIt = NodeIt.next) {
@@ -124,6 +128,7 @@ public class SList implements IList {
 			}
 		}
 	}
+
 	public void removeAt(int index) {
 		if (index < size) {
 			if (size == 1) {
@@ -146,10 +151,10 @@ public class SList implements IList {
 					++i;
 					previousNode = nodeIt;
 				}
-				if (!removed) 
+				if (!removed)
 					System.out.println("BList: Deletion out of bounds");
-				}
 			}
+		}
 	}
 
 	public int getIndexOfTi(String elem) {
@@ -174,6 +179,7 @@ public class SList implements IList {
 			return first.elem;
 		}
 	}
+
 	public Book getLast() {
 		if (isEmpty()) {
 			return null;
@@ -187,14 +193,13 @@ public class SList implements IList {
 		String result = null;
 		for (SNode nodeIt = first; nodeIt != null; nodeIt = nodeIt.next) {
 			if (result == null) {
-				result = "Title: " + nodeIt.elem.title.toString() + " Author: " + nodeIt.elem.author.toString() + " Genre: " +
-						nodeIt.elem.genre.toString();
+				result = "Title: " + nodeIt.elem.title.toString() + " Author: " + nodeIt.elem.author.toString()
+						+ " Genre: " + nodeIt.elem.genre.toString();
 			} else {
-				result += "\nTitle: " + nodeIt.elem.title.toString() + " Author: " + nodeIt.elem.author.toString() + " Genre: " + nodeIt.elem.genre.toString();
+				result += "\nTitle: " + nodeIt.elem.title.toString() + " Author: " + nodeIt.elem.author.toString()
+						+ " Genre: " + nodeIt.elem.genre.toString();
 			}
 		}
-		return result == null
-			? "empty"
-			: result;
+		return result == null ? "empty" : result;
 	}
 }

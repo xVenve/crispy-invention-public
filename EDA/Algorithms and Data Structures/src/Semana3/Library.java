@@ -2,11 +2,14 @@ package Semana3;
 
 public class Library implements iLibrary {
 	SList lib;
+
 	public Library() {
 		lib = new SList();
 	}
+
 	public void insert(String ti, String au, String ge) {
-		// Si es como la semana 1 que solo caben 1000 libros, el if seria: if(!lib.containsTi(ti)&&lib.size<=1000) y su mensaje:
+		// Si es como la semana 1 que solo caben 1000 libros, el if seria:
+		// if(!lib.containsTi(ti)&&lib.size<=1000) y su mensaje:
 		// System.out.println("Library full");
 		if (!lib.containsTi(ti)) {
 			Book b = new Book(ti, au, ge);
@@ -15,6 +18,7 @@ public class Library implements iLibrary {
 			System.out.println("Existing book");
 		}
 	}
+
 	public void searchBooksByTitle(String ti) {
 		if (!lib.containsTi(ti) || lib.isEmpty()) {
 			System.out.print("Book not found");
@@ -23,6 +27,7 @@ public class Library implements iLibrary {
 			lib.getAt(ind).show();
 		}
 	}
+
 	public SList searchBooksByAuthors(String au) {
 		SList aux = new SList();
 		if (!lib.isEmpty()) {
@@ -36,6 +41,7 @@ public class Library implements iLibrary {
 		}
 		return aux;
 	}
+
 	public SList searchBooksByGenre(String ge) {
 		SList aux = new SList();
 		if (!lib.isEmpty()) {
@@ -49,6 +55,7 @@ public class Library implements iLibrary {
 		}
 		return aux;
 	}
+
 	public void deleteBooksByGenre(String ge) {
 		if (lib.containsGe(ge)) {
 			lib.removeAllGe(ge);

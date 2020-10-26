@@ -9,6 +9,7 @@ public class BinTree {
 
 	/**
 	 * The size of a tree is equal to the size of its root
+	 * 
 	 * @return
 	 */
 	public int getSize() {
@@ -16,11 +17,14 @@ public class BinTree {
 	}
 
 	/**
-	 * Auxiliary method that receives a node and calculates its size, that is, the size of its subtree
+	 * Auxiliary method that receives a node and calculates its size, that is, the
+	 * size of its subtree
 	 *
-	 * Based on OOP (object oriented programming) principles, the method should be static.
-	 * Moreover, the method should belong to the BinTreeNode class.
-	 * However, we decided to relax these OOP principles in order to focus on the main ADT concepts.
+	 * Based on OOP (object oriented programming) principles, the method should be
+	 * static. Moreover, the method should belong to the BinTreeNode class. However,
+	 * we decided to relax these OOP principles in order to focus on the main ADT
+	 * concepts.
+	 * 
 	 * @param node
 	 * @return
 	 */
@@ -34,32 +38,38 @@ public class BinTree {
 	}
 
 	/**
-	 * method that receives a node and calculates its depth, that is, the length of its path to the root
+	 * method that receives a node and calculates its depth, that is, the length of
+	 * its path to the root
 	 *
-	 * Based on OOP (object oriented programming) principles, the method should be static.
-	 * Moreover, the method should belong to the BinTreeNode class.
-	 * However, we decided to relax these OOP principles in order to focus on the main ADT concepts.
+	 * Based on OOP (object oriented programming) principles, the method should be
+	 * static. Moreover, the method should belong to the BinTreeNode class. However,
+	 * we decided to relax these OOP principles in order to focus on the main ADT
+	 * concepts.
+	 * 
 	 * @param node
 	 * @return
 	 */
 	public static int getDepth(BinTreeNode node) {
-		if (node == null) 
+		if (node == null)
 			return -1;
-		else 
+		else
 			return 1 + getDepth(node.parent);
-		}
-	
+	}
+
 	/**
-	 * Iterative method that receives a node and calculates its depth, that is, the length of its path to the root
+	 * Iterative method that receives a node and calculates its depth, that is, the
+	 * length of its path to the root
 	 *
-	 * Based on OOP (object oriented programming) principles, the method should be static.
-	 * Moreover, the method should belong to the BinTreeNode class.
-	 * However, we decided to relax these OOP principles in order to focus on the main ADT concepts.
+	 * Based on OOP (object oriented programming) principles, the method should be
+	 * static. Moreover, the method should belong to the BinTreeNode class. However,
+	 * we decided to relax these OOP principles in order to focus on the main ADT
+	 * concepts.
+	 * 
 	 * @param node
 	 * @return
 	 */
 	public static int getDepthIt(BinTreeNode node) {
-		if (node == null) 
+		if (node == null)
 			return -1;
 		BinTreeNode nodeIt = node;
 		int level = 0;
@@ -72,6 +82,7 @@ public class BinTree {
 
 	/**
 	 * PreOrder traversal Method that returns the preorder of the tree into a list.
+	 * 
 	 * @return
 	 */
 	public SList getPreorder() {
@@ -81,26 +92,29 @@ public class BinTree {
 	}
 
 	/**
-	 * Auxiliary method that receives a node and visits their nodes in preorder. In particular,
-	 * the elements of the nodes are saved into a list.
+	 * Auxiliary method that receives a node and visits their nodes in preorder. In
+	 * particular, the elements of the nodes are saved into a list.
 	 *
-	 * Based on OOP (object oriented programming) principles, the method should be static.
-	 * Moreover, the method should belong to the BinTreeNode class.
-	 * However, we decided to relax these OOP principles in order to focus on the main ADT concepts.
+	 * Based on OOP (object oriented programming) principles, the method should be
+	 * static. Moreover, the method should belong to the BinTreeNode class. However,
+	 * we decided to relax these OOP principles in order to focus on the main ADT
+	 * concepts.
+	 * 
 	 * @param node
 	 * @return
 	 */
 	public static void getPreorder(BinTreeNode node, SList list) {
-		if (node == null) 
+		if (node == null)
 			return;
 		list.addLast(node.elem);
-		//System.out.println(node.elem)
+		// System.out.println(node.elem)
 		getPreorder(node.left, list);
 		getPreorder(node.right, list);
 	}
 
 	/**
 	 * In-Order traversal Method that returns the in-order of the tree into a list.
+	 * 
 	 * @return
 	 */
 	public SList getInOrder() {
@@ -110,29 +124,33 @@ public class BinTree {
 	}
 
 	/**
-	 * Auxiliary method that receives a node and visits their nodes in in-order. In particular,
-	 * the elements of the nodes are saved into a list.
+	 * Auxiliary method that receives a node and visits their nodes in in-order. In
+	 * particular, the elements of the nodes are saved into a list.
 	 *
-	 * Based on OOP (object oriented programming) principles, the method should be static.
-	 * Moreover, the method should belong to the BinTreeNode class.
-	 * However, we decided to relax these OOP principles in order to focus on the main ADT concepts.
+	 * Based on OOP (object oriented programming) principles, the method should be
+	 * static. Moreover, the method should belong to the BinTreeNode class. However,
+	 * we decided to relax these OOP principles in order to focus on the main ADT
+	 * concepts.
+	 * 
 	 * @param node
 	 * @return
 	 */
 	public static void getInOrder(BinTreeNode node, SList list) {
-		if (node == null) 
+		if (node == null)
 			return;
-		
+
 		getInOrder(node.left, list);
 		list.addLast(node.elem);
-		//System.out.println(node.elem)
+		// System.out.println(node.elem)
 
 		getInOrder(node.right, list);
 
 	}
 
 	/**
-	 * PLEASE, COMPLETE THIS CODE TO DEVELOP A METHOD THAT RETURNS THE POSTORDER TRASVERSE OF THE TREE
+	 * PLEASE, COMPLETE THIS CODE TO DEVELOP A METHOD THAT RETURNS THE POSTORDER
+	 * TRASVERSE OF THE TREE
+	 * 
 	 * @return
 	 */
 	public SList getPostOrder() {
@@ -140,36 +158,40 @@ public class BinTree {
 		getPostOrder(root, list);
 		return list;
 	}
+
 	/**
 	 * PLEASE, COMPLETE THIS CODE
 	 *
-	 * Auxiliary method that receives a node and visits their nodes in postorder.
-	 * In particular, the elements of the nodes are saved into a list.
+	 * Auxiliary method that receives a node and visits their nodes in postorder. In
+	 * particular, the elements of the nodes are saved into a list.
 	 *
-	 * Based on OOP (object oriented programming) principles, the method should be static.
-	 * Moreover, the method should belong to the BinTreeNode class.
-	 * However, we decided to relax these OOP principles in order to focus on the main ADT concepts.
+	 * Based on OOP (object oriented programming) principles, the method should be
+	 * static. Moreover, the method should belong to the BinTreeNode class. However,
+	 * we decided to relax these OOP principles in order to focus on the main ADT
+	 * concepts.
+	 * 
 	 * @param node
 	 * @return
 	 */
 
 	public static void getPostOrder(BinTreeNode node, SList list) {
-		if (node == null) 
+		if (node == null)
 			return;
-		
+
 		getPostOrder(node.left, list);
 		getPostOrder(node.right, list);
 
 		list.addLast(node.elem);
-		//System.out.println(node.elem)
+		// System.out.println(node.elem)
 
 	}
 
 	/**
 	 * PLEASE, COMPLETE THIS CODE
 	 *
-	 * The height of a tree is equal to the height of its root
-	 * Since we suppose that the
+	 * The height of a tree is equal to the height of its root Since we suppose that
+	 * the
+	 * 
 	 * @return
 	 */
 	public int getHeight() {
@@ -177,15 +199,17 @@ public class BinTree {
 	}
 
 	/**
-	 * PLEASE, COMPLETE THIS CODE.
-	 * Auxiliary method that receives a node and calculates its height, that is, the length of the longest path to a leaf.
+	 * PLEASE, COMPLETE THIS CODE. Auxiliary method that receives a node and
+	 * calculates its height, that is, the length of the longest path to a leaf.
 	 *
 	 * Important: We suppose that the height of a leaf is 1.
 	 *
 	 *
-	 * Based on OOP (object oriented programming) principles, the method should be static.
-	 * Moreover, the method should belong to the BinTreeNode class.
-	 * However, we decided to relax these OOP principles in order to focus on the main ADT concepts.
+	 * Based on OOP (object oriented programming) principles, the method should be
+	 * static. Moreover, the method should belong to the BinTreeNode class. However,
+	 * we decided to relax these OOP principles in order to focus on the main ADT
+	 * concepts.
+	 * 
 	 * @param node
 	 * @return
 	 */
@@ -200,15 +224,15 @@ public class BinTree {
 
 	public void showLevelOrder() {
 		int h = getHeight(root);
-		for (int i = 1; i <= h; i++) 
+		for (int i = 1; i <= h; i++)
 			printGivenLevel(root, i);
-		}
-	
+	}
+
 	/* Print nodes at the given level */
 	public void printGivenLevel(BinTreeNode root, int level) {
-		if (root == null) 
+		if (root == null)
 			return;
-		if (level == 1) 
+		if (level == 1)
 			System.out.print(root.elem + " ");
 		else if (level > 1) {
 			printGivenLevel(root.left, level - 1);
@@ -217,17 +241,18 @@ public class BinTree {
 	}
 
 	/**
-	 * 						A
-	 * 				B				C
-	 * 			D		E				F
+	 * A B C D E F
 	 *
 	 * @param args
 	 */
 	public static void main(String args[]) {
 
-		/* As an exception, we will create the binary tree in the following (bad) way.
+		/*
+		 * As an exception, we will create the binary tree in the following (bad) way.
 		 *
-		 * When we will study the search binary trees, we will learn their search, insert and remove operations*/
+		 * When we will study the search binary trees, we will learn their search,
+		 * insert and remove operations
+		 */
 
 		BinTreeNode root = new BinTreeNode("A");
 		BinTreeNode left1 = new BinTreeNode("B");
@@ -250,7 +275,7 @@ public class BinTree {
 		right1.right = right22;
 		right22.parent = right1;
 
-		//We create the tree
+		// We create the tree
 
 		BinTree tree = new BinTree(root);
 

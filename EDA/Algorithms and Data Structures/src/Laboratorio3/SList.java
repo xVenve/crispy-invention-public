@@ -5,6 +5,7 @@ public class SList implements IList {
 	public SNode first;
 	public SNode last;
 	int size;
+
 	public void addFirst(String newElem) {
 
 		SNode newNode = new SNode(newElem);
@@ -18,9 +19,10 @@ public class SList implements IList {
 
 		size++;
 	}
+
 	public void addLast(String newElem) {
 
-		if (isEmpty()) 
+		if (isEmpty())
 			addFirst(newElem);
 		else {
 			SNode node = new SNode(newElem);
@@ -29,14 +31,15 @@ public class SList implements IList {
 			size++;
 		}
 	}
+
 	public void insertAt(int index, String newElem) {
 
 		System.out.println("adding : " + newElem + " at position: " + index);
 
 		SNode newNode = new SNode(newElem);
-		if (index == 0) 
+		if (index == 0)
 			addFirst(newElem);
-		else if (index == size) 
+		else if (index == size)
 			addLast(newElem);
 		else {
 			int i = 1;
@@ -50,10 +53,10 @@ public class SList implements IList {
 				}
 				++i;
 			}
-			if (!inserted) 
+			if (!inserted)
 				System.out.println("SList: Insertion out of bounds");
-			}
 		}
+	}
 
 	public boolean isEmpty() {
 		return (first == null);
@@ -72,14 +75,15 @@ public class SList implements IList {
 	public void removeFirst() {
 		if (!isEmpty()) {
 			first = first.next;
-			if (first == null) 
+			if (first == null)
 				last = null;
 			size--;
 		}
 	}
+
 	public void removeLast() {
 		if (!isEmpty()) {
-			if (size == 1) 
+			if (size == 1)
 				removeFirst();
 			else {
 				SNode nodeIt = first;
@@ -93,6 +97,7 @@ public class SList implements IList {
 
 		}
 	}
+
 	public void removeAll(String elem) {
 		int pos = getIndexOf(elem);
 		while (pos != -1) {
@@ -100,12 +105,13 @@ public class SList implements IList {
 			pos = getIndexOf(elem);
 		}
 	}
+
 	public void removeAt(int index) {
 
 		System.out.println("removing at position: " + index);
-		if (index == 0) 
+		if (index == 0)
 			removeFirst();
-		else if (index == size - 1) 
+		else if (index == size - 1)
 			removeLast();
 		else {
 			int i = 0;
@@ -120,10 +126,10 @@ public class SList implements IList {
 				++i;
 				previousNode = nodeIt;
 			}
-			if (!removed) 
+			if (!removed)
 				System.out.println("SList: Deletion out of bounds");
-			}
 		}
+	}
 
 	public int getSize() {
 		return size;
@@ -144,13 +150,12 @@ public class SList implements IList {
 	}
 
 	public String getFirst() {
-		return isEmpty()
-			? null
-			: first.elem;
+		return isEmpty() ? null : first.elem;
 	}
+
 	public String getLast() {
 		String result = null;
-		if (!isEmpty()) 
+		if (!isEmpty())
 			result = last.elem;
 		return result;
 	}
@@ -164,7 +169,7 @@ public class SList implements IList {
 			}
 			++i;
 		}
-		if (result == null) 
+		if (result == null)
 			System.out.println("SList: Get out of bounds");
 		return result;
 	}
@@ -178,8 +183,6 @@ public class SList implements IList {
 				result += "," + nodeIt.elem.toString();
 			}
 		}
-		return result == null
-			? "empty"
-			: result;
+		return result == null ? "empty" : result;
 	}
 }

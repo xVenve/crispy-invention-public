@@ -2,6 +2,7 @@ package Laboratorio7;
 
 /**
  * Lista de objetos de tipo String
+ * 
  * @author isegura
  *
  */

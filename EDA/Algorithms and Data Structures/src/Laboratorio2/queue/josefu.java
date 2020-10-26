@@ -14,6 +14,7 @@ public class josefu {
 		} while (q.size != 1);
 		return q.front();
 	}
+
 	public static void main(String[] args) {
 		int m = 40;
 		System.out.println("La posicion en la que debes colocarte para no morir es: " + posJosefu(m));

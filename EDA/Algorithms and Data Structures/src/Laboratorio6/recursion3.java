@@ -1,15 +1,15 @@
 package Laboratorio6;
 
 /**
- * Método recursivo que tome un número entero
- * y devuelva el número de dígitos que lo componen
+ * Método recursivo que tome un número entero y devuelva el número de dígitos
+ * que lo componen
  *
  * @author xvenve
  */
 public class recursion3 {
 	/**
-	 * Método recursivo que tome un número entero
-	 * y devuelva el número de dígitos que lo componen
+	 * Método recursivo que tome un número entero y devuelva el número de dígitos
+	 * que lo componen
 	 *
 	 * @param x Entero a determinar numero de digitos
 	 *

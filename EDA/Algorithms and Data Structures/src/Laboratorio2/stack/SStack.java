@@ -37,7 +37,7 @@ public class SStack implements IStack {
 	public String toString() {
 		String result = "[";
 		for (SNode nodeIt = peak; nodeIt != null; nodeIt = nodeIt.next) {
-			if (result != "[") 
+			if (result != "[")
 				result = result + " ";
 			result = result + nodeIt.elem.toString();
 		}

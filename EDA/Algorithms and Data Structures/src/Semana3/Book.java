@@ -10,6 +10,7 @@ public class Book {
 		author = au;
 		genre = ge;
 	}
+
 	public void show() {
 		System.out.println("Title: " + title + " Author: " + author + " Genre: " + genre);
 	}

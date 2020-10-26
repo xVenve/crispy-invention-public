@@ -15,7 +15,7 @@ public class recursion1 {
 	 * @return int Suma de los n primeros enteros
 	 */
 	public static int sumaN(int n) {
-		if (n == 1) 
+		if (n == 1)
 			return 1;
 		return n + sumaN(n - 1);
 	}

@@ -32,7 +32,8 @@ public class Library implements iLibrary {
 							repeat = true;
 							if (NodeIt.elem.title.toLowerCase().charAt(i + 1) > ti.toLowerCase().charAt(i + 1)) {
 								orden = true;
-							} else if (NodeIt.elem.title.toLowerCase().charAt(i + 1) == ti.toLowerCase().charAt(i + 1)) {
+							} else if (NodeIt.elem.title.toLowerCase().charAt(i + 1) == ti.toLowerCase()
+									.charAt(i + 1)) {
 								salir = true;
 								orden = true;
 							} else {
@@ -56,7 +57,8 @@ public class Library implements iLibrary {
 
 	public void show() {
 		for (DNode NodeIt = header.next; NodeIt.next != null; NodeIt = NodeIt.next) {
-			System.out.println("Title: " + NodeIt.elem.title + " Author: " + NodeIt.elem.author + " Gender: " + NodeIt.elem.genre);
+			System.out.println(
+					"Title: " + NodeIt.elem.title + " Author: " + NodeIt.elem.author + " Gender: " + NodeIt.elem.genre);
 		}
 	}
 
@@ -68,10 +70,10 @@ public class Library implements iLibrary {
 				found = true;
 			}
 		}
-		if (!found) 
+		if (!found)
 			System.out.println("Not found");
-		}
-	
+	}
+
 	public iLibrary searchBooksByAuthors(String au) {
 		Library list = new Library();
 		for (DNode node = header.next; node.elem != null; node = node.next) {
@@ -104,7 +106,10 @@ public class Library implements iLibrary {
 					NodeIt = NodeIt.next;
 					if (NodeIt.prev.elem.author.toLowerCase().charAt(0) > NodeIt.elem.author.toLowerCase().charAt(0)) {
 						change = true;
-					} else if (NodeIt.prev.elem.author.toLowerCase().charAt(0) == NodeIt.elem.author.toLowerCase().charAt(0) && NodeIt.prev.elem.author.toLowerCase().charAt(1) > NodeIt.elem.author.toLowerCase().charAt(1)) {
+					} else if (NodeIt.prev.elem.author.toLowerCase().charAt(0) == NodeIt.elem.author.toLowerCase()
+							.charAt(0)
+							&& NodeIt.prev.elem.author.toLowerCase().charAt(1) > NodeIt.elem.author.toLowerCase()
+									.charAt(1)) {
 						change = true;
 					}
 					if (change) {
@@ -128,6 +133,7 @@ public class Library implements iLibrary {
 		header.next = trailer;
 		trailer.prev = header;
 	}
+
 	public void addFirst(Book elem) {
 		DNode newNode = new DNode(elem);
 		newNode.next = header.next;
@@ -136,6 +142,7 @@ public class Library implements iLibrary {
 		header.next = newNode;
 		size++;
 	}
+
 	public void addLast(Book elem) {
 		DNode newNode = new DNode(elem);
 		newNode.next = trailer;
@@ -144,6 +151,7 @@ public class Library implements iLibrary {
 		trailer.prev = newNode;
 		size++;
 	}
+
 	public void insertAt(int index, Book elem) {
 		if (index <= size) {
 			DNode newNode = new DNode(elem);
@@ -168,9 +176,11 @@ public class Library implements iLibrary {
 			}
 		}
 	}
+
 	public boolean isEmpty() {
 		return (header.next == trailer);
 	}
+
 	public boolean contains(Book elem) {
 		boolean found = false;
 		if (!isEmpty()) {

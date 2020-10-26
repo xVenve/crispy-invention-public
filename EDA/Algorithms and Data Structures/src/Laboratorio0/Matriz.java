@@ -9,10 +9,13 @@ public class Matriz {
 	private int M;
 	private int N;
 	private int[][] data;
-	public Matriz() {}
+
+	public Matriz() {
+	}
 
 	/**
 	 * Constructor de la matriz mxn de ceros
+	 * 
 	 * @param m Filas
 	 * @param n Columnas
 	 */
@@ -28,7 +31,7 @@ public class Matriz {
 	public void MatrizRandom() {
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
-				data[i][j] = (int)(Math.random() * 11);
+				data[i][j] = (int) (Math.random() * 11);
 			}
 		}
 	}
@@ -84,7 +87,7 @@ public class Matriz {
 	}
 
 	/**
-	 *Resta la matriz que invoca con la pasada como parametro
+	 * Resta la matriz que invoca con la pasada como parametro
 	 *
 	 * @param R Matriz a restar
 	 *

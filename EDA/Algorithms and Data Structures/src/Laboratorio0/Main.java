@@ -15,7 +15,7 @@ public class Main {
 			System.out.println("No igual");
 			J.Transpose();
 		}
-		//H.MatrizIdentidad(3).Show();
+		// H.MatrizIdentidad(3).Show();
 	}
 
 }

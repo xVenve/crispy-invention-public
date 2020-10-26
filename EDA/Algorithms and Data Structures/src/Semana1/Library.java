@@ -12,6 +12,7 @@ public class Library implements iLibrary {
 	public int getNumBooks() {
 		return numB;
 	}
+
 	public void insert(String ti, String au, int ge) {
 		boolean r = false;
 		if (numB < b.length && ge < 3 && ge > -1) {
@@ -30,6 +31,7 @@ public class Library implements iLibrary {
 			System.out.println("Library full");
 		}
 	}
+
 	public void show() {
 		for (int i = 0; i < numB; i++) {
 			if (b[i].gender == 0) {
@@ -41,6 +43,7 @@ public class Library implements iLibrary {
 			}
 		}
 	}
+
 	public void searchBooksByTitle(String ti) {
 		boolean found = false;
 		for (int i = 0; i < numB && !found; i++) {
@@ -56,6 +59,7 @@ public class Library implements iLibrary {
 			}
 		}
 	}
+
 	public iLibrary searchBooksByAuthors(String au) {
 		Library auB = new Library();
 		for (int i = 0; i < numB; i++) {
@@ -65,6 +69,7 @@ public class Library implements iLibrary {
 		}
 		return auB;
 	}
+
 	public iLibrary searchBooksByGender(int ge) {
 		Library auG = new Library();
 		for (int i = 0; i < numB; i++) {
@@ -77,7 +82,7 @@ public class Library implements iLibrary {
 
 	public static void main(String[] args) {
 		Library l = new Library();
-		//Generos: 0 Novela 1 Historia 2 Ensayo
+		// Generos: 0 Novela 1 Historia 2 Ensayo
 		l.insert("Harry Potter", "Rowling", 0);
 		l.insert("Lunes", "Delibes", 2);
 		l.show();

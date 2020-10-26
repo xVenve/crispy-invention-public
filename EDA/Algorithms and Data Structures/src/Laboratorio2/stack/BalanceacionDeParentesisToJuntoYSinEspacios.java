@@ -45,7 +45,7 @@ public class BalanceacionDeParentesisToJuntoYSinEspacios {
 	}
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduce la formula");
 		String A = sc.next();
 		if (Comprobacionamiento(A)) {

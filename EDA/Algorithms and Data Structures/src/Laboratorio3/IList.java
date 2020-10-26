@@ -13,13 +13,19 @@ public interface IList {
 	public void removeLast();
 
 	public String getFirst();
+
 	public String getLast();
+
 	public int getSize();
+
 	public boolean contains(String elem);
+
 	public int getIndexOf(String elem);
 
 	public void insertAt(int index, String newElem);
+
 	public String getAt(int index);
+
 	public void removeAll(String elem);
 
 	public void removeAt(int index);

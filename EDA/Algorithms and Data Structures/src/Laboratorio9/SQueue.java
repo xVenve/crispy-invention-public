@@ -45,7 +45,8 @@ public class SQueue implements IQueue {
 		return first.vertex;
 	}
 
-	@Override public String toString() {
+	@Override
+	public String toString() {
 		String result = null;
 		for (SNode nodeIt = first; nodeIt != null; nodeIt = nodeIt.next) {
 			if (result == null) {
@@ -54,12 +55,11 @@ public class SQueue implements IQueue {
 				result += "," + nodeIt.vertex;
 			}
 		}
-		return result == null
-			? "empty"
-			: result;
+		return result == null ? "empty" : result;
 	}
 
-	@Override public int getSize() {
+	@Override
+	public int getSize() {
 		return size;
 	}
 }

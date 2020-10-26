@@ -3,12 +3,14 @@ package Laboratorio1;
 public class Sample implements iSample {
 	double m[];
 	int size;
+
 	public Sample(int h) {
 		m = new double[h];
 		size = h;
 	}
+
 	public Sample() {
-		m = new double[]{5, 4, 3.65, 2, 1};
+		m = new double[] { 5, 4, 3.65, 2, 1 };
 		size = m.length;
 	}
 
@@ -61,7 +63,7 @@ public class Sample implements iSample {
 	 * Mediana
 	 */
 	public double median() {
-		//Por si acaso
+		// Por si acaso
 		double[] aux = new double[size];
 		double c = 0;
 		System.arraycopy(m, 0, aux, 0, size);

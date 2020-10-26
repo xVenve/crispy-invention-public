@@ -12,8 +12,9 @@ public class Recurrencia {
 		}
 		return n;
 	}
+
 	public static void main(String[] args) {
-		//Test00
+		// Test00
 		char f = 'x';
 		SStack h = new SStack();
 		h.push('x');
@@ -24,9 +25,9 @@ public class Recurrencia {
 		h.push('f');
 		h.push('x');
 		h.push('x');
-		//5 x
+		// 5 x
 		System.out.println(count(h, f));
-		//Test01
+		// Test01
 		char g = 'j';
 		SStack l = new SStack();
 		l.push('j');
@@ -39,7 +40,7 @@ public class Recurrencia {
 		l.push('y');
 		l.push('f');
 		l.push('d');
-		//3 j
+		// 3 j
 		System.out.print(count(l, g));
 	}
 }
