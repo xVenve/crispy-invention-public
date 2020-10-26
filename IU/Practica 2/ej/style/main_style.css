@@ -335,7 +335,10 @@ li {
     background-color: #8caba8;
   }
 
-  #LINKS, #RIGHT, #LOGO, #OPTIONS {
+  #LINKS,
+  #RIGHT,
+  #LOGO,
+  #OPTIONS {
     display: none;
   }
 
