@@ -1,11 +1,11 @@
-$(document).ready(function() {
-  $('#NOVEDADES').on('click', function() {
+$(document).ready(function () {
+  $('#NOVEDADES').on('click', function () {
     $('#popup_novedades').fadeIn('slow');
     $('.popup-overlay').fadeIn('slow');
     $('.popup-overlay').height($(window).height());
     return false;
   });
-  $('.cerrar').on('click', function() {
+  $('.cerrar').on('click', function () {
     $('#popup_novedades').fadeOut('slow');
     $('.popup-overlay').fadeOut('slow');
     return false;
@@ -13,35 +13,35 @@ $(document).ready(function() {
 });
 
 
-$(document).ready(function() {
-  $('#cierre_sesion').on('click', function() {
+$(document).ready(function () {
+  $('#cierre_sesion').on('click', function () {
     $('#popup_sesion').fadeIn('slow');
     $('.popup-overlay').fadeIn('slow');
     $('.popup-overlay').height($(window).height());
     return false;
   });
-  $('.cerrar').on('click', function() {
+  $('.cerrar').on('click', function () {
     $('#popup_sesion').fadeOut('slow');
     $('.popup-overlay').fadeOut('slow');
     return false;
   });
 });
 
-$(document).ready(function() {
-  $('#NOTICIAS').on('click', function() {
+$(document).ready(function () {
+  $('#NOTICIAS').on('click', function () {
     $('#popup_noticias').fadeIn('slow');
     $('.popup-overlay').fadeIn('slow');
     $('.popup-overlay').height($(window).height());
     return false;
   });
-  $('.cerrar').on('click', function() {
+  $('.cerrar').on('click', function () {
     $('#popup_noticias').fadeOut('slow');
     $('.popup-overlay').fadeOut('slow');
     return false;
   });
 });
 
-$(function() {
+$(function () {
   $("#calendar_novedades").simpleCalendar();
 });
 
@@ -52,25 +52,25 @@ $("#calendar_novedades").simpleCalendar({
 
   // event dates
   events: [{
-      startDate: new Date("2020-10-1"),
-      endDate: new Date("2020-10-1"),
-      summary: 'Nuevo video subido: La historia de la web'
-    },
-    {
-      startDate: new Date("2020-09-29"),
-      endDate: new Date("2020-09-29"),
-      summary: 'Nuevo articulo subido: Introduccion a HTML'
-    },
-    {
-      startDate: new Date("2020-9-18"),
-      endDate: new Date("2020-9-18"),
-      summary: 'Foro de la asignatura habilitado'
-    },
-    {
-      startDate: new Date("2020-9-14"),
-      endDate: new Date("2020-9-14"),
-      summary: 'Bienvenida a la asignatura'
-    }
+    startDate: new Date("2020-10-1"),
+    endDate: new Date("2020-10-1"),
+    summary: 'Nuevo video subido: La historia de la web'
+  },
+  {
+    startDate: new Date("2020-09-29"),
+    endDate: new Date("2020-09-29"),
+    summary: 'Nuevo articulo subido: Introduccion a HTML'
+  },
+  {
+    startDate: new Date("2020-9-18"),
+    endDate: new Date("2020-9-18"),
+    summary: 'Foro de la asignatura habilitado'
+  },
+  {
+    startDate: new Date("2020-9-14"),
+    endDate: new Date("2020-9-14"),
+    summary: 'Bienvenida a la asignatura'
+  }
   ],
 
   // disable showing event details
@@ -80,7 +80,7 @@ $("#calendar_novedades").simpleCalendar({
   disableEmptyDetails: true
 });
 
-$(function() {
+$(function () {
   $("#calendar_noticias").simpleCalendar();
 });
 
@@ -91,20 +91,20 @@ $("#calendar_noticias").simpleCalendar({
 
   // event dates
   events: [{
-      startDate: new Date("2020-10-5"),
-      endDate: new Date("2020-10-5"),
-      summary: 'Entrega practica en dos días'
-    },
-    {
-      startDate: new Date("2020-10-1"),
-      endDate: new Date("2020-10-1"),
-      summary: 'Clase online magistral para el dia 3 de octubre'
-    },
-    {
-      startDate: new Date("2020-9-28"),
-      endDate: new Date("2020-9-28"),
-      summary: 'Tutoria colectiva en tres días'
-    }
+    startDate: new Date("2020-10-5"),
+    endDate: new Date("2020-10-5"),
+    summary: 'Entrega practica en dos días'
+  },
+  {
+    startDate: new Date("2020-10-1"),
+    endDate: new Date("2020-10-1"),
+    summary: 'Clase online magistral para el dia 3 de octubre'
+  },
+  {
+    startDate: new Date("2020-9-28"),
+    endDate: new Date("2020-9-28"),
+    summary: 'Tutoria colectiva en tres días'
+  }
   ],
   // disable showing event details
   disableEventDetails: false,
@@ -129,7 +129,7 @@ function start() {
 }
 
 document.getElementById("boton_registro").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_REGISTRO").style.display = "block";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("RIGHT").style.display = "none";
@@ -143,7 +143,7 @@ document.getElementById("boton_registro").addEventListener("click",
   });
 
 document.getElementById("linkforo_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_FORO").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -154,7 +154,7 @@ document.getElementById("linkforo_h").addEventListener("click",
   });
 
 document.getElementById("linkforo").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_FORO").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -166,7 +166,7 @@ document.getElementById("linkforo").addEventListener("click",
   });
 
 document.getElementById("linkcalificaciones").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -178,7 +178,7 @@ document.getElementById("linkcalificaciones").addEventListener("click",
   });
 
 document.getElementById("linkcalificaciones_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -190,7 +190,7 @@ document.getElementById("linkcalificaciones_h").addEventListener("click",
   });
 
 document.getElementById("linkestudiantes").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -202,7 +202,7 @@ document.getElementById("linkestudiantes").addEventListener("click",
   });
 
 document.getElementById("linkestudiantes_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -214,7 +214,7 @@ document.getElementById("linkestudiantes_h").addEventListener("click",
   });
 
 document.getElementById("linkmain").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -226,7 +226,7 @@ document.getElementById("linkmain").addEventListener("click",
   });
 
 document.getElementById("linkmain_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";

@@ -159,7 +159,8 @@
   cursor: pointer;
 }
 
-.calendar .event-container .close:before, .calendar .event-container .close:after {
+.calendar .event-container .close:before,
+.calendar .event-container .close:after {
   content: '';
   position: absolute;
   top: 0;
