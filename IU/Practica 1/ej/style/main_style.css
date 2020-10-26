@@ -208,7 +208,10 @@ li {
     padding-left: 20px;
   }
 
-  #LINKS, #RIGHT, #LOGO, #OPTIONS {
+  #LINKS,
+  #RIGHT,
+  #LOGO,
+  #OPTIONS {
     display: none;
   }
 
