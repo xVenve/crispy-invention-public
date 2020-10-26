@@ -1,4 +1,5 @@
 package Final;
+
 public class Jugador {
 
 	private String nombre;

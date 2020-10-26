@@ -11,20 +11,24 @@ public class Escalera {
 		System.out.println("\n" + a);
 		ordenar(cartas);
 	}
+
 	public static void suma(int b) {
 		b++;
 	}
+
 	public static void llenar(int[] a) {
 		for (int i = 0; i < a.length; i++) {
-			a[i] = (int)(Math.random() * 1200) + 1;
+			a[i] = (int) (Math.random() * 1200) + 1;
 		}
 	}
+
 	public static void imprimir(int[] a) {
 		for (int i = 0; i < a.length; i++) {
 			System.out.print(a[i] + " ");
 		}
 		System.out.println();
 	}
+
 	public static void ordenar(int[] a) {
 		int aux;
 		for (int i = 0; i < a.length; i++) {
@@ -38,6 +42,7 @@ public class Escalera {
 		}
 		imprimir(a);
 	}
+
 	public static void escalera(int[] b) {
 		int[] a = new int[b.length];
 		System.arraycopy(b, 0, a, 0, b.length);

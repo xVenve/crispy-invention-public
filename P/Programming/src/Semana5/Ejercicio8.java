@@ -1,11 +1,12 @@
 package Semana5;
+
 import java.util.Scanner;
 
 public class Ejercicio8 {
 
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduzca su sueldo y a�os de antig�edad: ");
 		double s = sc.nextDouble();
 		int a = sc.nextInt();

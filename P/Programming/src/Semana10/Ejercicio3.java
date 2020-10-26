@@ -1,10 +1,11 @@
 package Semana10;
+
 import java.util.Scanner;
 
 public class Ejercicio3 {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		sc.useDelimiter(System.getProperty("line.separator"));
 		System.out.println("Introduzca el nombre del disco");
 		Ej3Disco disco = new Ej3Disco(sc.next());
@@ -15,12 +16,11 @@ public class Ejercicio3 {
 		}
 		System.out.println("Canciones:");
 		for (int i = 0; i < disco.canciones.length; i++) {
-			System.out.println("\t" + (
-				i + 1
-			) + ": " + disco.canciones[i].titulo + " (" + disco.canciones[i].duracion + " segundos)");
+			System.out.println("\t" + (i + 1) + ": " + disco.canciones[i].titulo + " (" + disco.canciones[i].duracion
+					+ " segundos)");
 		}
 		sc.close();
 
-	} //Disco>Canciones;Disco>Grupo>Personas
+	} // Disco>Canciones;Disco>Grupo>Personas
 
 }

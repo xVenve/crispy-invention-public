@@ -1,13 +1,14 @@
 package codigosfuente;
+
 public class DiezPorDiezFind {
-	//Sin acabar
+	// Sin acabar
 	public static void main(String[] args) {
 		String[][] caja = new String[10][10];
 		int cxx, cxy, cyx, cyy;
-		int ax = (int)(Math.random() * 10);
-		int ay = (int)(Math.random() * 10);
-		int bx = (int)(Math.random() * 10);
-		int by = (int)(Math.random() * 10);
+		int ax = (int) (Math.random() * 10);
+		int ay = (int) (Math.random() * 10);
+		int bx = (int) (Math.random() * 10);
+		int by = (int) (Math.random() * 10);
 		if (ax <= bx) {
 			if (ay > by && ax == bx) {
 				caja[bx][by] = "X";

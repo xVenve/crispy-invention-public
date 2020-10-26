@@ -10,16 +10,8 @@ public class Ej3Estudiante {
 	public double escritura;
 	public double informacion;
 
-	public Ej3Estudiante(
-		String nombre,
-		String apellido,
-		double programacion,
-		double algebra,
-		double calculo,
-		double fisica,
-		double escritura,
-		double informacion
-	) {
+	public Ej3Estudiante(String nombre, String apellido, double programacion, double algebra, double calculo,
+			double fisica, double escritura, double informacion) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		if (programacion > 10 || programacion < 0) {

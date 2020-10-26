@@ -1,5 +1,6 @@
 package codigosfuente;
 
 public class test00 {
-	public static void main(String[] args) {}
+	public static void main(String[] args) {
+	}
 }

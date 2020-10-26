@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Ejercicio8 {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduzca el orden de la matriz cuadrada");
 		int b = sc.nextInt();
 		char[][] a = new char[b][b];

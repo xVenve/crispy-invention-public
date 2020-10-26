@@ -6,7 +6,7 @@ public class Ejercicio7 {
 
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		int suma;
 		String luck;
 		System.out.println("Introduce el a�o de nacimiento (4 d�gitos) y pulsa Enter ");

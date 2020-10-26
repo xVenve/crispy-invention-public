@@ -1,9 +1,11 @@
 package Semana7;
+
 import java.util.Scanner;
+
 public class Ejercicio10 {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Dimension de la matriz A");
 		int[][] a = new int[sc.nextInt()][sc.nextInt()];
 		for (int i = 0; i < a.length; i++) {

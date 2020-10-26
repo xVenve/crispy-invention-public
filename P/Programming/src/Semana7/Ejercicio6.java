@@ -1,8 +1,10 @@
 package Semana7;
-import java.util. *;
+
+import java.util.*;
+
 public class Ejercicio6 {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		int[] a = new int[20];
 		int b;
 		do {
@@ -10,7 +12,7 @@ public class Ejercicio6 {
 			b = sc.nextInt();
 		} while (b < 1 || b > 9);
 		for (int i = 0; i < 20; i++) {
-			a[i] = (int)(Math.random() * 9 + 1);
+			a[i] = (int) (Math.random() * 9 + 1);
 			if (a[i] == b) {
 				System.out.println("El numero " + b + " esta en la posicion " + i);
 			} else {

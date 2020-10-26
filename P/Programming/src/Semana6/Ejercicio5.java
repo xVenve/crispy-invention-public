@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Ejercicio5 {
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		int enter, suma, n = 4, d;
 
 		System.out.println("Indica el l�mite superior para generar n�meros perfectos y pulsa. Enter: ");

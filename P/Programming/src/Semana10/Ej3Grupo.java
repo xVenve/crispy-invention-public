@@ -1,10 +1,13 @@
 package Semana10;
+
 import java.util.Scanner;
+
 public class Ej3Grupo {
 	public String nombre;
-	public int creacion; //anio>1800
-	public Ej3Persona[] miembros; //n>0
-	Scanner sc = new Scanner(System. in).useDelimiter(System.getProperty("line.separator"));
+	public int creacion; // anio>1800
+	public Ej3Persona[] miembros; // n>0
+	Scanner sc = new Scanner(System.in).useDelimiter(System.getProperty("line.separator"));
+
 	public Ej3Grupo(String nombre) {
 		this.nombre = nombre;
 

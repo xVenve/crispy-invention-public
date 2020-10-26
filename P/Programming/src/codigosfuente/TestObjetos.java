@@ -12,27 +12,35 @@ public class TestObjetos {
 		super();
 		this.nombre = nombre;
 	}
+
 	public int getEdad() {
 		return edad;
 	}
+
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
+
 	public int getAltura() {
 		return altura;
 	}
+
 	public void setAltura(int altura) {
 		this.altura = altura;
 	}
+
 	public String getColorojos() {
 		return colorojos;
 	}
+
 	public void setColorojos(String colorojos) {
 		this.colorojos = colorojos;
 	}
+
 	public String[][] getNumeroypisorepe() {
 		return numeroypisorepe;
 	}
+
 	public void setNumeroypisorepe(String[][] numeroypisorepe) {
 		this.numeroypisorepe = numeroypisorepe;
 	}

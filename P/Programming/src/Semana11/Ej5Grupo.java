@@ -1,11 +1,12 @@
 package Semana11;
+
 import java.util.Scanner;
 
 public class Ej5Grupo {
 	private String nombre;
-	private int creacion; //anio>1800
-	private Ej5Persona[] miembros; //n>0
-	Scanner sc = new Scanner(System. in).useDelimiter(System.getProperty("line.separator"));
+	private int creacion; // anio>1800
+	private Ej5Persona[] miembros; // n>0
+	Scanner sc = new Scanner(System.in).useDelimiter(System.getProperty("line.separator"));
 
 	public String getNombre() {
 		return nombre;
@@ -32,7 +33,8 @@ public class Ej5Grupo {
 	}
 
 	public Ej5Grupo(String nombre) {
-		setNombre(nombre);;
+		setNombre(nombre);
+		;
 
 		do {
 			System.out.println("Introduzca el anio de creacion (tiene que ser posterior a 1800 y anterior a 2019)");

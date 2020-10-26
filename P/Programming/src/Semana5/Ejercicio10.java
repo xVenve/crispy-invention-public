@@ -1,17 +1,18 @@
 package Semana5;
+
 import java.util.Scanner;
 
 public class Ejercicio10 {
 
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System. in);
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduzca una cantidad de dinero: ");
 		double c = sc.nextDouble();
 		int b;
 
 		c = c * 100;
-		int a = (int)c;
+		int a = (int) c;
 
 		if (a >= 50000) {
 			b = a / 50000;

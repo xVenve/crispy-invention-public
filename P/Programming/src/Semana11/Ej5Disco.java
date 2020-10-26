@@ -1,13 +1,14 @@
 package Semana11;
+
 import java.util.Scanner;
 
 public class Ej5Disco {
-	private Ej5Cancion[] canciones; //n>0
+	private Ej5Cancion[] canciones; // n>0
 	private String titulo;
 	private int anio;
-	private float precio; //anio>1877(era del sonido), precio>0
+	private float precio; // anio>1877(era del sonido), precio>0
 	private Ej5Grupo grupo;
-	Scanner sc = new Scanner(System. in).useDelimiter(System.getProperty("line.separator"));
+	Scanner sc = new Scanner(System.in).useDelimiter(System.getProperty("line.separator"));
 
 	public Ej5Cancion[] getCanciones() {
 		return canciones;
@@ -54,8 +55,7 @@ public class Ej5Disco {
 
 		do {
 			System.out.println(
-				"Introduzca el anio del lanzamiento(tiene que ser posterior a 1877(la era del sonido) y anterior a 2019)"
-			);
+					"Introduzca el anio del lanzamiento(tiene que ser posterior a 1877(la era del sonido) y anterior a 2019)");
 			setAnio(sc.nextInt());
 		} while (getAnio() < 1877 || getAnio() > 2018);
 

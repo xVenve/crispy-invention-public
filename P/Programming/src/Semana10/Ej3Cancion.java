@@ -1,9 +1,12 @@
 package Semana10;
+
 import java.util.Scanner;
+
 public class Ej3Cancion {
 	public String titulo;
 	public int duracion; // duracion>0
-	public Scanner sc = new Scanner(System. in);
+	public Scanner sc = new Scanner(System.in);
+
 	public Ej3Cancion(String titulo) {
 		this.titulo = titulo;
 
