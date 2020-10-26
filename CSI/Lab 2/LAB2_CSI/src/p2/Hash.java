@@ -9,6 +9,7 @@ import org.bouncycastle.util.encoders.Hex;
 /**
  * Ejecuta distintas funciones resumen
  */
+@SuppressWarnings("unused")
 public class Hash {
 
 	/**

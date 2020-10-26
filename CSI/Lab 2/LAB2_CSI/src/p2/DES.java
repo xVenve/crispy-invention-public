@@ -31,6 +31,7 @@ import org.bouncycastle.util.encoders.Hex;
 /**
  * Demostración de cifrado DES con Bouncy Castle
 */
+@SuppressWarnings("unused")
 public class DES {
 	BlockCipher engine = new DESEngine();
 
