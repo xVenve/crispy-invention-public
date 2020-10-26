@@ -27,7 +27,8 @@ var avion_franja_pista_i{a in AVION, f in FRANJA, p in PISTA} binary;
 
 /* funcion objetivo */
 
-maximize beneficios: sum{a in AVION,t in TIPO}(precio[t]*billetes_avion_tipo[a,t]) - sum{a in AVION, f in FRANJA, p in PISTA} (avion_franja_pista[a,f,p]*coste[a]*(inicio[f]-hora_programada[a]));
+maximize beneficios: sum{a in AVION,t in TIPO}(precio[t]*billetes_avion_tipo[a,t]) -
+sum{a in AVION, f in FRANJA, p in PISTA} (avion_franja_pista[a,f,p]*coste[a]*(inicio[f]-hora_programada[a]));
 
 /* restricciones */
 
