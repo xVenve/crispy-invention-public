@@ -175,28 +175,7 @@ footer {
 }
 
 /*Estilo de la parte central*/
-#CENTRAL_MAIN {
-  padding: 20px;
-  float: left;
-  background-color: #dfdfde;
-}
-
-/*Estilo de la parte central de calificaciones*/
-#CENTRAL_CALIFICACIONES {
-  padding: 20px;
-  float: left;
-  background-color: #dfdfde;
-}
-
-/*Estilo de la parte central de foro*/
-#CENTRAL_FORO {
-  padding: 20px;
-  float: left;
-  background-color: #dfdfde;
-}
-
-/*Estilo de la parte central de la lista*/
-#CENTRAL_LISTA {
+#CENTRAL_MAIN,#CENTRAL_TEMA1,#CENTRAL_CALIFICACIONES,#CENTRAL_FORO, #CENTRAL_LISTA, #CENTRAL_ASIGNATURAS {
   padding: 20px;
   float: left;
   background-color: #dfdfde;
@@ -212,16 +191,6 @@ footer {
   width: 50px;
 }
 
-/*Estilo para boton*/
-#BUTTON {
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  font-size: 10px;
-  margin: 4px 2px;
-  cursor: pointer;
-  background-color: #a2798f;
-}
 
 /*Estilo para tabla de foro*/
 .DESC-TABLA {
@@ -435,7 +404,6 @@ td {
 table {
   font-family: Verdana;
   border-collapse: collapse;
-  width: 100%;
 }
 
 #TITLECENTRAL {
@@ -484,4 +452,8 @@ table {
   padding: 3px;
   float: right;
   margin-top: 10px;
+}
+
+textarea {
+  resize: none;
 }

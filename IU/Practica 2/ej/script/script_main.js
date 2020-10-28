@@ -12,7 +12,6 @@ $(document).ready(function () {
   });
 });
 
-
 $(document).ready(function () {
   $('#cierre_sesion').on('click', function () {
     $('#popup_sesion').fadeIn('slow');
@@ -34,7 +33,7 @@ $(document).ready(function () {
     $('.popup-overlay').height($(window).height());
     return false;
   });
-  $('.cerrar').on('click', function () {
+    $('.cerrar').on('click', function () {
     $('#popup_noticias').fadeOut('slow');
     $('.popup-overlay').fadeOut('slow');
     return false;
@@ -44,7 +43,6 @@ $(document).ready(function () {
 $(function () {
   $("#calendar_novedades").simpleCalendar();
 });
-
 
 $("#calendar_novedades").simpleCalendar({
   // displays events
@@ -126,6 +124,9 @@ function start() {
   document.getElementById("CENTRAL_MAIN").style.display = "none";
   document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
   document.getElementById("CENTRAL_LISTA").style.display = "none";
+  document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
+  document.getElementById("CENTRAL_TEMA1").style.display = "none"
+
 }
 
 document.getElementById("boton_registro").addEventListener("click",
@@ -140,6 +141,9 @@ document.getElementById("boton_registro").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+
   });
 
 document.getElementById("linkforo_h").addEventListener("click",
@@ -151,6 +155,9 @@ document.getElementById("linkforo_h").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+
   });
 
 document.getElementById("linkforo").addEventListener("click",
@@ -162,6 +169,9 @@ document.getElementById("linkforo").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+
 
   });
 
@@ -174,6 +184,9 @@ document.getElementById("linkcalificaciones").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+
 
   });
 
@@ -186,6 +199,9 @@ document.getElementById("linkcalificaciones_h").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+
 
   });
 
@@ -198,6 +214,7 @@ document.getElementById("linkestudiantes").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none"
 
   });
 
@@ -210,8 +227,24 @@ document.getElementById("linkestudiantes_h").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none"
 
   });
+
+  document.getElementById("linkasignaturas").addEventListener("click",
+    function () {
+      document.getElementById("CENTRAL_MAIN").style.display = "none";
+      document.getElementById("CENTRAL_FORO").style.display = "none";
+      document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+      document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+      document.getElementById("CENTRAL_INICIO").style.display = "none";
+      document.getElementById("user_zone").style.display = "block";
+      document.getElementById("CENTRAL_ASIGNATURAS").style.display = "block";
+      document.getElementById("CENTRAL_TEMA1").style.display = "none"
+
+    });
+
+
 
 document.getElementById("linkmain").addEventListener("click",
   function () {
@@ -222,6 +255,9 @@ document.getElementById("linkmain").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+
 
   });
 
@@ -234,8 +270,25 @@ document.getElementById("linkmain_h").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+
 
   });
+
+  document.getElementById("TEMA1_FORO").addEventListener("click",
+    function () {
+      document.getElementById("CENTRAL_LISTA").style.display = "none";
+      document.getElementById("CENTRAL_MAIN").style.display = "none";
+      document.getElementById("CENTRAL_FORO").style.display = "none";
+      document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+      document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+      document.getElementById("CENTRAL_INICIO").style.display = "none";
+      document.getElementById("user_zone").style.display = "block";
+      document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
+      document.getElementById("CENTRAL_TEMA1").style.display = "block"
+
+    });
 
 
 function inicioSesion() {
@@ -253,6 +306,7 @@ function inicioSesion() {
 
   if (getCookie("email_inicio_" + x) == y) {
     $(document).ready(document.getElementById("welcome").innerHTML = "Hola, " + x);
+    web_estudiante(x);
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "block";
@@ -299,16 +353,61 @@ function rolEstudiante() {
 }
 
 function guardar() {
-  document.cookie = "nombre_inicio_" + document.forms["Formulario_Registro"]["email_inicio"].value + "=" + document.forms["Formulario_Registro"]["nombre_inicio"].value;
-  document.cookie = "NIA=" + document.forms["Formulario_Registro"]["NIA"].value;
-  document.cookie = "contraseña=" + document.forms["Formulario_Registro"]["contraseña"].value;
-  document.cookie = "nombre=" + document.forms["Formulario_Registro"]["nombre"].value;
-  document.cookie = "apellidos=" + document.forms["Formulario_Registro"]["apellidos"].value;
-  document.cookie = "email_inicio_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" + document.forms["Formulario_Registro"]["email_inicio"].value;
-  document.cookie = "fecha_nacimiento=" + document.forms["Formulario_Registro"]["fecha_nacimiento"].value;
-  document.cookie = "DNI=" + document.forms["Formulario_Registro"]["DNI"].value;
-  document.cookie = "rol=" + document.forms["Formulario_Registro"]["rol"].value;
-  document.cookie = "grado=" + document.forms["Formulario_Registro"]["grado"].value;
-  document.cookie = "universidad=" + document.forms["Formulario_Registro"]["universidad"].value;
-  document.cookie = "idioma=" + document.forms["Formulario_Registro"]["idioma"].value;
+  document.cookie = "nombre_inicio_" + document.forms["Formulario_Registro"]["email_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["nombre_inicio"].value;
+  document.cookie = "NIA_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["NIA"].value;
+  document.cookie = "contraseña_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["contraseña"].value;
+  document.cookie = "nombre_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["nombre"].value;
+  document.cookie = "apellidos_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["apellidos"].value;
+  document.cookie = "email_inicio_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["email_inicio"].value;
+  document.cookie = "fecha_nacimiento_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["fecha_nacimiento"].value;
+  document.cookie = "DNI_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["DNI"].value;
+  document.cookie = "rol_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["rol"].value;
+  document.cookie = "grado_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["grado"].value;
+  document.cookie = "universidad_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["universidad"].value;
+  document.cookie = "idioma_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
+    document.forms["Formulario_Registro"]["idioma"].value;
+}
+
+function web_estudiante(x){
+  if(getCookie("rol_" + x) == "Estudiante"){
+    alert("eres estudiante");
+    crear_notas();
+    document.getElementById("linkasignaturas").style.display = "block";
+    document.getElementById("linkestudiantes").style.display = "none";
+    document.getElementById("TABLA_ESTUDIANTE").style.display = "table";
+    document.getElementById("TABLA_PROFESOR").style.display = "none";
+
+    return false;
+  } else {
+    alert("Profesor o Administrador");
+    document.getElementById("linkasignaturas").style.display = "none";
+    document.getElementById("linkestudiantes").style.display = "block";
+    document.getElementById("TABLA_ESTUDIANTE").style.display = "none";
+    document.getElementById("TABLA_PROFESOR").style.display = "table";
+    return false;
+  }
+}
+
+function crear_notas(){
+  var a1 = document.getElementById("act1").innerHTML = Math.floor(Math.random() * 1000) / 100;
+  var a2 = document.getElementById("act2").innerHTML = Math.floor(Math.random() * 1000) / 100;
+  var a3 = document.getElementById("act3").innerHTML = Math.floor(Math.random() * 1000) / 100;
+  var m =  document.getElementById("media").innerHTML = Math.floor((a1+a2+a3)*100/3)/100;
+}
+
+function enviar_mensaje(){
+  var m = document.getElementById("mensaje_tema1").value;
+  document.getElementById("post_tema1").innerHTML = m;
+
 }

@@ -71,6 +71,7 @@
           <h3 id="linkmain">Interfaces de Usuario</h3>
         </li>
         <li id="linkestudiantes">Estudiantes</li>
+        <li id="linkasignaturas">Mis asignaturas</li>
         <li id="linkforo">Foro</li>
         <li id="linkcalificaciones">Calificaciones</li>
         <li class="T-LINKS">Últ. novedades</li>
@@ -100,9 +101,9 @@
         <label for="nombre_inicio">Nombre:</label><br>
         <input type="text" id="nombre_inicio" name="nombre_inicio" required><br>
         <label for="NIA">NIA:</label><br>
-        <input type="text" id="NIA" name="NIA" maxlength="9" required><br>
+        <input type="text" id="NIA" name="NIA" pattern="[100]+[0-9]{6}" required><br>
         <label for="contraseña">Contraseña:</label><br>
-        <input type="password" id="contraseña" name="contraseña" maxlength="8" required><br>
+        <input type="password" id="contraseña" name="contraseña" pattern="[a-z0-9]{1,8}" maxlength="8" required><br>
 
         <h2> Información personal</h2>
         <label for="nombre">Nombre:</label><br>
@@ -110,7 +111,8 @@
         <label for="apellidos">Apellidos:</label><br>
         <input type="text" id="apellidos" name="apellidos" required><br>
         <label for="email_inicio">Email</label><br>
-        <input type="text" id="email_inicio" name="email_inicio" required><br>
+        <input type="text" id="email_inicio" name="email_inicio"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"required><br>
         <label for="fecha_nacimiento">Fecha de nacimiento:</label><br>
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
         <label for="DNI">DNI</label><br>
@@ -126,8 +128,11 @@
         <label for="grado" id="titulo_grado">Grado:</label><br>
         <select name="grado" id="grado">
           <option value="Informatica">Ingeniería Informática</option>
-          <option value="Administrador">Ingeniería Industrial</option>
-          <option value="Profesor">Derecho</option>
+          <option value="Industrial">Ingeniería Industrial</option>
+          <option value="Derecho">Derecho</option>
+          <option value="Aeroespacial">Ingeniería Aeroespacial</option>
+          <option value="Internacional">Estudios Internacionales</option>
+          <option value="CienciasP">Ciencias Politicas</option>
         </select><br>
 
         <label for="universidad">Universidad</label><br>
@@ -139,6 +144,11 @@
           <option value="Español">Español</option>
           <option value="Ingles">Inglés</option>
           <option value="Frances">Francés</option>
+          <option value="Checo">Checo</option>
+          <option value="Chino">Chino</option>
+          <option value="Ruso">Ruso</option>
+          <option value="Alemán">Alemán</option>
+
         </select><br>
         <input type="checkbox" required> Acepto las condiciones y terminos de uso</input><br>
         <button onclick="guardar()">Guardar</button>
@@ -263,15 +273,27 @@
     <!-- Seccion central calificaciones -->
     <article class="col-6 col-t-9" id="CENTRAL_CALIFICACIONES">
       <p id="TITLECENTRAL"><b>Calificaciones</b></p>
-
-      <table class="col-12">
+      <table id ="TABLA_ESTUDIANTE" class="col-12 col-t-12">
+        <tr>
+          <th>Actividad 1</th>
+          <th>Actividad 2</th>
+          <th>Actividad 3</th>
+          <th>Media actividades</th>
+        </tr>
+        <tr>
+          <td id="act1"></td>
+          <td id="act2"></td>
+          <td id="act3"></td>
+          <td id="media"></td>
+        </tr>
+      </table>
+      <table id = "TABLA_PROFESOR" class="col-12 col-t-12">
         <tr>
           <th>Estudiante</th>
           <th>Actividad 1</th>
           <th>Actividad 2</th>
           <th>Actividad 3</th>
         </tr>
-
         <!-- Alumno 1 -->
         <tr>
           <td class="NOMBRE">Carlos Rubio Olivares</td>
@@ -353,8 +375,8 @@
     <article class="col-6 col-t-9" id="CENTRAL_FORO">
       <p id="TITLECENTRAL"><b>Foro de la asignatura</b></p>
 
-      <p><button id="BUTTON" type="button">Crear tema</button></p>
-      <table>
+
+      <table class="col-12 col-t-12">
         <tr class="TIT-TABLA">
           <th>Tema</th>
           <th>Nº Mensajes</th>
@@ -363,37 +385,56 @@
 
         <!-- Tema 1 -->
         <tr class="DESC-TABLA">
-          <td>Composición de equipos</td>
-          <td>17</td>
+          <td id = "TEMA1_FORO">Composición de equipos</td>
+          <td>5</td>
           <td>18/09/2020 17:44</td>
         </tr>
 
         <!-- Tema 2 -->
-        <tr class="DESC-TABLA">
+        <tr id = "TEMA2_FORO" class="DESC-TABLA">
           <td>Preguntas frecuentes</td>
-          <td>30</td>
+          <td>3</td>
           <td>31/08/2020 12:22</td>
-        </tr>
-        <!-- Tema 3 -->
-        <tr class="DESC-TABLA">
-          <td>Problema con la Práctica 1</td>
-          <td>2</td>
-          <td>29/08/2020 08:13</td>
-        </tr>
-        <!-- Tema 4 -->
-        <tr class="DESC-TABLA">
-          <td>Problemas de horarios</td>
-          <td>9</td>
-          <td>23/08/2020 19:03</td>
-        </tr>
-        <!-- Tema 5 -->
-        <tr class="DESC-TABLA">
-          <td>Fechas para tutorías</td>
-          <td>32</td>
-          <td>15/08/2020 10:54</td>
         </tr>
       </table>
 
+    </article>
+    <!-- Seccion central tema 1 foro -->
+    <article class="col-6 col-t-9" id="CENTRAL_TEMA1">
+      <p id="TITLECENTRAL"><b>Composición de equipos</b></p>
+      <ul>
+        <li>
+          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 10/4/2020: 10:41
+          <p>Hoy se estrena en Amazon "Escupiré sobre tu tumba" (I Spit on Your Grave), film de terror de 2010 inédito en España hasta la fecha y que cuenta con un 5,8 de media en FilmAffinity con más de 3.200 votos filmaffinity.com/es/film883246.… ¿La veréis o, si ya lo habéis hecho, la recomendáis?</p>
+        </li>
+        <li>
+          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 10/4/2020: 10:41
+          <p>Hoy se estrena en Amazon "Escupiré sobre tu tumba" (I Spit on Your Grave), film de terror de 2010 inédito en España hasta la fecha y que cuenta con un 5,8 de media en FilmAffinity con más de 3.200 votos filmaffinity.com/es/film883246.… ¿La veréis o, si ya lo habéis hecho, la recomendáis?</p>
+        </li>
+        <li>
+          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 10/4/2020: 10:41
+          <p>Hoy se estrena en Amazon "Escupiré sobre tu tumba" (I Spit on Your Grave), film de terror de 2010 inédito en España hasta la fecha y que cuenta con un 5,8 de media en FilmAffinity con más de 3.200 votos filmaffinity.com/es/film883246.… ¿La veréis o, si ya lo habéis hecho, la recomendáis?</p>
+        </li>
+        <li>
+          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 10/4/2020: 10:41
+          <p>Hoy se estrena en Amazon "Escupiré sobre tu tumba" (I Spit on Your Grave), film de terror de 2010 inédito en España hasta la fecha y que cuenta con un 5,8 de media en FilmAffinity con más de 3.200 votos filmaffinity.com/es/film883246.… ¿La veréis o, si ya lo habéis hecho, la recomendáis?</p>
+        </li>
+        <li>
+          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 10/4/2020: 10:41
+          <p>Hoy se estrena en Amazon "Escupiré sobre tu tumba" (I Spit on Your Grave), film de terror de 2010 inédito en España hasta la fecha y que cuenta con un 5,8 de media en FilmAffinity con más de 3.200 votos filmaffinity.com/es/film883246.… ¿La veréis o, si ya lo habéis hecho, la recomendáis?</p>
+        </li>
+        <li>
+          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" />
+          <p id="post_tema1"></p>
+        </li>
+        <li>
+          <label for="mensaje_tema1">Mensaje:</label><br>
+          <textarea class="col-12" id="mensaje_tema1" name="mensaje_tema1" rows="10" cols="30"></textarea>
+        </li>
+        <button type="button" onclick="enviar_mensaje()">Enviar</button>
+
+
+      </ul>
     </article>
 
     <!-- Seccion central lista_alumnos -->
@@ -501,7 +542,17 @@
       </table>
 
     </article>
-
+      <!-- Seccion central asignatura -->
+    <article class="col-6 col-t-9" id = "CENTRAL_ASIGNATURAS">
+      <h1 id="TITLECENTRAL">Mis asignaturas</h1>
+      <ul>
+        <li>Interfaces de Usuario</li>
+        <li>Heurística y Optimización</li>
+        <li>Ingenieria de Software</li>
+        <li>Redes de ordenadores</li>
+        <li>Arquitectura de Computadores</li>
+      </ul>
+    </article>
     <!-- Barra lateral derecha con noticias y novedades -->
     <aside class="col-3 col-t-3" id="RIGHT">
       <section>
