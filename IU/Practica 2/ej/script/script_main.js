@@ -29,25 +29,25 @@ $("#calendar_novedades").simpleCalendar({
 
   // event dates
   events: [{
-    startDate: new Date("2020-10-1"),
-    endDate: new Date("2020-10-1"),
-    summary: 'Nuevo video subido: La historia de la web'
-  },
-  {
-    startDate: new Date("2020-09-29"),
-    endDate: new Date("2020-09-29"),
-    summary: 'Nuevo articulo subido: Introduccion a HTML'
-  },
-  {
-    startDate: new Date("2020-9-18"),
-    endDate: new Date("2020-9-18"),
-    summary: 'Foro de la asignatura habilitado'
-  },
-  {
-    startDate: new Date("2020-9-14"),
-    endDate: new Date("2020-9-14"),
-    summary: 'Bienvenida a la asignatura'
-  }
+      startDate: new Date("2020-10-1"),
+      endDate: new Date("2020-10-1"),
+      summary: 'Nuevo video subido: La historia de la web'
+    },
+    {
+      startDate: new Date("2020-09-29"),
+      endDate: new Date("2020-09-29"),
+      summary: 'Nuevo articulo subido: Introduccion a HTML'
+    },
+    {
+      startDate: new Date("2020-9-18"),
+      endDate: new Date("2020-9-18"),
+      summary: 'Foro de la asignatura habilitado'
+    },
+    {
+      startDate: new Date("2020-9-14"),
+      endDate: new Date("2020-9-14"),
+      summary: 'Bienvenida a la asignatura'
+    }
   ],
 
   // disable showing event details
@@ -68,20 +68,20 @@ $("#calendar_noticias").simpleCalendar({
 
   // event dates
   events: [{
-    startDate: new Date("2020-10-5"),
-    endDate: new Date("2020-10-5"),
-    summary: 'Entrega practica en dos días'
-  },
-  {
-    startDate: new Date("2020-10-1"),
-    endDate: new Date("2020-10-1"),
-    summary: 'Clase online magistral para el dia 3 de octubre'
-  },
-  {
-    startDate: new Date("2020-9-28"),
-    endDate: new Date("2020-9-28"),
-    summary: 'Tutoria colectiva en tres días'
-  }
+      startDate: new Date("2020-10-5"),
+      endDate: new Date("2020-10-5"),
+      summary: 'Entrega practica en dos días'
+    },
+    {
+      startDate: new Date("2020-10-1"),
+      endDate: new Date("2020-10-1"),
+      summary: 'Clase online magistral para el dia 3 de octubre'
+    },
+    {
+      startDate: new Date("2020-9-28"),
+      endDate: new Date("2020-9-28"),
+      summary: 'Tutoria colectiva en tres días'
+    }
   ],
   // disable showing event details
   disableEventDetails: false,
@@ -384,7 +384,19 @@ function crear_notas() {
 }
 
 function enviar_mensaje() {
+  var node = document.createElement("LI");
   var m = document.getElementById("mensaje_tema1").value;
-  document.getElementById("post_tema1").innerHTML = m;
 
+  date_ob = new Date();
+  date = date_ob.getDate();
+  month = date_ob.getMonth() + 1;
+  year = date_ob.getFullYear();
+
+  hours = date_ob.getHours();
+  minutes = date_ob.getMinutes();
+
+  today = date + "/" + month + "/" + year + " " + hours + ":" + minutes;
+  node.innerHTML =
+    "<img class=\"AVATAR\" class=\"col - 3\" src=\"./images\/user\-default.png\" alt=\"UC3M Logo\" \/\>" + "Carlos Rubio " + today + "<p>" + m + "</p>";
+  document.getElementById("tema1foro").appendChild(node);
 }
