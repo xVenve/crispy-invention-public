@@ -33,7 +33,7 @@ $(document).ready(function () {
     $('.popup-overlay').height($(window).height());
     return false;
   });
-    $('.cerrar').on('click', function () {
+  $('.cerrar').on('click', function () {
     $('#popup_noticias').fadeOut('slow');
     $('.popup-overlay').fadeOut('slow');
     return false;
@@ -231,18 +231,18 @@ document.getElementById("linkestudiantes_h").addEventListener("click",
 
   });
 
-  document.getElementById("linkasignaturas").addEventListener("click",
-    function () {
-      document.getElementById("CENTRAL_MAIN").style.display = "none";
-      document.getElementById("CENTRAL_FORO").style.display = "none";
-      document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
-      document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-      document.getElementById("CENTRAL_INICIO").style.display = "none";
-      document.getElementById("user_zone").style.display = "block";
-      document.getElementById("CENTRAL_ASIGNATURAS").style.display = "block";
-      document.getElementById("CENTRAL_TEMA1").style.display = "none"
+document.getElementById("linkasignaturas").addEventListener("click",
+  function () {
+    document.getElementById("CENTRAL_MAIN").style.display = "none";
+    document.getElementById("CENTRAL_FORO").style.display = "none";
+    document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "block";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none"
 
-    });
+  });
 
 
 
@@ -276,19 +276,19 @@ document.getElementById("linkmain_h").addEventListener("click",
 
   });
 
-  document.getElementById("TEMA1_FORO").addEventListener("click",
-    function () {
-      document.getElementById("CENTRAL_LISTA").style.display = "none";
-      document.getElementById("CENTRAL_MAIN").style.display = "none";
-      document.getElementById("CENTRAL_FORO").style.display = "none";
-      document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
-      document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-      document.getElementById("CENTRAL_INICIO").style.display = "none";
-      document.getElementById("user_zone").style.display = "block";
-      document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
-      document.getElementById("CENTRAL_TEMA1").style.display = "block"
+document.getElementById("TEMA1_FORO").addEventListener("click",
+  function () {
+    document.getElementById("CENTRAL_LISTA").style.display = "none";
+    document.getElementById("CENTRAL_MAIN").style.display = "none";
+    document.getElementById("CENTRAL_FORO").style.display = "none";
+    document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "block"
 
-    });
+  });
 
 
 function inicioSesion() {
@@ -379,8 +379,8 @@ function guardar() {
     document.forms["Formulario_Registro"]["idioma"].value;
 }
 
-function web_estudiante(x){
-  if(getCookie("rol_" + x) == "Estudiante"){
+function web_estudiante(x) {
+  if (getCookie("rol_" + x) == "Estudiante") {
     alert("eres estudiante");
     crear_notas();
     document.getElementById("linkasignaturas").style.display = "block";
@@ -399,14 +399,14 @@ function web_estudiante(x){
   }
 }
 
-function crear_notas(){
+function crear_notas() {
   var a1 = document.getElementById("act1").innerHTML = Math.floor(Math.random() * 1000) / 100;
   var a2 = document.getElementById("act2").innerHTML = Math.floor(Math.random() * 1000) / 100;
   var a3 = document.getElementById("act3").innerHTML = Math.floor(Math.random() * 1000) / 100;
-  var m =  document.getElementById("media").innerHTML = Math.floor((a1+a2+a3)*100/3)/100;
+  var m = document.getElementById("media").innerHTML = Math.floor((a1 + a2 + a3) * 100 / 3) / 100;
 }
 
-function enviar_mensaje(){
+function enviar_mensaje() {
   var m = document.getElementById("mensaje_tema1").value;
   document.getElementById("post_tema1").innerHTML = m;
 
