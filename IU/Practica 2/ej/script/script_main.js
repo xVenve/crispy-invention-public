@@ -1,25 +1,28 @@
-$(document).ready(function () {
+$(document).ready(function() {
   popups('#NOVEDADES', '#popup_novedades');
   popups('#cierre_sesion', '#popup_sesion');
   popups('#NOTICIAS', '#popup_noticias');
+  popups('#NOVEDADES_h', '#popup_novedades');
+  popups('#NOTICIAS_h', '#popup_noticias');
+
   start();
 });
 
 function popups(nombre, seccion) {
-  $(nombre).on('click', function () {
+  $(nombre).on('click', function() {
     $(seccion).fadeIn('slow');
     $('.popup-overlay').fadeIn('slow');
     $('.popup-overlay').height($(window).height());
     return false;
   });
-  $('.cerrar').on('click', function () {
+  $('.cerrar').on('click', function() {
     $(seccion).fadeOut('slow');
     $('.popup-overlay').fadeOut('slow');
     return false;
   });
 }
 
-$(function () {
+$(function() {
   $("#calendar_novedades").simpleCalendar();
 });
 
@@ -57,7 +60,7 @@ $("#calendar_novedades").simpleCalendar({
   disableEmptyDetails: true
 });
 
-$(function () {
+$(function() {
   $("#calendar_noticias").simpleCalendar();
 });
 
@@ -101,13 +104,16 @@ function start() {
   document.getElementById("CENTRAL_MAIN").style.display = "none";
   document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
   document.getElementById("CENTRAL_LISTA").style.display = "none";
-  document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
-  document.getElementById("CENTRAL_TEMA1").style.display = "none"
+  document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
+  document.getElementById("CENTRAL_TEMA1").style.display = "none";
+  document.getElementById("CENTRAL_TEMA2").style.display = "none";
+  document.getElementById("HAMBURGUER").style.display = "none";
+
 
 }
 
 document.getElementById("boton_registro").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_REGISTRO").style.display = "block";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("RIGHT").style.display = "none";
@@ -118,13 +124,14 @@ document.getElementById("boton_registro").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
-    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
   });
 
 document.getElementById("linkforo_h").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_FORO").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -132,13 +139,14 @@ document.getElementById("linkforo_h").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
-    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
   });
 
 document.getElementById("linkforo").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_FORO").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -146,14 +154,14 @@ document.getElementById("linkforo").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
-    document.getElementById("CENTRAL_TEMA1").style.display = "none"
-
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
   });
 
 document.getElementById("linkcalificaciones").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -161,14 +169,13 @@ document.getElementById("linkcalificaciones").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
-    document.getElementById("CENTRAL_TEMA1").style.display = "none"
-
-
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
   });
 
 document.getElementById("linkcalificaciones_h").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -176,14 +183,14 @@ document.getElementById("linkcalificaciones_h").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
-    document.getElementById("CENTRAL_TEMA1").style.display = "none"
-
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
   });
 
 document.getElementById("linkestudiantes").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_LISTA").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -191,12 +198,13 @@ document.getElementById("linkestudiantes").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
   });
 
 document.getElementById("linkestudiantes_h").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_LISTA").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -204,12 +212,13 @@ document.getElementById("linkestudiantes_h").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
   });
 
 document.getElementById("linkasignaturas").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -217,14 +226,15 @@ document.getElementById("linkasignaturas").addEventListener("click",
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
     document.getElementById("CENTRAL_ASIGNATURAS").style.display = "block";
-    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
   });
 
 
 
 document.getElementById("linkmain").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -232,14 +242,15 @@ document.getElementById("linkmain").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
-    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
 
   });
 
 document.getElementById("linkmain_h").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -247,14 +258,15 @@ document.getElementById("linkmain_h").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
-    document.getElementById("CENTRAL_TEMA1").style.display = "none"
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
 
   });
 
 document.getElementById("TEMA1_FORO").addEventListener("click",
-  function () {
+  function() {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -262,8 +274,24 @@ document.getElementById("TEMA1_FORO").addEventListener("click",
     document.getElementById("CENTRAL_REGISTRO").style.display = "none";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none"
-    document.getElementById("CENTRAL_TEMA1").style.display = "block"
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
+    document.getElementById("CENTRAL_TEMA1").style.display = "block";
+    document.getElementById("CENTRAL_TEMA2").style.display = "none";
+
+  });
+
+document.getElementById("TEMA2_FORO").addEventListener("click",
+  function() {
+    document.getElementById("CENTRAL_LISTA").style.display = "none";
+    document.getElementById("CENTRAL_MAIN").style.display = "none";
+    document.getElementById("CENTRAL_FORO").style.display = "none";
+    document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
+    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
+    document.getElementById("CENTRAL_INICIO").style.display = "none";
+    document.getElementById("user_zone").style.display = "block";
+    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
+    document.getElementById("CENTRAL_TEMA1").style.display = "none";
+    document.getElementById("CENTRAL_TEMA2").style.display = "block";
 
   });
 
@@ -274,11 +302,11 @@ function inicioSesion() {
   var y = document.forms["Formulario_Inicio_Sesion"]["email_inicio"].value;
 
   if (x == "") {
-    alert("Name must be filled out");
+    alert("Debe rellenar el nombre de usuario");
     return false;
   }
   if (y == "") {
-    alert("Email must be filled out");
+    alert("Debe rellenar el email");
     return false;
   }
 
@@ -296,6 +324,7 @@ function inicioSesion() {
     document.getElementById("OPTIONS").style.display = "block";
     document.getElementById("RIGHT").style.display = "block";
     document.getElementById("LINKS").style.display = "block";
+    document.getElementById("HAMBURGUER").style.display = "block";
   } else {
     alert("Se debe registrar, cuenta no creada");
   }
@@ -320,6 +349,21 @@ function getCookie(cname) {
   return "";
 }
 
+function getCookieInverse(cname) {
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(cname) != -1) {
+      return "Repetido";
+    }
+  }
+  return "No Repetido";
+}
+
 function rolEstudiante() {
   var x = document.getElementById("rol").value;
   if (x == "Estudiante") {
@@ -333,6 +377,11 @@ function rolEstudiante() {
 }
 
 function guardar() {
+  if(getCookieInverse(document.forms["Formulario_Registro"]["email_inicio"].value)=="Repetido"){
+    alert("Ya existe una cuenta con este email");
+    return false;
+  }
+
   document.cookie = "nombre_inicio_" + document.forms["Formulario_Registro"]["email_inicio"].value + "=" +
     document.forms["Formulario_Registro"]["nombre_inicio"].value;
   document.cookie = "NIA_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
@@ -357,24 +406,28 @@ function guardar() {
     document.forms["Formulario_Registro"]["universidad"].value;
   document.cookie = "idioma_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
     document.forms["Formulario_Registro"]["idioma"].value;
+    alert("Voy a salir");
 }
 
 function web_estudiante(x) {
   if (getCookie("rol_" + x) == "Estudiante") {
-    alert("eres estudiante");
     crear_notas();
     document.getElementById("linkasignaturas").style.display = "block";
     document.getElementById("linkestudiantes").style.display = "none";
     document.getElementById("TABLA_ESTUDIANTE").style.display = "table";
     document.getElementById("TABLA_PROFESOR").style.display = "none";
+    document.getElementById("export_e").style.display = "block";
+    document.getElementById("export_p").style.display = "none";
+
 
     return false;
   } else {
-    alert("Profesor o Administrador");
     document.getElementById("linkasignaturas").style.display = "none";
     document.getElementById("linkestudiantes").style.display = "block";
     document.getElementById("TABLA_ESTUDIANTE").style.display = "none";
     document.getElementById("TABLA_PROFESOR").style.display = "table";
+    document.getElementById("export_e").style.display = "none";
+    document.getElementById("export_p").style.display = "block";
     return false;
   }
 }
@@ -386,16 +439,16 @@ function crear_notas() {
   var m = document.getElementById("media").innerHTML = Math.floor((a1 + a2 + a3) * 100 / 3) / 100;
 }
 
-function enviar_mensaje() {
+function enviar_mensaje(ntema) {
   var node = document.createElement("LI");
-  var m = document.getElementById("mensaje_tema1").value;
+  var m = document.getElementById("mensaje_tema" + ntema).value;
 
   date_ob = new Date();
-  date = date_ob.getDate();
-  month = date_ob.getMonth() + 1;
+  date = ("0" + date_ob.getDate()).slice(-2);
+  month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
   year = date_ob.getFullYear();
 
-  hours = date_ob.getHours();
+  hours = ("0" + date_ob.getHours()).slice(-2);
   minutes = date_ob.getMinutes();
 
   today = date + "/" + month + "/" + year + " " + hours + ":" + minutes;
@@ -403,5 +456,23 @@ function enviar_mensaje() {
     "<img class=\"AVATAR\" class=\"col - 3\" src=\"./images\/user\-default.png\" alt=\"UC3M Logo\" \/\>" +
     getCookie("nombre_" + user_name_logged) + " " + getCookie("apellidos_" + user_name_logged) + " " + today + "<p>" +
     m + "</p>";
-  document.getElementById("tema1foro").appendChild(node);
+  document.getElementById("tema" + ntema + "foro").appendChild(node);
 }
+
+$("#export_e").click(function() {
+  $("#TABLA_ESTUDIANTE").table2excel({
+    // exclude CSS class
+    exclude: ".noExl",
+    name: "Data",
+    filename: "calificaciones" //do not include extension
+  });
+});
+
+$("#export_p").click(function() {
+  $("#TABLA_PROFESOR").table2excel({
+    // exclude CSS class
+    exclude: ".noExl",
+    name: "Data",
+    filename: "calificaciones" //do not include extension
+  });
+});

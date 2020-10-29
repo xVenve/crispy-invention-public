@@ -21,15 +21,15 @@ body {
 }
 
 /* Estilo para el menu hamburguesa*/
-.HAMBURGUER {
+#HAMBURGUER {
   display: none;
 }
 
-.HAMBURGUER>li {
+#HAMBURGUER>li {
   float: left;
 }
 
-.HAMBURGUER li a {
+#HAMBURGUER li a {
   background-color: #8caba8;
   color: black;
   text-decoration: none;
@@ -37,12 +37,12 @@ body {
   display: block;
 }
 
-.HAMBURGUER li ul {
+#HAMBURGUER li ul {
   display: none;
   position: absolute;
 }
 
-.HAMBURGUER li:hover>ul {
+#HAMBURGUER li:hover>ul {
   display: block;
 }
 
@@ -178,6 +178,7 @@ footer {
 /*Estilo de la parte central*/
 #CENTRAL_MAIN,
 #CENTRAL_TEMA1,
+#CENTRAL_TEMA2,
 #CENTRAL_CALIFICACIONES,
 #CENTRAL_FORO,
 #CENTRAL_LISTA,
@@ -317,11 +318,12 @@ li {
     display: none;
   }
 
-  .HAMBURGUER {
-    display: block;
+#HAMBURGUER {
     font-family: Helvetica;
   }
 }
+
+
 
 /*Version para tablet*/
 @media only screen and (max-width: 768px) and (min-width: 600px) {
