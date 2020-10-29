@@ -1,0 +1,83 @@
+El prototipado permite:
+Seleccione una:
+c. Extraer requisitos, ensayar soluciones y eliminar partes arriesgadas. 
+
+Los casos de uso:
+Seleccione una:
+b. Muestran las funciones y  la relación entre los actores y dichas funciones de un sistema.muestran las funciones y  la relación entre los actores y dichas funciones de un sistema 
+
+Un requisito…
+Seleccione una:
+b. Es validado por el cliente.
+
+Un requisito es:
+Seleccione una:
+d. Todas las anteriores son correctas. 
+
+¿Se pueden utilizar diagramas para representar requisitos?
+Seleccione una:
+b. Sí, pero hay que tener cuidado en no caer en diseño. 
+
+Un buen requisito se caracteriza por:
+Seleccione una:
+a. Evitar terminología técnica no definida, utilizando textos simples, claros, precisos y no ambiguos. 
+
+Un requisito…
+Seleccione una:
+b. Es validado por el cliente
+
+Una especificación de requisitos es completa si...
+Seleccione una:
+a. Describe todas las necesidades de los stakeholders (grupos de interés). 
+
+Suponga un documento de requisitos para el desarrollo de una página web desde cero. El cliente solicita que se respeten los estándares web (aunque no especifica cuáles). Si en dicho documento hay un requisito cuya descripción es “La página web debe respetar el estándar W3C de uso multimedia”, ¿qué tipo de requisito será este?
+Seleccione una:
+d. De software no funcional. 
+
+En la matriz de trazabilidad de los requisitos se debe encontrar la siguiente información: 
+Seleccione una:
+a. Debe mostrar la relación de los requisitos con las unidades de implementación. 
+
+En el ciclo de vida de un requisito, ¿en qué estado o estados podría ser eliminado totalmente de la documentación del proyecto?
+Seleccione una:
+a. Propuesto. 
+
+Dada una especificación de requisitos con N requisitos funcionales. ¿Se puede estimar el número de requisitos negativos de dicha especificación?
+Seleccione una:
+a. No, porque el número de requisitos negativos es potencialmente infinito. 
+
+¿Qué tipo de matrices de consistencia se utilizan como método para organizar requisitos?
+Seleccione una:
+e. Todas son tipos de matrices de consistencia parar organizar requisitos. 
+
+Dado un requisito que debe contener una condición…
+Seleccione una:
+a. Es conveniente especificar la condición adecuadamente en términos de cantidad, unidades de medida y tolerancia. 
+
+Los requisitos funcionales son:
+Seleccione una:
+b. Requisitos de software
+
+La realización de un prototipo es una técnica que permite:
+Seleccione una:
+e. Extraer requisitos, probar soluciones potenciales y rechazar partes con alto riesgo.
+
+Seleccione la respuesta INCORRECTA respecto a los requisitos NO funcionales.
+Seleccione una:
+e. No requieren operacionalización, puesto que no son requisitos funcionales.  
+
+Una especificación de requisitos es CORRECTA si:
+Seleccione una:
+c. Es pertinente y no contiene errores. 
+
+Dado el siguiente texto: “El sistema de recomendación guardará los resultados en una tabla clave/valor por usuario y producto.”
+Seleccione una:
+c. Se incluyen términos propios del diseño. 
+
+En el contexto de desarrollo de un sistema…
+Seleccione una:
+c. Los requisitos se verifican en la implementación.
+
+NO es una técnica de elicitación de requisitos:
+Seleccione una:
+e. Inspección 
