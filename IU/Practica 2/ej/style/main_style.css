@@ -80,7 +80,7 @@ a {
 }
 
 .T-LINKS {
-  display: block;
+  display: none;
 }
 
 p {
@@ -318,7 +318,11 @@ li {
     display: none;
   }
 
-#HAMBURGUER {
+  .T-LINKS {
+    display: block;
+  }
+
+  #HAMBURGUER {
     font-family: Helvetica;
   }
 }

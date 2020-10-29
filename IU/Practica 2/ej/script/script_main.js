@@ -109,25 +109,12 @@ function start() {
   document.getElementById("CENTRAL_TEMA2").style.display = "none";
   document.getElementById("HAMBURGUER").style.display = "none";
 
-
 }
 
 document.getElementById("boton_registro").addEventListener("click",
   function () {
     document.getElementById("CENTRAL_REGISTRO").style.display = "block";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("RIGHT").style.display = "none";
-    document.getElementById("LINKS").style.display = "none";
-    document.getElementById("OPTIONS").style.display = "none";
-    document.getElementById("user_zone").style.display = "none";
-    document.getElementById("CENTRAL_FORO").style.display = "none";
-    document.getElementById("CENTRAL_MAIN").style.display = "none";
-    document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
-    document.getElementById("CENTRAL_LISTA").style.display = "none";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
-    document.getElementById("CENTRAL_TEMA1").style.display = "none";
-    document.getElementById("CENTRAL_TEMA2").style.display = "none";
-
   });
 
 document.getElementById("linkforo_h").addEventListener("click",
@@ -136,9 +123,6 @@ document.getElementById("linkforo_h").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
     document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
     document.getElementById("CENTRAL_TEMA1").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "none";
@@ -151,9 +135,6 @@ document.getElementById("linkforo").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
     document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
     document.getElementById("CENTRAL_TEMA1").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "none";
@@ -166,9 +147,6 @@ document.getElementById("linkcalificaciones").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
     document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
     document.getElementById("CENTRAL_TEMA1").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "none";
@@ -180,9 +158,6 @@ document.getElementById("linkcalificaciones_h").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
     document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
     document.getElementById("CENTRAL_TEMA1").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "none";
@@ -195,9 +170,6 @@ document.getElementById("linkestudiantes").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
     document.getElementById("CENTRAL_TEMA1").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
@@ -209,9 +181,6 @@ document.getElementById("linkestudiantes_h").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
     document.getElementById("CENTRAL_TEMA1").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
@@ -222,9 +191,6 @@ document.getElementById("linkasignaturas").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
     document.getElementById("CENTRAL_ASIGNATURAS").style.display = "block";
     document.getElementById("CENTRAL_TEMA1").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "none";
@@ -239,9 +205,6 @@ document.getElementById("linkmain").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
     document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
     document.getElementById("CENTRAL_TEMA1").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "none";
@@ -255,42 +218,22 @@ document.getElementById("linkmain_h").addEventListener("click",
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
     document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
     document.getElementById("CENTRAL_TEMA1").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "none";
-
 
   });
 
 document.getElementById("TEMA1_FORO").addEventListener("click",
   function () {
-    document.getElementById("CENTRAL_LISTA").style.display = "none";
-    document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
-    document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
     document.getElementById("CENTRAL_TEMA1").style.display = "block";
-    document.getElementById("CENTRAL_TEMA2").style.display = "none";
 
   });
 
 document.getElementById("TEMA2_FORO").addEventListener("click",
   function () {
-    document.getElementById("CENTRAL_LISTA").style.display = "none";
-    document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
-    document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
-    document.getElementById("CENTRAL_REGISTRO").style.display = "none";
-    document.getElementById("CENTRAL_INICIO").style.display = "none";
-    document.getElementById("user_zone").style.display = "block";
-    document.getElementById("CENTRAL_ASIGNATURAS").style.display = "none";
-    document.getElementById("CENTRAL_TEMA1").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "block";
 
   });
@@ -321,11 +264,14 @@ function inicioSesion() {
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("user_zone").style.display = "block";
-    document.getElementById("OPTIONS").style.display = "block";
-    document.getElementById("RIGHT").style.display = "block";
-    document.getElementById("LINKS").style.display = "block";
     if ($(window).width() < 600) {
       document.getElementById("HAMBURGUER").style.display = "block";
+    } else if ($(window).width() > 768) {
+      document.getElementById("LINKS").style.display = "block";
+      document.getElementById("OPTIONS").style.display = "block";
+      document.getElementById("RIGHT").style.display = "block";
+    } else {
+      document.getElementById("LINKS").style.display = "block";
     }
   } else {
     alert("Se debe registrar, cuenta no creada");
