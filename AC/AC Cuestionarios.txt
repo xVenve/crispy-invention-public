@@ -1,0 +1,50 @@
+Un servidor Web dedica el 15% a tareas de cómputo y el resto a operaciones de entrada/salida. 
+Si se sustituye el procesador por otro que puede hacer el cómputo 14 veces más rápido. 
+¿Cuál será el speedup o aceleración global?
+IMPORTANTE: Exprese la respuesta como un valor con dos dígitos en la parte fraccionaria (p. ej. 24.25).
+Respuesta:
+1,16
+
+En los últimos años el ancho de banda de los procesadores
+Seleccione una:
+a. Ha mejorado mucho más que la latencia 
+
+En los últimos años el ancho de banda de la memoria
+Seleccione una:
+b. Ha mejorado mucho más que la latencia 
+
+El benchmark SPECWeb es
+Seleccione una:
+d. Un benchmark para servidores 
+
+La ISA de x86
+Seleccione una:
+c. Utiliza instrucciones de longitud variable 
+
+Un procesador de un único núcleo sin instrucciones vectoriales se clasifica como:
+Seleccione una:
+a. SISD 
+
+Un computador MIMD
+Seleccione una:
+c. Es más caro que SIMD 
+
+Un Warehouse-Scale Computer (WSC) se clasifica como
+Seleccione una:
+a. MIMD 
+
+El primer microprocesador (Intel 4004) fue un microprocesador de
+Seleccione una:
+c. 4 bits. 
+
+Los casos de uso:
+Seleccione una:
+a. Muestran las funciones y  la relación entre los actores y dichas funciones de un sistema.
+
+Sobre la ingeniería directa y la ingeniería inversa:
+Seleccione una:
+d. Ninguna de las respuestas anteriores es correcta.
+
+¿El modelo de información debe incluir las operaciones?
+Seleccione una:
+d. En un nivel de abstracción alto, es mejor no incluir las operaciones de las clases, ya que se trata de representar la arquitectura de información, no el diseño de la implementación.
