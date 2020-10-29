@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   popups('#NOVEDADES', '#popup_novedades');
   popups('#cierre_sesion', '#popup_sesion');
   popups('#NOTICIAS', '#popup_noticias');
@@ -9,20 +9,20 @@ $(document).ready(function() {
 });
 
 function popups(nombre, seccion) {
-  $(nombre).on('click', function() {
+  $(nombre).on('click', function () {
     $(seccion).fadeIn('slow');
     $('.popup-overlay').fadeIn('slow');
     $('.popup-overlay').height($(window).height());
     return false;
   });
-  $('.cerrar').on('click', function() {
+  $('.cerrar').on('click', function () {
     $(seccion).fadeOut('slow');
     $('.popup-overlay').fadeOut('slow');
     return false;
   });
 }
 
-$(function() {
+$(function () {
   $("#calendar_novedades").simpleCalendar();
 });
 
@@ -60,7 +60,7 @@ $("#calendar_novedades").simpleCalendar({
   disableEmptyDetails: true
 });
 
-$(function() {
+$(function () {
   $("#calendar_noticias").simpleCalendar();
 });
 
@@ -113,7 +113,7 @@ function start() {
 }
 
 document.getElementById("boton_registro").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_REGISTRO").style.display = "block";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("RIGHT").style.display = "none";
@@ -131,7 +131,7 @@ document.getElementById("boton_registro").addEventListener("click",
   });
 
 document.getElementById("linkforo_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_FORO").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -146,7 +146,7 @@ document.getElementById("linkforo_h").addEventListener("click",
   });
 
 document.getElementById("linkforo").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_FORO").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -161,7 +161,7 @@ document.getElementById("linkforo").addEventListener("click",
   });
 
 document.getElementById("linkcalificaciones").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -175,7 +175,7 @@ document.getElementById("linkcalificaciones").addEventListener("click",
   });
 
 document.getElementById("linkcalificaciones_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -190,7 +190,7 @@ document.getElementById("linkcalificaciones_h").addEventListener("click",
   });
 
 document.getElementById("linkestudiantes").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -204,7 +204,7 @@ document.getElementById("linkestudiantes").addEventListener("click",
   });
 
 document.getElementById("linkestudiantes_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -218,7 +218,7 @@ document.getElementById("linkestudiantes_h").addEventListener("click",
   });
 
 document.getElementById("linkasignaturas").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -234,7 +234,7 @@ document.getElementById("linkasignaturas").addEventListener("click",
 
 
 document.getElementById("linkmain").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -250,7 +250,7 @@ document.getElementById("linkmain").addEventListener("click",
   });
 
 document.getElementById("linkmain_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -266,7 +266,7 @@ document.getElementById("linkmain_h").addEventListener("click",
   });
 
 document.getElementById("TEMA1_FORO").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -281,7 +281,7 @@ document.getElementById("TEMA1_FORO").addEventListener("click",
   });
 
 document.getElementById("TEMA2_FORO").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -324,7 +324,9 @@ function inicioSesion() {
     document.getElementById("OPTIONS").style.display = "block";
     document.getElementById("RIGHT").style.display = "block";
     document.getElementById("LINKS").style.display = "block";
-    document.getElementById("HAMBURGUER").style.display = "block";
+    if ($(window).width() < 600) {
+      document.getElementById("HAMBURGUER").style.display = "block";
+    }
   } else {
     alert("Se debe registrar, cuenta no creada");
   }
@@ -377,7 +379,7 @@ function rolEstudiante() {
 }
 
 function guardar() {
-  if(getCookieInverse(document.forms["Formulario_Registro"]["email_inicio"].value)=="Repetido"){
+  if (getCookieInverse(document.forms["Formulario_Registro"]["email_inicio"].value) == "Repetido") {
     alert("Ya existe una cuenta con este email");
     return false;
   }
@@ -406,7 +408,7 @@ function guardar() {
     document.forms["Formulario_Registro"]["universidad"].value;
   document.cookie = "idioma_" + document.forms["Formulario_Registro"]["nombre_inicio"].value + "=" +
     document.forms["Formulario_Registro"]["idioma"].value;
-    alert("Voy a salir");
+  alert("Voy a salir");
 }
 
 function web_estudiante(x) {
@@ -459,7 +461,7 @@ function enviar_mensaje(ntema) {
   document.getElementById("tema" + ntema + "foro").appendChild(node);
 }
 
-$("#export_e").click(function() {
+$("#export_e").click(function () {
   $("#TABLA_ESTUDIANTE").table2excel({
     // exclude CSS class
     exclude: ".noExl",
@@ -468,7 +470,7 @@ $("#export_e").click(function() {
   });
 });
 
-$("#export_p").click(function() {
+$("#export_p").click(function () {
   $("#TABLA_PROFESOR").table2excel({
     // exclude CSS class
     exclude: ".noExl",
