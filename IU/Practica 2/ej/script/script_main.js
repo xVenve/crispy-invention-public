@@ -267,6 +267,7 @@ document.getElementById("TEMA1_FORO").addEventListener("click",
 
   });
 
+var user_name_logged;
 
 function inicioSesion() {
   var x = document.forms["Formulario_Inicio_Sesion"]["nombre_inicio"].value;
@@ -282,7 +283,9 @@ function inicioSesion() {
   }
 
   if (getCookie("email_inicio_" + x) == y) {
-    $(document).ready(document.getElementById("welcome").innerHTML = "Hola, " + x);
+    $(document).ready(document.getElementById("welcome").innerHTML = "Hola, " + getCookie("nombre_" + x) + " " +
+      getCookie("apellidos_" + x));
+    user_name_logged = x;
     web_estudiante(x);
     document.getElementById("CENTRAL_INICIO").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -397,6 +400,8 @@ function enviar_mensaje() {
 
   today = date + "/" + month + "/" + year + " " + hours + ":" + minutes;
   node.innerHTML =
-    "<img class=\"AVATAR\" class=\"col - 3\" src=\"./images\/user\-default.png\" alt=\"UC3M Logo\" \/\>" + "Carlos Rubio " + today + "<p>" + m + "</p>";
+    "<img class=\"AVATAR\" class=\"col - 3\" src=\"./images\/user\-default.png\" alt=\"UC3M Logo\" \/\>" +
+    getCookie("nombre_" + user_name_logged) + " " + getCookie("apellidos_" + user_name_logged) + " " + today + "<p>" +
+    m + "</p>";
   document.getElementById("tema1foro").appendChild(node);
 }
