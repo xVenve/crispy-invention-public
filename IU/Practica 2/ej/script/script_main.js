@@ -1,5 +1,5 @@
 //Funciones para manejar los popups
-$(document).ready(function() {
+$(document).ready(function () {
   popups('#NOVEDADES', '#popup_novedades');
   popups('#cierre_sesion', '#popup_sesion');
   popups('#NOTICIAS', '#popup_noticias');
@@ -12,13 +12,13 @@ $(document).ready(function() {
 });
 
 function popups(nombre, seccion) {
-  $(nombre).on('click', function() {
+  $(nombre).on('click', function () {
     $(seccion).fadeIn('slow');
     $('.popup-overlay').fadeIn('slow');
     $('.popup-overlay').height($(window).height());
     return false;
   });
-  $('.cerrar').on('click', function() {
+  $('.cerrar').on('click', function () {
     $(seccion).fadeOut('slow');
     $('.popup-overlay').fadeOut('slow');
     return false;
@@ -26,7 +26,7 @@ function popups(nombre, seccion) {
 }
 
 //Funciones que hacen funcionar el addon del calendario.
-$(function() {
+$(function () {
   $("#calendar_novedades").simpleCalendar();
 });
 
@@ -64,7 +64,7 @@ $("#calendar_novedades").simpleCalendar({
   disableEmptyDetails: true
 });
 
-$(function() {
+$(function () {
   $("#calendar_noticias").simpleCalendar();
 });
 
@@ -118,13 +118,13 @@ function start() {
 }
 
 document.getElementById("boton_registro").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_REGISTRO").style.display = "block";
     document.getElementById("CENTRAL_INICIO").style.display = "none";
   });
 
 document.getElementById("linkforo_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_FORO").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -136,7 +136,7 @@ document.getElementById("linkforo_h").addEventListener("click",
   });
 
 document.getElementById("linkforo").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_FORO").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -148,7 +148,7 @@ document.getElementById("linkforo").addEventListener("click",
   });
 
 document.getElementById("linkcalificaciones").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -159,7 +159,7 @@ document.getElementById("linkcalificaciones").addEventListener("click",
   });
 
 document.getElementById("linkcalificaciones_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -171,7 +171,7 @@ document.getElementById("linkcalificaciones_h").addEventListener("click",
   });
 
 document.getElementById("linkestudiantes").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -182,7 +182,7 @@ document.getElementById("linkestudiantes").addEventListener("click",
   });
 
 document.getElementById("linkestudiantes_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "block";
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -193,7 +193,7 @@ document.getElementById("linkestudiantes_h").addEventListener("click",
   });
 
 document.getElementById("linkasignaturas").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_MAIN").style.display = "none";
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_CALIFICACIONES").style.display = "none";
@@ -206,7 +206,7 @@ document.getElementById("linkasignaturas").addEventListener("click",
 
 
 document.getElementById("linkmain").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -219,7 +219,7 @@ document.getElementById("linkmain").addEventListener("click",
   });
 
 document.getElementById("linkmain_h").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_LISTA").style.display = "none";
     document.getElementById("CENTRAL_MAIN").style.display = "block";
     document.getElementById("CENTRAL_FORO").style.display = "none";
@@ -231,14 +231,14 @@ document.getElementById("linkmain_h").addEventListener("click",
   });
 
 document.getElementById("TEMA1_FORO").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_TEMA1").style.display = "block";
 
   });
 
 document.getElementById("TEMA2_FORO").addEventListener("click",
-  function() {
+  function () {
     document.getElementById("CENTRAL_FORO").style.display = "none";
     document.getElementById("CENTRAL_TEMA2").style.display = "block";
 
@@ -423,7 +423,7 @@ function enviar_mensaje(ntema) {
 }
 
 //Métodos para descargar la tabla de calificaciones en formato excel.
-$("#export_e").click(function() {
+$("#export_e").click(function () {
   $("#TABLA_ESTUDIANTE").table2excel({
     // exclude CSS class
     exclude: ".noExl",
@@ -432,7 +432,7 @@ $("#export_e").click(function() {
   });
 });
 
-$("#export_p").click(function() {
+$("#export_p").click(function () {
   $("#TABLA_PROFESOR").table2excel({
     // exclude CSS class
     exclude: ".noExl",
