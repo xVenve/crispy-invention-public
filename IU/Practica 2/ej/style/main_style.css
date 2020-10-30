@@ -92,6 +92,7 @@ p {
   font-family: Helvetica;
   background: #a2798f;
   font-size: 25px;
+  float: left;
   text-align: center;
 }
 
@@ -190,6 +191,7 @@ footer {
 
 /*Estilo para tabla de lista*/
 .BUTTON {
+  margin: 5px;
   background-color: #a2798f;
 }
 
@@ -197,7 +199,6 @@ footer {
   height: 50px;
   width: 50px;
 }
-
 
 /*Estilo para tabla de foro*/
 .DESC-TABLA {
@@ -217,7 +218,7 @@ footer {
   font-size: 14px;
 }
 
-.DESC-TEMA {
+.DESCRIPTION {
   font-size: 14px;
   font-family: Verdana;
 }
@@ -325,9 +326,11 @@ li {
   #HAMBURGUER {
     font-family: Helvetica;
   }
+
+  .content-popup {
+    width: 80%;
+  }
 }
-
-
 
 /*Version para tablet*/
 @media only screen and (max-width: 768px) and (min-width: 600px) {
@@ -418,13 +421,14 @@ table {
   border-collapse: collapse;
 }
 
-#TITLECENTRAL {
+.TITLECENTRAL {
   text-align: center;
   font-size: 35px;
   font-family: Helvetica;
   padding-bottom: 10px;
 }
 
+/*ESTILO DE PAGINA INICIO Y REGISTRO*/
 #Formulario_Inicio_Sesion {
   text-align: center;
 }
@@ -433,12 +437,14 @@ table {
   text-align: center;
 }
 
+/*ESTILO DE LOS BOTONES PAGINA INICIO*/
 .boton_inicio {
   margin-bottom: 15px;
   padding: 3px;
   margin-top: 10px;
 }
 
+/*ESTILO DE LOS BOTONES DE LOS POPUPS */
 #boton_confirmar_cierre {
   color: white;
   padding: 10px 20px;
@@ -466,6 +472,11 @@ table {
   margin-top: 10px;
 }
 
+/*Evitar poder cambiar el tamaño del cuadro de text foro */
 textarea {
   resize: none;
+}
+
+#welcome_m {
+  font-size: 15px;
 }

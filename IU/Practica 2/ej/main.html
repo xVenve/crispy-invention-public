@@ -14,21 +14,22 @@
 <body>
   <header>
     <aside id="user_zone" class="col-3 col-t-4">
-      <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" />
+      <img class="AVATAR" src="./images/user-default.png" alt="UC3M Logo" />
       <ul id="nombre_usuario" class="col-9">
         <li id="welcome">Hola, usuario</li>
         <li><button id="cierre_sesion" class="BUTTON" type="button"> Cerrar sesión</button></li>
       </ul>
-      <div id="popup_sesion" style="display: none;">
-        <div class="content-popup">
-          <div>
-            <h2>¿Desea cerrar sesión?</h2>
-            <button id="boton_confirmar_cierre" class="cerrar col-5" onclick="start()">Si</button>
-            <button id="boton_denegar_cierre" class="cerrar col-5">No</button>
-          </div>
+
+    </aside>
+    <div id="popup_sesion" style="display: none;">
+      <div class="content-popup">
+        <div>
+          <h2>¿Desea cerrar sesión?</h2>
+          <button id="boton_confirmar_cierre" class="cerrar col-5" onclick="start()">Si</button>
+          <button id="boton_denegar_cierre" class="cerrar col-5">No</button>
         </div>
       </div>
-    </aside>
+    </div>
     <article id="titulo_logo" class="col-9 col-t-8">
       <!-- Cabecera con la imagen y titulo -->
       <p>
@@ -49,17 +50,20 @@
           <li id="linkestudiantes_h">Estudiantes</li>
           <li id="linkforo_h">Foro</li>
           <li id="linkcalificaciones_h">Calificaciones</li>
-          <li id="NOTICIAS_h" class="T-LINKS">Últ. novedades</li>
-          <li id="NOVEDADES_h" class="T-LINKS">Últ. noticias</li>
+          <li id="NOVEDADES_h" class="T-LINKS">Últ. novedades</li>
+          <li id="NOTICIAS_h" class="T-LINKS">Últ. noticias</li>
+          <li id="cierre_sesion_h"> Cerrar sesión </li>
         </ul>
       </li>
+      <li id="welcome_m">Hola, usuario</li>
     </ul>
 
     <!-- Barra superior con enlaces de interes -->
-    <section id="OPTIONS">
-      <a href="https://aulaglobal.uc3m.es/">Aula Global</a>
-      <a href="http://ocw.uc3m.es/ingenieria-informatica/interfaces-de-usuario">OCW</a>
-      <a href="https://twitter.com/uc3m">Conócenos</a>
+    <section id="OPTIONS" class="col-12">
+      <h3><a href="https://aulaglobal.uc3m.es/">Aula Global</a>
+        <a href="http://ocw.uc3m.es/ingenieria-informatica/interfaces-de-usuario">OCW</a>
+        <a href="https://twitter.com/uc3m">Conócenos</a>
+      </h3>
     </section>
 
   </header>
@@ -67,26 +71,27 @@
     <!-- Barra lateral izquierda con enlaces -->
     <nav class="col-3 col-t-3" id="LINKS">
       <ul>
-        <li>
-          <h3 id="linkmain">Interfaces de Usuario</h3>
+        <li id="linkmain">
+          <h3>Interfaces de Usuario</h3>
         </li>
         <li id="linkestudiantes">Estudiantes</li>
         <li id="linkasignaturas">Mis asignaturas</li>
         <li id="linkforo">Foro</li>
         <li id="linkcalificaciones">Calificaciones</li>
-        <li class="T-LINKS">Últ. novedades</li>
-        <li class="T-LINKS">Últ. noticias</li>
+        <li id="NOVEDADES_t" class="T-LINKS">Últ. novedades</li>
+        <li id="NOTICIAS_t" class="T-LINKS">Últ. noticias</li>
       </ul>
     </nav>
+
     <!--Seccion inicio-->
-    <article class="col-12 col-t-12" id="CENTRAL_INICIO">
-      <p id="TITLECENTRAL"><b>Bienvenido a la web de Interfaces de Usuario</b></p>
+    <article class=" DESC-TABLA col-12 col-t-12" id="CENTRAL_INICIO">
+      <h2 class="TITLECENTRAL">Bienvenido a la web de Interfaces de Usuario</h2>
 
       <form id="Formulario_Inicio_Sesion" name="Formulario_Inicio_Sesion" method="post">
-        <label for="nombre_inicio">Nombre:</label><br>
-        <input type="text" id="nombre_inicio" name="nombre_inicio"><br>
         <label for="email_inicio">Correo:</label><br>
-        <input type="text" id="email_inicio" name="email_inicio"><br>
+        <input type="text" name="email_inicio"><br>
+        <label for="contraseña">Contraseña:</label><br>
+        <input type="password" name="contraseña"><br>
         <button type="button" class="boton_inicio" onclick="inicioSesion()">Iniciar sesión</button>
         <button type="button" id="boton_registro" class="boton_inicio">Registrarse</button>
       </form>
@@ -94,32 +99,31 @@
 
     <!--Formulario de Registro-->
     <article class="col-12 col-t-12" id="CENTRAL_REGISTRO">
-      <p id="TITLECENTRAL"><b>Registro</b></p>
+      <h2 class="TITLECENTRAL">Registro</h2>
 
-      <form id="Formulario_Registro" onsubmit="return guardar()" name="Formulario_Registro" method="post">
+      <form class="DESC-TABLA" id="Formulario_Registro" onsubmit="return guardar()" name="Formulario_Registro" method="post">
         <h2> Información de la cuenta</h2>
         <label for="nombre_inicio">Nombre:</label><br>
-        <input type="text" id="nombre_inicio" name="nombre_inicio" required><br>
+        <input type="text" id="nombre_inicio" name="lnombre_inicio" required><br>
         <label for="NIA">NIA:</label><br>
-        <input type="text" id="NIA" name="NIA" pattern="[100]+[0-9]{6}" required><br>
+        <input type="text" id="NIA" name="lNIA" pattern="[100]+[0-9]{6}" required><br>
         <label for="contraseña">Contraseña:</label><br>
-        <input type="password" id="contraseña" name="contraseña" pattern="[a-z0-9]{1,8}" maxlength="8" required><br>
+        <input type="password" id="contraseña" name="lcontraseña" pattern="[a-z0-9]{1,8}" maxlength="8" required><br>
 
         <h2> Información personal</h2>
         <label for="nombre">Nombre:</label><br>
-        <input type="text" id="nombre" name="nombre" required><br>
+        <input type="text" id="nombre" name="lnombre" required><br>
         <label for="apellidos">Apellidos:</label><br>
-        <input type="text" id="apellidos" name="apellidos" required><br>
+        <input type="text" id="apellidos" name="lapellidos" required><br>
         <label for="email_inicio">Email</label><br>
-        <input type="text" id="email_inicio" name="email_inicio" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-          required><br>
+        <input type="text" id="email_inicio" name="lemail_inicio" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required><br>
         <label for="fecha_nacimiento">Fecha de nacimiento:</label><br>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
+        <input type="date" id="fecha_nacimiento" name="lfecha_nacimiento" required><br>
         <label for="DNI">DNI</label><br>
-        <input type="text" id="DNI" name="DNI" required><br>
+        <input type="text" id="DNI" name="lDNI" required><br>
 
         <label for="rol">Rol:</label><br>
-        <select name="rol" id="rol" onchange="rolEstudiante()">
+        <select name="lrol" id="rol" onchange="rolEstudiante()">
           <option value="Estudiante">Estudiante</option>
           <option value="Administrador">Administrador</option>
           <option value="Profesor">Profesor</option>
@@ -141,7 +145,6 @@
 
         <label for="idioma">Idioma</label><br>
         <select name="idioma" id="idioma">
-          <option></option>
           <option value="Español">Español</option>
           <option value="Ingles">Inglés</option>
           <option value="Frances">Francés</option>
@@ -151,7 +154,7 @@
           <option value="Alemán">Alemán</option>
 
         </select><br>
-        <input type="checkbox" required> Acepto las condiciones y terminos de uso</input><br>
+        <input type="checkbox" required> Acepto las condiciones y terminos de uso<br>
         <input type="submit" value="Enviar">
         <input type="reset" value="Borrar">
       </form>
@@ -161,17 +164,18 @@
 
     <!-- Seccion central main -->
     <article class="col-6 col-t-9" id="CENTRAL_MAIN">
+      <h2 class="TITLECENTRAL">Temario</h2>
 
       <!-- Tema 1 -->
       <article class="TEMA">
         <img class="col-5 col-t-7" src="./images/tema_1.jpg" alt="Tema 1" />
         <h2>Tema 1 - Interacción Persona-Ordenador</h2>
-        <p class="DESC-TEMA">En este apartado se mostrará una versión global del concepto de interacción persona
+        <p class="DESCRIPTION">En este apartado se mostrará una versión global del concepto de interacción persona
           ordenador, partiendo de algunos objetos de la vida cotidiana se hará hincapié en como esos objetos tienen que
           ser diseñados de manera que se puedan utilizar.</p>
         <!-- Video 1 Tema 1 -->
         <section>
-          <p class="TIT-VIDEO">VIDEO 1: INTRODUCCIÓN</p>
+          <h4 class="TIT-VIDEO">VIDEO 1: INTRODUCCIÓN</h4>
           <iframe class="col-6 col-t-12" src="https://www.youtube.com/embed/HG5JF7G8fjM"></iframe>
           <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
             Cuando los seres humanos y los ordenadores interactúan lo hacen a través de un medio o interfaz. Una
@@ -181,7 +185,7 @@
         </section>
         <!-- Video 2 Tema 1 -->
         <section>
-          <p class="TIT-VIDEO">VIDEO 2: CHARLA SOBRE INTERACCIÓN PERSONA-ORDENADOR</p>
+          <h4 class="TIT-VIDEO">VIDEO 2: CHARLA SOBRE INTERACCIÓN PERSONA-ORDENADOR</h4>
           <iframe class="col-6 col-t-12" src="https://www.youtube.com/embed/QOuS98pFS1M"></iframe>
           <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
             Pequeño extracto del programa de radio Zona Tres Noticias, presentado por Jorge Eduardo Garcia.
@@ -189,7 +193,7 @@
         </section>
         <!-- Video 3  Tema 1 -->
         <section>
-          <p class="TIT-VIDEO">VIDEO 3: MODELO DE INTERACCIÓN DE NORMAN</p>
+          <h4 class="TIT-VIDEO">VIDEO 3: MODELO DE INTERACCIÓN DE NORMAN</h4>
           <iframe class="col-6 col-t-12" src="https://www.youtube.com/embed/axKhU701LxU"></iframe>
           <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
             Explicación del modelo de interacción de Norman por el Insitituto de Tecnología de Walchand.
@@ -202,13 +206,13 @@
       <article class="TEMA">
         <img class="col-5 col-t-7" src="./images/tema_2.jpg" alt="Tema 2" />
         <h2>Tema 2 - Ingeniería de la usabilidad:</h2>
-        <p class="DESC-TEMA"> Este tema introduce el término "usabilidad" (en castellano, capacidad de ser usado"), sus
+        <p class="DESCRIPTION"> Este tema introduce el término "usabilidad" (en castellano, capacidad de ser usado"), sus
           objetivos y la perspectiva de la misma desde el punto de vista del usuario. Se presentan también algunos
           principios de diseño y de usabilidad, para finalizar con las principales ideas de la ingeniería de la
           usabilidad y su incorporación en el proceso de desarrollo en distintos ciclos de vida.</p>
         <!-- Video 1 Tema 2 -->
         <section>
-          <p class="TIT-VIDEO">VIDEO 1: INTRODUCCIÓN</p>
+          <h4 class="TIT-VIDEO">VIDEO 1: INTRODUCCIÓN</h4>
           <iframe class="col-6 col-t-12" src="https://www.youtube.com/embed/r7hPyEMkiIM"></iframe>
           <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
             Introducción al tema 2 sobre ingeniería de la usabilidad, sus pasos, sus características, y el por qué es
@@ -217,7 +221,7 @@
         </section>
         <!-- Video 2 Tema 2 -->
         <section>
-          <p class="TIT-VIDEO">VIDEO 2: REGLAS DE LA USABILIDAD</p>
+          <h4 class="TIT-VIDEO">VIDEO 2: REGLAS DE LA USABILIDAD</h4>
           <iframe class="col-6 col-t-12" src="https://www.youtube.com/embed/qUYyChhTWLo"></iframe>
           <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
             Explicación de las 10 reglas generales de la usabilidad con ejemplos para la comprensión.
@@ -225,7 +229,7 @@
         </section>
         <!-- Video 3  Tema 2 -->
         <section>
-          <p class="TIT-VIDEO">VIDEO 3: METODO DEL CONDUCTOR</p>
+          <h4 class="TIT-VIDEO">VIDEO 3: METODO DEL CONDUCTOR</h4>
           <iframe class="col-6 col-t-12" src="https://www.youtube.com/embed/NDsBotazQew"></iframe>
           <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
             Explicación del metodo del conductor, sus características y sus puntos fuertes.
@@ -237,14 +241,14 @@
       <article class="TEMA">
         <img class="col-5 col-t-7" src="./images/tema_3.png" alt="Tema 3" />
         <h2>Tema 3 - Interfaces web</h2>
-        <p class="DESC-TEMA"> Las interfaces web son un tipo de interfaz concreta que tiene sus características y reglas
+        <p class="DESCRIPTION"> Las interfaces web son un tipo de interfaz concreta que tiene sus características y reglas
           propias. En este tema se hablará de forma concreta de la arquitectura de la información, es decir, cómo poder
           estructurar correctamente la información y como beneficiarse de esa estructura desde el punto de vista del
           proceso de interacción. Además, se hablará del diseño de los principales componentes: homepage, sitio web,
           página y contenidos.</p>
         <!-- Video 1 Tema 2 -->
         <section>
-          <p class="TIT-VIDEO">VIDEO 1: INTRODUCCIÓN</p>
+          <h4 class="TIT-VIDEO">VIDEO 1: INTRODUCCIÓN</h4>
           <iframe class="col-6 col-t-12" src="https://www.youtube.com/embed/jMEjKzlSbfE"></iframe>
           <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
             En esta sesión introducimos la importancia de las interfaces de usuario y explicamos los procesos
@@ -253,7 +257,7 @@
         </section>
         <!-- Video 2 Tema 2 -->
         <section>
-          <p class="TIT-VIDEO">VIDEO 2: HERRAMIENTAS UTILES</p>
+          <h4 class="TIT-VIDEO">VIDEO 2: HERRAMIENTAS UTILES</h4>
           <iframe class="col-6 col-t-12" src="https://www.youtube.com/embed/BwJC6kdrWvc"></iframe>
           <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
             Figma, Atomic y Gravit Designer son 3 herramientas que ofrecen planes gratuitos para comenzar a
@@ -262,7 +266,7 @@
         </section>
         <!-- Video 3  Tema 2 -->
         <section>
-          <p class="T-VIDEO">VIDEO 3: BUENAS PRACTICAS DEL DISEÑO DE INTERFACES</p>
+          <h4 class="TIT-VIDEO">VIDEO 3: BUENAS PRACTICAS DEL DISEÑO DE INTERFACES</h4>
           <iframe class="col-6 col-t-12" src="https://www.youtube.com/embed/mSAmP3HAW6E"></iframe>
           <aside class="VIDEO_DESCRIPTION col-6 col-t-12">
             Consejos a tener en cuenta a la hora de diseñar y crear nuestra interfaz web.
@@ -274,32 +278,32 @@
 
     <!-- Seccion central calificaciones -->
     <article class="col-6 col-t-9" id="CENTRAL_CALIFICACIONES">
-      <p id="TITLECENTRAL"><b>Calificaciones</b></p>
+      <h2 class="TITLECENTRAL">Calificaciones</h2>
       <table id="TABLA_ESTUDIANTE" class="col-12 col-t-12">
-        <tr>
+        <tr class="TIT-TABLA">
           <th>Actividad 1</th>
           <th>Actividad 2</th>
           <th>Actividad 3</th>
           <th>Media actividades</th>
         </tr>
-        <tr>
+        <tr class="DESC-TABLA">
           <td id="act1"></td>
           <td id="act2"></td>
           <td id="act3"></td>
           <td id="media"></td>
         </tr>
       </table>
-      <button type="button" class="BUTTON" id="export_e">Export</button>
+      <button type="button" class="BUTTON" id="export_e">Descargar</button>
 
       <table id="TABLA_PROFESOR" class="col-12 col-t-12">
-        <tr>
+        <tr class="TIT-TABLA">
           <th>Estudiante</th>
           <th>Actividad 1</th>
           <th>Actividad 2</th>
           <th>Actividad 3</th>
         </tr>
         <!-- Alumno 1 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td class="NOMBRE">Carlos Rubio Olivares</td>
           <td>8.00</td>
           <td>8.50</td>
@@ -307,7 +311,7 @@
         </tr>
 
         <!-- Alumno 2 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td class="NOMBRE">Jorge Rodriguez Fraile</td>
           <td>10.00</td>
           <td>7.75</td>
@@ -316,7 +320,7 @@
         </tr>
 
         <!-- Alumno 3 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td class="NOMBRE">Ivan Serrano Garcia</td>
           <td>7.40</td>
           <td>7.75</td>
@@ -324,7 +328,7 @@
         </tr>
 
         <!-- Alumno 4 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td class="NOMBRE">Francisco José Ruiz de la Cruz</td>
           <td>7.00</td>
           <td>7.30</td>
@@ -332,7 +336,7 @@
         </tr>
 
         <!-- Alumno 6 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td class="NOMBRE">Daniel Cano Robledo</td>
           <td>9.00</td>
           <td>8.75</td>
@@ -340,7 +344,7 @@
         </tr>
 
         <!-- Alumno 7 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td class="NOMBRE">Maria Sanchez Blazquez</td>
           <td>6.20</td>
           <td>5.50</td>
@@ -348,7 +352,7 @@
         </tr>
 
         <!-- Alumno 8 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td class="NOMBRE">Luis Acero Morata</td>
           <td>5.20</td>
           <td>4.50</td>
@@ -356,7 +360,7 @@
         </tr>
 
         <!-- Alumno 9 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td class="NOMBRE">Paula Alvarez Rey</td>
           <td>7.50</td>
           <td>7.00</td>
@@ -364,20 +368,20 @@
         </tr>
 
         <!-- Alumno 10 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td class="NOMBRE">Xu Chen</td>
           <td>6.50</td>
           <td>7.30</td>
           <td>7.75</td>
         </tr>
       </table>
-      <button type="button" class="BUTTON" id="export_p">Export</button>
+      <button type="button" class="BUTTON" id="export_p">Descargar</button>
 
     </article>
 
     <!-- Seccion central foro-->
     <article class="col-6 col-t-9" id="CENTRAL_FORO">
-      <p id="TITLECENTRAL"><b>Foro de la asignatura</b></p>
+      <h2 class="TITLECENTRAL">Foro de la asignatura</h2>
 
 
       <table class="col-12 col-t-12">
@@ -405,69 +409,69 @@
     </article>
     <!-- Seccion central tema 1 foro -->
     <article class="col-6 col-t-9" id="CENTRAL_TEMA1">
-      <p id="TITLECENTRAL"><b>Composición de equipos</b></p>
+      <h2 class="TITLECENTRAL">Composición de equipos</h2>
       <ul id="tema1foro">
         <li>
-          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 13/09/2020
+          <img class="AVATAR" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 13/09/2020
           15:03
-          <p>Hola, busco un compañero para la primera práctica, ¿hay alguien solo?</p>
+          <p class="DESCRIPTION">Hola, busco un compañero para la primera práctica, ¿hay alguien solo?</p>
         </li>
         <li>
-          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Jorge Rodriguez
+          <img class="AVATAR" src="./images/user-default.png" alt="UC3M Logo" /> Jorge Rodriguez
           13/09/2020 17:40
-          <p>Yo no tengo pareja, podemos ponernos juntos, te paso mi número por correo, ¿te parece bien? </p>
+          <p class="DESCRIPTION">Yo no tengo pareja, podemos ponernos juntos, te paso mi número por correo, ¿te parece bien? </p>
         </li>
         <li>
-          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 15/09/2020
+          <img class="AVATAR" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 15/09/2020
           10:21
-          <p>Perfecto, mi correo es 100405807@alumnos.uc3m.es</p>
+          <p class="DESCRIPTION">Perfecto, mi correo es 100405807@alumnos.uc3m.es</p>
         </li>
         <li>
-          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Jorge Rodriguez
+          <img class="AVATAR" src="./images/user-default.png" alt="UC3M Logo" /> Jorge Rodriguez
           17/09/2020 09:14
-          <p>No me aparece el correo, ¿está bien escrito?</p>
+          <p class="DESCRIPTION">No me aparece el correo, ¿está bien escrito?</p>
         </li>
         <li>
-          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 18/09/2020
+          <img class="AVATAR" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 18/09/2020
           17:44
-          <p>Me he equivocado, es 1004050808@alumnos.uc3m.es,¡perdona!</p>
+          <p class="DESCRIPTION">Me he equivocado, es 1004050808@alumnos.uc3m.es,¡perdona!</p>
         </li>
       </ul>
-      <label for="mensaje_tema1">Mensaje:</label><br>
+      <label class="DESCRIPTION" for="mensaje_tema1">Mensaje:</label><br>
       <textarea class="col-12" id="mensaje_tema1" name="mensaje_tema1" rows="10" cols="30"></textarea>
-      <button type="button" onclick="enviar_mensaje(1)">Enviar</button>
+      <button type="button" class="BUTTON" onclick="enviar_mensaje(1)">Enviar</button>
     </article>
 
     <!-- Seccion central tema 2 foro -->
     <article class="col-6 col-t-9" id="CENTRAL_TEMA2">
-      <p id="TITLECENTRAL"><b>Preguntas frecuentes</b></p>
+      <h2 class="TITLECENTRAL">Preguntas frecuentes</h2>
       <ul id="tema2foro">
         <li>
-          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 30/08/2020
+          <img class="AVATAR" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 30/08/2020
           17:03
-          <p>Que programas necesitamos para realizar las prácticas?</p>
+          <p class="DESCRIPTION">Que programas necesitamos para realizar las prácticas?</p>
         </li>
         <li>
-          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Teresa Onorati 30/08/2020
+          <img class="AVATAR" src="./images/user-default.png" alt="UC3M Logo" /> Teresa Onorati 30/08/2020
           21:40
-          <p> Principalmente un editor de texto normal y corriente, pero recomendamos aplicaciones como Notepad++ o
+          <p class="DESCRIPTION"> Principalmente un editor de texto normal y corriente, pero recomendamos aplicaciones como Notepad++ o
             atom, que presentan ciertas funcionalidades útiles a la hora de hacer las prácticas. </p>
         </li>
         <li>
-          <img class="AVATAR" class="col-3" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 31/08/2020
+          <img class="AVATAR" src="./images/user-default.png" alt="UC3M Logo" /> Carlos Rubio 31/08/2020
           12:22
-          <p>Perfecto, usaré uno de esos dos entonces, ¡muchas gracias!</p>
+          <p class="DESCRIPTION">Perfecto, usaré uno de esos dos entonces, ¡muchas gracias!</p>
         </li>
-      </ul <label for="mensaje_tema2">Mensaje:</label><br>
+      </ul> <label class="DESCRIPTION" for="mensaje_tema2">Mensaje:</label><br>
       <textarea class="col-12" id="mensaje_tema2" name="mensaje_tema2" rows="10" cols="30"></textarea>
-      <button type="button" onclick="enviar_mensaje(2)">Enviar</button>
+      <button type="button" class="BUTTON" onclick="enviar_mensaje(2)">Enviar</button>
     </article>
 
     <!-- Seccion central lista_alumnos -->
     <article class="col-6 col-t-9" id="CENTRAL_LISTA">
-      <p id="TITLECENTRAL"><b>Listado de estudiantes</b></p>
+      <h2 class="TITLECENTRAL">Listado de estudiantes</h2>
       <table class="col-12 col-t-12">
-        <tr>
+        <tr class="TIT-TABLA">
           <th></th>
           <th>Nombre</th>
           <th>Apellido</th>
@@ -476,101 +480,93 @@
         </tr>
 
         <!-- Alumno 1 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td><img class="AVATAR" src="./images/Carlos.jpg" alt="CarlosRubio" /></td>
           <td>Carlos</td>
           <td>Rubio Olivares</td>
           <td>100405834@alumnos.uc3m.es</td>
-          <td><button class="BUTTON" type="button"
-              onclick="window.location.href='mailto:100405834@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405834@alumnos.uc3m.es';">Enviar mensaje</button></td>
         </tr>
 
         <!-- Alumno 2 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td><img class="AVATAR" src="./images/Jorge.jpg" alt="JorgeRodriguez" /></td>
           <td>Jorge</td>
           <td>Rodriguez Fraile</td>
           <td>100405951@alumnos.uc3m.es</td>
-          <td><button class="BUTTON" type="button"
-              onclick="window.location.href='mailto:100405951@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405951@alumnos.uc3m.es';">Enviar mensaje</button></td>
         </tr>
 
         <!-- Alumno 3 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td><img class="AVATAR" src="./images/Ivan.jpg" alt="IvanSerrano" /></td>
           <td>Ivan</td>
           <td>Serrano Garcia</td>
           <td>100405836@alumnos.uc3m.es</td>
-          <td><button class="BUTTON" type="button"
-              onclick="window.location.href='mailto:100405836@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405836@alumnos.uc3m.es';">Enviar mensaje</button></td>
         </tr>
 
         <!-- Alumno 4 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td><img class="AVATAR" src="./images/Fran.jpg" alt="FranciscoJoseRuiz" /></td>
           <td>Francisco José</td>
           <td>Ruiz de la Cruz</td>
           <td>100405807@alumnos.uc3m.es</td>
-          <td><button class="BUTTON" type="button"
-              onclick="window.location.href='mailto:100405807@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405807@alumnos.uc3m.es';">Enviar mensaje</button></td>
         </tr>
 
         <!-- Alumno 6 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td><img class="AVATAR" src="./images/Daniel.jpg" alt="DanielCano" /></td>
           <td>Daniel</td>
           <td>Cano Robledo</td>
           <td>100405810@alumnos.uc3m.es</td>
-          <td><button class="BUTTON" type="button"
-              onclick="window.location.href='mailto:100405810@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405810@alumnos.uc3m.es';">Enviar mensaje</button></td>
         </tr>
 
         <!-- Alumno 7 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td><img class="AVATAR" src="./images/Maria.jpg" alt="MariaSanchez" /></td>
           <td>Maria</td>
           <td>Sanchez Blazquez</td>
           <td>100405838@alumnos.uc3m.es</td>
-          <td><button class="BUTTON" type="button"
-              onclick="window.location.href='mailto:100405838@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405838@alumnos.uc3m.es';">Enviar mensaje</button></td>
         </tr>
 
         <!-- Alumno 8 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td><img class="AVATAR" src="./images/Luis.jpg" alt="LuisAcero" /></td>
           <td>Luis</td>
           <td>Acero Morata</td>
           <td>100405985@alumnos.uc3m.es</td>
-          <td><button class="BUTTON" type="button"
-              onclick="window.location.href='mailto:100405985@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100405985@alumnos.uc3m.es';">Enviar mensaje</button></td>
         </tr>
 
         <!-- Alumno 9 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td><img class="AVATAR" src="./images/Paula.jpg" alt="PaulaAlvarez" /></td>
           <td>Paula</td>
           <td>Alvarez Rey</td>
           <td>100366670@alumnos.uc3m.es</td>
-          <td><button class="BUTTON" type="button"
-              onclick="window.location.href='mailto:100366670@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100366670@alumnos.uc3m.es';">Enviar mensaje</button></td>
         </tr>
 
         <!-- Alumno 10 -->
-        <tr>
+        <tr class="DESC-TABLA">
           <td><img class="AVATAR" src="./images/Xu.jpg" alt="XuChen" /></td>
           <td>Xu</td>
           <td>Chen</td>
           <td>100406010@alumnos.uc3m.es</td>
-          <td><button class="BUTTON" type="button"
-              onclick="window.location.href='mailto:100406010@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          <td><button class="BUTTON" type="button" onclick="window.location.href='mailto:100406010@alumnos.uc3m.es';">Enviar mensaje</button></td>
         </tr>
 
       </table>
 
     </article>
+
     <!-- Seccion central asignatura -->
     <article class="col-6 col-t-9" id="CENTRAL_ASIGNATURAS">
-      <h1 id="TITLECENTRAL">Mis asignaturas</h1>
+      <h2 class="TITLECENTRAL">Mis asignaturas</h2>
       <ul>
         <li>Interfaces de Usuario</li>
         <li>Heurística y Optimización</li>
@@ -579,6 +575,7 @@
         <li>Arquitectura de Computadores</li>
       </ul>
     </article>
+
     <!-- Barra lateral derecha con noticias y novedades -->
     <aside class="col-3 col-t-3" id="RIGHT">
       <section>
@@ -602,43 +599,47 @@
           <li>28/9/2020 - Tutoria colectiva en tres días</li>
         </ul>
       </section>
-      <!--Pop-up de novedades-->
-      <div id="popup_novedades" style="display: none;">
-        <div class="content-popup">
-          <div class="cerrar"><a href="#" id="cerrar">X</a></div>
-          <div>
-            <h2>Últimas Novedades</h2>
-            <div id="calendar_novedades"></div>
-            <div style="float:left; width:100%;"> </div>
-          </div>
-        </div>
-      </div>
-      <div class="popup-overlay"></div>
 
-      <!--Pop-up de noticias-->
-      <div id="popup_noticias" style="display: none;">
-        <div class="content-popup">
-          <div class="cerrar boton_cerrar_calendario"><a href="#" id="cerrar2">X</a></div>
-          <div>
-            <h2>Últimas Noticias</h2>
-            <div id="calendar_noticias"></div>
-            <div style="float:left; width:100%;"> </div>
-          </div>
-        </div>
-      </div>
-      <div class="popup-overlay"></div>
     </aside>
   </section>
+
+  <!--Pop-up de novedades-->
+  <div id="popup_novedades" style="display: none;">
+    <div class="content-popup">
+      <div class="cerrar"><a href="#" id="cerrar">X</a></div>
+      <div>
+        <h2>Últimas Novedades</h2>
+        <div id="calendar_novedades"></div>
+        <div style="float:left; width:100%;"> </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-overlay"></div>
+
+  <!--Pop-up de noticias-->
+  <div id="popup_noticias" style="display: none;">
+    <div class="content-popup">
+      <div class="cerrar boton_cerrar_calendario"><a href="#" id="cerrar2">X</a></div>
+      <div>
+        <h2>Últimas Noticias</h2>
+        <div id="calendar_noticias"></div>
+        <div style="float:left; width:100%;"> </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-overlay"></div>
+
   <!-- Pie de pagina -->
   <footer class="col-12 col-t-12">
-    <p>© 1998-2020 UC3M, inc. All rights reserved. | <a href="https://www.uc3m.es/">UC3M</a> | <a
-        href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad"> Privacidad </a> </p>
+    <p>© 1998-2020 UC3M, inc. All rights reserved. | <a href="https://www.uc3m.es/">UC3M</a> |
+      <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad"> Privacidad </a>
+    </p>
   </footer>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script src="./script/jquery.simple-calendar.js"></script>
+  <script src="./script/jquery.table2excel.js"></script>
+  <script src="./script/script_main.js"></script>
 </body>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-<script src="./script/jquery.simple-calendar.js"></script>
-<script src="./script/jquery.table2excel.js"></script>
-<script src="./script/script_main.js"></script>
 
 </html>
