@@ -4,7 +4,6 @@ $(document).ready(function () {
   popups('#NOTICIAS', '#popup_noticias');
   popups('#NOVEDADES_h', '#popup_novedades');
   popups('#NOTICIAS_h', '#popup_noticias');
-
   start();
 });
 
@@ -266,6 +265,9 @@ function inicioSesion() {
     document.getElementById("user_zone").style.display = "block";
     if ($(window).width() < 600) {
       document.getElementById("HAMBURGUER").style.display = "block";
+      document.getElementById("LINKS").style.display = "none";
+      document.getElementById("OPTIONS").style.display = "none";
+      document.getElementById("RIGHT").style.display = "none";
     } else if ($(window).width() > 768) {
       document.getElementById("LINKS").style.display = "block";
       document.getElementById("OPTIONS").style.display = "block";
