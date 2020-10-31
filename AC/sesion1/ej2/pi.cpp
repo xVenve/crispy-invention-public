@@ -10,7 +10,7 @@ int main() {
   double step = 1.0 / double(nsteps);
   double sum = 0.0;
   int hilos = 0;
-  double vector[16cd];
+  double vector[16];
 #pragma omp parallel
   {
     hilos = omp_get_num_threads();
