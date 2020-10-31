@@ -16,5 +16,6 @@ int main() {
   }
 
   cout << "Hilos del fin de programa " << omp_get_num_threads();
+
   return 0;
 }

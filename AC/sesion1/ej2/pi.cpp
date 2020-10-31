@@ -29,4 +29,6 @@ int main() {
   cout << "Valor de pi: " << pi << '\n';
   cout << "Numero de hilos: " << hilos << '\n';
   cout << "Tiempo: " << diff << '\n';
+
+  return 0;
 }
