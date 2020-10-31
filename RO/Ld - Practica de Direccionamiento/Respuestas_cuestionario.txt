@@ -44,7 +44,18 @@ A
 
 No
 
-9
+1
 
-1 respuesta es la IPv4 del propio www.uc3m.es, 4 son los nombres autoritativos de www.uc3m.es y las ultimas 4 las direcciones IPv4 y IPv6 de dos de esos servidores.
-176.58.10.138; vorteX.uc3m.es; saruman.uc3m.es; sun.rediris.es; vorteX.uc3m.es; 163.117.131.31 y 2001:720:410:b131::31; 163.117.131.43 y 2001:720:410:b131::43
+La IPv4 del propio www.uc3m.es, 176.58.10.138
+
+80.58.61.254
+
+Si
+
+NS
+
+No
+
+vorteX.uc3m.es; saruman.uc3m.es; sun.rediris.es; vorteX.uc3m.es
+
+Si
