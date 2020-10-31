@@ -56,6 +56,18 @@ NS
 
 No
 
-vorteX.uc3m.es; saruman.uc3m.es; sun.rediris.es; vorteX.uc3m.es
+vorteX.uc3m.es; saruman.uc3m.es; sun.rediris.es; chico.rediris.es
 
 Si
+
+163.117.131.31
+
+No
+
+A
+
+No
+
+1
+
+Contiene la dirección IP solicitada, 176.58.10.138
