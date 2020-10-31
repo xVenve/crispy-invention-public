@@ -10,16 +10,17 @@ int main() {
   double step = 1.0 / double(nsteps);
   double sum = 0.0;
   int hilos = 0;
-  double vector[8];
+  double vector[16cd];
 #pragma omp parallel
   {
     hilos = omp_get_num_threads();
-    for (int i = 0 + (nsteps / 8) * omp_get_thread_num(); i < (nsteps / 8) * (omp_get_thread_num() + 1); ++i) {
+    for (int i = 0 + (nsteps / omp_get_num_threads()) * omp_get_thread_num();
+         i < (nsteps / omp_get_num_threads()) * (omp_get_thread_num() + 1); ++i) {
       double x = (i + 0.5) * step;
       vector[omp_get_thread_num()] += 4.0 / (1.0 + x * x);
     }
   }
-  for (int j = 0; j < 8; j++) {
+  for (int j = 0; j < hilos; j++) {
     sum += vector[j];
   }
   double pi = step * sum;
