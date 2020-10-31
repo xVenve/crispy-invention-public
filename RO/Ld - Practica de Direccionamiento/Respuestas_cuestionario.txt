@@ -9,3 +9,25 @@ Rodríguez Fraile, Jorge
 ns1.yahoo.com; ns2.yahoo.com; ns3.yahoo.com; ns4.yahoo.com; ns5.yahoo.com
 
 aspmx.l.google.com; aspmx.l.google.com; alt1.aspmx.l.google.com; alt1.aspmx.l.google.com; alt2.aspmx.l.google.com; aspmx2.googlemail.com; aspmx3.googlemail.com; aspmx3.googlemail.com
+
+UDP
+
+53
+
+53
+
+80.58.61.254
+
+Sí
+
+A
+
+No
+
+2
+
+Las IPs correspondientes al nombre solicitado, 104.16.45.99 y 104.16.45.99
+
+Si
+
+No
