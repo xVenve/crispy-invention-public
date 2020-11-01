@@ -194,7 +194,15 @@ footer {
   margin: 5px;
   background-color: #a2798f;
 }
-
+#crear_tema{
+color: white;
+padding: 10px 20px;
+text-align: center;
+font-size: 10px;
+margin: 4px 2px;
+cursor: pointer;
+background-color: #a2798f;
+}
 .AVATAR {
   height: 50px;
   width: 50px;
