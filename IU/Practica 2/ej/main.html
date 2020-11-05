@@ -7,7 +7,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <LINK rel="stylesheet" href="./style/main_style.css">
-  <link rel="stylesheet" href="./style/simple-calendar.css">
 
 </head>
 
@@ -21,7 +20,7 @@
       </ul>
 
     </aside>
-    <div id="popup_sesion" style="display: none;">
+    <div id="popup_sesion">
       <div class="content-popup">
         <div>
           <h2>¿Desea cerrar sesión?</h2>
@@ -34,7 +33,7 @@
       <!-- Cabecera con la imagen y titulo -->
       <p>
         <img class="col-3" src="./images/uc3m_logo.png" alt="UC3M Logo" />
-        <b id="TITULO" class="col-9">Clase virtual de Interfaces de Usuario </b>
+        <b id="TITULO" class="col-9 col-t-12">Clase virtual de Interfaces de Usuario </b>
       </p>
     </article>
 
@@ -617,26 +616,26 @@
   </section>
 
   <!--Pop-up de novedades-->
-  <div id="popup_novedades" style="display: none;">
+  <div id="popup_novedades">
     <div class="content-popup">
       <div class="cerrar"><a href="#" id="cerrar">X</a></div>
       <div>
         <h2>Últimas Novedades</h2>
         <div id="calendar_novedades"></div>
-        <div style="float:left; width:100%;"> </div>
+        <div class = "popup_content"> </div>
       </div>
     </div>
   </div>
   <div class="popup-overlay"></div>
 
   <!--Pop-up de noticias-->
-  <div id="popup_noticias" style="display: none;">
+  <div id="popup_noticias">
     <div class="content-popup">
       <div class="cerrar boton_cerrar_calendario"><a href="#" id="cerrar2">X</a></div>
       <div>
         <h2>Últimas Noticias</h2>
         <div id="calendar_noticias"></div>
-        <div style="float:left; width:100%;"> </div>
+        <div class ="popup_content"> </div>
       </div>
     </div>
   </div>
