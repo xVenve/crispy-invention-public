@@ -14,6 +14,10 @@ void sobel(char *, DIR *);
  */
 void gauss(int, int, unsigned char *, unsigned char *);
 
+void copy(char *, DIR *);
+void gauss(char *, DIR *);
+void sobel(char *, DIR *);
+
 int main(int argc, char **argv) {
 
   // Controlar el numero de parametros
