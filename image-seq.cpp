@@ -6,7 +6,6 @@ using namespace std;
 void copy(char *, DIR *);
 void gauss(char *, DIR *);
 void sobel(char *, DIR *);
-// int check(unsigned char *);
 
 int main(int argc, char **argv) {
 
@@ -52,16 +51,26 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  // Mirar error si esta vacio el de entrada, o archivo con otro formato
+  // SIN HACER Mirar error si esta vacio el de entrada, o archivo con otro
+  // formato
 
   struct dirent *dir;
   while ((dir = readdir(input)) != NULL) {
     if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0) {
-      cout << dir->d_name << "\n";
 
-      /* Sacar datos de .bmp, pero mirar paso de nombre
+      char *input = (char *)malloc(strlen(argv[2]) + strlen("/") +
+                                   strlen(dir->d_name) + 1);
 
-      FILE *photo = fopen(dir->d_name, "rb");
+      strcpy(input, argv[2]);
+      strcat(input, "/");
+      strcat(input, dir->d_name);
+
+      /* Poner tiempos
+        Load time: 7305
+        Store time: 6152
+      */
+
+      FILE *photo = fopen(input, "rb");
       unsigned char info[54];
 
       // Cabecera
@@ -77,10 +86,14 @@ int main(int argc, char **argv) {
 
       fread(data, sizeof(unsigned char), size, photo);
 
-      if (check(info) == -1) {
+      // Error de .bmp que no sea 24 bis por punto
+      if (*(int *)&info[28] != 24) {
+        cout << "Input path: " << argv[2] << "\nOutput path: " << argv[3]
+             << "\nBit count is not 24.\n " << argv[0]
+             << " operation in_path out_path\n   operation: copy, "
+                "gauss, sobel\n";
         return -1;
       }
-      */
 
       if (strcmp(argv[1], "copy") == 0) {
         copy(dir->d_name, output);
@@ -89,9 +102,9 @@ int main(int argc, char **argv) {
         gauss(dir->d_name, output);
       }
       if (strcmp(argv[1], "sobel") == 0) {
-        // Funcion sobel
+        sobel(dir->d_name, output);
       }
-      // fclose(photo);
+      fclose(photo);
     }
   }
 
@@ -121,26 +134,15 @@ int main(int argc, char **argv) {
 }
 
 void copy(char *photo, DIR *output) {
-  cout << "Copio:" << photo << " en " << output << "\n";
+  cout << "Copio: " << photo << " en " << output << "\n";
 }
 
 void gauss(char *photo, DIR *output) {
-  cout << "Gauss:" << photo << " en " << output << "\n";
+  cout << "Gauss: " << photo << " en " << output << "\n";
 }
 
 void sobel(char *photo, DIR *output) {
   // Ver como hacer que haga primero gauss, doble funcion en una o que reciba
   // parametros
-  cout << "Gauss y Sobel:" << photo << " en " << output << "\n";
+  cout << "Gauss y Sobel: " << photo << " en " << output << "\n";
 }
-
-// int check(unsigned char* header) {
-/*Comprobar los parametros de las fotos
-Input path: input
-Output path: output
-Bit count is not 24
-./solucion operation in_path out_path
-  operation: copy, gauss, sobel
-*/
-// return 0;
-//}
