@@ -17,11 +17,12 @@ void gauss(int, int, unsigned char *, unsigned char *);
 void copy(char *, DIR *);
 void gauss(char *, DIR *);
 void sobel(char *, DIR *);
+// int check(unsigned char *);
 
 int main(int argc, char **argv) {
 
   // Controlar el numero de parametros
-  if (argc != 4) {
+
     cout << "Wrong format:\n " << argv[0]
          << " operation in_path out_path\n   "
             "operation: copy, gauss, sobel\n";
