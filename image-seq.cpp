@@ -10,7 +10,7 @@ void sobel(char *, DIR *);
 int main(int argc, char **argv) {
 
   // Controlar el numero de parametros
-  if (argc < 4) {
+  if (argc != 4 ) {
     cout << "Wrong format:\n " << argv[0]
          << " operation in_path out_path\n   "
             "operation: copy, gauss, sobel\n";
@@ -36,6 +36,7 @@ int main(int argc, char **argv) {
          << argv[0]
          << " operation in_path out_path\n   operation: copy, "
             "gauss, sobel\n";
+            closedir(input);
     return -1;
   }
 
@@ -48,10 +49,14 @@ int main(int argc, char **argv) {
          << argv[0]
          << " operation in_path out_path\n   operation: copy, "
             "gauss, sobel\n";
+          closedir(output);
     return -1;
   }
 
-  // SIN HACER Mirar error si esta vacio el de entrada, o archivo con otro
+
+  cout << "Input path: " << argv[2] << "\nOutput path: " << argv[3]<< "\n";
+
+  // SIN HACER  o archivo con otro
   // formato
 
   struct dirent *dir;
@@ -76,9 +81,12 @@ int main(int argc, char **argv) {
       // Cabecera
       fread(info, sizeof(unsigned char), 54, photo);
 
+
       // Ancho y alto
       int width = *(int *)&info[18];
       int height = *(int *)&info[22];
+      cout <<width<<"\n";
+      cout <<height<<"\n";
 
       // 24 bits = 3 bytes por pixel
       int size = 3 * width * height;
@@ -86,10 +94,21 @@ int main(int argc, char **argv) {
 
       fread(data, sizeof(unsigned char), size, photo);
 
+      cout <<"Planos: "<< *(unsigned short *)&info[26] <<"\n";
+      cout <<"Bit count: "<< *(unsigned short *)&info[28] <<"\n";
+
+      //Error de .bmp que no tenga un plano
+      if (*(unsigned short *)&info[26] != 1){
+        cout << "Planes is not 1\n " << argv[0]
+             << " operation in_path out_path\n   operation: copy, "
+                "gauss, sobel\n";
+        return -1;
+      }
+
+
       // Error de .bmp que no sea 24 bis por punto
-      if (*(int *)&info[28] != 24) {
-        cout << "Input path: " << argv[2] << "\nOutput path: " << argv[3]
-             << "\nBit count is not 24.\n " << argv[0]
+      if (*(unsigned short *)&info[28] != 24) {
+        cout << "Bit count is not 24.\n " << argv[0]
              << " operation in_path out_path\n   operation: copy, "
                 "gauss, sobel\n";
         return -1;
