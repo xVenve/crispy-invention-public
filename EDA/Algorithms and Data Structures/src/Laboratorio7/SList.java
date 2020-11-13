@@ -2,277 +2,284 @@ package Laboratorio7;
 
 public class SList implements IList {
 
-	public SNode first;
+  public SNode first;
 
-	public void addFirst(String newElem) {
+  public void addFirst(String newElem) {
+    SNode newNode = new SNode(newElem);
+    newNode.next = first;
+    first = newNode;
+  }
 
-		SNode newNode = new SNode(newElem);
-		newNode.next = first;
-		first = newNode;
-	}
+  public void addLast(String newElem) {
+    if (isEmpty()) addFirst(newElem); else {
+      SNode node = new SNode(newElem);
 
-	public void addLast(String newElem) {
+      SNode last = first;
+      while (last.next != null) {
+        last = last.next;
+      }
 
-		if (isEmpty()) 
-			addFirst(newElem);
-		else {
+      last.next = node;
+    }
+  }
 
-			SNode node = new SNode(newElem);
+  @Override
+  public void insertAt(int index, String newElem) {
+    System.out.println("adding : " + newElem + " at position: " + index);
 
-			SNode last = first;
-			while (last.next != null) {
-				last = last.next;
-			}
+    SNode newNode = new SNode(newElem);
+    if (index == 0) {
+      newNode.next = first;
+      first = newNode;
+    } else {
+      int i = 1;
+      boolean inserted = false;
+      for (
+        SNode nodeIt = first;
+        nodeIt != null && inserted == false;
+        nodeIt = nodeIt.next
+      ) {
+        if (i == index) {
+          newNode.next = nodeIt.next;
+          nodeIt.next = newNode;
+          inserted = true;
+        }
+        ++i;
+      }
+      if (!inserted) System.out.println("SList: Insertion out of bounds");
+    }
+  }
 
-			last.next = node;
-		}
-	}
+  public boolean isEmpty() {
+    return (first == null);
+  }
 
-	@Override public void insertAt(int index, String newElem) {
+  @Override
+  public boolean contains(String elem) {
+    boolean found = false;
+    for (
+      SNode nodeIt = first;
+      nodeIt != null && found == false;
+      nodeIt = nodeIt.next
+    ) {
+      if (nodeIt.elem.equals(elem)) {
+        found = true;
+      }
+    }
+    return found;
+  }
 
-		System.out.println("adding : " + newElem + " at position: " + index);
+  public void removeFirst() {
+    if (!isEmpty()) {
+      first = first.next;
+    }
+  }
 
-		SNode newNode = new SNode(newElem);
-		if (index == 0) {
-			newNode.next = first;
-			first = newNode;
-		} else {
-			int i = 1;
-			boolean inserted = false;
-			for (SNode nodeIt = first; nodeIt != null && inserted == false; nodeIt = nodeIt.next) {
-				if (i == index) {
-					newNode.next = nodeIt.next;
-					nodeIt.next = newNode;
-					inserted = true;
-				}
-				++i;
-			}
-			if (!inserted) 
-				System.out.println("SList: Insertion out of bounds");
-			}
-		}
+  public void removeLast() {
+    SNode lastNode = null;
+    SNode previousNode = null;
+    for (SNode nodeIt = first; nodeIt != null; nodeIt = nodeIt.next) {
+      previousNode = lastNode;
+      lastNode = nodeIt;
+    }
+    if (previousNode == null) first = null; else previousNode.next = null;
+  }
 
-	public boolean isEmpty() {
-		return (first == null);
-	}
+  @Override
+  public void removeAll(String elem) {
+    System.out.println("removing all " + elem);
+    SNode previousNode = null;
+    for (SNode nodeIt = first; nodeIt != null; nodeIt = nodeIt.next) {
+      if (nodeIt.elem.equals(elem)) {
+        if (previousNode == null) {
+          first = nodeIt.next;
+        } else {
+          previousNode.next = nodeIt.next;
+        }
+      } else {
+        previousNode = nodeIt;
+      }
+    }
+  }
 
-	@Override public boolean contains(String elem) {
-		boolean found = false;
-		for (SNode nodeIt = first; nodeIt != null && found == false; nodeIt = nodeIt.next) {
-			if (nodeIt.elem.equals(elem)) {
-				found = true;
-			}
-		}
-		return found;
-	}
+  @Override
+  public void removeAt(int index) {
+    System.out.println("removing at position: " + index);
 
-	public void removeFirst() {
-		if (!isEmpty()) {
-			first = first.next;
-		}
-	}
+    int i = 0;
+    SNode previousNode = null;
+    boolean removed = false;
+    for (
+      SNode nodeIt = first;
+      nodeIt != null && removed == false;
+      nodeIt = nodeIt.next
+    ) {
+      if (i == index) {
+        if (previousNode == null) {
+          first = nodeIt.next;
+        } else {
+          previousNode.next = nodeIt.next;
+        }
+        removed = true;
+      }
+      ++i;
+      previousNode = nodeIt;
+    }
+    if (!removed) System.out.println("SList: Deletion out of bounds");
+  }
 
-	public void removeLast() {
-		SNode lastNode = null;
-		SNode previousNode = null;
-		for (SNode nodeIt = first; nodeIt != null; nodeIt = nodeIt.next) {
-			previousNode = lastNode;
-			lastNode = nodeIt;
-		}
-		if (previousNode == null) 
-			first = null;
-		else 
-			previousNode.next = null;
-		}
-	
-	@Override public void removeAll(String elem) {
-		System.out.println("removing all " + elem);
-		SNode previousNode = null;
-		for (SNode nodeIt = first; nodeIt != null; nodeIt = nodeIt.next) {
-			if (nodeIt.elem.equals(elem)) {
-				if (previousNode == null) {
-					first = nodeIt.next;
-				} else {
-					previousNode.next = nodeIt.next;
-				}
-			} else {
-				previousNode = nodeIt;
-			}
-		}
-	}
+  @Override
+  public int getSize() {
+    int size = 0;
+    for (SNode node = first; node != null; node = node.next) {
+      ++size;
+    }
+    return size;
+  }
 
-	@Override public void removeAt(int index) {
+  @Override
+  public int getIndexOf(String elem) {
+    System.out.println("index of " + elem);
 
-		System.out.println("removing at position: " + index);
+    int index = -1;
+    int pos = 0;
+    for (SNode node = first; node != null && index == -1; node = node.next) {
+      if (node.elem.equals(elem)) {
+        index = pos;
+      }
+      ++pos;
+    }
+    return index;
+  }
 
-		int i = 0;
-		SNode previousNode = null;
-		boolean removed = false;
-		for (SNode nodeIt = first; nodeIt != null && removed == false; nodeIt = nodeIt.next) {
-			if (i == index) {
-				if (previousNode == null) {
-					first = nodeIt.next;
-				} else {
-					previousNode.next = nodeIt.next;
-				}
-				removed = true;
-			}
-			++i;
-			previousNode = nodeIt;
-		}
-		if (!removed) 
-			System.out.println("SList: Deletion out of bounds");
-		}
-	
-	@Override public int getSize() {
-		int size = 0;
-		for (SNode node = first; node != null; node = node.next) {
-			++size;
-		}
-		return size;
-	}
+  @Override
+  public String getFirst() {
+    String result = null;
+    if (first == null) {
+      System.out.println("SList: List is empty");
+    } else result = first.elem;
+    return result;
+  }
 
-	@Override public int getIndexOf(String elem) {
-		System.out.println("index of " + elem);
+  @Override
+  public String getLast() {
+    SNode lastNode = null;
+    for (SNode node = first; node != null; node = node.next) {
+      lastNode = node;
+    }
+    String result = null;
+    if (lastNode == null) {
+      System.out.println("SList: List is empty");
+    } else result = lastNode.elem;
+    return result;
+  }
 
-		int index = -1;
-		int pos = 0;
-		for (SNode node = first; node != null && index == -1; node = node.next) {
-			if (node.elem.equals(elem)) {
-				index = pos;
-			}
-			++pos;
-		}
-		return index;
-	}
+  @Override
+  public String getAt(int index) {
+    int i = 0;
+    String result = null;
+    for (
+      SNode nodeIt = first;
+      nodeIt != null && result == null;
+      nodeIt = nodeIt.next
+    ) {
+      if (i == index) {
+        result = nodeIt.elem;
+      }
+      ++i;
+    }
+    if (result == null) System.out.println("SList: Get out of bounds");
+    return result;
+  }
 
-	@Override public String getFirst() {
-		String result = null;
-		if (first == null) {
-			System.out.println("SList: List is empty");
-		} else 
-			result = first.elem;
-		return result;
-	}
+  public String toString() {
+    String result = null;
+    for (SNode nodeIt = first; nodeIt != null; nodeIt = nodeIt.next) {
+      if (result == null) {
+        result = nodeIt.elem.toString();
+      } else {
+        result += "," + nodeIt.elem.toString();
+      }
+    }
+    return result == null ? "empty" : result;
+  }
 
-	@Override public String getLast() {
-		SNode lastNode = null;
-		for (SNode node = first; node != null; node = node.next) {
-			lastNode = node;
-		}
-		String result = null;
-		if (lastNode == null) {
-			System.out.println("SList: List is empty");
-		} else 
-			result = lastNode.elem;
-		return result;
-	}
+  public static void main(String[] args) {
+    // incomplete test
+    IList list = new SList();
+    System.out.println(list.toString());
+    System.out.println("isEmpty?" + list.isEmpty());
 
-	@Override public String getAt(int index) {
-		int i = 0;
-		String result = null;
-		for (SNode nodeIt = first; nodeIt != null && result == null; nodeIt = nodeIt.next) {
-			if (i == index) {
-				result = nodeIt.elem;
-			}
-			++i;
-		}
-		if (result == null) 
-			System.out.println("SList: Get out of bounds");
-		return result;
-	}
+    list.addLast("1");
+    System.out.println(list.toString());
 
-	public String toString() {
-		String result = null;
-		for (SNode nodeIt = first; nodeIt != null; nodeIt = nodeIt.next) {
-			if (result == null) {
-				result = nodeIt.elem.toString();
-			} else {
-				result += "," + nodeIt.elem.toString();
-			}
-		}
-		return result == null
-			? "empty"
-			: result;
-	}
+    list.removeLast();
+    System.out.println(list.toString());
 
-	public static void main(String[] args) {
-		// incomplete test
-		IList list = new SList();
-		System.out.println(list.toString());
-		System.out.println("isEmpty?" + list.isEmpty());
+    list.addLast("1");
+    System.out.println(list.toString());
 
-		list.addLast("1");
-		System.out.println(list.toString());
+    list.removeFirst();
+    System.out.println(list.toString());
 
-		list.removeLast();
-		System.out.println(list.toString());
+    list.addLast("1");
+    list.addLast("1");
+    System.out.println(list.toString());
 
-		list.addLast("1");
-		System.out.println(list.toString());
+    list.addFirst("2");
+    System.out.println(list.toString());
 
-		list.removeFirst();
-		System.out.println(list.toString());
+    list.addFirst("3");
+    System.out.println(list.toString());
 
-		list.addLast("1");
-		list.addLast("1");
-		System.out.println(list.toString());
+    list.addLast("4");
+    System.out.println(list.toString());
 
-		list.addFirst("2");
-		System.out.println(list.toString());
+    list.insertAt(2, "5");
+    System.out.println(list.toString());
 
-		list.addFirst("3");
-		System.out.println(list.toString());
+    list.removeAll("0");
+    System.out.println(list.toString());
 
-		list.addLast("4");
-		System.out.println(list.toString());
+    System.out.println("First: " + list.getFirst());
+    System.out.println("Last: " + list.getLast());
+    list.removeFirst();
+    list.removeLast();
+    System.out.println(list.toString());
 
-		list.insertAt(2, "5");
-		System.out.println(list.toString());
+    System.out.println("First: " + list.getFirst());
+    System.out.println("Last: " + list.getLast());
 
-		list.removeAll("0");
-		System.out.println(list.toString());
+    System.out.println("Size: " + list.getSize());
 
-		System.out.println("First: " + list.getFirst());
-		System.out.println("Last: " + list.getLast());
-		list.removeFirst();
-		list.removeLast();
-		System.out.println(list.toString());
+    for (int i = 0; i < list.getSize(); i++) {
+      System.out.println("Element at position " + i + ":" + list.getAt(i));
+    }
 
-		System.out.println("First: " + list.getFirst());
-		System.out.println("Last: " + list.getLast());
+    list.insertAt(5, "6");
+    System.out.println(list.toString());
+    list.insertAt(0, "7");
+    System.out.println(list.toString());
 
-		System.out.println("Size: " + list.getSize());
+    list.insertAt(list.getSize() + 5, "9");
+    System.out.println(list.toString());
 
-		for (int i = 0; i < list.getSize(); i++) {
-			System.out.println("Element at position " + i + ":" + list.getAt(i));
-		}
+    list.removeAll("1");
+    System.out.println(list.toString());
 
-		list.insertAt(5, "6");
-		System.out.println(list.toString());
-		list.insertAt(0, "7");
-		System.out.println(list.toString());
+    System.out.println("contains 1?" + list.contains("1"));
+    System.out.println("contains 7?" + list.contains("7"));
 
-		list.insertAt(list.getSize() + 5, "9");
-		System.out.println(list.toString());
+    System.out.println("isEmpty?" + list.isEmpty());
 
-		list.removeAll("1");
-		System.out.println(list.toString());
+    System.out.println(list.getIndexOf("7"));
+    System.out.println(list.getIndexOf("1"));
+    System.out.println("Index of 6? " + list.getIndexOf("6"));
 
-		System.out.println("contains 1?" + list.contains("1"));
-		System.out.println("contains 7?" + list.contains("7"));
+    list.removeAt(5);
+    System.out.println(list.toString());
+    list.removeAt(2);
 
-		System.out.println("isEmpty?" + list.isEmpty());
-
-		System.out.println(list.getIndexOf("7"));
-		System.out.println(list.getIndexOf("1"));
-		System.out.println("Index of 6? " + list.getIndexOf("6"));
-
-		list.removeAt(5);
-		System.out.println(list.toString());
-		list.removeAt(2);
-
-		System.out.println(list.toString());
-
-	}
+    System.out.println(list.toString());
+  }
 }
