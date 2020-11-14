@@ -1,7 +1,7 @@
-// José Manuel Pérez Lobato 
-#include <iostream>
-#include <iomanip>
+// José Manuel Pérez Lobato
 #include <chrono>
+#include <iomanip>
+#include <iostream>
 
 int main() {
   using namespace std;
@@ -14,17 +14,17 @@ int main() {
   auto t1 = clk::now();
 
   double sum = 0.0;
-  for (int i=0;i<nsteps; ++i) {
-    double x = (i+0.5) * step;
+  for (int i = 0; i < nsteps; ++i) {
+    double x = (i + 0.5) * step;
     sum += 4.0 / (1.0 + x * x);
   }
   double pi = step * sum;
 
   auto t2 = clk::now();
-  auto diff = duration_cast<microseconds>(t2-t1);
+  auto diff = duration_cast<microseconds>(t2 - t1);
 
   cout << "PI= " << setprecision(10) << pi << endl;
   cout << "Tiempo= " << diff.count() << "us" << endl;
 
-  return 0;  
+  return 0;
 }

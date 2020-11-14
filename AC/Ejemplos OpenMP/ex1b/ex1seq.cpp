@@ -1,4 +1,4 @@
-// José Manuel Pérez Lobato 
+// José Manuel Pérez Lobato
 #include <iostream>
 
 int main() {
@@ -7,5 +7,5 @@ int main() {
   int id = 0;
   cout << "Hola(" << id << ") ";
   cout << "Mundo(" << id << ")";
-  return 0;  
+  return 0;
 }
