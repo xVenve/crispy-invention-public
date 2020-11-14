@@ -1,4 +1,5 @@
 #include <chrono>
+#include <cmath>
 #include <cstring>
 #include <dirent.h>
 #include <fstream>
@@ -8,10 +9,10 @@ using namespace std::chrono;
 using clk = chrono::high_resolution_clock;
 
 /* void copy(char *, DIR *);
-void gauss(char *, DIR *);
 void sobel(char *, DIR *);
- */
 
+void gauss(int , int ,unsigned char *,unsigned char *,int, char*);
+ */
 int main(int argc, char **argv) {
 
   // Controlar el numero de parametros
@@ -60,34 +61,26 @@ int main(int argc, char **argv) {
 
   cout << "Input path: " << argv[2] << "\nOutput path: " << argv[3] << "\n";
 
-  // SIN HACER  o archivo con otro
-  // formato
-
   struct dirent *dir;
   while ((dir = readdir(input)) != NULL) {
     if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0) {
 
-      char *input = (char *)malloc(strlen(argv[2]) + strlen("/") +
-                                   strlen(dir->d_name) + 1);
+      char *nameinput = (char *)malloc(strlen(argv[2]) + strlen("/") +
+                                       strlen(dir->d_name) + 1);
 
-      strcpy(input, argv[2]);
-      strcat(input, "/");
-      strcat(input, dir->d_name);
+      strcpy(nameinput, argv[2]);
+      strcat(nameinput, "/");
+      strcat(nameinput, dir->d_name);
 
-      char *output = (char *)malloc(strlen(argv[3]) + strlen("/") +
-                                    strlen(dir->d_name) + 1);
+      char *nameoutput = (char *)malloc(strlen(argv[3]) + strlen("/") +
+                                        strlen(dir->d_name) + 1);
 
-      strcpy(output, argv[3]);
-      strcat(output, "/");
-      strcat(output, dir->d_name);
-
-      /* Poner tiempos
-        Load time: 7305
-        Store time: 6152
-      */
+      strcpy(nameoutput, argv[3]);
+      strcat(nameoutput, "/");
+      strcat(nameoutput, dir->d_name);
 
       auto loadtimei = clk ::now();
-      FILE *photo = fopen(input, "rb");
+      FILE *photo = fopen(nameinput, "rb");
       unsigned char info[54];
 
       // Cabecera
@@ -115,7 +108,7 @@ int main(int argc, char **argv) {
         return -1;
       }
 
-      // Error de .bmp que no sea 24 bis por punto
+      // Error de .bmp que no sea 24 bits por punto
       if (*(unsigned short *)&info[28] != 24) {
         cout << "Bit count is not 24.\n " << argv[0]
              << " operation in_path out_path\n   operation: copy, "
@@ -133,12 +126,12 @@ int main(int argc, char **argv) {
 
       fread(data, sizeof(unsigned char), size, photo);
       auto loadtimef = clk ::now();
-
+      // FUNCION COPY
       if (strcmp(argv[1], "copy") == 0) {
         auto storetimei = clk ::now();
         ofstream foutput;
 
-        foutput.open(output);
+        foutput.open(nameoutput);
         foutput.write(reinterpret_cast<const char *>(info), 54);
         foutput.write(reinterpret_cast<const char *>(data), size);
         foutput.close();
@@ -148,18 +141,77 @@ int main(int argc, char **argv) {
         auto storediff = duration_cast<microseconds>(storetimef - storetimei);
         auto sum = loaddiff + storediff;
 
-        cout << "File: \"" << input << "\"(time: " << sum.count() << ")\n";
+        cout << "File: \"" << nameinput << "\"(time: " << sum.count() << ")\n";
         cout << "  Load time: " << loaddiff.count() << "\n";
         cout << "  Store time: " << storediff.count() << "\n";
       }
 
+      // FUNCION GAUSS
       if (strcmp(argv[1], "gauss") == 0) {
-        cout << "Gauss: " << input << " en " << output << "\n";
+
+        int m[5][5] = {{1, 4, 7, 4, 1},
+                       {4, 16, 26, 16, 4},
+                       {7, 26, 41, 26, 7},
+                       {4, 16, 26, 16, 4},
+                       {1, 4, 7, 4, 1}};
+
+        unsigned char *res = new unsigned char[size];
+
+        auto gausstimei = clk ::now();
+        for (int i = 0; i < height; i++) {
+          for (int j = 0; j < width; j++) {
+            int red = 0;
+            int green = 0;
+            int blue = 0;
+            for (int s = -2; s < 3; s++) {
+              for (int t = -2; t < 3; t++) {
+                // Condición para marcado de bordes
+                if ((i + s) <= height && (j + t) <= width && (i + s) >= 0 &&
+                    (j + t) >= 0) {
+                  red +=
+                      m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t))];
+                  green += m[s + 2][t + 2] *
+                           data[3 * ((i + s) * width + (j + t)) + 1];
+                  blue += m[s + 2][t + 2] *
+                          data[3 * ((i + s) * width + (j + t)) + 2];
+                }
+              }
+            }
+            res[3 * (i * width + j)] = red / 273;
+            res[3 * (i * width + j) + 1] = green / 273;
+            res[3 * (i * width + j) + 2] = blue / 273;
+          }
+        }
+        auto gausstimef = clk ::now();
+        auto storetimei = clk ::now();
+
+        ofstream foutput;
+        foutput.open(nameoutput);
+        foutput.write(reinterpret_cast<const char *>(info), 54);
+        foutput.write(reinterpret_cast<const char *>(res), size);
+
+        foutput.close();
+
+        auto storetimef = clk ::now();
+
+        auto loaddiff = duration_cast<microseconds>(loadtimef - loadtimei);
+        auto gaussdiff = duration_cast<microseconds>(gausstimef - gausstimei);
+        auto storediff = duration_cast<microseconds>(storetimef - storetimei);
+        auto sum = loaddiff + storediff + gaussdiff;
+
+        cout << "File: \"" << nameinput << "\"(time: " << sum.count() << ")\n";
+        cout << "  Load time: " << loaddiff.count() << "\n";
+        cout << "  Gauss time: " << gaussdiff.count() << "\n";
+        cout << "  Store time: " << storediff.count() << "\n";
       }
 
+      // FUNCION SOBEL
       if (strcmp(argv[1], "sobel") == 0) {
-        cout << "Gauss y Sobel: " << input << " en " << output << "\n";
+        cout << "Gauss y Sobel: " << nameinput << " en " << nameoutput << "\n";
       }
+
+      free(nameinput);
+      free(nameoutput);
       fclose(photo);
     }
   }
@@ -173,8 +225,10 @@ int main(int argc, char **argv) {
   cout << "Copio: " << photo << " en " << output << "\n";
 }
 
-void gauss(char *photo, DIR *output) {
-  cout << "Gauss: " << photo << " en " << output << "\n";
+
+void gauss(int width, int height,unsigned char * data,unsigned char * info,int
+size, char* output) {
+
 }
 
 void sobel(char *photo, DIR *output) {
