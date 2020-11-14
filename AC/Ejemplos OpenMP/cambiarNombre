@@ -1,0 +1,16 @@
+
+for i in `ls`
+do
+ if test -d $i
+ then
+   cd $i
+   echo "Procesando:"$i
+   for j in `ls *.cpp`
+   do
+     echo "  Cambiando:"$j
+     cat ../jmpl $j >>aux
+     mv aux $j
+   done
+   cd ..
+ fi
+done

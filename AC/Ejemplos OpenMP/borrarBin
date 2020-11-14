@@ -1,0 +1,15 @@
+
+for i in `ls`
+do
+ if test -d $i
+ then
+   cd $i
+   echo "Procesando:"$i
+     if test -d bin 
+     then
+        echo "Borrando bin" 
+        rm -r bin
+     fi
+   cd ..
+ fi
+done
