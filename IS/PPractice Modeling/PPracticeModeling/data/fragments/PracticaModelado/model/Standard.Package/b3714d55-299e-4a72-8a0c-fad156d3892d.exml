@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="practicamodelado" version="4">
+  <OBJECT>
+    <ID name="practicamodelado" mc="Standard.Package" uid="b3714d55-299e-4a72-8a0c-fad156d3892d"/>
+    <PID name="PracticaModelado" mc="Standard.Project" uid="b3e379f2-741f-4ba1-9fd5-f410507195b0"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[practicamodelado]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Propietario" mc="Standard.Class" uid="f2c1ea16-a6ad-44bc-877a-63ac15129422"/>
+        <COMPID name="Apartamento" mc="Standard.Class" uid="575d06ce-86c9-4076-aaf9-89deb615da09"/>
+        <COMPID name="Usuario" mc="Standard.Class" uid="fb22d26a-b7ef-413f-a9b2-5beee6f89927"/>
+        <COMPID name="Inmobiliaria" mc="Standard.Class" uid="c473ed04-8f7a-4246-8665-30c99dbf2444"/>
+        <COMPID name="ResultadosBusqueda" mc="Standard.Class" uid="b9108ab3-5225-4ed5-a7b4-63a04b129a93"/>
+        <COMPID name="Estudiantes" mc="Standard.Class" uid="fff7b18d-432c-4c2a-ae72-cec06c5bf5d7"/>
+        <COMPID name="Empresa" mc="Standard.Class" uid="df416b8d-ce0d-4372-91a3-87359f3d83a7"/>
+        <COMPID name="BaseDeDatos" mc="Standard.Class" uid="ae89352d-617c-4f03-a166-eb6ad52feef0"/>
+        <COMPID name="Oferta" mc="Standard.Class" uid="0ccb05e6-6ead-48e0-a16f-1285cd49686a"/>
+        <COMPID name="BEE" mc="Standard.Class" uid="d7d49ebd-2515-43ff-a38b-976ddd2ee6f6"/>
+        <COMPID name="Estadisticas" mc="Standard.Class" uid="a35a3421-aa59-4bed-a3f2-2e452d062964"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Ejercicio1" mc="Standard.ClassDiagram" uid="b5705293-c802-4d82-8397-cf7353befc50"/>
+        <COMPID name="Ejercicio2" mc="Standard.ClassDiagram" uid="285bfb1e-1f9f-4490-9f5e-080693d7d25b"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
