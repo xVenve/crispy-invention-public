@@ -8,7 +8,7 @@ struct points {
 int main() {
   points a{}, b{}, c{}; // Default init
 
-  for (int i=0; i<maxsize; ++i) {
+  for (int i = 0; i < maxsize; ++i) {
     a.x[i] = b.x[i] + c.x[i];
     a.y[i] = b.y[i] + c.y[i];
   }

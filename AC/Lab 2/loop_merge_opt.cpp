@@ -1,8 +1,8 @@
-int main(){
+int main() {
   constexpr int maxsize = 100000;
   double z[maxsize], t[maxsize], u[maxsize], v[maxsize];
 
-  for (int i=0; i<maxsize; ++i) {
+  for (int i = 0; i < maxsize; ++i) {
     u[i] = z[i] + t[i];
     v[i] = u[i] + t[i];
   }
