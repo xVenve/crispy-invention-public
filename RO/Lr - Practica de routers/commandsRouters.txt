@@ -1,0 +1,19 @@
+// Comando para obtener mas resoluciones, en la maquina virtual.
+sudo apt install virtualbox-guest-dkms
+
+// PARTE 1
+
+//PCA
+sudo ip address add 10.0.51.1/29 dev eth1
+
+
+//RA
+ip address add 10.0.51.2/29
+
+
+
+//RB
+
+
+
+//PCB
