@@ -4,16 +4,34 @@ sudo apt install virtualbox-guest-dkms
 // PARTE 1
 
 //PCA
-sudo ip address add 10.0.51.1/29 dev eth1
-
+sudo ip address add 10.0.51.1/24 dev eth1
+sudo ip route add 10.0.0.0/8 via 10.0.51.2
+ping 10.0.51.2
 
 //RA
-ip address add 10.0.51.2/29
-
+configure terminal
+interface eth0.0
+ip address 10.0.51.2/24
+exit
+interface eth0.1
+ip address 10.0.0.1/30
+exit
+ip route 10.0.52.0/24 10.0.0.2
+exit
+ping 10.0.0.2
 
 
 //RB
-
-
+configure terminal
+interface eth0.1
+ip address 10.0.0.2/30
+exit
+interface eth0.0
+ip address 10.0.52.2/24
+exit
+ip route 10.0.51.0/24 10.0.0.1
+exit
 
 //PCB
+sudo ip address add 10.0.52.1/24 dev eth1
+sudo ip route add 10.0.0.0/8 via 10.0.52.2
