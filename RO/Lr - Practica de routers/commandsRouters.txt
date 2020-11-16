@@ -2,11 +2,12 @@
 sudo apt install virtualbox-guest-dkms
 
 // PARTE 1
-
+// Hito1
 //PCA
 sudo ip address add 10.0.51.1/24 dev eth1
 sudo ip route add 10.0.0.0/8 via 10.0.51.2
 ping 10.0.51.2
+ping 10.0.52.1
 
 //RA
 configure terminal
@@ -35,3 +36,147 @@ exit
 //PCB
 sudo ip address add 10.0.52.1/24 dev eth1
 sudo ip route add 10.0.0.0/8 via 10.0.52.2
+
+sh run //muestra todo en router, fuera de config
+no ip address DIRECCION //Borrar direccion, dentro de una interfaz
+ip a s //Muestra todo en pc
+sudo ip address del IP dev ethX //Borra direcciones de pcs
+
+
+
+// PARTE 2
+// Hito2
+// R1
+config t
+interface eth0.0
+no ip address 192.168.0.1/24
+ex
+interface eth0.1
+no ip address 192.168.1.1/24
+ip address 10.0.51.2/25
+ex
+interface eth0.2
+no ip address 192.168.2.1/24
+ip address 10.0.51.181/30
+ex
+interface eth0.3
+no ip address 192.168.3.1/24
+ip address 10.0.51.177/30
+ex
+interface eth0.4
+no ip address 192.168.4.1/24
+ex
+ip route 10.0.0.0/16 10.0.51.182 1
+ip route 10.0.0.0/16 10.0.51.178 2
+ip route 10.0.51.128/27 10.0.51.178 1
+ip route 10.0.51.128/27 10.0.51.182 2
+ip route 10.0.51.160/28 10.0.51.182 1
+ip route 10.0.51.160/28 10.0.51.178 2
+ip route 10.0.51.184/30 10.0.51.178 1
+ip route 10.0.51.184/30 10.0.51.182 2
+ip route 10.0.51.188/30 10.0.51.182 1
+ip route 10.0.51.188/30 10.0.51.178 2
+
+// R2
+config t
+interface eth0.0
+no ip address 192.168.0.1/24
+ex
+interface eth0.1
+no ip address 192.168.1.1/24
+ip address 10.0.51.130/27
+ex
+interface eth0.2
+no ip address 192.168.2.1/24
+ip address 10.0.51.178/30
+ex
+interface eth0.3
+no ip address 192.168.3.1/24
+ip address 10.0.51.185/30
+ex
+interface eth0.4
+no ip address 192.168.4.1/24
+ex
+ip route 10.0.0.0/16 10.0.51.186 1
+ip route 10.0.0.0/16 10.0.51.177 2
+ip route 10.0.51.0/25 10.0.51.177 1
+ip route 10.0.51.0/25 10.0.51.186 2
+ip route 10.0.51.160/28 10.0.51.177 1
+ip route 10.0.51.160/28 10.0.51.186 2
+ip route 10.0.51.180/30 10.0.51.177 1
+ip route 10.0.51.180/30 10.0.51.186 2
+ip route 10.0.51.188/30 10.0.51.186 1
+ip route 10.0.51.188/30 10.0.51.177 2
+
+
+
+
+// R3
+config t
+interface eth0.0
+no ip address 192.168.0.1/24
+ex
+interface eth0.1
+no ip address 192.168.1.1/24
+ip address 10.0.51.162/28
+ex
+interface eth0.2
+no ip address 192.168.2.1/24
+ip address 10.0.51.189/30
+ex
+interface eth0.3
+no ip address 192.168.3.1/24
+ip address 10.0.51.182/30
+ex
+interface eth0.4
+no ip address 192.168.4.1/24
+ip address 10.0.51.186/30
+ex
+ip route 10.0.0.0/16 10.0.51.190 1
+ip route 10.0.51.0/25 10.0.51.181 1
+ip route 10.0.51.0/25 10.0.51.185 2
+ip route 10.0.51.128/27 10.0.51.185 1
+ip route 10.0.51.128/27 10.0.51.181 2
+ip route 10.0.51.176/30 10.0.51.181 1
+ip route 10.0.51.176/30 10.0.51.185 2
+
+
+
+// R4
+config t
+interface eth0.0
+no ip address 192.168.0.1/24
+ex
+interface eth0.1
+no ip address 192.168.1.1/24
+ip address 10.0.51.192/24
+ex
+interface eth0.2
+no ip address 192.168.2.1/24
+ip address 10.0.51.190/30
+ex
+interface eth0.3
+no ip address 192.168.3.1/24
+ex
+interface eth0.4
+no ip address 192.168.4.1/24
+ex
+ip route 10.0.51.0/25 10.0.51.189
+ip route 10.0.51.176/30 10.0.51.189
+ip route 10.0.51.160/30 10.0.51.189
+ip route 10.0.51.180/30 10.0.51.189
+ip route 10.0.51.184/30 10.0.51.189
+ip route 10.0.51.128/30 10.0.51.189
+
+
+// hstOfi1
+sudo ip address del 192.100.100.1/24 dev eth1
+sudo ip address add 10.0.51.1/25 dev eth1
+sudo ip route add 10.0.0.0/8 via 10.0.51.2
+
+// hstOf2
+sudo ip address del 192.100.100.3/24 dev eth1
+sudo ip address add 10.0.51.129/27 dev eth1
+sudo ip route add 10.0.0.0/8 via 10.0.51.130
+
+// R100
