@@ -108,9 +108,6 @@ ip route 10.0.51.180/30 10.0.51.186 2
 ip route 10.0.51.188/30 10.0.51.186 1
 ip route 10.0.51.188/30 10.0.51.177 2
 
-
-
-
 // R3
 config t
 interface eth0.0
@@ -140,8 +137,6 @@ ip route 10.0.51.128/27 10.0.51.181 2
 ip route 10.0.51.176/30 10.0.51.181 1
 ip route 10.0.51.176/30 10.0.51.185 2
 
-
-
 // R4
 config t
 interface eth0.0
@@ -168,7 +163,6 @@ ip route 10.0.51.180/30 10.0.51.189
 ip route 10.0.51.184/30 10.0.51.189
 ip route 10.0.51.128/30 10.0.51.189
 
-
 // hstOfi1
 sudo ip address del 192.100.100.1/24 dev eth1
 sudo ip address add 10.0.51.1/25 dev eth1
@@ -180,3 +174,107 @@ sudo ip address add 10.0.51.129/27 dev eth1
 sudo ip route add 10.0.0.0/8 via 10.0.51.130
 
 // R100
+
+//Desconectar R1-R2, para R1
+interface eth0.3
+shutdown
+ex
+
+//Desconectar R2-R1, para R2
+interface eth0.2
+shutdown
+ex
+
+
+
+// Hito3 - Partiendo del Hito2 sin enlaces cortados
+// R1
+no ip route 10.0.0.0/16 10.0.51.182 1
+no ip route 10.0.0.0/16 10.0.51.178 2
+no ip route 10.0.51.128/27 10.0.51.178 1
+no ip route 10.0.51.128/27 10.0.51.182 2
+no ip route 10.0.51.160/28 10.0.51.182 1
+no ip route 10.0.51.160/28 10.0.51.178 2
+no ip route 10.0.51.184/30 10.0.51.178 1
+no ip route 10.0.51.184/30 10.0.51.182 2
+no ip route 10.0.51.188/30 10.0.51.182 1
+no ip route 10.0.51.188/30 10.0.51.178 2
+router rip
+network 10.0.51.0/24
+ex
+
+// R2
+no ip route 10.0.0.0/16 10.0.51.186 1
+no ip route 10.0.0.0/16 10.0.51.177 2
+no ip route 10.0.51.0/25 10.0.51.177 1
+no ip route 10.0.51.0/25 10.0.51.186 2
+no ip route 10.0.51.160/28 10.0.51.177 1
+no ip route 10.0.51.160/28 10.0.51.186 2
+no ip route 10.0.51.180/30 10.0.51.177 1
+no ip route 10.0.51.180/30 10.0.51.186 2
+no ip route 10.0.51.188/30 10.0.51.186 1
+no ip route 10.0.51.188/30 10.0.51.177 2
+router rip
+network 10.0.51.0/24
+ex
+
+// R3
+no ip route 10.0.0.0/16 10.0.51.190 1
+no ip route 10.0.51.0/25 10.0.51.181 1
+no ip route 10.0.51.0/25 10.0.51.185 2
+no ip route 10.0.51.128/27 10.0.51.185 1
+no ip route 10.0.51.128/27 10.0.51.181 2
+no ip route 10.0.51.176/30 10.0.51.181 1
+no ip route 10.0.51.176/30 10.0.51.185 2
+router rip
+network 10.0.51.0/24
+ex
+
+// R4
+no ip route 10.0.51.0/25 10.0.51.189
+no ip route 10.0.51.176/30 10.0.51.189
+no ip route 10.0.51.160/30 10.0.51.189
+no ip route 10.0.51.180/30 10.0.51.189
+no ip route 10.0.51.184/30 10.0.51.189
+no ip route 10.0.51.128/30 10.0.51.189
+router rip
+network 10.0.51.0/24
+ex
+
+// Probar de todos los routers a Ofis y mostrar ips rip
+ex
+show ip rip
+traceroute 10.0.51.1
+traceroute 10.0.51.129
+
+  //Traceroute hasta Ofi1
+traceroute -n 10.0.51.1
+
+  //Traceroute hasta Ofi2
+traceroute -n 10.0.51.129
+
+
+// Hito4
+//Desconectar R1-R2, para R1
+config t
+interface eth0.3
+shutdown
+ex
+
+//Desconectar R2-R1, para R2
+config t
+interface eth0.2
+shutdown
+ex
+
+// Probar de todos los routers a Ofis y mostrar ips rip
+ex
+show ip rip
+traceroute 10.0.51.1
+traceroute 10.0.51.129
+
+  //Traceroute hasta Ofi1
+traceroute -n 10.0.51.1
+
+  //Traceroute hasta Ofi2
+traceroute -n 10.0.51.129
