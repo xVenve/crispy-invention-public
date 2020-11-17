@@ -243,25 +243,26 @@ ex
 
 // Probar de todos los routers a Ofis y mostrar ips rip
 ex
+show ip rip status
 show ip rip
 traceroute 10.0.51.1
 traceroute 10.0.51.129
 
-  //Traceroute hasta Ofi1
+  // Traceroute hasta Ofi1
 traceroute -n 10.0.51.1
 
-  //Traceroute hasta Ofi2
+  // Traceroute hasta Ofi2
 traceroute -n 10.0.51.129
 
 
 // Hito4
-//Desconectar R1-R2, para R1
+// Desconectar R1-R2, para R1
 config t
 interface eth0.3
 shutdown
 ex
 
-//Desconectar R2-R1, para R2
+// Desconectar R2-R1, para R2
 config t
 interface eth0.2
 shutdown
@@ -269,12 +270,13 @@ ex
 
 // Probar de todos los routers a Ofis y mostrar ips rip
 ex
+show ip rip status
 show ip rip
 traceroute 10.0.51.1
 traceroute 10.0.51.129
 
-  //Traceroute hasta Ofi1
+  // Traceroute hasta Ofi1
 traceroute -n 10.0.51.1
 
-  //Traceroute hasta Ofi2
+  // Traceroute hasta Ofi2
 traceroute -n 10.0.51.129
