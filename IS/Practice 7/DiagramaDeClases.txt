@@ -1,0 +1,13 @@
+// Clases
+Tripulación
+Tripulante
+Piloto
+Copiloto
+Vuelo
+Parametros
+  Relieve
+  Meteorologia
+  Visibilidad
+Aeropuerto origen
+Aeropuerto destino
+Escenario
