@@ -1,0 +1,33 @@
+IS Revisar
+
+En la introducción poner que es un documento especificativo.
+
+En las referencias poner las herramientas, estandares y normas utilizadas para el modelado
+
+Tener en cuenta en la descripción al usuario, como va a ser la interfaz de usuario, nos permite pensar en que cosas
+necesitaremos añadir.
+----
+Observaciones:
+  Como que la comunicación no queda clara si la tiene que abrir el empleador solo
+
+  Por que lo ponemos como restricción, pero luego decimos que se pueden comunicar
+  Tambien parece que es solo para estudiantes, pero es para cualquiera
+  No verificamos la edad, para que puedan trabajar
+----
+
+Poner que aportamos al mercado, tras hacer el analisis de los grandes competidores.
+
+Poner restricciones sobre los tipos de trabajos mas especificos, como prostitución o trabajos ilegales.
+Tambien poner sobre temas de proteccion de datos y privacidad, fair use de los datos del usuario.
+
+Fijar una estrategia comercial para obtener beneficios, no dejar temas colgando, dejar todo especificado.
+
+Diagrama de contexto muy revelante (actor, sistema)
+
+Extender los requisitos funcionales (en el correo especificó que los no funcionales estaban bastante bien).
+
+Poner mas requisitos, muchas partes no contempladas, usar tecnica de pensar en la interfaz. Sobre el curriculum, no
+estan suficientemente especificados
+
+Equilibrio entre las capacidades de la aplicación y sus capacidades, lo que escribamos sobre la app se debe representar
+en los requisitos.
