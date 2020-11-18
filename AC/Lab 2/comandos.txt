@@ -1,0 +1,11 @@
+cd /mnt/d/Documents/Gits/cd crispy-invention/AC/Lab\ 2/
+
+make
+
+valgrind --tool=cachegrind ./bin/XXX
+
+valgrind --tool=cachegrind --I1=16384,8,32 --D1=16384,8,32 --L2=131072,8,64 ./bin/XXX
+valgrind --tool=cachegrind --I1=32768,8,32 --D1=32768,8,32 --L2=262144,8,64 ./bin/XXX
+valgrind --tool=cachegrind --I1=32768,8,64 --D1=32768,8,64 --L2=262144,8,64 ./bin/XXX
+
+cg_annotate --auto=yes XXX
