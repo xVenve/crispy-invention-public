@@ -4,8 +4,44 @@ make
 
 valgrind --tool=cachegrind ./bin/XXX
 
-valgrind --tool=cachegrind --I1=16384,8,32 --D1=16384,8,32 --L2=131072,8,64 ./bin/XXX
-valgrind --tool=cachegrind --I1=32768,8,32 --D1=32768,8,32 --L2=262144,8,64 ./bin/XXX
-valgrind --tool=cachegrind --I1=32768,8,64 --D1=32768,8,64 --L2=262144,8,64 ./bin/XXX
+valgrind --tool=cachegrind --D1=16384,8,32 --L2=131072,8,64 ./bin/XXX
+valgrind --tool=cachegrind --D1=32768,8,32 --L2=262144,8,64 ./bin/XXX
+valgrind --tool=cachegrind --D1=32768,8,64 --L2=262144,8,64 ./bin/XXX
 
 cg_annotate --auto=yes XXX
+
+// En valgring
+
+I refs        accesos a cache/numero de instrucciones ejecutadas
+lo aciertos seran los accesos menos fallos
+I1 misses     fallos L1
+LLi misses    fallos cache L2, cache de ultimo nivel
+
+miss rate     tasas de fallos de cada una
+
+rd lectura
+wr escritura
+
+Primero cache de instrucciones
+
+Segundo cache de datos
+
+Ambas caches
+
+
+// En cg_annotate
+
+Cache de intrucciones:
+ Ir Intrucicone ejecutadas de lectura
+ I1mr Fallos de lectura de la cache L1 de intrucciones
+ ILmr Fallos de lectura de la cache L2 de intrucciones
+
+Cache de datos:
+ Dr Intrucicone ejecutadas de lectura
+ D1mr Fallos de lectura de la cache L1 de datos
+ DLmr Fallos de lectura de la cache L2 de datos
+
+Cache de datos:
+ Dw Intrucicone ejecutadas de escritura
+ D1mw Fallos de escritura de la cache L1 de datos
+ DLmw Fallos de escritura de la cache L2 de datos
