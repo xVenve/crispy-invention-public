@@ -3,13 +3,13 @@ sudo apt install virtualbox-guest-dkms
 
 // PARTE 1
 // Hito1
-//PCA
+// PCA
 sudo ip address add 10.0.51.1/24 dev eth1
 sudo ip route add 10.0.0.0/8 via 10.0.51.2
 ping 10.0.51.2
 ping 10.0.52.1
 
-//RA
+// RA
 configure terminal
 interface eth0.0
 ip address 10.0.51.2/24
@@ -22,7 +22,7 @@ exit
 ping 10.0.0.2
 
 
-//RB
+// RB
 configure terminal
 interface eth0.1
 ip address 10.0.0.2/30
@@ -33,7 +33,7 @@ exit
 ip route 10.0.51.0/24 10.0.0.1
 exit
 
-//PCB
+// PCB
 sudo ip address add 10.0.52.1/24 dev eth1
 sudo ip route add 10.0.0.0/8 via 10.0.52.2
 
@@ -101,8 +101,8 @@ ip route 10.0.0.0/16 10.0.51.186 1
 ip route 10.0.0.0/16 10.0.51.177 2
 ip route 10.0.51.0/25 10.0.51.177 1
 ip route 10.0.51.0/25 10.0.51.186 2
-ip route 10.0.51.160/28 10.0.51.177 1
-ip route 10.0.51.160/28 10.0.51.186 2
+ip route 10.0.51.160/28 10.0.51.186 1
+ip route 10.0.51.160/28 10.0.51.177 2
 ip route 10.0.51.180/30 10.0.51.177 1
 ip route 10.0.51.180/30 10.0.51.186 2
 ip route 10.0.51.188/30 10.0.51.186 1
@@ -129,7 +129,7 @@ interface eth0.4
 no ip address 192.168.4.1/24
 ip address 10.0.51.186/30
 ex
-ip route 10.0.0.0/16 10.0.51.190 1
+ip route 10.0.0.0/16 10.0.51.190
 ip route 10.0.51.0/25 10.0.51.181 1
 ip route 10.0.51.0/25 10.0.51.185 2
 ip route 10.0.51.128/27 10.0.51.185 1
@@ -144,7 +144,7 @@ no ip address 192.168.0.1/24
 ex
 interface eth0.1
 no ip address 192.168.1.1/24
-ip address 10.0.51.192/24
+ip address 10.0.51.0/24
 ex
 interface eth0.2
 no ip address 192.168.2.1/24
@@ -175,16 +175,30 @@ sudo ip route add 10.0.0.0/8 via 10.0.51.130
 
 // R100
 
-//Desconectar R1-R2, para R1
+// Todo con todo
+traceroute 10.0.51.1
+traceroute 10.0.51.2
+traceroute 10.0.51.129
+traceroute 10.0.51.130
+traceroute 10.0.51.162
+traceroute 10.0.51.177
+traceroute 10.0.51.178
+traceroute 10.0.51.181
+traceroute 10.0.51.182
+traceroute 10.0.51.185
+traceroute 10.0.51.186
+traceroute 10.0.51.189
+traceroute 10.0.51.190
+
+// Desconectar R1-R2, para R1
 interface eth0.3
 shutdown
 ex
 
-//Desconectar R2-R1, para R2
+// Desconectar R2-R1, para R2
 interface eth0.2
 shutdown
 ex
-
 
 
 // Hito3 - Partiendo del Hito2 sin enlaces cortados
@@ -253,6 +267,7 @@ traceroute -n 10.0.51.1
 
   // Traceroute hasta Ofi2
 traceroute -n 10.0.51.129
+
 
 
 // Hito4
