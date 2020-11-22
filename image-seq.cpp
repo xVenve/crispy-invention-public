@@ -9,9 +9,7 @@ using namespace std;
 using namespace std::chrono;
 using clk = chrono::high_resolution_clock;
 
-/* void copy(char *, DIR *);
-void sobel(char *, DIR *);
- */
+
 void gauss(int, int, unsigned char *, unsigned char *);
 
 int main(int argc, char **argv) {
@@ -90,16 +88,10 @@ int main(int argc, char **argv) {
       // Ancho y alto
       int width = *(int *)&info[18];
       int height = *(int *)&info[22];
-      cout << width << "\n";
-      cout << height << "\n";
 
       // 24 bits = 3 bytes por pixel
       int size = 3 * width * height;
       unsigned char *data = new unsigned char[size];
-
-      cout << "Planos: " << *(unsigned short *)&info[26] << "\n";
-      cout << "Bit count: " << *(unsigned short *)&info[28] << "\n";
-      cout << "Valor compresion: " << *(int *)&info[30] << "\n";
 
       // Error de .bmp que no tenga un plano
       if (*(unsigned short *)&info[26] != 1) {
@@ -177,8 +169,6 @@ int main(int argc, char **argv) {
 
       // FUNCION SOBEL
       if (strcmp(argv[1], "sobel") == 0) {
-        cout << "Gauss y Sobel: " << nameinput << " en " << nameoutput << "\n";
-
         unsigned char *gaussres = new unsigned char[size];
 
         auto gausstimei = clk ::now();
