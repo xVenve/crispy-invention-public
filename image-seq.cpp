@@ -9,7 +9,6 @@ using namespace std;
 using namespace std::chrono;
 using clk = chrono::high_resolution_clock;
 
-
 void gauss(int, int, unsigned char *, unsigned char *);
 
 int main(int argc, char **argv) {
@@ -119,6 +118,7 @@ int main(int argc, char **argv) {
 
       fread(data, sizeof(unsigned char), size, photo);
       auto loadtimef = clk ::now();
+
       // FUNCION COPY
       if (strcmp(argv[1], "copy") == 0) {
         auto storetimei = clk ::now();
@@ -175,18 +175,13 @@ int main(int argc, char **argv) {
         gauss(width, height, data, gaussres);
         auto gausstimef = clk ::now();
 
-       int mx[3][3] = {{1, 2, 1},
-                       {0,0,0},
-                       {-1,-2,-1}};
+        int mx[3][3] = {{1, 2, 1}, {0, 0, 0}, {-1, -2, -1}};
 
-       int my[3][3] = {{-1, 0, 1},
-                      {-2, 0, 2},
-                      {-1, 0, 1}};
+        int my[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
 
-       unsigned char *sobel = new unsigned char[size];
+        unsigned char *sobel = new unsigned char[size];
 
-
-       auto sobeltimei = clk ::now();
+        auto sobeltimei = clk ::now();
         for (int i = 0; i < height; i++) {
           for (int j = 0; j < width; j++) {
             int redx = 0;
@@ -201,27 +196,26 @@ int main(int argc, char **argv) {
                 // Condición para marcado de bordes
                 if ((i + s) <= height && (j + t) <= width && (i + s) >= 0 &&
                     (j + t) >= 0) {
-                  redx +=
-                      mx[s + 2][t + 2] * gaussres[3 * ((i + s) * width + (j + t))];
+                  redx += mx[s + 2][t + 2] *
+                          gaussres[3 * ((i + s) * width + (j + t))];
                   greenx += mx[s + 2][t + 2] *
-                           gaussres[3 * ((i + s) * width + (j + t)) + 1];
+                            gaussres[3 * ((i + s) * width + (j + t)) + 1];
                   bluex += mx[s + 2][t + 2] *
-                          gaussres[3 * ((i + s) * width + (j + t)) + 2];
+                           gaussres[3 * ((i + s) * width + (j + t)) + 2];
 
-                  redy +=
-                      my[s + 2][t + 2] * gaussres[3 * ((i + s) * width + (j + t))];
+                  redy += my[s + 2][t + 2] *
+                          gaussres[3 * ((i + s) * width + (j + t))];
                   greeny += my[s + 2][t + 2] *
-                           gaussres[3 * ((i + s) * width + (j + t)) + 1];
+                            gaussres[3 * ((i + s) * width + (j + t)) + 1];
                   bluey += my[s + 2][t + 2] *
-                          gaussres[3 * ((i + s) * width + (j + t)) + 2];
+                           gaussres[3 * ((i + s) * width + (j + t)) + 2];
                 }
               }
             }
 
             sobel[3 * (i * width + j)] = abs(redx / 8) + abs(redy / 8);
-            sobel[3 * (i * width + j) + 1] = abs(greenx / 8) + abs(greeny/8);
+            sobel[3 * (i * width + j) + 1] = abs(greenx / 8) + abs(greeny / 8);
             sobel[3 * (i * width + j) + 2] = abs(bluex / 8) + abs(bluey / 8);
-
           }
         }
         auto sobeltimef = clk ::now();
@@ -258,47 +252,33 @@ int main(int argc, char **argv) {
   return 0;
 }
 
-/* void copy(char *photo, DIR *output) {
-  cout << "Copio: " << photo << " en " << output << "\n";
-}
+void gauss(int width, int height, unsigned char *data, unsigned char *res) {
+  int m[5][5] = {{1, 4, 7, 4, 1},
+                 {4, 16, 26, 16, 4},
+                 {7, 26, 41, 26, 7},
+                 {4, 16, 26, 16, 4},
+                 {1, 4, 7, 4, 1}};
 
-*/
-void gauss(int width, int height, unsigned char * data, unsigned char * res) {
-    int m[5][5] = {{1, 4, 7, 4, 1},
-                   {4, 16, 26, 16, 4},
-                   {7, 26, 41, 26, 7},
-                   {4, 16, 26, 16, 4},
-                   {1, 4, 7, 4, 1}};
-
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        int red = 0;
-        int green = 0;
-        int blue = 0;
-        for (int s = -2; s < 3; s++) {
-          for (int t = -2; t < 3; t++) {
-            // Condición para marcado de bordes
-            if ((i + s) <= height && (j + t) <= width && (i + s) >= 0 &&
-                (j + t) >= 0) {
-              red +=
-                  m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t))];
-              green += m[s + 2][t + 2] *
-                       data[3 * ((i + s) * width + (j + t)) + 1];
-              blue += m[s + 2][t + 2] *
-                      data[3 * ((i + s) * width + (j + t)) + 2];
-            }
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      int red = 0;
+      int green = 0;
+      int blue = 0;
+      for (int s = -2; s < 3; s++) {
+        for (int t = -2; t < 3; t++) {
+          // Condición para marcado de bordes
+          if ((i + s) <= height && (j + t) <= width && (i + s) >= 0 &&
+              (j + t) >= 0) {
+            red += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t))];
+            green +=
+                m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 1];
+            blue += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 2];
           }
         }
-        res[3 * (i * width + j)] = red / 273;
-        res[3 * (i * width + j) + 1] = green / 273;
-        res[3 * (i * width + j) + 2] = blue / 273;
       }
+      res[3 * (i * width + j)] = red / 273;
+      res[3 * (i * width + j) + 1] = green / 273;
+      res[3 * (i * width + j) + 2] = blue / 273;
     }
   }
-
-/*
-void sobel(char *photo, DIR *output) {
-  // Ver como hacer que haga primero gauss, doble funcion en una o que reciba
-  // parametros
-  cout << "Gauss y Sobel: " << photo << " en " << output << "\n";
-} */
+}
