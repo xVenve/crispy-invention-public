@@ -40,7 +40,6 @@ int main(int argc, char **argv) {
          << argv[0]
          << " operation in_path out_path\n   operation: copy, "
             "gauss, sobel\n";
-    closedir(input);
     return -1;
   }
 
@@ -53,7 +52,6 @@ int main(int argc, char **argv) {
          << argv[0]
          << " operation in_path out_path\n   operation: copy, "
             "gauss, sobel\n";
-    closedir(output);
     return -1;
   }
 
@@ -82,8 +80,11 @@ int main(int argc, char **argv) {
       unsigned char info[54];
 
       // Cabecera
-      fread(info, sizeof(unsigned char), 54, photo);
-
+      int freaderror = fread(info, sizeof(unsigned char), 54, photo);
+      if (freaderror < 0) {
+        cout << "ERROR al leer la cabecera de la imagen" << '\n';
+        return -1;
+      }
       // Ancho y alto
       int width = *(int *)&info[18];
       int height = *(int *)&info[22];
@@ -116,7 +117,11 @@ int main(int argc, char **argv) {
         return -1;
       }
 
-      fread(data, sizeof(unsigned char), size, photo);
+      freaderror = fread(data, sizeof(unsigned char), size, photo);
+      if (freaderror < 0) {
+        cout << "ERROR al leer el cuerpo de la imagen" << '\n';
+        return -1;
+      }
       auto loadtimef = clk ::now();
 
       // FUNCION COPY
@@ -191,23 +196,23 @@ int main(int argc, char **argv) {
             int redy = 0;
             int greeny = 0;
             int bluey = 0;
-            for (int s = -2; s < 1; s++) {
-              for (int t = -2; t < 1; t++) {
+            for (int s = -1; s < 2; s++) {
+              for (int t = -1; t < 2; t++) {
                 // Condición para marcado de bordes
                 if ((i + s) <= height && (j + t) <= width && (i + s) >= 0 &&
                     (j + t) >= 0) {
-                  redx += mx[s + 2][t + 2] *
+                  redx += mx[s + 1][t + 1] *
                           gaussres[3 * ((i + s) * width + (j + t))];
-                  greenx += mx[s + 2][t + 2] *
+                  greenx += mx[s + 1][t + 1] *
                             gaussres[3 * ((i + s) * width + (j + t)) + 1];
-                  bluex += mx[s + 2][t + 2] *
+                  bluex += mx[s + 1][t + 1] *
                            gaussres[3 * ((i + s) * width + (j + t)) + 2];
 
-                  redy += my[s + 2][t + 2] *
+                  redy += my[s + 1][t + 1] *
                           gaussres[3 * ((i + s) * width + (j + t))];
-                  greeny += my[s + 2][t + 2] *
+                  greeny += my[s + 1][t + 1] *
                             gaussres[3 * ((i + s) * width + (j + t)) + 1];
-                  bluey += my[s + 2][t + 2] *
+                  bluey += my[s + 1][t + 1] *
                            gaussres[3 * ((i + s) * width + (j + t)) + 2];
                 }
               }
@@ -232,7 +237,7 @@ int main(int argc, char **argv) {
         auto gaussdiff = duration_cast<microseconds>(gausstimef - gausstimei);
         auto sobeldiff = duration_cast<microseconds>(sobeltimef - sobeltimei);
         auto storediff = duration_cast<microseconds>(storetimef - storetimei);
-        auto sum = loaddiff + storediff + sobeldiff;
+        auto sum = loaddiff + gaussdiff + storediff + sobeldiff;
 
         cout << "File: \"" << nameinput << "\"(time: " << sum.count() << ")\n";
         cout << "  Load time: " << loaddiff.count() << "\n";
