@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <stdlib.h>
+#include <omp.h>
 using namespace std;
 using namespace std::chrono;
 using clk = chrono::high_resolution_clock;
@@ -148,7 +149,6 @@ int main(int argc, char **argv) {
       if (strcmp(argv[1], "gauss") == 0) {
 
         unsigned char *res = new unsigned char[size];
-
         auto gausstimei = clk ::now();
         gauss(width, height, data, res);
         auto gausstimef = clk ::now();
@@ -187,6 +187,7 @@ int main(int argc, char **argv) {
         unsigned char *sobel = new unsigned char[size];
 
         auto sobeltimei = clk ::now();
+        #pragma omp parallel for num_threads(4)
         for (int i = 0; i < height; i++) {
           for (int j = 0; j < width; j++) {
             int redx = 0;
@@ -264,6 +265,7 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
                  {4, 16, 26, 16, 4},
                  {1, 4, 7, 4, 1}};
 
+  #pragma omp parallel for num_threads(4)
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
       int red = 0;
