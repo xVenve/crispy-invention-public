@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
 
       auto loadtimei = clk ::now();
       FILE *photo = fopen(nameinput, "rb");
-      unsigned char info[54];
+      unsigned char *info = new unsigned char[54];
 
       // Cabecera
       fread(info, sizeof(unsigned char), 54, photo);
@@ -89,7 +89,7 @@ int main(int argc, char **argv) {
       int height = *(int *)&info[22];
 
       // 24 bits = 3 bytes por pixel
-      int size = 3 * width * height;
+      int size = *(int *)&info[2] - 54;
       unsigned char *data = new unsigned char[size];
 
       // Error de .bmp que no tenga un plano
@@ -165,6 +165,7 @@ int main(int argc, char **argv) {
         cout << "  Load time: " << loaddiff.count() << "\n";
         cout << "  Gauss time: " << gaussdiff.count() << "\n";
         cout << "  Store time: " << storediff.count() << "\n";
+        free(res);
       }
 
       // FUNCION SOBEL
@@ -239,9 +240,13 @@ int main(int argc, char **argv) {
         cout << "  Gauss time: " << gaussdiff.count() << "\n";
         cout << "  Sobel time: " << sobeldiff.count() << "\n";
         cout << "  Store time: " << storediff.count() << "\n";
+        free(gaussres);
+        free(sobel);
       }
 
       free(nameinput);
+      free(data);
+      free(info);
       free(nameoutput);
       fclose(photo);
     }
@@ -266,7 +271,7 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
       int blue = 0;
       for (int s = -2; s < 3; s++) {
         for (int t = -2; t < 3; t++) {
-          // Condición para marcado de bordes
+          // Condición para marcado de bordes j <= (width%4)*4
           if ((i + s) <= height && (j + t) <= width && (i + s) >= 0 &&
               (j + t) >= 0) {
             red += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t))];
