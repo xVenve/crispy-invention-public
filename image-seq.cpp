@@ -4,6 +4,7 @@
 #include <dirent.h>
 #include <fstream>
 #include <iostream>
+#include <stdio.h>
 #include <stdlib.h>
 using namespace std;
 using namespace std::chrono;
@@ -40,7 +41,6 @@ int main(int argc, char **argv) {
          << argv[0]
          << " operation in_path out_path\n   operation: copy, "
             "gauss, sobel\n";
-    closedir(input);
     return -1;
   }
 
@@ -53,7 +53,6 @@ int main(int argc, char **argv) {
          << argv[0]
          << " operation in_path out_path\n   operation: copy, "
             "gauss, sobel\n";
-    closedir(output);
     return -1;
   }
 
@@ -65,14 +64,12 @@ int main(int argc, char **argv) {
 
       char *nameinput = (char *)malloc(strlen(argv[2]) + strlen("/") +
                                        strlen(dir->d_name) + 1);
-
       strcpy(nameinput, argv[2]);
       strcat(nameinput, "/");
       strcat(nameinput, dir->d_name);
 
       char *nameoutput = (char *)malloc(strlen(argv[3]) + strlen("/") +
                                         strlen(dir->d_name) + 1);
-
       strcpy(nameoutput, argv[3]);
       strcat(nameoutput, "/");
       strcat(nameoutput, dir->d_name);
@@ -82,15 +79,34 @@ int main(int argc, char **argv) {
       unsigned char *info = new unsigned char[54];
 
       // Cabecera
-      fread(info, sizeof(unsigned char), 54, photo);
-
+      int freaderror = fread(info, sizeof(unsigned char), 54, photo);
+      if (freaderror < 0) {
+        cout << "ERROR al leer la cabecera de la imagen" << '\n';
+        return -1;
+      }
       // Ancho y alto
       int width = *(int *)&info[18];
       int height = *(int *)&info[22];
 
       // 24 bits = 3 bytes por pixel
-      int size = *(int *)&info[2] - 54;
+      int size = *(int *)&info[2] - *(int *)&info[10];
       unsigned char *data = new unsigned char[size];
+
+      cout << *(unsigned short *)&info[0] << '\n';
+      cout << *(int *)&info[2] << '\n';
+      cout << *(int *)&info[6] << '\n';
+      cout << *(int *)&info[10] << '\n';
+      cout << *(int *)&info[14] << '\n';
+      cout << *(int *)&info[18] << '\n';
+      cout << *(int *)&info[22] << '\n';
+      cout << *(unsigned short *)&info[26] << '\n';
+      cout << *(unsigned short *)&info[28] << '\n';
+      cout << *(int *)&info[30] << '\n';
+      cout << *(int *)&info[34] << '\n';
+      cout << *(int *)&info[38] << '\n';
+      cout << *(int *)&info[42] << '\n';
+      cout << *(int *)&info[46] << '\n';
+      cout << *(int *)&info[50] << '\n';
 
       // Error de .bmp que no tenga un plano
       if (*(unsigned short *)&info[26] != 1) {
@@ -115,8 +131,12 @@ int main(int argc, char **argv) {
                 "gauss, sobel\n";
         return -1;
       }
-
-      fread(data, sizeof(unsigned char), size, photo);
+      fseek(photo, *(int *)&info[10], SEEK_SET);
+      freaderror = fread(data, sizeof(unsigned char), size, photo);
+      if (freaderror < 0) {
+        cout << "ERROR al leer el cuerpo de la imagen" << '\n';
+        return -1;
+      }
       auto loadtimef = clk ::now();
 
       // FUNCION COPY
@@ -125,7 +145,31 @@ int main(int argc, char **argv) {
         ofstream foutput;
 
         foutput.open(nameoutput);
-        foutput.write(reinterpret_cast<const char *>(info), 54);
+        // creacion de la cabezera
+        foutput.write("B", 1);
+        foutput.write("M", 1);
+        int tamanoarchivo = size + 54;
+        foutput.write(reinterpret_cast<const char *>(&tamanoarchivo), 4);
+        int cero = 0;
+        int cincocuatro = 54;
+        int cuarenta = 40;
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        foutput.write(reinterpret_cast<const char *>(&cincocuatro), 4);
+        foutput.write(reinterpret_cast<const char *>(&cuarenta), 4);
+        foutput.write(reinterpret_cast<const char *>(&width), 4);
+        foutput.write(reinterpret_cast<const char *>(&height), 4);
+        int uno = 1;
+        foutput.write(reinterpret_cast<const char *>(&uno), 2);
+        int veinticuatro = 24;
+        foutput.write(reinterpret_cast<const char *>(&veinticuatro), 2);
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        foutput.write(reinterpret_cast<const char *>(&size), 4);
+        int resolucion = 2835;
+        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
+        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+
         foutput.write(reinterpret_cast<const char *>(data), size);
         foutput.close();
         auto storetimef = clk ::now();
@@ -151,7 +195,32 @@ int main(int argc, char **argv) {
         auto storetimei = clk ::now();
         ofstream foutput;
         foutput.open(nameoutput);
-        foutput.write(reinterpret_cast<const char *>(info), 54);
+
+        // creacion de la cabezera
+        foutput.write("B", 1);
+        foutput.write("M", 1);
+        int tamanoarchivo = size + 54;
+        foutput.write(reinterpret_cast<const char *>(&tamanoarchivo), 4);
+        int cero = 0;
+        int cincocuatro = 54;
+        int cuarenta = 40;
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        foutput.write(reinterpret_cast<const char *>(&cincocuatro), 4);
+        foutput.write(reinterpret_cast<const char *>(&cuarenta), 4);
+        foutput.write(reinterpret_cast<const char *>(&width), 4);
+        foutput.write(reinterpret_cast<const char *>(&height), 4);
+        int uno = 1;
+        foutput.write(reinterpret_cast<const char *>(&uno), 2);
+        int veinticuatro = 24;
+        foutput.write(reinterpret_cast<const char *>(&veinticuatro), 2);
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        foutput.write(reinterpret_cast<const char *>(&size), 4);
+        int resolucion = 2835;
+        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
+        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+
         foutput.write(reinterpret_cast<const char *>(res), size);
         auto storetimef = clk ::now();
         foutput.close();
@@ -192,23 +261,23 @@ int main(int argc, char **argv) {
             int redy = 0;
             int greeny = 0;
             int bluey = 0;
-            for (int s = -2; s < 1; s++) {
-              for (int t = -2; t < 1; t++) {
+            for (int s = -1; s < 2; s++) {
+              for (int t = -1; t < 2; t++) {
                 // Condición para marcado de bordes
                 if ((i + s) <= height && (j + t) <= width && (i + s) >= 0 &&
                     (j + t) >= 0) {
-                  redx += mx[s + 2][t + 2] *
+                  redx += mx[s + 1][t + 1] *
                           gaussres[3 * ((i + s) * width + (j + t))];
-                  greenx += mx[s + 2][t + 2] *
+                  greenx += mx[s + 1][t + 1] *
                             gaussres[3 * ((i + s) * width + (j + t)) + 1];
-                  bluex += mx[s + 2][t + 2] *
+                  bluex += mx[s + 1][t + 1] *
                            gaussres[3 * ((i + s) * width + (j + t)) + 2];
 
-                  redy += my[s + 2][t + 2] *
+                  redy += my[s + 1][t + 1] *
                           gaussres[3 * ((i + s) * width + (j + t))];
-                  greeny += my[s + 2][t + 2] *
+                  greeny += my[s + 1][t + 1] *
                             gaussres[3 * ((i + s) * width + (j + t)) + 1];
-                  bluey += my[s + 2][t + 2] *
+                  bluey += my[s + 1][t + 1] *
                            gaussres[3 * ((i + s) * width + (j + t)) + 2];
                 }
               }
@@ -233,7 +302,7 @@ int main(int argc, char **argv) {
         auto gaussdiff = duration_cast<microseconds>(gausstimef - gausstimei);
         auto sobeldiff = duration_cast<microseconds>(sobeltimef - sobeltimei);
         auto storediff = duration_cast<microseconds>(storetimef - storetimei);
-        auto sum = loaddiff + storediff + sobeldiff;
+        auto sum = loaddiff + gaussdiff + storediff + sobeldiff;
 
         cout << "File: \"" << nameinput << "\"(time: " << sum.count() << ")\n";
         cout << "  Load time: " << loaddiff.count() << "\n";
@@ -274,6 +343,7 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
           // Condición para marcado de bordes j <= (width%4)*4
           if ((i + s) <= height && (j + t) <= width && (i + s) >= 0 &&
               (j + t) >= 0) {
+
             red += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t))];
             green +=
                 m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 1];
