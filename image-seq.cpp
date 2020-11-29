@@ -60,6 +60,7 @@ int main(int argc, char **argv) {
 
   struct dirent *dir;
   while ((dir = readdir(input)) != NULL) {
+    // COMPROBAR QUE SEA .BMP
     if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0) {
 
       char *nameinput = (char *)malloc(strlen(argv[2]) + strlen("/") +
@@ -76,6 +77,8 @@ int main(int argc, char **argv) {
 
       auto loadtimei = clk ::now();
       FILE *photo = fopen(nameinput, "rb");
+      if(photo == NULL)
+        cout << "Error al abrir el fichero." << '\n';
       unsigned char *info = new unsigned char[54];
 
       // Cabecera
@@ -89,24 +92,31 @@ int main(int argc, char **argv) {
       int height = *(int *)&info[22];
 
       // 24 bits = 3 bytes por pixel
+      //int size = 53760000;
       int size = *(int *)&info[2] - *(int *)&info[10];
       unsigned char *data = new unsigned char[size];
+      // std::cout << " size \t\t\t" <<size <<'\n';
+      //
+      // std::cout << " info2 \t\t\t" <<(*(int *)&info[2]) <<'\n';
+      // std::cout << " info2-info10 \t\t" <<(*(int *)&info[2] - *(int *)&info[10]) <<'\n';
+      // std::cout << " width*height*3 \t" <<( width*height*3) <<'\n';
+      // std::cout << " info34 \t\t" <<(*(int *)&info[34]) <<'\n';
 
-      cout << *(unsigned short *)&info[0] << '\n';
-      cout << *(int *)&info[2] << '\n';
-      cout << *(int *)&info[6] << '\n';
-      cout << *(int *)&info[10] << '\n';
-      cout << *(int *)&info[14] << '\n';
-      cout << *(int *)&info[18] << '\n';
-      cout << *(int *)&info[22] << '\n';
-      cout << *(unsigned short *)&info[26] << '\n';
-      cout << *(unsigned short *)&info[28] << '\n';
-      cout << *(int *)&info[30] << '\n';
-      cout << *(int *)&info[34] << '\n';
-      cout << *(int *)&info[38] << '\n';
-      cout << *(int *)&info[42] << '\n';
-      cout << *(int *)&info[46] << '\n';
-      cout << *(int *)&info[50] << '\n';
+      // cout << *(unsigned short *)&info[0] << '\n';
+      // cout << *(int *)&info[2] << '\n';
+      // cout << *(int *)&info[6] << '\n';
+      // cout << *(int *)&info[10] << '\n';
+      // cout << *(int *)&info[14] << '\n';
+      // cout << *(int *)&info[18] << '\n';
+      // cout << *(int *)&info[22] << '\n';
+      // cout << *(unsigned short *)&info[26] << '\n';
+      // cout << *(unsigned short *)&info[28] << '\n';
+      // cout << *(int *)&info[30] << '\n';
+      // cout << *(int *)&info[34] << '\n';
+      // cout << *(int *)&info[38] << '\n';
+      // cout << *(int *)&info[42] << '\n';
+      // cout << *(int *)&info[46] << '\n';
+      // cout << *(int *)&info[50] << '\n';
 
       // Error de .bmp que no tenga un plano
       if (*(unsigned short *)&info[26] != 1) {
@@ -145,7 +155,7 @@ int main(int argc, char **argv) {
         ofstream foutput;
 
         foutput.open(nameoutput);
-        // creacion de la cabezera
+        // creacion de la cabecera
         foutput.write("B", 1);
         foutput.write("M", 1);
         int tamanoarchivo = size + 54;
@@ -264,21 +274,14 @@ int main(int argc, char **argv) {
             for (int s = -1; s < 2; s++) {
               for (int t = -1; t < 2; t++) {
                 // Condición para marcado de bordes
-                if ((i + s) <= height && (j + t) <= width && (i + s) >= 0 &&
-                    (j + t) >= 0) {
-                  redx += mx[s + 1][t + 1] *
-                          gaussres[3 * ((i + s) * width + (j + t))];
-                  greenx += mx[s + 1][t + 1] *
-                            gaussres[3 * ((i + s) * width + (j + t)) + 1];
-                  bluex += mx[s + 1][t + 1] *
-                           gaussres[3 * ((i + s) * width + (j + t)) + 2];
+                if ((i + s) <= height-1 && (j + t) <= width-1 && (i + s) >= 0 && (j + t) >= 0) {
+                  redx += mx[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t))];
+                  greenx += mx[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 1];
+                  bluex += mx[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 2];
 
-                  redy += my[s + 1][t + 1] *
-                          gaussres[3 * ((i + s) * width + (j + t))];
-                  greeny += my[s + 1][t + 1] *
-                            gaussres[3 * ((i + s) * width + (j + t)) + 1];
-                  bluey += my[s + 1][t + 1] *
-                           gaussres[3 * ((i + s) * width + (j + t)) + 2];
+                  redy += my[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t))];
+                  greeny += my[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 1];
+                  bluey += my[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 2];
                 }
               }
             }
@@ -293,7 +296,30 @@ int main(int argc, char **argv) {
         auto storetimei = clk ::now();
         ofstream foutput;
         foutput.open(nameoutput);
-        foutput.write(reinterpret_cast<const char *>(info), 54);
+        // creacion de la cabecera
+        foutput.write("B", 1);
+        foutput.write("M", 1);
+        int tamanoarchivo = size + 54;
+        foutput.write(reinterpret_cast<const char *>(&tamanoarchivo), 4);
+        int cero = 0;
+        int cincocuatro = 54;
+        int cuarenta = 40;
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        foutput.write(reinterpret_cast<const char *>(&cincocuatro), 4);
+        foutput.write(reinterpret_cast<const char *>(&cuarenta), 4);
+        foutput.write(reinterpret_cast<const char *>(&width), 4);
+        foutput.write(reinterpret_cast<const char *>(&height), 4);
+        int uno = 1;
+        foutput.write(reinterpret_cast<const char *>(&uno), 2);
+        int veinticuatro = 24;
+        foutput.write(reinterpret_cast<const char *>(&veinticuatro), 2);
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        foutput.write(reinterpret_cast<const char *>(&size), 4);
+        int resolucion = 2835;
+        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
+        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        foutput.write(reinterpret_cast<const char *>(&cero), 4);
         foutput.write(reinterpret_cast<const char *>(sobel), size);
         auto storetimef = clk ::now();
         foutput.close();
@@ -333,6 +359,8 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
                  {4, 16, 26, 16, 4},
                  {1, 4, 7, 4, 1}};
 
+   //int row_padded = (width*3+3) & (~3);
+   //unsigned char* padded_data = new unsigned char [rowpadded];
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
       int red = 0;
@@ -341,12 +369,9 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
       for (int s = -2; s < 3; s++) {
         for (int t = -2; t < 3; t++) {
           // Condición para marcado de bordes j <= (width%4)*4
-          if ((i + s) <= height && (j + t) <= width && (i + s) >= 0 &&
-              (j + t) >= 0) {
-
+          if ((i + s) <= height-1 && (j + t) <= width-1 && (i + s) >= 0 && (j + t) >= 0) {
             red += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t))];
-            green +=
-                m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 1];
+            green += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 1];
             blue += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 2];
           }
         }
@@ -354,6 +379,9 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
       res[3 * (i * width + j)] = red / 273;
       res[3 * (i * width + j) + 1] = green / 273;
       res[3 * (i * width + j) + 2] = blue / 273;
+
     }
+
   }
+
 }
