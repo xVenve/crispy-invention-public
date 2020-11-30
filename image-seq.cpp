@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
 
       auto loadtimei = clk ::now();
       FILE *photo = fopen(nameinput, "rb");
-      if(photo == NULL)
+      if (photo == NULL)
         cout << "Error al abrir el fichero." << '\n';
       unsigned char *info = new unsigned char[54];
 
@@ -92,15 +92,16 @@ int main(int argc, char **argv) {
       int height = *(int *)&info[22];
 
       // 24 bits = 3 bytes por pixel
-      //int size = 53760000;
+      // int size = 53760000;
       int size = *(int *)&info[2] - *(int *)&info[10];
       unsigned char *data = new unsigned char[size];
       // std::cout << " size \t\t\t" <<size <<'\n';
       //
       // std::cout << " info2 \t\t\t" <<(*(int *)&info[2]) <<'\n';
-      // std::cout << " info2-info10 \t\t" <<(*(int *)&info[2] - *(int *)&info[10]) <<'\n';
-      // std::cout << " width*height*3 \t" <<( width*height*3) <<'\n';
-      // std::cout << " info34 \t\t" <<(*(int *)&info[34]) <<'\n';
+      // std::cout << " info2-info10 \t\t" <<(*(int *)&info[2] - *(int
+      // *)&info[10]) <<'\n'; std::cout << " width*height*3 \t" <<(
+      // width*height*3) <<'\n'; std::cout << " info34 \t\t" <<(*(int
+      // *)&info[34]) <<'\n';
 
       // cout << *(unsigned short *)&info[0] << '\n';
       // cout << *(int *)&info[2] << '\n';
@@ -264,31 +265,38 @@ int main(int argc, char **argv) {
         auto sobeltimei = clk ::now();
         for (int i = 0; i < height; i++) {
           for (int j = 0; j < width; j++) {
-            int redx = 0;
-            int greenx = 0;
-            int bluex = 0;
+            int xx = 0;
+            int yx = 0;
+            int zx = 0;
 
-            int redy = 0;
-            int greeny = 0;
-            int bluey = 0;
+            int xy = 0;
+            int yy = 0;
+            int zy = 0;
             for (int s = -1; s < 2; s++) {
               for (int t = -1; t < 2; t++) {
                 // Condición para marcado de bordes
-                if ((i + s) <= height-1 && (j + t) <= width-1 && (i + s) >= 0 && (j + t) >= 0) {
-                  redx += mx[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t))];
-                  greenx += mx[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 1];
-                  bluex += mx[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 2];
+                if ((i + s) <= height - 1 && (j + t) <= width - 1 &&
+                    (i + s) >= 0 && (j + t) >= 0) {
+                  xx += mx[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t))];
+                  yx += mx[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + 1];
+                  zx += mx[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + 2];
 
-                  redy += my[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t))];
-                  greeny += my[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 1];
-                  bluey += my[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 2];
+                  xy += my[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t))];
+                  yy += my[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + 1];
+                  zy += my[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + 2];
                 }
               }
             }
 
-            sobel[3 * (i * width + j)] = abs(redx / 8) + abs(redy / 8);
-            sobel[3 * (i * width + j) + 1] = abs(greenx / 8) + abs(greeny / 8);
-            sobel[3 * (i * width + j) + 2] = abs(bluex / 8) + abs(bluey / 8);
+            sobel[3 * (i * width + j)] = abs(zx / 8) + abs(zy / 8);
+            sobel[3 * (i * width + j) + 1] = abs(yx / 8) + abs(yy / 8);
+            sobel[3 * (i * width + j) + 2] = abs(zx / 8) + abs(zy / 8);
           }
         }
         auto sobeltimef = clk ::now();
@@ -359,29 +367,36 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
                  {4, 16, 26, 16, 4},
                  {1, 4, 7, 4, 1}};
 
-   //int row_padded = (width*3+3) & (~3);
-   //unsigned char* padded_data = new unsigned char [rowpadded];
+  // int row_padded = (width*3+3) & (~3);
+  // unsigned char* padded_data = new unsigned char [rowpadded];
+  int pad = 0;
+  int cont = 0;
   for (int i = 0; i < height; i++) {
+    if (cont == 3) {
+      pad += width % 4;
+      cont = 0;
+    }
+    cont++;
     for (int j = 0; j < width; j++) {
-      int red = 0;
-      int green = 0;
-      int blue = 0;
+      int x = 0;
+      int y = 0;
+      int z = 0;
       for (int s = -2; s < 3; s++) {
         for (int t = -2; t < 3; t++) {
           // Condición para marcado de bordes j <= (width%4)*4
-          if ((i + s) <= height-1 && (j + t) <= width-1 && (i + s) >= 0 && (j + t) >= 0) {
-            red += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t))];
-            green += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 1];
-            blue += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 2];
+          if ((i + s) <= height - 1 && (j + t) <= width - 1 &&
+              (i + s + pad) >= 0 && (j + t) >= 0) {
+            x += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t + pad))];
+            y += m[s + 2][t + 2] *
+                 data[3 * ((i + s) * width + (j + t + pad)) + 1];
+            z += m[s + 2][t + 2] *
+                 data[3 * ((i + s) * width + (j + t + pad)) + 2];
           }
         }
       }
-      res[3 * (i * width + j)] = red / 273;
-      res[3 * (i * width + j) + 1] = green / 273;
-      res[3 * (i * width + j) + 2] = blue / 273;
-
+      res[3 * (i * width + j + pad)] = x / 273;
+      res[3 * (i * width + j + pad) + 1] = y / 273;
+      res[3 * (i * width + j + pad) + 2] = z / 273;
     }
-
   }
-
 }
