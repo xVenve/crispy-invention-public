@@ -394,12 +394,12 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
           }
         }
       }
-      res[3 * (i * width + j)] = data[3 * (i  * width + j)];
-      res[3 * (i * width + j)+1] = data[3 * (i  * width + j)+1];
-      res[3 * (i * width + j)+2] = data[3 * (i  * width + j)+2];
-      res[3 * (i * width + j - pad)] = x / 273;
-      res[3 * (i * width + j - pad) + 1] = y / 273;
-      res[3 * (i * width + j - pad) + 2] = z / 273;
+      /*nuestro*/res[3 * (i * width + j)] = data[3 * (i  * width + j)];
+      /*nuestro*/res[3 * (i * width + j)+1] = data[3 * (i  * width + j)+1];
+      /*nuestro*/res[3 * (i * width + j)+2] = data[3 * (i  * width + j)+2];
+      res[3 * (i * width + j + pad)] = x / 273;
+      res[3 * (i * width + j + pad) + 1] = y / 273;
+      res[3 * (i * width + j + pad) + 2] = z / 273;
     }
   }
 }
