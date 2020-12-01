@@ -1,0 +1,5 @@
+add_executable(seq_test seq_main.cpp)
+add_executable(locked_test locked_main.cpp)
+target_link_libraries(locked_test Threads::Threads)
+add_executable(atomic_test atomic_main.cpp)
+target_link_libraries(atomic_test Threads::Threads)
