@@ -370,10 +370,10 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
   // int row_padded = (width*3+3) & (~3);
   // unsigned char* padded_data = new unsigned char [rowpadded];
   int pad = 0;
-  int cont = 0;
+  int cont = 1;
   for (int i = 0; i < height; i++) {
     if (cont == 3) {
-      pad += width % 4;
+      pad += (width % 4);
       cont = 0;
     }
     cont++;
@@ -384,8 +384,8 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
       for (int s = -2; s < 3; s++) {
         for (int t = -2; t < 3; t++) {
           // Condición para marcado de bordes j <= (width%4)*4
-          if ((i + s) <= height - 1 && (j + t) <= width - 1 &&
-              (i + s + pad) >= 0 && (j + t) >= 0) {
+          if ((i + s) < height && (j + t) < width && (i + s + pad) >= 0 &&
+              (j + t) >= 0) {
             x += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t + pad))];
             y += m[s + 2][t + 2] *
                  data[3 * ((i + s) * width + (j + t + pad)) + 1];
