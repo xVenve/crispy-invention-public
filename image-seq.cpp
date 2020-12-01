@@ -369,14 +369,14 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
 
   // int row_padded = (width*3+3) & (~3);
   // unsigned char* padded_data = new unsigned char [rowpadded];
-  int pad = 0;
-  int cont = 1;
+  int pad = (width%4);
+  //int cont = 1;
   for (int i = 0; i < height; i++) {
-    if (cont == 3) {
+  /*  if (cont == 3) {
       pad += (width % 4);
       cont = 0;
     }
-    cont++;
+      cont++;*/
     for (int j = 0; j < width; j++) {
       int x = 0;
       int y = 0;
@@ -384,19 +384,22 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
       for (int s = -2; s < 3; s++) {
         for (int t = -2; t < 3; t++) {
           // Condición para marcado de bordes j <= (width%4)*4
-          if ((i + s) < height && (j + t) < width && (i + s + pad) >= 0 &&
+          if ((i + s) < height && (j + t) < width && (i + s) >= 0 &&
               (j + t) >= 0) {
-            x += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t + pad))];
+            x += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t))];
             y += m[s + 2][t + 2] *
-                 data[3 * ((i + s) * width + (j + t + pad)) + 1];
+                 data[3 * ((i + s) * width + (j + t)) + 1];
             z += m[s + 2][t + 2] *
-                 data[3 * ((i + s) * width + (j + t + pad)) + 2];
+                 data[3 * ((i + s) * width + (j + t)) + 2];
           }
         }
       }
-      res[3 * (i * width + j + pad)] = x / 273;
-      res[3 * (i * width + j + pad) + 1] = y / 273;
-      res[3 * (i * width + j + pad) + 2] = z / 273;
+      res[3 * (i * width + j)] = data[3 * (i  * width + j)];
+      res[3 * (i * width + j)+1] = data[3 * (i  * width + j)+1];
+      res[3 * (i * width + j)+2] = data[3 * (i  * width + j)+2];
+      res[3 * (i * width + j - pad)] = x / 273;
+      res[3 * (i * width + j - pad) + 1] = y / 273;
+      res[3 * (i * width + j - pad) + 2] = z / 273;
     }
   }
 }
