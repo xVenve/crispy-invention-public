@@ -1,0 +1,62 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/generators.h
+string
+-
+random
+-
+fstream
+-
+type_traits
+-
+optional
+-
+
+../include/prodcons.h
+
+../include/reducers.h
+limits
+-
+string
+-
+map
+-
+algorithm
+-
+
+../include/seqbuffer.h
+memory
+-
+optional
+-
+
+../include/seqrunner.h
+prodcons.h
+../include/prodcons.h
+
+../include/tests.h
+generators.h
+../include/generators.h
+reducers.h
+../include/reducers.h
+
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/seq_main.cpp
+string
+-
+iostream
+-
+stdexcept
+-
+seqrunner.h
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/seqrunner.h
+seqbuffer.h
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/seqbuffer.h
+tests.h
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/tests.h
+

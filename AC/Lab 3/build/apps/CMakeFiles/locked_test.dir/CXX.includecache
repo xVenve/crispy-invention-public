@@ -1,0 +1,70 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/concrunner.h
+thread
+-
+prodcons.h
+../include/prodcons.h
+
+../include/generators.h
+string
+-
+random
+-
+fstream
+-
+type_traits
+-
+optional
+-
+
+../include/lockedbuffer.h
+memory
+-
+mutex
+-
+condition_variable
+-
+atomic
+-
+optional
+-
+
+../include/prodcons.h
+
+../include/reducers.h
+limits
+-
+string
+-
+map
+-
+algorithm
+-
+
+../include/tests.h
+generators.h
+../include/generators.h
+reducers.h
+../include/reducers.h
+
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/locked_main.cpp
+string
+-
+iostream
+-
+stdexcept
+-
+concrunner.h
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/concrunner.h
+lockedbuffer.h
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/lockedbuffer.h
+tests.h
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/tests.h
+

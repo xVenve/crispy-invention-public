@@ -1,0 +1,7 @@
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/build/CMakeFiles/rebuild_cache.dir
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/build/CMakeFiles/edit_cache.dir
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/build/apps/CMakeFiles/rebuild_cache.dir
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/build/apps/CMakeFiles/atomic_test.dir
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/build/apps/CMakeFiles/locked_test.dir
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/build/apps/CMakeFiles/edit_cache.dir
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/build/apps/CMakeFiles/seq_test.dir

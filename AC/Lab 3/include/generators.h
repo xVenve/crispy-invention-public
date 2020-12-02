@@ -22,7 +22,7 @@ public:
   // Generates next value.
   // After n values it generates an empty value.
   std::optional<T> operator()() noexcept {
-    if (num_items_ <= 0) return {};
+    if (num_items_ <= 0) return std::nullopt;
     num_items_--;
     return ud_(rd_);
   }  
@@ -55,7 +55,7 @@ public:
   std::optional<T> operator()() {
     T x; 
     ifs >> x >> std::ws;
-    if (!ifs) return {};
+    if (!ifs) return std::nullopt;
     return x; 
   }
 

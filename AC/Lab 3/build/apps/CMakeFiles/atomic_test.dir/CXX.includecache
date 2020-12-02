@@ -1,0 +1,68 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/atomicbuffer.h
+memory
+-
+atomic
+-
+utility
+-
+optional
+-
+
+../include/concrunner.h
+thread
+-
+prodcons.h
+../include/prodcons.h
+
+../include/generators.h
+string
+-
+random
+-
+fstream
+-
+type_traits
+-
+optional
+-
+
+../include/prodcons.h
+
+../include/reducers.h
+limits
+-
+string
+-
+map
+-
+algorithm
+-
+
+../include/tests.h
+generators.h
+../include/generators.h
+reducers.h
+../include/reducers.h
+
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/atomic_main.cpp
+string
+-
+iostream
+-
+stdexcept
+-
+concrunner.h
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/concrunner.h
+atomicbuffer.h
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/atomicbuffer.h
+tests.h
+/mnt/d/Documents/Gits/crispy-invention/AC/Lab 3/apps/tests.h
+
