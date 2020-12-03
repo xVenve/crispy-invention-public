@@ -239,7 +239,6 @@ int main(int argc, char **argv) {
         int pad = 0;
         auto sobeltimei = clk ::now();
         for (int i = 0; i < height; i++) {
-          pad += (width % 4);
           for (int j = 0; j < width; j++) {
             int xx = 0;
             int yx = 0;
@@ -248,24 +247,46 @@ int main(int argc, char **argv) {
             int xy = 0;
             int yy = 0;
             int zy = 0;
+            int padaux = pad;
             for (int s = -1; s < 2; s++) {
               for (int t = -1; t < 2; t++) {
-                // Condición para marcado de bordes
+                // Condición para marcado de bordes j <= (width%4)*4
                 if ((i + s) < height && (j + t) < width && (i + s) >= 0 &&
-                    (j + t + pad) >= 0) {
-                  xx += mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + pad];
-                  yx += mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 1 + pad];
-                  zx += mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 2 + pad];
+                    (j + t) >= 0) {
+                  if (i + s == i + 1) {
+                    padaux = pad + (width % 4);
+                    xx += mx[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + padaux];
+                    yx +=
+                        mx[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 1];
+                    zx +=
+                        mx[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 2];
 
-                  xy += my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + pad];
-                  yy += my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 1 + pad];
-                  zy += my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 2 + pad];
+                    xy += my[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + padaux];
+                    yy +=
+                        my[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 1];
+                    zy +=
+                        my[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 2];
+                  } else {
+                    xx += mx[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad];
+                    yx += mx[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 1];
+                    zx += mx[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 2];
+
+                    xy += my[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad];
+                    yy += my[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 1];
+                    zy += my[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 2];
+                  }
                 }
               }
             }
@@ -273,6 +294,7 @@ int main(int argc, char **argv) {
             sobel[3 * (i * width + j) + 1 + pad] = abs(yx / 8) + abs(yy / 8);
             sobel[3 * (i * width + j) + 2 + pad] = abs(zx / 8) + abs(zy / 8);
           }
+          pad += (width % 4);
         }
         auto sobeltimef = clk ::now();
 
@@ -344,21 +366,41 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
 
   int pad = 0;
   for (int i = 0; i < height; i++) {
-    pad += (width % 4);
+
     for (int j = 0; j < width; j++) {
       int x = 0;
       int y = 0;
       int z = 0;
+      int padaux = pad;
       for (int s = -2; s < 3; s++) {
         for (int t = -2; t < 3; t++) {
           // Condición para marcado de bordes j <= (width%4)*4
           if ((i + s) < height && (j + t) < width && (i + s) >= 0 &&
-              (j + t + pad) >= 0) {
-            x += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + pad];
-            y += m[s + 2][t + 2] *
-                 data[3 * ((i + s) * width + (j + t)) + pad + 1];
-            z += m[s + 2][t + 2] *
-                 data[3 * ((i + s) * width + (j + t)) + pad + 2];
+              (j + t) >= 0) {
+            if (i + s == i + 1) {
+              padaux = pad + (width % 4);
+              x += m[s + 2][t + 2] *
+                   data[3 * ((i + s) * width + (j + t)) + padaux];
+              y += m[s + 2][t + 2] *
+                   data[3 * ((i + s) * width + (j + t)) + padaux + 1];
+              z += m[s + 2][t + 2] *
+                   data[3 * ((i + s) * width + (j + t)) + padaux + 2];
+            } else if (i + s == i + 2) {
+              padaux = pad + 2 * (width % 4);
+              x += m[s + 2][t + 2] *
+                   data[3 * ((i + s) * width + (j + t)) + padaux];
+              y += m[s + 2][t + 2] *
+                   data[3 * ((i + s) * width + (j + t)) + padaux + 1];
+              z += m[s + 2][t + 2] *
+                   data[3 * ((i + s) * width + (j + t)) + padaux + 2];
+            } else {
+              x +=
+                  m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + pad];
+              y += m[s + 2][t + 2] *
+                   data[3 * ((i + s) * width + (j + t)) + pad + 1];
+              z += m[s + 2][t + 2] *
+                   data[3 * ((i + s) * width + (j + t)) + pad + 2];
+            }
           }
         }
       }
@@ -366,5 +408,6 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
       res[3 * (i * width + j) + 1 + pad] = y / 273;
       res[3 * (i * width + j) + 2 + pad] = z / 273;
     }
+    pad += (width % 4);
   }
 }
