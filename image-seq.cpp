@@ -59,7 +59,6 @@ int main(int argc, char **argv) {
 
   struct dirent *dir;
   while ((dir = readdir(input)) != NULL) {
-    // COMPROBAR QUE SEA .BMP
     if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0) {
 
       char *nameinput = (char *)malloc(strlen(argv[2]) + strlen("/") +
@@ -73,6 +72,17 @@ int main(int argc, char **argv) {
       strcpy(nameoutput, argv[3]);
       strcat(nameoutput, "/");
       strcat(nameoutput, dir->d_name);
+
+      string name = dir->d_name;
+
+      // Comprobación de formato
+      int position = name.find_last_of(".");
+      string extension = name.substr(position + 1);
+      int result = extension.compare("bmp");
+      if (result != 0) {
+        cout << "Unexpected file without .bmp extension: " << name << "\n";
+        continue;
+      }
 
       auto loadtimei = clk ::now();
       FILE *photo = fopen(nameinput, "rb");
@@ -117,6 +127,7 @@ int main(int argc, char **argv) {
                 "gauss, sobel\n";
         return -1;
       }
+
       fseek(photo, *(int *)&info[10], SEEK_SET);
       freaderror = fread(data, sizeof(unsigned char), size, photo);
       if (freaderror < 0) {

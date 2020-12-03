@@ -249,24 +249,46 @@ int main(int argc, char **argv) {
             int xy = 0;
             int yy = 0;
             int zy = 0;
+            int padaux = pad;
             for (int s = -1; s < 2; s++) {
               for (int t = -1; t < 2; t++) {
-                // Condición para marcado de bordes
+                // Condición para marcado de bordes j <= (width%4)*4
                 if ((i + s) < height && (j + t) < width && (i + s) >= 0 &&
-                    (j + t + pad) >= 0) {
-                  xx += mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + pad];
-                  yx += mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 1 + pad];
-                  zx += mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 2 + pad];
+                    (j + t) >= 0) {
+                  if (i + s == i + 1) {
+                    padaux = pad + (width % 4);
+                    xx += mx[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + padaux];
+                    yx +=
+                        mx[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 1];
+                    zx +=
+                        mx[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 2];
 
-                  xy += my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + pad];
-                  yy += my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 1 + pad];
-                  zy += my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 2 + pad];
+                    xy += my[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + padaux];
+                    yy +=
+                        my[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 1];
+                    zy +=
+                        my[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 2];
+                  } else {
+                    xx += mx[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad];
+                    yx += mx[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 1];
+                    zx += mx[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 2];
+
+                    xy += my[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad];
+                    yy += my[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 1];
+                    zy += my[s + 1][t + 1] *
+                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 2];
+                  }
                 }
               }
             }
