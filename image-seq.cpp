@@ -88,14 +88,15 @@ int main(int argc, char **argv) {
       FILE *photo = fopen(nameinput, "rb");
       if (photo == NULL)
         cout << "Error al abrir el fichero." << '\n';
-      unsigned char *info = new unsigned char[54];
 
       // Cabecera
+      unsigned char *info = new unsigned char[54];
       int freaderror = fread(info, sizeof(unsigned char), 54, photo);
       if (freaderror < 0) {
         cout << "ERROR al leer la cabecera de la imagen" << '\n';
         return -1;
       }
+
       // Ancho y alto
       int width = *(int *)&info[18];
       int height = *(int *)&info[22];
@@ -130,24 +131,27 @@ int main(int argc, char **argv) {
 
       // Lectura de los datos de imagen
       fseek(photo, *(int *)&info[10], SEEK_SET);
-
-      for (int i = 0; i < height; i++) {
-        freaderror = fread(&data[i * width * 3], sizeof(unsigned char),
-                           width * 3, photo);
-        if (freaderror < 0) {
-          cout << "ERROR al leer el cuerpo de la imagen" << '\n';
-          return -1;
+      if (width % 4 == 0) {
+        freaderror = fread(data, sizeof(unsigned char), size, photo);
+      } else {
+        for (int i = 0; i < height && freaderror >= 0; i++) {
+          freaderror = fread(&data[i * width * 3], sizeof(unsigned char),
+                             width * 3, photo);
+          fseek(photo, (width % 4), SEEK_CUR);
         }
-        fseek(photo, (width % 4), SEEK_CUR);
       }
 
+      if (freaderror < 0) {
+        cout << "ERROR al leer el cuerpo de la imagen" << '\n';
+        return -1;
+      }
       auto loadtimef = clk ::now();
 
       // FUNCION COPY
       if (strcmp(argv[1], "copy") == 0) {
-        auto storetimei = clk ::now();
         ofstream foutput;
 
+        auto storetimei = clk ::now();
         foutput.open(nameoutput);
         // creacion de la cabecera
         foutput.write("B", 1);
@@ -176,14 +180,20 @@ int main(int argc, char **argv) {
 
         // Creacion de datos imagen
         unsigned char c = 0;
-        for (int i = 0; i < height; i++) {
-          foutput.write(reinterpret_cast<const char *>(&data[3 * i * width]),
-                        width * 3);
-          foutput.write(reinterpret_cast<const char *>(&c), width % 4);
+        if (width % 4 == 0) {
+          foutput.write(reinterpret_cast<const char *>(data), size);
+        } else {
+          for (int i = 0; i < height; i++) {
+            foutput.write(reinterpret_cast<const char *>(&data[3 * i * width]),
+                          width * 3);
+            if (width % 4 != 0) {
+              foutput.write(reinterpret_cast<const char *>(&c), width % 4);
+            }
+          }
         }
 
-        foutput.close();
         auto storetimef = clk ::now();
+        foutput.close();
 
         auto loaddiff = duration_cast<microseconds>(loadtimef - loadtimei);
         auto storediff = duration_cast<microseconds>(storetimef - storetimei);
@@ -230,13 +240,18 @@ int main(int argc, char **argv) {
         foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
         foutput.write(reinterpret_cast<const char *>(&cero), 4);
         foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        // Escritura de bytes en el fichero salida
         // Creacion de datos imagen
         unsigned char c = 0;
-        for (int i = 0; i < height; i++) {
-          foutput.write(reinterpret_cast<const char *>(&res[3 * i * width]),
-                        width * 3);
-          foutput.write(reinterpret_cast<const char *>(&c), width % 4);
+        if (width % 4 == 0) {
+          foutput.write(reinterpret_cast<const char *>(res), size);
+        } else {
+          for (int i = 0; i < height; i++) {
+            foutput.write(reinterpret_cast<const char *>(&res[3 * i * width]),
+                          width * 3);
+            if (width % 4 != 0) {
+              foutput.write(reinterpret_cast<const char *>(&c), width % 4);
+            }
+          }
         }
         auto storetimef = clk ::now();
         foutput.close();
@@ -266,8 +281,7 @@ int main(int argc, char **argv) {
 
         int my[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
 
-        unsigned char *sobel =
-            new unsigned char[size - height * (width % 4)];
+        unsigned char *sobel = new unsigned char[size - height * (width % 4)];
         auto sobeltimei = clk ::now();
         for (int i = 0; i < height; i++) {
           for (int j = 0; j < width; j++) {
@@ -336,12 +350,17 @@ int main(int argc, char **argv) {
 
         // Creacion de datos imagen
         unsigned char c = 0;
-        for (int i = 0; i < height; i++) {
-          foutput.write(reinterpret_cast<const char *>(&sobel[3 * i * width]),
-                        width * 3);
-          foutput.write(reinterpret_cast<const char *>(&c), width % 4);
+        if (width % 4 == 0) {
+          foutput.write(reinterpret_cast<const char *>(sobel), size);
+        } else {
+          for (int i = 0; i < height; i++) {
+            foutput.write(reinterpret_cast<const char *>(&sobel[3 * i * width]),
+                          width * 3);
+            if (width % 4 != 0) {
+              foutput.write(reinterpret_cast<const char *>(&c), width % 4);
+            }
+          }
         }
-
         auto storetimef = clk ::now();
         foutput.close();
 

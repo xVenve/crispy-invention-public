@@ -60,7 +60,6 @@ int main(int argc, char **argv) {
 
   struct dirent *dir;
   while ((dir = readdir(input)) != NULL) {
-    // COMPROBAR QUE SEA .BMP
     if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0) {
 
       char *nameinput = (char *)malloc(strlen(argv[2]) + strlen("/") +
@@ -75,25 +74,37 @@ int main(int argc, char **argv) {
       strcat(nameoutput, "/");
       strcat(nameoutput, dir->d_name);
 
+      string name = dir->d_name;
+
+      // Comprobación de formato
+      int position = name.find_last_of(".");
+      string extension = name.substr(position + 1);
+      int result = extension.compare("bmp");
+      if (result != 0) {
+        cout << "Unexpected file without .bmp extension: " << name << "\n";
+        continue;
+      }
+
       auto loadtimei = clk ::now();
       FILE *photo = fopen(nameinput, "rb");
       if (photo == NULL)
         cout << "Error al abrir el fichero." << '\n';
-      unsigned char *info = new unsigned char[54];
 
       // Cabecera
+      unsigned char *info = new unsigned char[54];
       int freaderror = fread(info, sizeof(unsigned char), 54, photo);
       if (freaderror < 0) {
         cout << "ERROR al leer la cabecera de la imagen" << '\n';
         return -1;
       }
+
       // Ancho y alto
       int width = *(int *)&info[18];
       int height = *(int *)&info[22];
 
       // 24 bits = 3 bytes por pixel
       int size = *(int *)&info[2] - *(int *)&info[10];
-      unsigned char *data = new unsigned char[size];
+      unsigned char *data = new unsigned char[size - height * (width % 4)];
 
       // Error de .bmp que no tenga un plano
       if (*(unsigned short *)&info[26] != 1) {
@@ -118,8 +129,19 @@ int main(int argc, char **argv) {
                 "gauss, sobel\n";
         return -1;
       }
+
+      // Lectura de los datos de imagen
       fseek(photo, *(int *)&info[10], SEEK_SET);
-      freaderror = fread(data, sizeof(unsigned char), size, photo);
+      if (width % 4 == 0) {
+        freaderror = fread(data, sizeof(unsigned char), size, photo);
+      } else {
+        for (int i = 0; i < height && freaderror >= 0; i++) {
+          freaderror = fread(&data[i * width * 3], sizeof(unsigned char),
+                             width * 3, photo);
+          fseek(photo, (width % 4), SEEK_CUR);
+        }
+      }
+
       if (freaderror < 0) {
         cout << "ERROR al leer el cuerpo de la imagen" << '\n';
         return -1;
@@ -128,9 +150,9 @@ int main(int argc, char **argv) {
 
       // FUNCION COPY
       if (strcmp(argv[1], "copy") == 0) {
-        auto storetimei = clk ::now();
         ofstream foutput;
 
+        auto storetimei = clk ::now();
         foutput.open(nameoutput);
         // creacion de la cabecera
         foutput.write("B", 1);
@@ -157,9 +179,22 @@ int main(int argc, char **argv) {
         foutput.write(reinterpret_cast<const char *>(&cero), 4);
         foutput.write(reinterpret_cast<const char *>(&cero), 4);
 
-        foutput.write(reinterpret_cast<const char *>(data), size);
-        foutput.close();
+        // Creacion de datos imagen
+        unsigned char c = 0;
+        if (width % 4 == 0) {
+          foutput.write(reinterpret_cast<const char *>(data), size);
+        } else {
+          for (int i = 0; i < height; i++) {
+            foutput.write(reinterpret_cast<const char *>(&data[3 * i * width]),
+                          width * 3);
+            if (width % 4 != 0) {
+              foutput.write(reinterpret_cast<const char *>(&c), width % 4);
+            }
+          }
+        }
+
         auto storetimef = clk ::now();
+        foutput.close();
 
         auto loaddiff = duration_cast<microseconds>(loadtimef - loadtimei);
         auto storediff = duration_cast<microseconds>(storetimef - storetimei);
@@ -173,8 +208,7 @@ int main(int argc, char **argv) {
       // FUNCION GAUSS
       if (strcmp(argv[1], "gauss") == 0) {
 
-        unsigned char *res = new unsigned char[size];
-
+        unsigned char *res = new unsigned char[size - height * (width % 4)];
         auto gausstimei = clk ::now();
         gauss(width, height, data, res);
         auto gausstimef = clk ::now();
@@ -207,8 +241,19 @@ int main(int argc, char **argv) {
         foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
         foutput.write(reinterpret_cast<const char *>(&cero), 4);
         foutput.write(reinterpret_cast<const char *>(&cero), 4);
-
-        foutput.write(reinterpret_cast<const char *>(res), size);
+        // Creacion de datos imagen
+        unsigned char c = 0;
+        if (width % 4 == 0) {
+          foutput.write(reinterpret_cast<const char *>(res), size);
+        } else {
+          for (int i = 0; i < height; i++) {
+            foutput.write(reinterpret_cast<const char *>(&res[3 * i * width]),
+                          width * 3);
+            if (width % 4 != 0) {
+              foutput.write(reinterpret_cast<const char *>(&c), width % 4);
+            }
+          }
+        }
         auto storetimef = clk ::now();
         foutput.close();
 
@@ -226,7 +271,8 @@ int main(int argc, char **argv) {
 
       // FUNCION SOBEL
       if (strcmp(argv[1], "sobel") == 0) {
-        unsigned char *gaussres = new unsigned char[size];
+        unsigned char *gaussres =
+            new unsigned char[size - height * (width % 4)];
 
         auto gausstimei = clk ::now();
         gauss(width, height, data, gaussres);
@@ -236,67 +282,43 @@ int main(int argc, char **argv) {
 
         int my[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
 
-        unsigned char *sobel = new unsigned char[size];
-        int pad = 0;
+        unsigned char *sobel = new unsigned char[size - height * (width % 4)];
         auto sobeltimei = clk ::now();
 #pragma omp parallel for num_threads(4)
         for (int i = 0; i < height; i++) {
           for (int j = 0; j < width; j++) {
             int xx = 0;
-            int yx = 0;
-            int zx = 0;
-
             int xy = 0;
+            int xz = 0;
+
+            int yx = 0;
             int yy = 0;
-            int zy = 0;
-            int padaux = pad;
+            int yz = 0;
             for (int s = -1; s < 2; s++) {
               for (int t = -1; t < 2; t++) {
-                // Condición para marcado de bordes j <= (width%4)*4
+                // Condición para marcado de bordes
                 if ((i + s) < height && (j + t) < width && (i + s) >= 0 &&
                     (j + t) >= 0) {
-                  if (i + s == i + 1) {
-                    padaux = pad + (width % 4);
-                    xx += mx[s + 1][t + 1] *
-                          gaussres[3 * ((i + s) * width + (j + t)) + padaux];
-                    yx +=
-                        mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 1];
-                    zx +=
-                        mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 2];
+                  xx += mx[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t))];
+                  xy += mx[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + 1];
+                  xz += mx[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + 2];
 
-                    xy += my[s + 1][t + 1] *
-                          gaussres[3 * ((i + s) * width + (j + t)) + padaux];
-                    yy +=
-                        my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 1];
-                    zy +=
-                        my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + padaux + 2];
-                  } else {
-                    xx += mx[s + 1][t + 1] *
-                          gaussres[3 * ((i + s) * width + (j + t)) + pad];
-                    yx += mx[s + 1][t + 1] *
-                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 1];
-                    zx += mx[s + 1][t + 1] *
-                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 2];
-
-                    xy += my[s + 1][t + 1] *
-                          gaussres[3 * ((i + s) * width + (j + t)) + pad];
-                    yy += my[s + 1][t + 1] *
-                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 1];
-                    zy += my[s + 1][t + 1] *
-                          gaussres[3 * ((i + s) * width + (j + t)) + pad + 2];
-                  }
+                  yx += my[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t))];
+                  yy += my[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + 1];
+                  yz += my[s + 1][t + 1] *
+                        gaussres[3 * ((i + s) * width + (j + t)) + 2];
                 }
               }
             }
-            sobel[3 * (i * width + j) + pad] = abs(xx / 8) + abs(xy / 8);
-            sobel[3 * (i * width + j) + 1 + pad] = abs(yx / 8) + abs(yy / 8);
-            sobel[3 * (i * width + j) + 2 + pad] = abs(zx / 8) + abs(zy / 8);
+            sobel[3 * (i * width + j)] = abs(xx / 8) + abs(yx / 8);
+            sobel[3 * (i * width + j) + 1] = abs(xy / 8) + abs(yy / 8);
+            sobel[3 * (i * width + j) + 2] = abs(xz / 8) + abs(yz / 8);
           }
-          pad += (width % 4);
         }
         auto sobeltimef = clk ::now();
 
@@ -327,7 +349,20 @@ int main(int argc, char **argv) {
         foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
         foutput.write(reinterpret_cast<const char *>(&cero), 4);
         foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        foutput.write(reinterpret_cast<const char *>(sobel), size);
+
+        // Creacion de datos imagen
+        unsigned char c = 0;
+        if (width % 4 == 0) {
+          foutput.write(reinterpret_cast<const char *>(sobel), size);
+        } else {
+          for (int i = 0; i < height; i++) {
+            foutput.write(reinterpret_cast<const char *>(&sobel[3 * i * width]),
+                          width * 3);
+            if (width % 4 != 0) {
+              foutput.write(reinterpret_cast<const char *>(&c), width % 4);
+            }
+          }
+        }
         auto storetimef = clk ::now();
         foutput.close();
 
@@ -365,52 +400,26 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
                  {7, 26, 41, 26, 7},
                  {4, 16, 26, 16, 4},
                  {1, 4, 7, 4, 1}};
-
-  int pad = 0;
 #pragma omp parallel for num_threads(4)
   for (int i = 0; i < height; i++) {
-
     for (int j = 0; j < width; j++) {
       int x = 0;
       int y = 0;
       int z = 0;
-      int padaux = pad;
       for (int s = -2; s < 3; s++) {
         for (int t = -2; t < 3; t++) {
-          // Condición para marcado de bordes j <= (width%4)*4
+          // Condición para marcado de bordes
           if ((i + s) < height && (j + t) < width && (i + s) >= 0 &&
               (j + t) >= 0) {
-            if (i + s == i + 1) {
-              padaux = pad + (width % 4);
-              x += m[s + 2][t + 2] *
-                   data[3 * ((i + s) * width + (j + t)) + padaux];
-              y += m[s + 2][t + 2] *
-                   data[3 * ((i + s) * width + (j + t)) + padaux + 1];
-              z += m[s + 2][t + 2] *
-                   data[3 * ((i + s) * width + (j + t)) + padaux + 2];
-            } else if (i + s == i + 2) {
-              padaux = pad + 2 * (width % 4);
-              x += m[s + 2][t + 2] *
-                   data[3 * ((i + s) * width + (j + t)) + padaux];
-              y += m[s + 2][t + 2] *
-                   data[3 * ((i + s) * width + (j + t)) + padaux + 1];
-              z += m[s + 2][t + 2] *
-                   data[3 * ((i + s) * width + (j + t)) + padaux + 2];
-            } else {
-              x +=
-                  m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + pad];
-              y += m[s + 2][t + 2] *
-                   data[3 * ((i + s) * width + (j + t)) + pad + 1];
-              z += m[s + 2][t + 2] *
-                   data[3 * ((i + s) * width + (j + t)) + pad + 2];
-            }
+            x += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t))];
+            y += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 1];
+            z += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 2];
           }
         }
       }
-      res[3 * (i * width + j) + pad] = x / 273;
-      res[3 * (i * width + j) + 1 + pad] = y / 273;
-      res[3 * (i * width + j) + 2 + pad] = z / 273;
+      res[3 * (i * width + j)] = x / 273;
+      res[3 * (i * width + j) + 1] = y / 273;
+      res[3 * (i * width + j) + 2] = z / 273;
     }
-    pad += (width % 4);
   }
 }
