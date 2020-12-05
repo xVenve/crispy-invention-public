@@ -1,67 +1,54 @@
 Input path: input
 Output path: output
-File: "input/amphora.bmp"(time: 312187)
-  Load time: 92559
-  Gauss time: 12301
-  Sobel time: 9086
-  Store time: 198241
-File: "input/balloon.bmp"(time: 10073)
-  Load time: 5680
-  Gauss time: 625
-  Sobel time: 395
-  Store time: 3373
-File: "input/bath.bmp"(time: 15889)
-  Load time: 4625
-  Gauss time: 3167
-  Sobel time: 3277
-  Store time: 4820
-File: "input/car.bmp"(time: 4988)
-  Load time: 2196
-  Gauss time: 434
-  Sobel time: 248
-  Store time: 2110
-File: "input/car2.bmp"(time: 40508)
-  Load time: 8772
-  Gauss time: 10612
-  Sobel time: 10878
-  Store time: 10246
-File: "input/elephant.bmp"(time: 43866)
-  Load time: 9317
-  Gauss time: 12316
-  Sobel time: 10971
-  Store time: 11262
-File: "input/flower.bmp"(time: 28967)
-  Load time: 6594
-  Gauss time: 8132
-  Sobel time: 7639
-  Store time: 6602
-File: "input/landscape.bmp"(time: 688555)
-  Load time: 192718
-  Gauss time: 274965
-  Sobel time: 220086
-  Store time: 786
-File: "input/maze.bmp"(time: 140397)
-  Load time: 44612
-  Gauss time: 4236
-  Sobel time: 3687
-  Store time: 87862
-File: "input/plane.bmp"(time: 36429)
-  Load time: 8651
-  Gauss time: 8994
-  Sobel time: 9325
-  Store time: 9459
-File: "input/pyramid.bmp"(time: 42397)
-  Load time: 8804
-  Gauss time: 12887
-  Sobel time: 9132
-  Store time: 11574
-File: "input/snake.bmp"(time: 47495)
-  Load time: 9329
-  Gauss time: 13787
-  Sobel time: 10630
-  Store time: 13749
-File: "input/tiger.bmp"(time: 22417)
-  Load time: 5932
-  Gauss time: 6021
-  Sobel time: 4033
-  Store time: 6431
+File: "input/amphora.bmp"(time: 285336)
+  Load time: 97695
+  Gauss time: 5944
+  Store time: 181697
+File: "input/balloon.bmp"(time: 8497)
+  Load time: 4976
+  Gauss time: 316
+  Store time: 3205
+File: "input/bath.bmp"(time: 11139)
+  Load time: 4401
+  Gauss time: 2219
+  Store time: 4519
+File: "input/car.bmp"(time: 4283)
+  Load time: 2125
+  Gauss time: 287
+  Store time: 1871
+File: "input/car2.bmp"(time: 23872)
+  Load time: 8237
+  Gauss time: 5331
+  Store time: 10304
+File: "input/elephant.bmp"(time: 26061)
+  Load time: 9348
+  Gauss time: 6887
+  Store time: 9826
+File: "input/flower.bmp"(time: 14107)
+  Load time: 6015
+  Gauss time: 2900
+  Store time: 5192
+File: "input/landscape.bmp"(time: 496376)
+  Load time: 166695
+  Gauss time: 156253
+  Store time: 173428
+File: "input/maze.bmp"(time: 121088)
+  Load time: 40419
+  Gauss time: 3317
+  Store time: 77352
+File: "input/plane.bmp"(time: 26404)
+  Load time: 8097
+  Gauss time: 6792
+  Store time: 11515
+File: "input/pyramid.bmp"(time: 25034)
+  Load time: 8806
+  Gauss time: 6697
+  Store time: 9531
+File: "input/snake.bmp"(time: 22999)
+  Load time: 9054
+  Gauss time: 5433
+  Store time: 8512
+File: "input/tiger.bmp"(time: 11530)
+  Load time: 4464
+  Gauss time: 2320
+  Store time: 4746
