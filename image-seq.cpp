@@ -80,20 +80,23 @@ int main(int argc, char **argv) {
       string extension = name.substr(position + 1);
       int result = extension.compare("bmp");
       if (result != 0) {
-        cout <<"Error processing \""<<nameinput<<"\" \n" <<" Unexpected file without .bmp extension: " << name << "\n";
+        cout << "Error processing \"" << nameinput << "\" \n"
+             << " Unexpected file without .bmp extension: " << name << "\n";
         continue;
       }
 
       auto loadtimei = clk ::now();
       FILE *photo = fopen(nameinput, "rb");
       if (photo == NULL)
-        cout <<"Error processing \""<<nameinput<<"\" \n" <<"Error al abrir el fichero." << '\n';
+        cout << "Error processing \"" << nameinput << "\" \n"
+             << "Error al abrir el fichero." << '\n';
 
       // Cabecera
       unsigned char *info = new unsigned char[54];
       int freaderror = fread(info, sizeof(unsigned char), 54, photo);
       if (freaderror < 0) {
-        cout <<"Error processing \""<<nameinput<<"\" \n" <<"ERROR al leer la cabecera de la imagen" << '\n';
+        cout << "Error processing \"" << nameinput << "\" \n"
+             << "ERROR al leer la cabecera de la imagen" << '\n';
         continue;
       }
 
@@ -107,26 +110,29 @@ int main(int argc, char **argv) {
 
       // Error de .bmp que no tenga un plano
       if (*(unsigned short *)&info[26] != 1) {
-        cout <<"Error processing \""<<nameinput<<"\" \n" <<"Planes is not 1\n " << argv[0]
+        cout << "Error processing \"" << nameinput << "\" \n"
+             << "Planes is not 1\n " << argv[0]
              << " operation in_path out_path\n   operation: copy, "
                 "gauss, sobel\n";
-                continue;
+        continue;
       }
 
       // Error de .bmp que no sea 24 bits por punto
       if (*(unsigned short *)&info[28] != 24) {
-        cout <<"Error processing \""<<nameinput<<"\" \n" <<"Bit count is not 24.\n " << argv[0]
+        cout << "Error processing \"" << nameinput << "\" \n"
+             << "Bit count is not 24.\n " << argv[0]
              << " operation in_path out_path\n   operation: copy, "
                 "gauss, sobel\n";
-                continue;
+        continue;
       }
 
       // Error de .bmp que no sea 0 la compresion
       if (*(int *)&info[30] != 0) {
-        cout <<"Error processing \""<<nameinput<<"\" \n" <<"Compression is not 0.\n " << argv[0]
+        cout << "Error processing \"" << nameinput << "\" \n"
+             << "Compression is not 0.\n " << argv[0]
              << " operation in_path out_path\n   operation: copy, "
                 "gauss, sobel\n";
-                continue;
+        continue;
       }
 
       // Lectura de los datos de imagen
