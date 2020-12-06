@@ -319,9 +319,9 @@ int main(int argc, char **argv) {
                 }
               }
             }
-            sobel[3 * (i * width + j)] = abs(xx / 8) + abs(yx / 8);
-            sobel[3 * (i * width + j) + 1] = abs(xy / 8) + abs(yy / 8);
-            sobel[3 * (i * width + j) + 2] = abs(xz / 8) + abs(yz / 8);
+            sobel[3 * (i * width + j)] = (abs(xx) + abs(yx)) / 8;
+            sobel[3 * (i * width + j) + 1] = (abs(xy) + abs(yy)) / 8;
+            sobel[3 * (i * width + j) + 2] = (abs(xz) + abs(yz)) / 8;
           }
         }
         auto sobeltimef = clk ::now();
