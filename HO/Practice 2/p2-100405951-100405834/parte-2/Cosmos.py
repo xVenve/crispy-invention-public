@@ -28,22 +28,26 @@ class Nodo():
         self.OBS = OBS
 
     def __eq__(self, other):
-        # and (self.g == other.g) and (self.h == other.h) and (self.f == other.f)
+
         return (self.bateria1 == other.bateria1) and (self.pos == other.pos) and (self.sat1franjas == other.sat1franjas) and (self.observaciones1 == other.observaciones1) and (self.operacion1 == other.operacion1) and (self.bateria2 == other.bateria2) and (self.sat2franjas == other.sat2franjas) and (self.observaciones2 == other.observaciones2) and (self.numOBSrestantes == other.numOBSrestantes) and (self.operacion2 == other.operacion2)
 
 
 def heuristica(nodo, nombre):
-    if nombre == "lessOBS":
+
+    if nombre.strip() == "lessOBS":
         return nodo.numOBSrestantes
-    elif nombre == "distanciaUbeda":
+    elif nombre.strip() == "distanciaUbeda":
         h = 0
         for observacion in nodo.OBS:
             h += abs(nodo.pos - int(observacion[3]))
         return h
+    elif nombre.strip() == "bruta":
+        return 0
     else:
-        print("Error: El nombre de la heuristica debe ser leesOBS o distanciaUbeda")
+        print("Error: El nombre de la heuristica debe ser lessOBS, distanciaUbeda o bruta.")
         sys.exit(-1)
-def astar(problema, heuristica):
+
+def astar(problema, heuris):
 
     # Leer el problema y extraer los datos
     f = open(problema, "r")
@@ -81,11 +85,6 @@ def astar(problema, heuristica):
     starttime = time.process_time()
     # Crear el loop para el algoritmo
     while len(open_list) > 0:
-        #print('Numero de estados abierta:', len(open_list))
-        # for nodoi in open_list:
-        #     print(nodoi.bateria1, " ", nodoi.sat1franjas, " ", nodoi.observaciones1, " ", nodoi.operacion1, " ",
-        #           nodoi.pos, " ", nodoi.bateria2, " ", nodoi.sat2franjas, " ", nodoi.observaciones2, " ",
-        #           nodoi.numOBSrestantes, " ", nodoi.operacion2, " ", nodoi.g, " ", nodoi.h, " ", nodoi.f)
 
         nodo_actual = None
 
@@ -110,9 +109,7 @@ def astar(problema, heuristica):
 
         contador_nodo +=1
 
-        # print('Estado actual:', nodo_actual.bateria1, " ", nodo_actual.sat1franjas, " ", nodo_actual.observaciones1,
-        #       " ", nodo_actual.operacion1, " ", nodo_actual.pos, " ", nodo_actual.bateria2, " ", nodo_actual.sat2franjas, " ", nodo_actual.observaciones2, " ", nodo_actual.numOBSrestantes, " ", nodo_actual.operacion2, " ", nodo_actual.g,
-        #       " ", nodo_actual.h, " ", nodo_actual.f)
+
 
         """ for obss in OBS:
             print(obss[1], " ", obss[3]) """
@@ -171,8 +168,7 @@ def astar(problema, heuristica):
                       and elem[3] == nodo_actual.pos) """
 
                 if (int(elem[1]) == int(nodo_actual.sat1franjas[1]) or int(elem[1]) == int(nodo_actual.sat1franjas[3])) and int(elem[3]) == nodo_actual.pos:
-                    #print("Ope11")
-                    #print("He entrado en la operacion observar1")
+
 
                     nodohijo1bateria1 = nodo_actual.bateria1-SAT1costeOBS
                     nodohijo1observaciones = nodo_actual.observaciones1+1
@@ -183,7 +179,7 @@ def astar(problema, heuristica):
 
         # Operación de Giro1
         if nodo_actual.bateria1 >= SAT1costeGIR and nodo_actual.pos < 12:
-            #print("Ope21")
+
             if nodo_actual.sat1franjas == '(0,1)':
 
                 nodohijo2bateria1 = nodo_actual.bateria1-SAT1costeGIR
@@ -200,27 +196,28 @@ def astar(problema, heuristica):
 
         # Operación de IDLE1
         if nodo_actual.pos < 12:
-            #print("Ope31")
+
 
             boolhijo3 = True
 
         # Operación de Carga1
         if nodo_actual.pos < 12 and (nodo_actual.bateria1 <= start.bateria1 - SAT1costeCAR):
-            #print("Ope41")
+
 
             nodohijo4bateria1 = nodo_actual.bateria1+SAT1costeCAR
             boolhijo4 = True
 
+
         # Operación de Transmisión1
         if nodo_actual.observaciones1 > 0 and nodo_actual.pos < 12 and nodo_actual.bateria1 >= SAT1costeTRANS:
-            #print("Ope51")
+
 
             nodohijo5bateria1 = nodo_actual.bateria1-SAT1costeTRANS
             nodohijo5observaciones1 = nodo_actual.observaciones1-1
 
             boolhijo5 = True
 
-        #print("O", boolhijo1, " G", boolhijo2, " I",              boolhijo3, " C", boolhijo4, " T", boolhijo5)
+
 
         # Operación de Observación2
         if nodo_actual.bateria2 >= SAT2costeOBS and nodo_actual.pos < 12 and len(nodo_actual.OBS) > 0:
@@ -229,31 +226,25 @@ def astar(problema, heuristica):
 
                 for elem in nodohijo1OBS:
                     if (int(elem[1]) == int(nodo_actual.sat2franjas[1]) or int(elem[1]) == int(nodo_actual.sat2franjas[3])) and int(elem[3]) == nodo_actual.pos:
-                        #print("Ope121")
-                        #print("")
-                        #print("Observar2")
+
                         nodohijo1OBS.remove(elem)
                         nodohijo1 = Nodo(nodo_actual, nodohijo1bateria1, nodo_actual.sat1franjas,
                                          nodohijo1observaciones, 'Observa', nodo_actual.pos+1, nodo_actual.bateria2 -
                                          SAT2costeOBS, nodo_actual.sat2franjas, nodo_actual.observaciones2+1,
                                          nodo_actual.numOBSrestantes, 'Observa', nodo_actual.g + 1, nodo_actual.h,
                                          nodo_actual.g + 1 + nodo_actual.h, nodohijo1OBS[:])
-                        #print("Observa: ",nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ",
-                        # nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ",
-                        # nodohijo1.bateria2, " ", nodohijo1.sat2franjas, " ", nodohijo1.observaciones2, " ",
-                        # nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ",
-                        # nodohijo1.f)
-                        # #print('XXX', nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2,
-                        #       " ", nodohijo1.sat2franjas, " ", nodo_actual.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
+                        nodohijo1.h = heuristica(nodohijo1, heuris)
+                        nodohijo1.f = nodohijo1.h + nodohijo1.g
+
                         open_list.append(nodohijo1)
 
                         break
             if boolhijo2 == True and len(nodohijo1OBS) > 0:
                 for elem in nodohijo1OBS:
                     if (int(elem[1]) == int(nodo_actual.sat2franjas[1]) or int(elem[1]) == int(nodo_actual.sat2franjas[3])) and int(elem[3]) == nodo_actual.pos:
-                        #print("Ope122")
 
-                        #print("Observar2")
+
+
 
                         nodohijo2 = Nodo(nodo_actual,
                          nodohijo2bateria1, nodohijo2sat1franjas, nodo_actual.observaciones1, 'Gira', nodo_actual.pos+1,
@@ -261,6 +252,8 @@ def astar(problema, heuristica):
                          nodo_actual.numOBSrestantes, 'Observa', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodohijo1OBS[:])
 
                         nodohijo2.OBS.remove(elem)
+                        nodohijo2.h = heuristica(nodohijo2, heuris)
+                        nodohijo2.f = nodohijo2.h + nodohijo2.g
                         open_list.append(nodohijo2)
 
 
@@ -268,9 +261,7 @@ def astar(problema, heuristica):
             if boolhijo3 == True and len(nodohijo1OBS) > 0:
                 for elem in nodohijo1OBS:
                     if (int(elem[1]) == int(nodo_actual.sat2franjas[1]) or int(elem[1]) == int(nodo_actual.sat2franjas[3])) and int(elem[3]) == nodo_actual.pos:
-                        #print("Ope123")
 
-                        #print("Observar2")
 
                         nodohijo3 = Nodo(nodo_actual,
                         nodo_actual.bateria1, nodo_actual.sat1franjas, nodo_actual.observaciones1, 'IDLE', nodo_actual.pos+1,
@@ -278,18 +269,20 @@ def astar(problema, heuristica):
                         nodo_actual.numOBSrestantes, 'Observa', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodohijo1OBS[:])
 
                         nodohijo3.OBS.remove(elem)
+                        nodohijo3.h = heuristica(nodohijo3, heuris)
+                        nodohijo3.f = nodohijo3.h + nodohijo3.g
                         open_list.append(nodohijo3)
 
                         break
             if boolhijo4 == True and len(nodohijo1OBS) > 0:
                 for elem in nodohijo1OBS:
                     if (int(elem[1]) == int(nodo_actual.sat2franjas[1]) or int(elem[1]) == int(nodo_actual.sat2franjas[3])) and int(elem[3]) == nodo_actual.pos:
-                        #print("Ope124")
 
-                        #print("Observar2")
 
                         nodohijo4 = Nodo(nodo_actual, nodohijo4bateria1, nodo_actual.sat1franjas, nodo_actual.observaciones1, 'Carga', nodo_actual.pos+1, nodo_actual.bateria2-SAT2costeOBS, nodo_actual.sat2franjas, nodo_actual.observaciones2+1,
                          nodo_actual.numOBSrestantes, 'Observa', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodohijo1OBS[:])
+                        nodohijo4.h = heuristica(nodohijo4, heuris)
+                        nodohijo4.f = nodohijo4.h + nodohijo4.g
 
                         nodohijo4.OBS.remove(elem)
                         open_list.append(nodohijo4)
@@ -298,14 +291,13 @@ def astar(problema, heuristica):
             if boolhijo5 == True and len(nodohijo1OBS) > 0:
                 for elem in nodohijo1OBS:
                     if (int(elem[1]) == int(nodo_actual.sat2franjas[1]) or int(elem[1]) == int(nodo_actual.sat2franjas[3])) and int(elem[3]) == nodo_actual.pos:
-                        #print("Ope125")
-
-                        #print("Observar2")
 
                         nodohijo5 = Nodo(nodo_actual,
                          nodohijo5bateria1, nodo_actual.sat1franjas, nodohijo5observaciones1, 'Transmite', nodo_actual.pos+1,
                          nodo_actual.bateria2-SAT2costeOBS, nodo_actual.sat2franjas, nodo_actual.observaciones2+1,
                           nodo_actual.numOBSrestantes-1, 'Observa', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodohijo1OBS[:])
+                        nodohijo5.h = heuristica(nodohijo5, heuris)
+                        nodohijo5.f = nodohijo5.h + nodohijo5.g
 
                         nodohijo5.OBS.remove(elem)
                         open_list.append(nodohijo5)
@@ -314,38 +306,33 @@ def astar(problema, heuristica):
 
         # Operación de Giro2
         if nodo_actual.bateria2 >= SAT1costeGIR and nodo_actual.pos < 12:
-            #print("Valor de nodohijoOBS: ", len(nodohijo1OBS), " Valor de boolhijo1: ", boolhijo1, " Valor nodohijo1: ", nodohijo1)
+
             if boolhijo1 == True and len(nodohijo1OBS) > 0:
                 if nodo_actual.sat2franjas == '(2,3)':
-                    #print("Ope221")
+
                     nodohijo1 = Nodo(nodo_actual,
                      nodohijo1bateria1, nodo_actual.sat1franjas, nodohijo1observaciones, 'Observa', nodo_actual.pos+1,
                      nodo_actual.bateria2 -
                          SAT2costeGIR, '(1,2)', nodo_actual.observaciones2,
-                      nodo_actual.numOBSrestantes, 'Gira', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodohijo1OBS[:])
-                    #print("Observa: ",nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2, " ", nodohijo1.sat2franjas, " ", nodohijo1.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
-                    #print('XXX', nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2,
-                          #" ", nodohijo1.sat2franjas, " ", nodo_actual.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
-                    #print("Observa: ",nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2, " ", nodohijo1.sat2franjas, " ", nodohijo1.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
+                    nodo_actual.numOBSrestantes, 'Gira', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodohijo1OBS[:])
+                    nodohijo1.h = heuristica(nodohijo1, heuris)
+
                     open_list.append(nodohijo1)
 
 
                 elif nodo_actual.sat2franjas == '(1,2)' and len(nodohijo1OBS) > 0:
-                    #print("ALT Open221")
 
                     nodohijo1 = Nodo(nodo_actual,
                      nodohijo1bateria1, nodo_actual.sat1franjas, nodohijo1observaciones, 'Observa', nodo_actual.pos+1,
                      nodo_actual.bateria2 -
                          SAT2costeGIR, '(2,3)', nodo_actual.observaciones2,
                       nodo_actual.numOBSrestantes, 'Gira', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodo_actual.OBS[:])
-                    #print("Observa: ",nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2, " ", nodohijo1.sat2franjas, " ", nodohijo1.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
-                    #print('XXX', nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2,
-                          #" ", nodohijo1.sat2franjas, " ", nodo_actual.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
+                    nodohijo1.h = heuristica(nodohijo1, heuris)
+                    nodohijo1.f = nodohijo1.h + nodohijo1.g
                     open_list.append(nodohijo1)
 
 
             if boolhijo2 == True:
-                #print("Ope222")
 
                 if nodo_actual.sat2franjas == '(2,3)':
 
@@ -354,7 +341,8 @@ def astar(problema, heuristica):
                      nodo_actual.bateria2 -
                          SAT2costeGIR, '(1,2)', nodo_actual.observaciones2,
                       nodo_actual.numOBSrestantes, 'Gira', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodo_actual.OBS[:])
-
+                    nodohijo2.h = heuristica(nodohijo2, heuris)
+                    nodohijo2.f = nodohijo2.h + nodohijo2.g
                     open_list.append(nodohijo2)
 
                 else:
@@ -362,18 +350,20 @@ def astar(problema, heuristica):
                      nodohijo2bateria1, nodohijo2sat1franjas, nodohijo2observaciones1, 'Gira', nodo_actual.pos+1,
                      nodo_actual.bateria2 - SAT2costeGIR, '(2,3)', nodo_actual.observaciones2,
                       nodo_actual.numOBSrestantes, 'Gira', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodo_actual.OBS[:])
+                    nodohijo2.h = heuristica(nodohijo2, heuris)
+                    nodohijo2.f = nodohijo2.h + nodohijo2.g
                     open_list.append(nodohijo2)
 
 
             if boolhijo3 == True:
-                #print("Ope223")
 
                 if nodo_actual.sat2franjas == '(2,3)':
                     nodohijo3 = Nodo (nodo_actual,
                      nodo_actual.bateria1,nodo_actual.sat1franjas,nodo_actual.observaciones1, 'IDLE',nodo_actual.pos+1,
                      nodo_actual.bateria2-SAT2costeGIR,'(1,2)', nodo_actual.observaciones2,
                       nodo_actual.numOBSrestantes,'Gira',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodo_actual.OBS[:])
-
+                    nodohijo3.h = heuristica(nodohijo3, heuris)
+                    nodohijo3.f = nodohijo3.h + nodohijo3.g
                     open_list.append(nodohijo3)
 
                 else:
@@ -381,18 +371,20 @@ def astar(problema, heuristica):
                     nodo_actual.bateria1,nodo_actual.sat1franjas,nodo_actual.observaciones1, 'IDLE',nodo_actual.pos+1,
                     nodo_actual.bateria2-SAT2costeGIR,'(2,3)', nodo_actual.observaciones2,
                     nodo_actual.numOBSrestantes,'Gira',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodo_actual.OBS[:])
-
+                    nodohijo3.h = heuristica(nodohijo3, heuris)
+                    nodohijo3.f = nodohijo3.h + nodohijo3.g
                     open_list.append(nodohijo3)
 
 
             if boolhijo4 == True:
-                #print("Ope224")
 
                 if nodo_actual.sat2franjas == '(2,3)':
                     nodohijo4 = Nodo (nodo_actual,
                     nodohijo4bateria1 ,nodo_actual.sat1franjas,nodo_actual.observaciones1, 'Carga',nodo_actual.pos+1,
                     nodo_actual.bateria2-SAT2costeGIR,'(1,2)', nodo_actual.observaciones2,
                     nodo_actual.numOBSrestantes,'Gira',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodo_actual.OBS[:])
+                    nodohijo4.h = heuristica(nodohijo4, heuris)
+                    nodohijo4.f = nodohijo4.h + nodohijo4.g
 
                     open_list.append(nodohijo4)
 
@@ -401,20 +393,22 @@ def astar(problema, heuristica):
                     nodohijo4bateria1 ,nodo_actual.sat1franjas,nodo_actual.observaciones1, 'Carga',nodo_actual.pos+1,
                     nodo_actual.bateria2-SAT2costeGIR,'(2,3)', nodo_actual.observaciones2,
                     nodo_actual.numOBSrestantes,'Gira',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodo_actual.OBS[:])
+                    nodohijo4.h = heuristica(nodohijo4, heuris)
+                    nodohijo4.f = nodohijo4.h + nodohijo4.g
 
 
                     open_list.append(nodohijo4)
 
 
             if boolhijo5 == True:
-                #print("Ope225")
 
                 if nodo_actual.sat2franjas == '(2,3)':
                     nodohijo5 = Nodo (nodo_actual,
                     nodohijo5bateria1 ,nodo_actual.sat1franjas,nodohijo5observaciones1, 'Transmite',nodo_actual.pos+1,
                     nodo_actual.bateria2-SAT2costeGIR,'(1,2)', nodo_actual.observaciones2,
                     nodo_actual.numOBSrestantes-1,'Gira',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodo_actual.OBS[:])
-
+                    nodohijo5.h = heuristica(nodohijo5, heuris)
+                    nodohijo5.f = nodohijo5.h + nodohijo5.g
                     open_list.append(nodohijo5)
 
                 else:
@@ -422,7 +416,8 @@ def astar(problema, heuristica):
                     nodohijo5bateria1 ,nodo_actual.sat1franjas,nodohijo5observaciones1, 'Transmite',nodo_actual.pos+1,
                     nodo_actual.bateria2-SAT2costeGIR,'(2,3)', nodo_actual.observaciones2,
                     nodo_actual.numOBSrestantes-1,'Gira',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodo_actual.OBS[:])
-
+                    nodohijo5.h = heuristica(nodohijo5, heuris)
+                    nodohijo5.f = nodohijo5.h + nodohijo5.g
                     open_list.append(nodohijo5)
 
 
@@ -430,66 +425,62 @@ def astar(problema, heuristica):
         if int(nodo_actual.pos) < 12:
 
             if boolhijo1 == True and len(nodohijo1OBS) > 0:
-                #print("Ope321")
 
                 nodohijo1 = Nodo (nodo_actual,
                 nodohijo1bateria1 ,nodo_actual.sat1franjas,nodohijo1observaciones, 'Observa',nodo_actual.pos+1,
                 nodo_actual.bateria2,nodo_actual.sat2franjas, nodo_actual.observaciones2,
                 nodo_actual.numOBSrestantes,'IDLE',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodohijo1OBS[:])
-                #print("Observa: ",nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2, " ", nodohijo1.sat2franjas, " ", nodohijo1.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
 
+                nodohijo1.h = heuristica(nodohijo1, heuris)
+                nodohijo1.f = nodohijo1.h + nodohijo1.g
 
-                #print('XXX', nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2,
-                #" ", nodohijo1.sat2franjas, " ", nodo_actual.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
                 open_list.append(nodohijo1)
 
 
             if boolhijo2 == True:
 
-                #print("Ope322")
-
                 nodohijo2 = Nodo (nodo_actual,
                 nodohijo2bateria1 ,nodohijo2sat1franjas,nodohijo2observaciones1, 'Gira',nodo_actual.pos+1,
                 nodo_actual.bateria2,nodo_actual.sat2franjas, nodo_actual.observaciones2,
                 nodo_actual.numOBSrestantes,'IDLE',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodo_actual.OBS[:])
-
+                nodohijo2.h = heuristica(nodohijo2, heuris)
+                nodohijo2.f = nodohijo2.h + nodohijo2.g
                 open_list.append(nodohijo2)
 
 
             if boolhijo3 == True:
-                #print("Ope323")
 
                 nodohijo3 = Nodo (nodo_actual,
                 nodo_actual.bateria1 ,nodo_actual.sat1franjas,nodo_actual.observaciones1, 'IDLE',nodo_actual.pos+1,
                 nodo_actual.bateria2,nodo_actual.sat2franjas, nodo_actual.observaciones2,
                 nodo_actual.numOBSrestantes,'IDLE',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodo_actual.OBS[:])
-
+                nodohijo3.h = heuristica(nodohijo3, heuris)
+                nodohijo3.f = nodohijo3.h + nodohijo3.g
 
                 open_list.append(nodohijo3)
 
 
             if boolhijo4 == True:
 
-                #print("Ope324")
-
                 nodohijo4 = Nodo (nodo_actual,
                 nodohijo4bateria1 ,nodo_actual.sat1franjas,nodo_actual.observaciones1, 'Carga',nodo_actual.pos+1,
                 nodo_actual.bateria2,nodo_actual.sat2franjas, nodo_actual.observaciones2,
                 nodo_actual.numOBSrestantes,'IDLE',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodo_actual.OBS[:])
-
+                nodohijo4.h = heuristica(nodohijo4, heuris)
+                nodohijo4.f = nodohijo4.h + nodohijo4.g
 
                 open_list.append(nodohijo4)
 
 
             if boolhijo5 == True:
-                #print("Ope325")
 
                 nodohijo5 = Nodo (nodo_actual,
                 nodohijo5bateria1 ,nodo_actual.sat1franjas,nodohijo5observaciones1, 'Transmite',nodo_actual.pos+1,
                 nodo_actual.bateria2,nodo_actual.sat2franjas, nodo_actual.observaciones2,
                 nodo_actual.numOBSrestantes-1,'IDLE',nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodo_actual.OBS[:])
 
-
+                nodohijo5.h = heuristica(nodohijo5, heuris)
+                nodohijo5.f = nodohijo5.h + nodohijo5.g
 
                 open_list.append(nodohijo5)
 
@@ -498,57 +489,60 @@ def astar(problema, heuristica):
         if (nodo_actual.pos < 12) and (nodo_actual.bateria2 <= int(SAT2[4]) - SAT2costeCAR):
 
             if boolhijo1 == True and len(nodohijo1OBS) > 0:
-                #print("Ope421")
 
                 nodohijo1 = Nodo (nodo_actual,
                 nodohijo1bateria1,nodo_actual.sat1franjas,nodohijo1observaciones, 'Observa',nodo_actual.pos+1,
                 nodo_actual.bateria2 + SAT2costeCAR, nodo_actual.sat2franjas, nodo_actual.observaciones2,
                 nodo_actual.numOBSrestantes,'Carga', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g+1 + nodo_actual.h, nodohijo1OBS[:])
-                #print("Observa: ",nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2, " ", nodohijo1.sat2franjas, " ", nodohijo1.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
-                #print('XXX', nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2,
-                #" ", nodohijo1.sat2franjas, " ", nodo_actual.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
+                nodohijo1.h = heuristica(nodohijo1, heuris)
+                nodohijo1.f = nodohijo1.h + nodohijo1.g
+
                 open_list.append(nodohijo1)
 
 
             if boolhijo2 == True:
-                #print("Ope422")
 
                 nodohijo2 = Nodo (nodo_actual,
                 nodohijo2bateria1, nodohijo2sat1franjas, nodohijo2observaciones1, 'Gira',nodo_actual.pos+1,
                 nodo_actual.bateria2 + SAT2costeCAR, nodo_actual.sat2franjas, nodo_actual.observaciones2,
                 nodo_actual.numOBSrestantes,'Carga', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g+1 + nodo_actual.h, nodo_actual.OBS[:])
+                nodohijo2.h = heuristica(nodohijo2, heuris)
+                nodohijo2.f = nodohijo2.h + nodohijo2.g
 
                 open_list.append(nodohijo2)
 
 
             if boolhijo3 == True:
-                #print("Ope423")
 
                 nodohijo3 = Nodo (nodo_actual,
                 nodo_actual.bateria1,nodo_actual.sat1franjas,nodo_actual.observaciones1, 'IDLE',nodo_actual.pos+1,
                 nodo_actual.bateria2 + SAT2costeCAR, nodo_actual.sat2franjas, nodo_actual.observaciones2,
                 nodo_actual.numOBSrestantes,'Carga', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g+1 + nodo_actual.h, nodo_actual.OBS[:])
+                nodohijo3.h = heuristica(nodohijo3, heuris)
+                nodohijo3.f = nodohijo3.h + nodohijo3.g
 
                 open_list.append(nodohijo3)
 
 
             if boolhijo4 == True:
-                #print("Ope424")
 
                 nodohijo4 = Nodo (nodo_actual, nodohijo4bateria1, nodo_actual.sat1franjas, nodo_actual.observaciones1, 'Carga', nodo_actual.pos+1,
                 nodo_actual.bateria2 + SAT2costeCAR, nodo_actual.sat2franjas, nodo_actual.observaciones2,
                 nodo_actual.numOBSrestantes,'Carga', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g+1 + nodo_actual.h, nodo_actual.OBS[:])
+                nodohijo4.h = heuristica(nodohijo4, heuris)
+                nodohijo4.f = nodohijo4.h + nodohijo4.g
 
                 open_list.append(nodohijo4)
 
 
             if boolhijo5 == True:
-                #print("Ope425")
 
                 nodohijo5 = Nodo (nodo_actual,
                  nodohijo5bateria1 ,nodo_actual.sat1franjas,nodohijo5observaciones1, 'Transmite',nodo_actual.pos+1,
                  nodo_actual.bateria2 + SAT2costeCAR, nodo_actual.sat2franjas, nodo_actual.observaciones2,
                  nodo_actual.numOBSrestantes-1,'Carga', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g+1 + nodo_actual.h, nodo_actual.OBS[:])
+                nodohijo5.h = heuristica(nodohijo5, heuris)
+                nodohijo5.f = nodohijo5.h + nodohijo5.g
 
                 open_list.append(nodohijo5)
 
@@ -556,63 +550,65 @@ def astar(problema, heuristica):
         # Operación de Transmisión
         if nodo_actual.observaciones2 > 0 and nodo_actual.pos < 12 and nodo_actual.bateria2 >= SAT2costeTRANS:
             if boolhijo1 == True and len(nodohijo1OBS) > 0:
-                #print("Ope521")
 
                 nodohijo1 = Nodo (nodo_actual,
                 nodohijo1bateria1,nodo_actual.sat1franjas,nodohijo1observaciones, 'Observa',nodo_actual.pos+1,
                 nodo_actual.bateria2-SAT2costeTRANS, nodo_actual.sat2franjas, nodo_actual.observaciones2-1,
                 nodo_actual.numOBSrestantes-1,'Transmite', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g+1 + nodo_actual.h, nodohijo1OBS[:])
-                #print("Observa: ",nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2, " ", nodohijo1.sat2franjas, " ", nodohijo1.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
-                #print('XXX', nodohijo1.bateria1, " ", nodohijo1.sat1franjas, " ", nodohijo1.observaciones1, " ", nodohijo1.operacion1, " ", nodohijo1.pos, " ", nodohijo1.bateria2,
-                    #  " ", nodohijo1.sat2franjas, " ", nodo_actual.observaciones2, " ", nodohijo1.numOBSrestantes, " ", nodohijo1.operacion2, " ", nodohijo1.g, " ", nodohijo1.h, " ", nodohijo1.f)
+                nodohijo1.h = heuristica(nodohijo1, heuris)
+                nodohijo1.f = nodohijo1.h + nodohijo1.g
+
                 open_list.append(nodohijo1)
 
 
             if boolhijo2 == True:
-                #print("Ope522")
 
                 nodohijo2 = Nodo (nodo_actual,
                 nodohijo2bateria1, nodohijo2sat1franjas, nodohijo2observaciones1, 'Gira',nodo_actual.pos+1,
                 nodo_actual.bateria2-SAT2costeTRANS, nodo_actual.sat2franjas, nodo_actual.observaciones2-1,
                 nodo_actual.numOBSrestantes-1,'Transmite', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g+1 + nodo_actual.h, nodo_actual.OBS[:])
-
+                nodohijo2.h = heuristica(nodohijo2, heuris)
+                nodohijo2.f = nodohijo2.h + nodohijo2.g
                 open_list.append(nodohijo2)
 
 
             if boolhijo3 == True:
-                #print("Ope523")
 
                 nodohijo3 = Nodo (nodo_actual,
                 nodo_actual.bateria1,nodo_actual.sat1franjas,nodo_actual.observaciones1, 'IDLE',nodo_actual.pos+1, nodo_actual.bateria2-SAT2costeTRANS, nodo_actual.sat2franjas, nodo_actual.observaciones2-1,
                 nodo_actual.numOBSrestantes-1,'Transmite', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g+1 + nodo_actual.h, nodo_actual.OBS[:])
+                nodohijo3.h = heuristica(nodohijo3, heuris)
+                nodohijo3.f = nodohijo3.h + nodohijo3.g
 
                 open_list.append(nodohijo3)
 
 
             if boolhijo4 == True:
-                #print("Ope524")
 
                 nodohijo4 = Nodo (nodo_actual, nodohijo4bateria1, nodo_actual.sat1franjas, nodo_actual.observaciones1, 'Carga', nodo_actual.pos+1, nodo_actual.bateria2-SAT2costeTRANS, nodo_actual.sat2franjas, nodo_actual.observaciones2-1,
                 nodo_actual.numOBSrestantes-1,'Transmite', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g+1 + nodo_actual.h, nodo_actual.OBS[:])
+                nodohijo4.h = heuristica(nodohijo4, heuris)
+                nodohijo4.f = nodohijo4.h + nodohijo4.g
 
                 open_list.append(nodohijo4)
 
 
             if boolhijo5 == True:
-                #print("Ope525")
 
                 nodohijo5 = Nodo (nodo_actual,
                 nodohijo5bateria1 ,nodo_actual.sat1franjas,nodohijo5observaciones1, 'Transmite',nodo_actual.pos+1, nodo_actual.bateria2-SAT2costeTRANS, nodo_actual.sat2franjas, nodo_actual.observaciones2-1,
                 nodo_actual.numOBSrestantes-2,'Transmite', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g+1 + nodo_actual.h, nodo_actual.OBS[:])
+                nodohijo5.h = heuristica(nodohijo5, heuris)
+                nodohijo5.f = nodohijo5.h + nodohijo5.g
 
                 open_list.append(nodohijo5)
 
 
         # Operación de Noche
         if nodo_actual.pos == 12:
-            #print("OpeNoche")
             nodohijoNoche = Nodo(nodo_actual, nodo_actual.bateria1, nodo_actual.sat1franjas,
                                  nodo_actual.observaciones1, 'Noche', 0, nodo_actual.bateria2, nodo_actual.sat2franjas, nodo_actual.observaciones2, nodo_actual.numOBSrestantes, 'Noche', nodo_actual.g+12, nodo_actual.h, nodo_actual.g+12 + nodo_actual.h, nodo_actual.OBS[:])
+
             open_list.append(nodohijoNoche)
 
 
