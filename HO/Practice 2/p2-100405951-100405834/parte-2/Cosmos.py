@@ -78,6 +78,9 @@ def astar(problema, heuris):
     # Creacion de estado inicial PONER QUE h Y f SEAN DE LA HEURISTICA
     start = Nodo(None, int(SAT1[4]), '(0,1)', 0, 'IDLE', 0, int(
         SAT2[4]), '(2,3)', 0, len(OBS), 'IDLE', 0, 0, 0, OBS[:])
+
+    start.h = heuristica(start, heuris)
+    start.f = start.h + start.g
     # Creacion de la lista abierta y la lista cerrada
     open_list = []
     closed_list = []
@@ -201,7 +204,7 @@ def astar(problema, heuris):
             if boolhijo2 == True and len(nodohijo1OBS) > 0:
                 for elem in nodohijo1OBS:
                     if (int(elem[0]) == int(nodo_actual.sat2franjas[1]) or int(elem[0]) == int(nodo_actual.sat2franjas[3])) and int(elem[1]) == nodo_actual.pos:
-    
+
                         nodohijo2 = Nodo(nodo_actual, nodohijo2bateria1, nodohijo2sat1franjas, nodo_actual.observaciones1, 'Gira', nodo_actual.pos + 1, nodo_actual.bateria2 - SAT2costeOBS,
                                          nodo_actual.sat2franjas, nodo_actual.observaciones2 + 1, nodo_actual.numOBSrestantes, 'Observa', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodohijo1OBS[:])
                         nodohijo2.OBS.remove(elem)
@@ -212,7 +215,7 @@ def astar(problema, heuris):
             if boolhijo3 == True and len(nodohijo1OBS) > 0:
                 for elem in nodohijo1OBS:
                     if (int(elem[0]) == int(nodo_actual.sat2franjas[1]) or int(elem[0]) == int(nodo_actual.sat2franjas[3])) and int(elem[1]) == nodo_actual.pos:
-    
+
                         nodohijo3 = Nodo(nodo_actual, nodo_actual.bateria1, nodo_actual.sat1franjas, nodo_actual.observaciones1, 'IDLE', nodo_actual.pos + 1, nodo_actual.bateria2 - SAT2costeOBS,
                                          nodo_actual.sat2franjas, nodo_actual.observaciones2 + 1, nodo_actual.numOBSrestantes, 'Observa', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h, nodohijo1OBS[:])
                         nodohijo3.OBS.remove(elem)
@@ -223,7 +226,7 @@ def astar(problema, heuris):
             if boolhijo4 == True and len(nodohijo1OBS) > 0:
                 for elem in nodohijo1OBS:
                     if (int(elem[0]) == int(nodo_actual.sat2franjas[1]) or int(elem[0]) == int(nodo_actual.sat2franjas[3])) and int(elem[1]) == nodo_actual.pos:
-    
+
                         nodohijo4 = Nodo(nodo_actual, nodohijo4bateria1, nodo_actual.sat1franjas, nodo_actual.observaciones1, 'Carga', nodo_actual.pos + 1, nodo_actual.bateria2-SAT2costeOBS, nodo_actual.sat2franjas, nodo_actual.observaciones2 + 1,
                                          nodo_actual.numOBSrestantes, 'Observa', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodohijo1OBS[:])
                         nodohijo4.h = heuristica(nodohijo4, heuris)
@@ -235,7 +238,7 @@ def astar(problema, heuris):
             if boolhijo5 == True and len(nodohijo1OBS) > 0:
                 for elem in nodohijo1OBS:
                     if (int(elem[0]) == int(nodo_actual.sat2franjas[1]) or int(elem[0]) == int(nodo_actual.sat2franjas[3])) and int(elem[1]) == nodo_actual.pos:
-    
+
                         nodohijo5 = Nodo(nodo_actual, nodohijo5bateria1, nodo_actual.sat1franjas, nodohijo5observaciones1, 'Transmite', nodo_actual.pos + 1, nodo_actual.bateria2 - SAT2costeOBS,
                                          nodo_actual.sat2franjas, nodo_actual.observaciones2 + 1, nodo_actual.numOBSrestantes-1, 'Observa', nodo_actual.g + 1, nodo_actual.h, nodo_actual.g + 1 + nodo_actual.h,  nodohijo1OBS[:])
                         nodohijo5.h = heuristica(nodohijo5, heuris)
