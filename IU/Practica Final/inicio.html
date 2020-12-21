@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- cabecera en la que se define las fuente que utilizaremos, el icono de la página en el navegador, la vista por
+defecto de la página y dónde se encuenta el css -->
+
+<head>
+  <title>Plataforma Educativa UC3M</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style/style.css" />
+  <link rel="shortcut icon" href="./images/faviconn.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script src="./script/jquery.simple-calendar.js"></script>
+  <script src="./script/jquery.table2excel.js"></script>
+  <script src="./script/jquery.highchartTable.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <link rel="stylesheet" type="text/css" href="./style/simple-calendar.css" />
+</head>
+
+<body>
+  <!-- Cabecera de la página -->
+  <div id="arriba" class="col-12">
+    <div class="logo col-2">
+      <img id="img_logo" src="./images/logo.png" alt="LogoUC3M" />
+    </div>
+    <!-- Menú de acceso rapido a la pagina principal de la asignatura,
+				contacto con el profesor o para poder acceder a contenido adicional de la asignatura-->
+    <div class="cabecera col-8">
+
+      <p>PLATAFORMA EDUCATIVA UNIVERSIDAD CARLOS III</p>
+
+    </div>
+<!--  Parte dedicada al usuario -->
+    <div id="perfil" class="col-2">
+      <div id="arribaperfil">
+        <div id="divusericon" class="col-2">
+          <img src="./images/usericon.png" class="usericon" alt="usericon">
+        </div>
+        <div id="divnombreusuario" class="col-11">
+          <p id="nombreusuario"></p>
+        </div>
+      </div>
+      <button id="cerrarsesion" onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+
+  </div>
+
+  <!-- Segunda cabecera del archivo -->
+  <div id="cabecera2" class="col-12">
+    <ul id="menucabecera">
+      <li><a onclick="Inicio()">Inicio</a> | </li>
+      <li>
+        <a href="#">Mensajes</a>
+        |
+      </li>
+      <li>
+        <a href="https://www.uc3m.es/inicio">UC3M</a>
+      </li>
+    </ul>
+
+    <!-- Menú hamburguesa que sólo estará visible para la versión móvil de la página -->
+    <nav id="menuhamburguesa">
+      <input type="checkbox" id="menu" />
+      <label for="menu"><img src="./images/menu.png" alt="Menu" /></label>
+      <ul>
+        <li class="elementoshamburguesa estudiante" onclick="desplegar_contenido_barra('calificaciones_estudiante')">Mis
+          calificaciones
+        </li>
+        <li class="elementoshamburguesa profesor admin" onclick="desplegar_contenido_barra('calificaciones_profesor')">
+          Mis calificaciones
+        </li>
+        <li class="elementoshamburguesa estudiante profesor admin"
+          onclick="desplegar_contenido_barra('foroasignatura')">Foro
+        </li>
+        <li class="elementoshamburguesa estudiante profesor admin" onclick="desplegar_contenido_barra('estudiantes')">
+          Estudiantes
+        </li>
+        <li class="elementoshamburguesa estudiante" onclick="desplegar_contenido_barra('actividades_estudiante')">
+          Actividades
+        </li>
+        <li class="elementoshamburguesa profesor admin" onclick="desplegar_contenido_barra('actividades_profesor')">
+          Actividades
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Formulario de inicio de sesión y registro -->
+  <div class="col-3" id="formularios">
+
+    <!-- Formulario de inicio de sesión -->
+    <div id="iniciosesion">
+      <form id="Formulario_Inicio_Sesion" name="Formulario_Inicio_Sesion" method="post">
+        <label class="underline" for="inicioemail">Correo electrónico</label><br>
+        <input type="text" name="inicioemail" id="inicioemail"><br>
+        <label class="underline" for="iniciocontraseña">Contraseña</label><br>
+        <input type="password" name="contraseña" id="iniciocontraseña"><br>
+        <a class="boton" onclick="inicioSesion()">Iniciar sesión</a>
+        <a id="boton_registro" class="boton" onclick="desplegarRegistro()"><span>Registrarse</span></a>
+      </form>
+    </div>
+    
+    <span id="vertical-line"></span>
+    
+    <!-- Formulario de registro -->
+    <div id="registro">
+      <form id="formularioregistro" method="get" onsubmit="guardarCookie()">
+        <label class="underline" for="formnombre">Nombre y Apellidos</label><br>
+        <input type="text" id="formnombre" name="nombre" placeholder="Nombre" required>
+        <input type="text" id="formapellidos" name="apellidos" placeholder="Apellidos" required><br>
+        <label class="underline" for="formemail">Correo electrónico</label><br>
+        <input type="text" id="formemail" name="email" placeholder="Correo electrónico" required
+          pattern="[A-Za-z0-9]+@[a-z0-9]+.[a-z]{2,3}" oninvalid="this.setCustomValidity('El email debe ser válido');"
+          oninput="this.setCustomValidity('');"><br>
+        <label class="underline" for="formcontraseña">Contraseña</label><br>
+        <input type="password" id="formcontraseña" name="contraseña" placeholder="Contraseña" required
+          pattern="[A-Za-z0-9]{1,8}"
+          oninvalid="this.setCustomValidity('La contraseña debe tener de 1 a 8 caracteres (números y letras)');"
+          oninput="this.setCustomValidity('');"><br>
+        <label class="underline" for="formNIA">NIA</label><br>
+        <input type="text" id="formNIA" name="NIA" placeholder="NIA" required pattern="100[0-9]{6}"
+          oninvalid="this.setCustomValidity('El NIA debe tener el formato 100XXXXXX');"
+          oninput="this.setCustomValidity('');"><br>
+        <label class="underline" for="formrol">Roles</label><br>
+        <select name="roles" id="formrol" required>
+          <option selected disabled value="">Elige tu rol</option>
+          <option value="Estudiante" id="rolestudiante">Estudiante</option>
+          <option value="Profesor" id="rolprofesor">Profesor</option>
+          <option value="Administrador" id="roladmin">Administrador</option>
+        </select><br>
+        <input type="checkbox" id="terminos" required>
+        <label for="terminos"> He leído y acepto las Condiciones de uso</label><br>
+        <button type="submit" class="boton">Registrarse</button>
+        <button class="boton" type="reset">Borrar</button>
+
+      </form>
+    </div>
+  </div>
+
+
+  <div id="principal">
+    <div class="content">
+      <!-- Página una vez iniciada la sesión-->
+      <div id="contenido_principal">
+
+        <h1>CURSOS</h1>
+
+        <h2 id="campusLega" onclick="desplegar_contenido('asignaturasLega')">
+          ▼ Escuela Politécnica Superior (Leganés)
+        </h2>
+        <div id="asignaturasLega" class="asignaturas">
+          <ul>
+            <li id="link_IU" onclick="desplegar_asignatura('IU')"> Grupo 1. Interfaces de Usuario.</li>
+            <li onclick="desplegar_asignatura('IU')"> Grupo 27. Ingeniería del Software.</li>
+          </ul>
+        </div>
+
+        <h2 id="campusColme" onclick="desplegar_contenido('asignaturasColme')">
+          ▼ Escuela Politécnica Superior (Colmenarejo)
+        </h2>
+        <div id="asignaturasColme" class="asignaturas">
+          <ul>
+            <li onclick="desplegar_asignatura('IU')">Grupo 99. Programación.</li>
+            <li onclick="desplegar_asignatura('IU')">Grupo 16. Ingeniería del Software.</li>
+            <li onclick="desplegar_asignatura('IU')">Grupo 37. Interfaces de Usuario.</li>
+            <li onclick="desplegar_asignatura('IU')">Grupo 12. Interfaces de Usuario.</li>
+          </ul>
+        </div>
+
+        <h2 id="campusGeta" onclick="desplegar_contenido('asignaturasGeta')">
+          ▼ Facultad de Humanidades, Comunicación y Documentación (Getafe)
+        </h2>
+        <div id="asignaturasGeta" class="asignaturas">
+          <ul>
+            <li onclick="desplegar_asignatura('IU')">Grupo 40. Marketing y publicidad.</li>
+            <li onclick="desplegar_asignatura('IU')">Grupo 56. Desarrollo web y multimedia.</li>
+          </ul>
+        </div>
+        <div class="nuevocontenido admin">
+          <img class="icono" src="./images/configuraciones.png" alt="gestionAsignatura" />
+          <p id="addAsignatura">Gestionar asignatura</p>
+
+          <div id="popup_add_asignatura">
+            <div class="content-popup">
+              <div class="cerrar">
+                <p class="botoncerrar">+</p>
+              </div>
+              <!-- Parte dedicada a la gestión de cursos por parte del administrador-->
+              <div>
+                <h2>Introduzca los datos de la nueva asignatura</h2>
+                <form id="Formulario_Asignatura" name="Formulario_Asignatura" method="post">
+                  <label class="underline" for="campusAdd">Campus</label><br>
+                  <input type="text" name="asignaturacampus" id="campusAdd"><br>
+                  <label class="underline" for="grupoAdd">Grupo</label><br>
+                  <input type="text" name="grupo" id="grupoAdd"><br>
+                  <label class="underline" for="asignaturaAdd">Nombre asignatura</label><br>
+                  <input type="text" name="asignatura" id="asignaturaAdd"><br>
+                  <label class="underline" for="profesor">Profesores asignados separados por ';'</label><br>
+                  <input type="text" name="profesor" id="profesor"><br>
+                  <a class="boton cerrar" onclick="alert('Se ha añadido la asignatura correctamente')">Añadir</a>
+                </form>
+                <h2>Archivar asignatura</h2>
+                <form id="Formulario_arch_Asignatura" name="Formulario_arch_Asignatura" method="post">
+                  <label class="underline" for="campusArchivar">Campus</label><br>
+                  <input type="text" name="asignaturacampus" id="campusArchivar"><br>
+                  <label class="underline" for="grupoArchivar">Grupo</label><br>
+                  <input type="text" name="grupo" id="grupoArchivar"><br>
+                  <label class="underline" for="asignaturaArchivar">Nombre asignatura</label><br>
+                  <input type="text" name="asignatura" id="asignaturaArchivar"><br>
+                  <a class="boton cerrar" onclick="alert('Se ha añadido la asignatura correctamente')">Archivar</a>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+      <!--PAGINA DE ASIGNATURA INTERFACES DE USUSARIO-->
+      <div id="IU">
+        <h1>INTERFACES DE USUARIO</h1>
+        <p> <a href="https://eu-lti.bbcollab.com/collab/ui/scheduler/session"> <img class="pdf"
+              src="./images/blackboard.png" alt="Online"><b> Enlace al Blackboard Collaborate de las magistrales</b></a>
+        </p>
+        <!--TEMA 1 IU-->
+
+        <h2 id="TEMA1_IU" onclick="desplegar_contenido('contenidoT1')">
+          ▼ TEMA 1: Interacción Persona-Ordenador
+        </h2>
+        <div id="contenidoT1">
+          <ul>
+
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Ejercicio 1: Modelo de Norman</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Diapositivas de teoría</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Enunciado práctica individual</li>
+          </ul>
+        </div>
+
+        <h2 id="TEMA2_IU" onclick="desplegar_contenido('contenidoT2')">
+          ▼ TEMA 2: Interfaces de Usuario
+        </h2>
+        <div id="contenidoT2">
+          <ul>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Diapositivas Interfaces</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Diapositivas Usabilidad</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Diapositivas Metodología</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Ejercicio 1: Prototipado</li>
+          </ul>
+        </div>
+
+        <h2 id="TEMA3_IU" onclick="desplegar_contenido('contenidoT3')">
+          ▼ TEMA 3: Interfaces Web
+        </h2>
+        <div id="contenidoT3">
+          <ul>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Diapositivas Diseño web</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Diapositivas Patrones y Heurísticas</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Diapositivas Principios de diseño</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Ejercicio 1: Obtención de patrones</li>
+          </ul>
+        </div>
+
+        <h2 id="TEMA4_IU" onclick="desplegar_contenido('contenidoT4')">
+          ▼ TEMA 4: Interacción con las interfaces
+        </h2>
+        <div id="contenidoT4">
+          <ul>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Diapositivas Requisitos</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Diapositivas Evaluación</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Diapositivas Modelos de interacción</li>
+            <li><img class="pdf" src="./images/pdf.png" alt="PDF" />Ejercicio 1: HTA & GOMS</li>
+          </ul>
+        </div>
+        <div class="nuevocontenido profesor admin">
+          <img class="icono" src="./images/anadir.png" alt="nuevoContenido" />
+          <p id="addcontent">Añadir contenido</p>
+        </div>
+        <!-- Subida de nuevo contenido por parte del profesor o administrador-->
+        <div id="popup_contenido">
+          <div class="content-popup">
+            <div class="cerrar">
+              <p class="botoncerrar">+</p>
+            </div>
+            <div>
+              <h2>Introduzca los datos del nuevo contenido</h2>
+              <form id="Formulario_Contenido" name="Formulario_Contenido" method="post">
+                <label class="underline" for="Titulocontenido">Título Archivo</label><br>
+                <input type="text" name="Titulocontenido" id="Titulocontenido"><br>
+              </form>
+
+              <div class="seleccionarArchivo">
+                <div class="fileHolder">
+                  <input type="file" class="fileURL" />
+                </div>
+                <img class="dragdrop" src="./images/dragdrop.png" alt="ArrastraAquíLaImagen">
+              </div>
+              <a class="boton cerrar" onclick="alert('Se ha añadido el contenido correctamente')">Añadir</a>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!--PAGINA DE CALIFICACIONES-->
+      <div id="calificaciones_estudiante">
+        <h1>CALIFICACIONES</h1>
+        <!-- Gráfica de calificaciones del estudiante -->
+        <div id="popup_chartE">
+          <div class="content-popup">
+            <div class="cerrar">
+              <p class="botoncerrar">+</p>
+            </div>
+            <div>
+              <h2>Gráfica de calificaciones</h2>
+              <div id="graphcontainerE"></div>
+            </div>
+          </div>
+        </div>
+        <table class="tabla_calificaciones col-12 col-t-12" id="TABLA_ESTUDIANTE"
+          data-graph-container="#graphcontainerE" data-graph-type="column">
+          <thead>
+            <tr class="cabeceratabla">
+              <th>Estudiante</th>
+              <th>Actividad 1</th>
+              <th>Actividad 2</th>
+              <th>Actividad 3</th>
+              <th>Media actividades</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="impar">
+              <td class="NOMBRE">Tú</td>
+              <td id="act1"></td>
+              <td id="act2"></td>
+              <td id="act3"></td>
+              <td id="media"></td>
+            </tr>
+          </tbody>
+
+        </table>
+        <!-- Exportar calificaciones a un excel -->
+        <div class="botonnombre">
+          <img class="icono" src="./images/excel.png" alt="excel">
+          <p class="export_e">Exportar datos tabla Excel</p>
+        </div>
+        <div class="botonnombre">
+          <img class="icono" src="./images/chart.png" alt="chart" />
+          <p id="verChartE" onclick="verGrafica('Estudiante')">Ver gráficas de resultados</p>
+        </div>
+
+      </div>
+
+      <div id="calificaciones_profesor">
+        <h1>CALIFICACIONES</h1>
+        <!-- Grafica de calificaciones de todos los estudiantes -->
+        <div id="popup_chartP">
+          <div class="content-popup">
+            <div class="cerrar">
+              <p class="botoncerrar">+</p>
+            </div>
+            <div>
+              <h2>Gráfica de calificaciones</h2>
+              <div id="graphcontainerP"></div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Tabla de calificaciones de las actividades-->
+        <table class="tabla_calificaciones col-12 col-t-12" id="TABLA_PROFESOR" data-graph-container="#graphcontainerP"
+          data-graph-type="line">
+          <thead>
+            <tr class="cabeceratabla">
+              <th>Estudiante</th>
+              <th>Actividad 1</th>
+              <th>Actividad 2</th>
+              <th>Actividad 3</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- Alumno 1 -->
+            <tr class="impar">
+              <td class="NOMBRE">Carlos Rubio Olivares</td>
+              <td>8.00</td>
+              <td>8.50</td>
+              <td>9.00</td>
+            </tr>
+
+            <!-- Alumno 2 -->
+            <tr class="par">
+              <td class="NOMBRE">Jorge Rodríguez Fraile</td>
+              <td>10.00</td>
+              <td>7.75</td>
+              <td>8.50</td>
+
+            </tr>
+
+            <!-- Alumno 3 -->
+            <tr class="impar">
+              <td class="NOMBRE">Ivan Serrano Garcia</td>
+              <td>7.40</td>
+              <td>7.75</td>
+              <td>8.00</td>
+            </tr>
+
+            <!-- Alumno 4 -->
+            <tr class="par">
+              <td class="NOMBRE">Francisco José Ruiz de la Cruz</td>
+              <td>7.00</td>
+              <td>7.30</td>
+              <td>6.70</td>
+            </tr>
+
+            <!-- Alumno 5 -->
+            <tr class="impar">
+              <td class="NOMBRE">Nuria García Rozas</td>
+              <td>9.00</td>
+              <td>8.75</td>
+              <td>9.20</td>
+            </tr>
+
+            <!-- Alumno 6 -->
+            <tr class="par">
+              <td class="NOMBRE">Daniel Cano Robledo</td>
+              <td>7.00</td>
+              <td>6.75</td>
+              <td>9.00</td>
+            </tr>
+
+            <!-- Alumno 7 -->
+            <tr class="impar">
+              <td class="NOMBRE">Maria Sanchez Blazquez</td>
+              <td>6.20</td>
+              <td>5.50</td>
+              <td>4.75</td>
+            </tr>
+
+            <!-- Alumno 8 -->
+            <tr class="par">
+              <td class="NOMBRE">Luis Acero Morata</td>
+              <td>5.20</td>
+              <td>4.50</td>
+              <td>6.50</td>
+            </tr>
+
+            <!-- Alumno 9 -->
+            <tr class="impar">
+              <td class="NOMBRE">Paula Alvarez Rey</td>
+              <td>7.50</td>
+              <td>7.00</td>
+              <td>6.75</td>
+            </tr>
+
+            <!-- Alumno 10 -->
+            <tr class="par">
+              <td class="NOMBRE">Xu Chen</td>
+              <td>6.50</td>
+              <td>7.30</td>
+              <td>7.75</td>
+            </tr>
+          </tbody>
+
+        </table>
+        <!-- Exportación de calificaciones a un Excel-->
+        <div class="botonnombre">
+          <img class="icono" src="./images/excel.png" alt="excel" />
+          <p class="export_p">Exportar datos tabla Excel</p>
+        </div>
+        <!--Añadir nuevas calificaciones (SOLO DISPONIBLE PARA PROFESOR Y ADMINISTRADOR)-->
+        <div class="botonnombre" id=addCalificaciones><img class="icono" src="./images/anadir.png" alt="añadir" />
+          <p>Añadir calificaciones</p>
+        </div>
+
+        <div id="popup_calificaciones">
+          <div class="content-popup">
+            <div class="cerrar">
+              <p class="botoncerrar">+</p>
+            </div>
+            <div>
+              <h2>Introduzca los datos de las calificaciones</h2>
+              <form id="Formulario_Calificaciones" name="Formulario_Calificaciones" method="post">
+                <label class="underline" for="TituloactividadP">Actividad</label><br>
+                <input type="text" name="Actividad" id="TituloactividadP"><br>
+                <label class="underline" for="Alumno1">Alumno y Nota </label><br>
+                <input type="text" name="Alumno" id="Alumno1">
+                <input type="text" name="Nota" id="Nota1"><br>
+                <input type="text" name="Alumno" id="Alumno2">
+                <input type="text" name="Nota" id="Nota2"><br>
+                <input type="text" name="Alumno" id="Alumno3">
+                <input type="text" name="Nota" id="Nota3"><br>
+                <input type="text" name="Alumno" id="Alumno4">
+                <input type="text" name="Nota" id="Nota4"><br>
+
+
+              </form>
+              <a class="boton cerrar" onclick="alert('Se han añadido las calificaciones correctamente')">Añadir</a>
+
+
+            </div>
+          </div>
+        </div>
+
+        <div class="botonnombre">
+          <img class="icono" src="./images/chart.png" alt="chart" />
+          <p id="verChartP" onclick="verGrafica('Profesor')">Ver gráficas de resultados</p>
+        </div>
+      </div>
+
+      <div id="foroasignatura">
+        <!-- Cabecera de la implementación del foro -->
+        <div class="cabeceraforo">
+
+          <div class="temasforo">
+            <p>Temas</p>
+          </div>
+
+          <div class="replicas">
+            <p>Réplicas</p>
+          </div>
+
+          <div class="ultimomensaje">
+            <p>Último mensaje</p>
+          </div>
+
+        </div>
+        <!-- Parte reservada al primer hilo del foro -->
+        <div class="hiloforo" onclick="alternarForo(1)">
+          <!-- Parte para indicar el tema del hilo -->
+          <div class="temasforo">
+            <p>Entrega práctica 1</p>
+          </div>
+          <!--  Parte reservada para indicar los mensajes que hay en ese hilo del foro -->
+          <div class="replicas" id="replicas1">
+            <p>3</p>
+          </div>
+          <!-- Parte en la que se indica la fecha del último mensaje enviado en el hilo -->
+          <div class="ultimomensaje" id="ultimomensaje1">
+            <p>14:20 29/09/2020</p>
+          </div>
+        </div>
+
+        <div class="conversacionforo" id="hilo1">
+          <div class="mensajes" id="mensajesforo1">
+            <div class="mensajeusuario">
+              <div class="informacionusuario">
+                <div class="estudianteconversacion">
+                  <img src="./images/usericon.png" class="usericon" alt="usericon">
+                </div>
+                <div class="nombreestudiante">
+                  <p>Paula Alvarez Rey</p>
+                </div>
+                <div class="fechamensaje">
+                  <p>11:02 29/09/2020</p>
+                </div>
+              </div>
+              <div class="mensajeforo">
+                <p>Buenos días, tengo una duda sobre la práctica 1. ¿La entrega la realiza solo una persona de las
+                  parejas o ambas?</p>
+              </div>
+            </div>
+
+
+            <div class="mensajeusuario">
+              <div class="informacionusuario">
+                <div class="estudianteconversacion">
+                  <img src="./images/usericon.png" class="usericon" alt="usericon">
+                </div>
+                <div class="nombreestudiante">
+                  <p>Daniel Cano Robledo</p>
+                </div>
+                <div class="fechamensaje">
+                  <p>13:37 29/09/2020</p>
+                </div>
+
+              </div>
+              <div class="mensajeforo">
+                <p>Yo creo que la entregan las dos personas</p>
+              </div>
+            </div>
+
+
+            <div class="mensajeusuario">
+              <div class="informacionusuario">
+                <div class="estudianteconversacion">
+                  <img src="./images/usericon.png" class="usericon" alt="usericon">
+                </div>
+                <div class="nombreestudiante">
+                  <p>Nuria Gárcia Rozas</p>
+                </div>
+                <div class="fechamensaje">
+                  <p>14:20 29/09/2020</p>
+                </div>
+
+              </div>
+              <div class="mensajeforo">
+                <p>La entrega la realiza únicamente una persona, lo pone en el enunciado de la práctica...</p>
+              </div>
+            </div>
+          </div>
+          <div class="envioforo">
+            <label class="usermensaje1">Mensaje:</label><br>
+            <input type="text" id="usermensaje1" name="usermensaje"
+              placeholder="Escriba el mensaje que quiera enviar"><br>
+            <button class="botonenviar" onclick="enviarMensajeForo(1)">Enviar</button>
+
+          </div>
+        </div>
+
+
+
+
+        <!-- Implementación del siguiente hilo y así sucesivamente -->
+        <div class="hiloforo" onclick="alternarForo(2)">
+          <div class="temasforo">
+            <p>Clase adicional 30/09/2020</p>
+          </div>
+          <div class="replicas" id="replicas2">
+            <p>2</p>
+          </div>
+          <div class="ultimomensaje" id="ultimomensaje2">
+            <p>06:01 29/09/2020</p>
+          </div>
+        </div>
+
+        <div class="conversacionforo" id="hilo2">
+          <div class="mensajes" id="mensajesforo2">
+            <div class="mensajeusuario">
+              <div class="informacionusuario">
+                <div class="estudianteconversacion">
+                  <img src="./images/usericon.png" class="usericon" alt="usericon">
+                </div>
+                <div class="nombreestudiante">
+                  <p>Carlos Rubio Olivares</p>
+                </div>
+                <div class="fechamensaje">
+                  <p>23:00 28/09/2020</p>
+                </div>
+
+              </div>
+              <div class="mensajeforo">
+                <p>Hola buenas noches la clase de mañana va a ser presencial o online?
+                  Es que tenemos justo despues una clase online. Es que si es presencial, no podríamos compaginar
+                  la docencia online con la presencial. Un saludo.</p>
+              </div>
+            </div>
+
+
+            <div class="mensajeusuario">
+              <div class="informacionusuario">
+                <div class="estudianteconversacion">
+                  <img src="./images/usericon.png" class="usericon" alt="usericon">
+                </div>
+                <div class="nombreestudiante">
+                  <p>Maria Sanchez Blazquez</p>
+                </div>
+                <div class="fechamensaje">
+                  <p>06:01 29/09/2020</p>
+                </div>
+
+              </div>
+              <div class="mensajeforo">
+                <p>Hola Carlos, el profe lo ha dicho claramente en clase que iba a ser online,
+                  por la razón que has expuesto tu antes. Un saludo, nos vemos en clase! :)</p>
+              </div>
+            </div>
+          </div>
+          <div class="envioforo">
+            <label class="usermensaje2">Mensaje:</label><br>
+            <input type="text" id="usermensaje2" name="usermensaje"
+              placeholder="Escriba el mensaje que quiera enviar"><br>
+            <button class="botonenviar" onclick="enviarMensajeForo(2)">Enviar</button>
+
+          </div>
+        </div>
+
+        <div class="hiloforo" onclick="alternarForo(3)">
+          <div class="temasforo">
+            <p>Laboratorio: primera sesión</p>
+          </div>
+          <div class="replicas" id="replicas3">
+            <p>1</p>
+          </div>
+          <div class="ultimomensaje" id="ultimomensaje3">
+            <p>13:08 21/09/2020</p>
+          </div>
+        </div>
+
+        <div class="conversacionforo" id="hilo3">
+          <div class="mensajes" id="mensajesforo3">
+            <div class="mensajeusuario">
+              <div class="informacionusuario">
+                <div class="estudianteconversacion">
+                  <img src="./images/usericon.png" class="usericon" alt="usericon">
+                </div>
+                <div class="nombreestudiante">
+                  <p>Nuria García Rozas</p>
+                </div>
+                <div class="fechamensaje">
+                  <p>13:08 21/09/2020</p>
+                </div>
+
+              </div>
+              <div class="mensajeforo">
+                <p>Buenos días, ¿se necesita algún material adicional que llevar al laboratorio de mañana?</p>
+              </div>
+            </div>
+          </div>
+          <div class="envioforo">
+            <label class="usermensaje3">Mensaje:</label><br>
+            <input type="text" id="usermensaje3" name="usermensaje"
+              placeholder="Escriba el mensaje que quiera enviar"><br>
+            <button class="botonenviar" onclick="enviarMensajeForo(3)">Enviar</button>
+
+          </div>
+        </div>
+
+        <div class="hiloforo" onclick="alternarForo(4)">
+          <div class="temasforo">
+            <p>Ejercicios tema 1</p>
+          </div>
+          <div class="replicas" id="replicas4">
+            <p>2</p>
+          </div>
+          <div class="ultimomensaje" id="ultimomensaje4">
+            <p>16:37 18/09/2020</p>
+          </div>
+        </div>
+
+        <div class="conversacionforo" id="hilo4">
+          <div class="mensajes" id="mensajesforo4">
+            <div class="mensajeusuario">
+              <div class="informacionusuario">
+                <div class="estudianteconversacion">
+                  <img src="./images/usericon.png" class="usericon" alt="usericon">
+                </div>
+                <div class="nombreestudiante">
+                  <p>Juan Carlos Cano Resa</p>
+                </div>
+                <div class="fechamensaje">
+                  <p>07:12 18/09/2020</p>
+                </div>
+              </div>
+              <div class="mensajeforo">
+                <p>Hola, me gustaría saber si los ejercicios del tema 1 se van a subir solucionados tras la clase de
+                  ejercicios </p>
+              </div>
+            </div>
+
+            <div class="mensajeusuario">
+              <div class="informacionusuario">
+                <div class="estudianteconversacion">
+                  <img src="./images/usericon.png" class="usericon" alt="usericon">
+                </div>
+                <div class="nombreestudiante">
+                  <p>Ivan Serrano García</p>
+                </div>
+                <div class="fechamensaje">
+                  <p>16:37 18/09/2020</p>
+                </div>
+
+              </div>
+              <div class="mensajeforo">
+                <p>Espero que si los suba y así si tenemos alguna duda le preguntamos.</p>
+              </div>
+            </div>
+          </div>
+          <div class="envioforo">
+            <label class="usermensaje4">Mensaje:</label><br>
+            <input type="text" id="usermensaje4" name="usermensaje"
+              placeholder="Escriba el mensaje que quiera enviar"><br>
+            <button class="botonenviar" onclick="enviarMensajeForo(4)">Enviar</button>
+
+          </div>
+        </div>
+
+        <div class="hiloforo" onclick="alternarForo(5)">
+          <div class="temasforo">
+            <p>Inicio del curso</p>
+          </div>
+          <div class="replicas" id="replicas5">
+            <p>2</p>
+          </div>
+          <div class="ultimomensaje" id="ultimomensaje5">
+            <p>21:21 14/09/2020</p>
+          </div>
+
+        </div>
+
+        <div class="conversacionforo" id="hilo5">
+          <div class="mensajes" id="mensajesforo5">
+            <div class="mensajeusuario">
+              <div class="informacionusuario">
+                <div class="estudianteconversacion">
+                  <img src="./images/usericon.png" class="usericon" alt="usericon">
+                </div>
+                <div class="nombreestudiante">
+                  <p>Xu Chen</p>
+                </div>
+                <div class="fechamensaje">
+                  <p>20:36 14/09/2020</p>
+                </div>
+
+              </div>
+              <div class="mensajeforo">
+                <p>Hola ya que mañana comienza el curso, me presento: Soy Xu Chen y tengo muchas ganas de conoceros
+                  a todos.
+                  ¡Nos vemos mañana en clase! :D
+                </p>
+              </div>
+            </div>
+            <div class="mensajeusuario">
+              <div class="informacionusuario">
+                <div class="estudianteconversacion">
+                  <img src="./images/usericon.png" class="usericon" alt="usericon">
+                </div>
+                <div class="nombreestudiante">
+                  <p>Luis Acero Morata</p>
+                </div>
+                <div class="fechamensaje">
+                  <p>21:21 14/09/2020</p>
+                </div>
+              </div>
+              <div class="mensajeforo">
+                <p>Hola Xu, yo también tengo bastante ilusión por este curso (aunque vaya a ser un poco raro),
+                  y eso que estamos de Erasmus!!!!!! Si quieres para los laboratorios nos ponemos juntos.
+                  Mi correo es el siguiente: 100425897@alumnos.uc3m.es Un saludo!!!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="envioforo">
+            <label class="usermensaje5">Mensaje:</label><br>
+            <input type="text" id="usermensaje5" name="usermensaje"
+              placeholder="Escriba el mensaje que quiera enviar"><br>
+            <button class="botonenviar" onclick="enviarMensajeForo(5)">Enviar</button>
+
+          </div>
+        </div>
+        <div id="addHilo" class="nuevocontenido">
+          <img class="icono Añadir" src="./images/anadir.png" alt="anadir" />
+          <p>Crear nuevo hilo</p>
+        </div>
+        <!-- Popup para añadir un nuevo hilo en el foro -->
+        <div id="popup_hilo">
+          <div class="content-popup">
+            <div class="cerrar">
+              <p class="botoncerrar">+</p>
+            </div>
+            <div>
+              <h2>Introduzca los datos del nuevo hilo </h2>
+              <form id="Formulario_Hilo" name="Formulario_Hilo" method="post">
+                <label class="underline" for="TemaHilo">Tema</label><br>
+                <input type="text" name="Tema" id="TemaHilo"><br>
+                <label class="underline" for="mensaje_formulario_foro">Mensaje</label><br>
+                <textarea rows=10 cols=80 id="mensaje_formulario_foro"></textarea> <br>
+              </form>
+              <a class="boton cerrar" onclick="alert('Se ha añadido el hilo correctamente')">Añadir</a>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+      <!--PAGINA DE ESTUDIANTES-->
+      <div id="estudiantes">
+        <h1>ESTUDIANTES</h1>
+        <table class="tabla_estudiantes col-12 col-t-12">
+          <tr class="cabec">
+            <th></th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th></th>
+          </tr>
+
+          <!-- Alumno 1 -->
+          <tr class="impar">
+            <td><img class="AVATAR" src="./images/Carlos.jpg" alt="CarlosRubio" /></td>
+            <td>Carlos</td>
+            <td>Rubio Olivares</td>
+            <td>100405834@alumnos.uc3m.es</td>
+            <td><button class="boton" type="button"
+                onclick="window.location.href='mailto:100405834@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          </tr>
+
+          <!-- Alumno 2 -->
+          <tr class="par">
+            <td><img class="AVATAR" src="./images/Jorge.jpg" alt="JorgeRodriguez" /></td>
+            <td>Jorge</td>
+            <td>Rodríguez Fraile</td>
+            <td>100405951@alumnos.uc3m.es</td>
+            <td><button class="boton" type="button"
+                onclick="window.location.href='mailto:100405951@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          </tr>
+
+          <!-- Alumno 3 -->
+          <tr class="impar">
+            <td><img class="AVATAR" src="./images/Ivan.jpg" alt="IvanSerrano" /></td>
+            <td>Ivan</td>
+            <td>Serrano García</td>
+            <td>100405836@alumnos.uc3m.es</td>
+            <td><button class="boton" type="button"
+                onclick="window.location.href='mailto:100405836@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          </tr>
+
+          <tr class="par">
+            <td><img class="AVATAR" src="./images/Fran.jpg" alt="FranciscoJoseRuiz" /></td>
+            <td>Francisco José</td>
+            <td>Ruiz de la Cruz</td>
+            <td>100405807@alumnos.uc3m.es</td>
+            <td><button class="boton" type="button"
+                onclick="window.location.href='mailto:100405807@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          </tr>
+
+          <!-- Alumno 4 -->
+          <tr class="impar">
+            <td><img class="AVATAR" src="./images/alumno1.jpeg" alt="Nuria" /></td>
+            <td>Nuria</td>
+            <td>García Rozas</td>
+            <td>100405997@alumnos.uc3m.es</td>
+            <td><button class="boton" type="button"
+                onclick="window.location.href='mailto:100405997@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          </tr>
+
+          <!-- Alumno 6 -->
+          <tr class="par">
+            <td><img class="AVATAR" src="./images/Daniel.jpg" alt="DanielCano" /></td>
+            <td>Daniel</td>
+            <td>Cano Robledo</td>
+            <td>100405810@alumnos.uc3m.es</td>
+            <td><button class="boton" type="button"
+                onclick="window.location.href='mailto:100405810@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          </tr>
+
+          <!-- Alumno 7 -->
+          <tr class="impar">
+            <td><img class="AVATAR" src="./images/Maria.jpg" alt="MariaSanchez" /></td>
+            <td>Maria</td>
+            <td>Sanchez Blazquez</td>
+            <td>100405838@alumnos.uc3m.es</td>
+            <td><button class="boton" type="button"
+                onclick="window.location.href='mailto:100405838@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          </tr>
+
+          <!-- Alumno 8 -->
+          <tr class="par">
+            <td><img class="AVATAR" src="./images/Luis.jpg" alt="LuisAcero" /></td>
+            <td>Luis</td>
+            <td>Acero Morata</td>
+            <td>100405985@alumnos.uc3m.es</td>
+            <td><button class="boton" type="button"
+                onclick="window.location.href='mailto:100405985@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          </tr>
+
+          <!-- Alumno 9 -->
+          <tr class="impar">
+            <td><img class="AVATAR" src="./images/Paula.jpg" alt="PaulaAlvarez" /></td>
+            <td>Paula</td>
+            <td>Alvarez Rey</td>
+            <td>100366670@alumnos.uc3m.es</td>
+            <td><button class="boton" type="button"
+                onclick="window.location.href='mailto:100366670@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          </tr>
+
+          <!-- Alumno 10 -->
+          <tr class="par">
+            <td><img class="AVATAR" src="./images/Xu.jpg" alt="XuChen" /></td>
+            <td>Xu</td>
+            <td>Chen</td>
+            <td>100406010@alumnos.uc3m.es</td>
+            <td><button class="boton" type="button"
+                onclick="window.location.href='mailto:100406010@alumnos.uc3m.es';">Enviar mensaje</button></td>
+          </tr>
+        </table>
+        <div class="nuevocontenido admin">
+          <img id="ajustes" class="icono" src="./images/configuraciones.png" alt="nuevoAlumno" />
+          <p id="gestAlumno">Gestionar estudiantes</p>
+        </div>
+        <!-- Popup de administrador para añadir estudiantes o eliminarlos -->
+        <div id="popup_gestion_est">
+          <div class="content-popup">
+            <div class="cerrar">
+              <p class="botoncerrar">+</p>
+            </div>
+            <div>
+              <h2>Introduzca los datos de la nueva asignatura</h2>
+              <form id="Formulario_Estudiantes" name="Formulario_Estudiantes" method="post">
+                <label class="underline" for="addnombre">Introduzca el nombre de alumno a añadir</label><br>
+                <input type="text" name="addnombre" id="addnombre"><br>
+                <a class="boton cerrar" onclick="alert('Se ha añadido el alumno correctamente')">Añadir</a><br>
+
+                <label class="underline" for="delnombre">Introduzca el nombre del alumno a eliminar</label><br>
+                <input type="text" name="delnombre" id="delnombre"><br>
+                <label class="underline" for="reason">Razon</label><br>
+                <input type="text" name="reason" id="reason"><br>
+                <a class="boton cerrar" onclick="alert('Se ha eliminado el alumno correctamente')">Eliminar</a>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Sección donde aparecsn todas la tareas creadas por el profesor para esa asignatura  -->
+      <div id="actividades_profesor">
+
+        <div class="actividad">
+          <div class="Nombreactividad">
+            <img class="icono" src="./images/actividades.png" alt="actividades" />
+            <p>Entrega práctica 1 HTML Y CSS</p>
+          </div>
+          <div class="tiemporestante">
+            <p>Finalizado. Sin calificar.</p>
+          </div>
+        </div>
+        <div class="actividad">
+          <div class="Nombreactividad">
+            <img class="icono" src="./images/actividades.png" alt="actividades" />
+            <p>Entrega práctica 2 JavaScript y Jquery</p>
+          </div>
+          <div class="tiemporestante">
+            <p>En proceso. Tiempo restante 5 días.
+
+            </p>
+          </div>
+        </div>
+        <div id="addActividad" class="nuevocontenido">
+          <img class="icono Añadir" src="./images/anadir.png" alt="anadir" />
+          <p>Crear nueva actividad</p>
+        </div>
+        <!-- Popup en profesor para añnadir una tarea a los alumnos -->
+        <div id="popup_actividad">
+          <div class="content-popup">
+            <div class="cerrar">
+              <p class="botoncerrar">+</p>
+            </div>
+            <div>
+              <h2>Introduzca los datos de la nueva actividad</h2>
+              <form id="Formulario_Actividad" name="Formulario_Actividad" method="post">
+                <label class="underline" for="Tituloact">Titulo</label><br>
+                <input type="text" name="Titulo" id="Tituloact"><br>
+                <label class="underline" for="mensaje_formulario_actividad">Mensaje</label><br>
+                <textarea rows="10" cols="80" id="mensaje_formulario_actividad"></textarea> <br>
+                <label class="underline" for="fecha_entrega">Fecha Límite de la entrega</label><br>
+                <input id="fecha_entrega" type="datetime-local" name="fecha"><br>
+                <label class="underline" for="alumnosAsignados">Introduzca los alumnos asignados (separados
+                  ';')</label><br>
+                <input type="text" name="alumnosAsignados" id="alumnosAsignados"><br>
+              </form>
+              <a class="boton cerrar" onclick="alert('Se ha añadido la fecha')">Añadir</a>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sección donde muestras las distintas tareas que tiene el usuario en la asignatura -->
+      <div id="actividades_estudiante">
+
+        <div class="actividad">
+          <div class="Nombreactividad">
+            <img class="icono" src="./images/actividades.png" alt="actividades" />
+            <p>Entrega práctica 1 HTML Y CSS</p>
+          </div>
+          <div class="tiemporestante">
+            <p>Finalizado. Sin calificar.</p>
+          </div>
+        </div>
+        <div class="actividad">
+          <div class="Nombreactividad">
+            <img class="icono" src="./images/actividades.png" alt="actividades" />
+            <p>Entrega práctica 2 JavaScript y Jquery</p>
+          </div>
+          <div class="tiemporestante">
+            <p>En proceso. Tiempo restante 5 días.
+            </p>
+          </div>
+        </div>
+
+        <div id="addEntrega" class="nuevocontenido">
+          <img class="icono Añadir" src="./images/anadir.png" alt="anadir" />
+          <p>Añadir entrega</p>
+        </div>
+        <!-- Popup para realizar una entrega como alumno -->
+        <div id="popup_entregar">
+          <div class="content-popup">
+            <div class="cerrar">
+              <p class="botoncerrar">+</p>
+            </div>
+            <div>
+              <h2>Introduzca los datos de la entrega</h2>
+              <form id="Formulario_Entrega" name="Formulario_Entrega" method="post">
+                <label class="underline" for="TitulocontenidoEntrega">Titulo Archivo</label><br>
+                <input type="text" name="TitulocontenidoEntrega" id="TitulocontenidoEntrega"><br>
+                <label class="underline" for="ActividadEntrega">Actividad</label><br>
+                <select name="entregas" id="ActividadEntrega" required>
+                  <option selected disabled value="">Elegir</option>
+                  <option value="entre1">Práctica 1</option>
+                  <option value="entre2">Práctica 2</option>
+                </select><br>
+              </form>
+
+              <div class="seleccionarArchivo">
+                <div class="fileHolder">
+                  <input type="file" class="fileURL" />
+                </div>
+                <img class="dragdrop" src="./images/dragdrop.png" alt="ArrastraAquíLaImagen">
+              </div>
+              <a class="boton cerrar" onclick="alert('Se ha entregado correctamente')">Añadir</a>
+
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- Barra lateral para el acceso rápido al contenido en la web a Calificaciones, Foro, Estudientes y Actividades. Además se muestra el calendario con los distinto eventos del usuario -->
+    <div id="lateral">
+
+      <div class="barralateralderecha estudiante"><img class="icono" src="./images/calificaciones.png"
+          alt="calificaciones" />
+        <p class="underline" onclick="desplegar_contenido_barra('calificaciones_estudiante')">Mis calificaciones</p>
+      </div>
+
+      <div class="barralateralderecha profesor admin"><img class="icono" src="./images/calificaciones.png"
+          alt="calificaciones" />
+        <p class="underline" onclick="desplegar_contenido_barra('calificaciones_profesor')">Mis calificaciones</p>
+      </div>
+
+      <div class="barralateralderecha estudiante profesor admin"><img class="icono" src="./images/foro.png"
+          alt="foro" />
+        <p class="underline" onclick="desplegar_contenido_barra('foroasignatura')">Foro</p>
+      </div>
+
+      <div class="barralateralderecha estudiante profesor admin"><img class="icono" src="./images/estudiantes.png"
+          alt="estudiantes" />
+        <p class="underline" onclick="desplegar_contenido_barra('estudiantes')">Estudiantes</p>
+      </div>
+
+      <div class="barralateralderecha estudiante"><img class="icono" src="./images/actividades.png" alt="actividades" />
+        <p class="underline" onclick="desplegar_contenido_barra('actividades_estudiante')">Actividades</p>
+      </div>
+
+      <div class="barralateralderecha profesor admin"><img class="icono" src="./images/actividades.png"
+          alt="actividades" />
+        <p class="underline" onclick="desplegar_contenido_barra('actividades_profesor')">Actividades</p>
+      </div>
+
+      <div><img class="icono" src="./images/calendario.png" alt="calendario" />
+        <p class="underline">Calendario</p>
+      </div>
+
+      <div id="calendario"></div>
+
+    </div>
+
+  </div>
+
+  <!-- Parte reservada para el footer de la página en el que se podrá acceder a la web de la universidad, a la
+			 política de privacidad o a la politica de derechos de autor y a la propiedad intelectual	-->
+  <div id="abajo" class="col-12">
+    <ul class="menupie">
+      <li><a
+          href="https://www.uc3m.es/ss/Satellite/Biblioteca/es/TextoDosColumnas/1371213999139/Propiedad_intelectual_y_derechos_de_autor:_cuestiones_generales">
+          Copyright © </a> | </li>
+      <li><a
+          href="https://www.uc3m.es/ss/Satellite/UC3MInstitucional/es/TextoMixta/1371207850505/Politica_de_privacidad">
+          Política de privacidad </a> | </li>
+      <li><a
+          href="https://www.uc3m.es/ss/Satellite/UC3MInstitucional/es/TextoMixta/1371207850505/Politica_de_privacidad">
+          Términos y condiciones</a> </li>
+    </ul>
+  </div>
+  <script src="./script/script.js"></script>
+</body>
+
+</html>
