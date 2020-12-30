@@ -11,6 +11,9 @@ using namespace std::chrono;
 using clk = chrono::high_resolution_clock;
 
 void gauss(int, int, unsigned char *, unsigned char *);
+void sobel(int, int, unsigned char *, unsigned char *);
+void crearcabecera(std::ofstream &, int, int, int);
+void creardatos(std::ofstream &, int, int, int, unsigned char *);
 
 int main(int argc, char **argv) {
 
@@ -23,8 +26,7 @@ int main(int argc, char **argv) {
   }
 
   // Comprobar que la operacion sea una de las admitidas
-  if (strcmp(argv[1], "gauss") && strcmp(argv[1], "copy") &&
-      strcmp(argv[1], "sobel")) {
+  if (strcmp(argv[1], "gauss") && strcmp(argv[1], "copy") && strcmp(argv[1], "sobel")) {
     cout << "Unexpected operation:" << argv[1] << "\n"
          << argv[0]
          << " operation in_path out_path\n   operation: copy, "
@@ -35,8 +37,7 @@ int main(int argc, char **argv) {
   // Comprobar directorio de entrada existente
   DIR *input = opendir(argv[2]);
   if (input == NULL) {
-    cout << "Input path: " << argv[2] << "\nOutput path: " << argv[3]
-         << "\nCannot open directory [" << argv[2] << "]"
+    cout << "Input path: " << argv[2] << "\nOutput path: " << argv[3] << "\nCannot open directory [" << argv[2] << "]"
          << "\n"
          << argv[0]
          << " operation in_path out_path\n   operation: copy, "
@@ -47,8 +48,8 @@ int main(int argc, char **argv) {
   // Comprobar directorio de salida existente
   DIR *output = opendir(argv[3]);
   if (output == NULL) {
-    cout << "Input path: " << argv[2] << "\nOutput path: " << argv[3]
-         << "\nOutput directory [" << argv[3] << "] does not exist"
+    cout << "Input path: " << argv[2] << "\nOutput path: " << argv[3] << "\nOutput directory [" << argv[3]
+         << "] does not exist"
          << "\n"
          << argv[0]
          << " operation in_path out_path\n   operation: copy, "
@@ -62,14 +63,12 @@ int main(int argc, char **argv) {
   while ((dir = readdir(input)) != NULL) {
     if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0) {
 
-      char *nameinput = (char *)malloc(strlen(argv[2]) + strlen("/") +
-                                       strlen(dir->d_name) + 1);
+      char *nameinput = (char *)malloc(strlen(argv[2]) + strlen("/") + strlen(dir->d_name) + 1);
       strcpy(nameinput, argv[2]);
       strcat(nameinput, "/");
       strcat(nameinput, dir->d_name);
 
-      char *nameoutput = (char *)malloc(strlen(argv[3]) + strlen("/") +
-                                        strlen(dir->d_name) + 1);
+      char *nameoutput = (char *)malloc(strlen(argv[3]) + strlen("/") + strlen(dir->d_name) + 1);
       strcpy(nameoutput, argv[3]);
       strcat(nameoutput, "/");
       strcat(nameoutput, dir->d_name);
@@ -142,8 +141,7 @@ int main(int argc, char **argv) {
         freaderror = fread(data, sizeof(unsigned char), size, photo);
       } else {
         for (int i = 0; i < height && freaderror >= 0; i++) {
-          freaderror = fread(&data[i * width * 3], sizeof(unsigned char),
-                             width * 3, photo);
+          freaderror = fread(&data[i * width * 3], sizeof(unsigned char), width * 3, photo);
           fseek(photo, (width % 4), SEEK_CUR);
         }
       }
@@ -161,43 +159,10 @@ int main(int argc, char **argv) {
         auto storetimei = clk ::now();
         foutput.open(nameoutput);
         // creacion de la cabecera
-        foutput.write("B", 1);
-        foutput.write("M", 1);
-        int tamanoarchivo = size + 54;
-        foutput.write(reinterpret_cast<const char *>(&tamanoarchivo), 4);
-        int cero = 0;
-        int cincocuatro = 54;
-        int cuarenta = 40;
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        foutput.write(reinterpret_cast<const char *>(&cincocuatro), 4);
-        foutput.write(reinterpret_cast<const char *>(&cuarenta), 4);
-        foutput.write(reinterpret_cast<const char *>(&width), 4);
-        foutput.write(reinterpret_cast<const char *>(&height), 4);
-        int uno = 1;
-        foutput.write(reinterpret_cast<const char *>(&uno), 2);
-        int veinticuatro = 24;
-        foutput.write(reinterpret_cast<const char *>(&veinticuatro), 2);
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        foutput.write(reinterpret_cast<const char *>(&size), 4);
-        int resolucion = 2835;
-        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
-        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        crearcabecera(foutput, width, height, size);
 
         // Creacion de datos imagen
-        unsigned char c = 0;
-        if (width % 4 == 0) {
-          foutput.write(reinterpret_cast<const char *>(data), size);
-        } else {
-          for (int i = 0; i < height; i++) {
-            foutput.write(reinterpret_cast<const char *>(&data[3 * i * width]),
-                          width * 3);
-            if (width % 4 != 0) {
-              foutput.write(reinterpret_cast<const char *>(&c), width % 4);
-            }
-          }
-        }
+        creardatos(foutput, width, height, size, data);
 
         auto storetimef = clk ::now();
         foutput.close();
@@ -224,42 +189,11 @@ int main(int argc, char **argv) {
         foutput.open(nameoutput);
 
         // creacion de la cabezera
-        foutput.write("B", 1);
-        foutput.write("M", 1);
-        int tamanoarchivo = size + 54;
-        foutput.write(reinterpret_cast<const char *>(&tamanoarchivo), 4);
-        int cero = 0;
-        int cincocuatro = 54;
-        int cuarenta = 40;
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        foutput.write(reinterpret_cast<const char *>(&cincocuatro), 4);
-        foutput.write(reinterpret_cast<const char *>(&cuarenta), 4);
-        foutput.write(reinterpret_cast<const char *>(&width), 4);
-        foutput.write(reinterpret_cast<const char *>(&height), 4);
-        int uno = 1;
-        foutput.write(reinterpret_cast<const char *>(&uno), 2);
-        int veinticuatro = 24;
-        foutput.write(reinterpret_cast<const char *>(&veinticuatro), 2);
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        foutput.write(reinterpret_cast<const char *>(&size), 4);
-        int resolucion = 2835;
-        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
-        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        crearcabecera(foutput, width, height, size);
+
         // Creacion de datos imagen
-        unsigned char c = 0;
-        if (width % 4 == 0) {
-          foutput.write(reinterpret_cast<const char *>(res), size);
-        } else {
-          for (int i = 0; i < height; i++) {
-            foutput.write(reinterpret_cast<const char *>(&res[3 * i * width]),
-                          width * 3);
-            if (width % 4 != 0) {
-              foutput.write(reinterpret_cast<const char *>(&c), width % 4);
-            }
-          }
-        }
+        creardatos(foutput, width, height, size, res);
+
         auto storetimef = clk ::now();
         foutput.close();
 
@@ -277,98 +211,25 @@ int main(int argc, char **argv) {
 
       // FUNCION SOBEL
       if (strcmp(argv[1], "sobel") == 0) {
-        unsigned char *gaussres =
-            new unsigned char[size - height * (width % 4)];
+        unsigned char *gaussres = new unsigned char[size - height * (width % 4)];
 
         auto gausstimei = clk ::now();
         gauss(width, height, data, gaussres);
         auto gausstimef = clk ::now();
-
-        int mx[3][3] = {{1, 2, 1}, {0, 0, 0}, {-1, -2, -1}};
-
-        int my[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
-
-        unsigned char *sobel = new unsigned char[size - height * (width % 4)];
         auto sobeltimei = clk ::now();
-#pragma omp parallel for num_threads(8) schedule(static)
-        for (int i = 0; i < height; i++) {
-          for (int j = 0; j < width; j++) {
-            int xx = 0;
-            int xy = 0;
-            int xz = 0;
-
-            int yx = 0;
-            int yy = 0;
-            int yz = 0;
-            for (int s = -1; s < 2; s++) {
-              for (int t = -1; t < 2; t++) {
-                // Condición para marcado de bordes
-                if ((i + s) < height && (j + t) < width && (i + s) >= 0 &&
-                    (j + t) >= 0) {
-                  xx += mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t))];
-                  xy += mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 1];
-                  xz += mx[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 2];
-
-                  yx += my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t))];
-                  yy += my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 1];
-                  yz += my[s + 1][t + 1] *
-                        gaussres[3 * ((i + s) * width + (j + t)) + 2];
-                }
-              }
-            }
-            sobel[3 * (i * width + j)] = (abs(xx) + abs(yx)) / 8;
-            sobel[3 * (i * width + j) + 1] = (abs(xy) + abs(yy)) / 8;
-            sobel[3 * (i * width + j) + 2] = (abs(xz) + abs(yz)) / 8;
-          }
-        }
+        unsigned char *sobeldata = new unsigned char[size - height * (width % 4)];
+        sobel(width, height, gaussres, sobeldata);
         auto sobeltimef = clk ::now();
 
         auto storetimei = clk ::now();
         ofstream foutput;
         foutput.open(nameoutput);
         // creacion de la cabecera
-        foutput.write("B", 1);
-        foutput.write("M", 1);
-        int tamanoarchivo = size + 54;
-        foutput.write(reinterpret_cast<const char *>(&tamanoarchivo), 4);
-        int cero = 0;
-        int cincocuatro = 54;
-        int cuarenta = 40;
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        foutput.write(reinterpret_cast<const char *>(&cincocuatro), 4);
-        foutput.write(reinterpret_cast<const char *>(&cuarenta), 4);
-        foutput.write(reinterpret_cast<const char *>(&width), 4);
-        foutput.write(reinterpret_cast<const char *>(&height), 4);
-        int uno = 1;
-        foutput.write(reinterpret_cast<const char *>(&uno), 2);
-        int veinticuatro = 24;
-        foutput.write(reinterpret_cast<const char *>(&veinticuatro), 2);
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        foutput.write(reinterpret_cast<const char *>(&size), 4);
-        int resolucion = 2835;
-        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
-        foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
-        foutput.write(reinterpret_cast<const char *>(&cero), 4);
+        crearcabecera(foutput, width, height, size);
 
         // Creacion de datos imagen
-        unsigned char c = 0;
-        if (width % 4 == 0) {
-          foutput.write(reinterpret_cast<const char *>(sobel), size);
-        } else {
-          for (int i = 0; i < height; i++) {
-            foutput.write(reinterpret_cast<const char *>(&sobel[3 * i * width]),
-                          width * 3);
-            if (width % 4 != 0) {
-              foutput.write(reinterpret_cast<const char *>(&c), width % 4);
-            }
-          }
-        }
+        creardatos(foutput, width, height, size, sobeldata);
+
         auto storetimef = clk ::now();
         foutput.close();
 
@@ -384,7 +245,7 @@ int main(int argc, char **argv) {
         cout << "  Sobel time: " << sobeldiff.count() << "\n";
         cout << "  Store time: " << storediff.count() << "\n";
         free(gaussres);
-        free(sobel);
+        free(sobeldata);
       }
 
       free(nameinput);
@@ -400,12 +261,48 @@ int main(int argc, char **argv) {
   return 0;
 }
 
+void crearcabecera(std::ofstream &foutput, int width, int height, int size) {
+  foutput.write("B", 1);
+  foutput.write("M", 1);
+  int tamanoarchivo = size + 54;
+  foutput.write(reinterpret_cast<const char *>(&tamanoarchivo), 4);
+  int cero = 0;
+  int cincocuatro = 54;
+  int cuarenta = 40;
+  foutput.write(reinterpret_cast<const char *>(&cero), 4);
+  foutput.write(reinterpret_cast<const char *>(&cincocuatro), 4);
+  foutput.write(reinterpret_cast<const char *>(&cuarenta), 4);
+  foutput.write(reinterpret_cast<const char *>(&width), 4);
+  foutput.write(reinterpret_cast<const char *>(&height), 4);
+  int uno = 1;
+  foutput.write(reinterpret_cast<const char *>(&uno), 2);
+  int veinticuatro = 24;
+  foutput.write(reinterpret_cast<const char *>(&veinticuatro), 2);
+  foutput.write(reinterpret_cast<const char *>(&cero), 4);
+  foutput.write(reinterpret_cast<const char *>(&size), 4);
+  int resolucion = 2835;
+  foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
+  foutput.write(reinterpret_cast<const char *>(&resolucion), 4);
+  foutput.write(reinterpret_cast<const char *>(&cero), 4);
+  foutput.write(reinterpret_cast<const char *>(&cero), 4);
+}
+
+void creardatos(std::ofstream &foutput, int width, int height, int size, unsigned char *data) {
+  unsigned char c = 0;
+  if (width % 4 == 0) {
+    foutput.write(reinterpret_cast<const char *>(data), size);
+  } else {
+    for (int i = 0; i < height; i++) {
+      foutput.write(reinterpret_cast<const char *>(&data[3 * i * width]), width * 3);
+      if (width % 4 != 0) {
+        foutput.write(reinterpret_cast<const char *>(&c), width % 4);
+      }
+    }
+  }
+}
+
 void gauss(int width, int height, unsigned char *data, unsigned char *res) {
-  int m[5][5] = {{1, 4, 7, 4, 1},
-                 {4, 16, 26, 16, 4},
-                 {7, 26, 41, 26, 7},
-                 {4, 16, 26, 16, 4},
-                 {1, 4, 7, 4, 1}};
+  int m[5][5] = {{1, 4, 7, 4, 1}, {4, 16, 26, 16, 4}, {7, 26, 41, 26, 7}, {4, 16, 26, 16, 4}, {1, 4, 7, 4, 1}};
 #pragma omp parallel for num_threads(8) schedule(dynamic)
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
@@ -415,8 +312,7 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
       for (int s = -2; s < 3; s++) {
         for (int t = -2; t < 3; t++) {
           // Condición para marcado de bordes
-          if ((i + s) < height && (j + t) < width && (i + s) >= 0 &&
-              (j + t) >= 0) {
+          if ((i + s) < height && (j + t) < width && (i + s) >= 0 && (j + t) >= 0) {
             x += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t))];
             y += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 1];
             z += m[s + 2][t + 2] * data[3 * ((i + s) * width + (j + t)) + 2];
@@ -426,6 +322,41 @@ void gauss(int width, int height, unsigned char *data, unsigned char *res) {
       res[3 * (i * width + j)] = x / 273;
       res[3 * (i * width + j) + 1] = y / 273;
       res[3 * (i * width + j) + 2] = z / 273;
+    }
+  }
+}
+
+void sobel(int width, int height, unsigned char *gaussres, unsigned char *sobeldata) {
+  int mx[3][3] = {{1, 2, 1}, {0, 0, 0}, {-1, -2, -1}};
+
+  int my[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
+#pragma omp parallel for num_threads(8) schedule(static)
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      int xx = 0;
+      int xy = 0;
+      int xz = 0;
+
+      int yx = 0;
+      int yy = 0;
+      int yz = 0;
+      for (int s = -1; s < 2; s++) {
+        for (int t = -1; t < 2; t++) {
+          // Condición para marcado de bordes
+          if ((i + s) < height && (j + t) < width && (i + s) >= 0 && (j + t) >= 0) {
+            xx += mx[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t))];
+            xy += mx[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 1];
+            xz += mx[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 2];
+
+            yx += my[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t))];
+            yy += my[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 1];
+            yz += my[s + 1][t + 1] * gaussres[3 * ((i + s) * width + (j + t)) + 2];
+          }
+        }
+      }
+      sobeldata[3 * (i * width + j)] = (abs(xx) + abs(yx)) / 8;
+      sobeldata[3 * (i * width + j) + 1] = (abs(xy) + abs(yy)) / 8;
+      sobeldata[3 * (i * width + j) + 2] = (abs(xz) + abs(yz)) / 8;
     }
   }
 }
