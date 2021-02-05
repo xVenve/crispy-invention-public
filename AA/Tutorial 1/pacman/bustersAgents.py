@@ -280,7 +280,7 @@ class BasicAgentAA(BustersAgent):
         alive_ghosts =  gameState.getLivingGhosts()
         del alive_ghosts [0]
         for index in gameState.data.ghostDistances:
-            if index < minlocal and alive_ghosts[iteracion] == True:
+            if index is not None and index < minlocal and alive_ghosts[iteracion] == True:
                 minlocal = index
                 pos = iteracion
             iteracion +=1
