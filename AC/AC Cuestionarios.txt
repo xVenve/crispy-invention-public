@@ -48,3 +48,43 @@ d. Ninguna de las respuestas anteriores es correcta.
 ¿El modelo de información debe incluir las operaciones?
 Seleccione una:
 d. En un nivel de abstracción alto, es mejor no incluir las operaciones de las clases, ya que se trata de representar la arquitectura de información, no el diseño de la implementación.
+
+En un predictor por turnos, la selección del predictor se realiza:
+Seleccione una:
+d. Mediante un contador con saturación. 
+
+Un procesador superescalar:
+Seleccione una:
+c. Puede emitir más de una instrucción por ciclo. 
+
+La aproximación más simple, de forma general, ante un riesgo es:
+Seleccione una:
+a. Detener el flujo de instrucciones. 
+
+Se denomina bloque básico a:
+Seleccione una:
+d. Una secuencia de instrucciones sin saltos. 
+
+En el caso de una predicción de salto a tomado:
+Seleccione una:
+d. El compilador puede poner la opción más frecuente como tomada e invertir la condición si es necesario. 
+
+En un procesador MIPS con un pipeline de cinco etapas, la extensión de signo de los desplazamientos se realiza en la etapa de
+Seleccione una:
+a. Decodificación. 
+
+La principal desventaja de la planificación dinámica de instrucciones es:
+Seleccione una:
+c. El hardware necesario es más complejo. 
+
+Un riesgo de tipo RAW:
+Seleccione una:
+d. Se conoce también como dependencia verdadera. 
+
+En un procesador superescalar estático:
+Seleccione una:
+c. No hay ejecución fuera de orden. 
+
+Cuál de los siguientes no es un factor limitante del paralelismo a nivel de instrucción:
+Seleccione una:
+b. Mayor tasa de fallos de caché en acceso a datos. 
