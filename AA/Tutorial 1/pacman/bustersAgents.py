@@ -265,41 +265,39 @@ class BasicAgentAA(BustersAgent):
         # Score
         print("Score: ", gameState.getScore())
 
-
     def chooseAction(self, gameState):
         file = open("./infofile.txt", "a")
         self.countActions = self.countActions + 1
         self.printInfo(gameState)
         move = Directions.STOP
-        legal = gameState.getLegalActions(0) ##Legal position from the pacman
-
-        move_random = random.randint(0, 3)
+        legal = gameState.getLegalActions(0)  # Legal position from the pacman
 
         pos = 0
         minlocal = 999
         iteracion = 0
-        alive_ghosts =  gameState.getLivingGhosts()
-        del alive_ghosts [0]
+        alive_ghosts = gameState.getLivingGhosts()
+        del alive_ghosts[0]
         for index in gameState.data.ghostDistances:
             if index is not None and index < minlocal and alive_ghosts[iteracion] == True:
                 minlocal = index
                 pos = iteracion
-            iteracion +=1
+            iteracion += 1
 
         position_ghost = gameState.getGhostPositions()[pos]
 
+        if (position_ghost[0] < gameState.getPacmanPosition()[0]) and Directions.WEST in legal: move = Directions.WEST
+        elif (position_ghost[0] > gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
+        elif (position_ghost[0] == gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
 
+        if (position_ghost[1] > gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
+        elif (position_ghost[1] < gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
 
-        if (position_ghost[0]<gameState.getPacmanPosition()[0]) and Directions.WEST in legal: move = Directions.WEST
-        elif (position_ghost[0]>gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
-        elif (position_ghost[0]==gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
-        if (position_ghost[1]>gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
-        elif (position_ghost[1]<gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
         #Add the state to the text file
-        file.write(self.printLineData(gameState) + os.linesep)
+        file.write(self.printLineData(gameState) + "\n")
+
         file.close
 
         return move
 
     def printLineData(self, gameState):
-        return str(numpy.count_nonzero(gameState.getLivingGhosts())) + "," + str(min(x for x in gameState.data.ghostDistances if x is not None)) + "," +  str(self.countActions)
+        return str(numpy.count_nonzero(gameState.getLivingGhosts())) + "," + str(min(x for x in gameState.data.ghostDistances if x is not None)) + "," + str(self.countActions)
