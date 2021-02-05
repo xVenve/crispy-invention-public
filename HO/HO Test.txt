@@ -1,0 +1,113 @@
+La programación lineal sirve para:
+Seleccione una:
+c. Encontrar soluciones óptimas, si existe alguna 
+
+En programación lineal, la regla de salida establece que:
+Seleccione una:
+a. Debe salir la variable básica con el menor cociente xi/yj con yj>0 
+
+Se denomina región factible de un problema de programación lineal:
+Seleccione una:
+c. Al área en el que las variables de decisión satisfacen todas las restricciones 
+
+A la hora de resolver un problema de programación lineal con el uso del Simplex con n variables y m restricciones, con m<=n:
+Seleccione una:
+a. Es obligatorio encontrar una base inicial de dimensión B mxm que de alguna solución al problema de programación lineal Bx=b que, además, de sólo soluciones positivas o nulas a las variables de decisión x 
+
+Aplicando el modelo de ramificación y acotación en profundidad para resolver problemas de programación lineal entera:
+Seleccione una:
+a. Se divide la región factible en otras añadiendo restricciones al problema original 
+
+Las variables artificiales sirven para:
+Seleccione una:
+b. Forzar la aparición de la matriz identidad I para iniciar la aplicación del Simplex 
+
+Marca la frase correcta:
+Seleccione una:
+c. Un problema de programación lineal tiene una región infinitamente grande de soluciones pero la solución óptima debe buscarse en un conjunto restringido finito 
+
+Una vez que se ha resuelto un problema de Programación Lineal, las variables de holgura deben interpretarse puesto que tienen un significado específico:
+Seleccione una:
+c. Si una variable de holgura se añadió con signo positivo, su valor representa la cantidad de recursos que sobran
+
+Las soluciones óptimas del problema dual sirven para:
+Seleccione una:
+a. Determinar la contribución por unidad de recurso al crecimiento de la función objetivo 
+
+Las variables de decisión de un problema de programación lineal:
+Seleccione una:
+a. Deben ser todas no negativas 
+
+Si un problema de programación lineal tiene más restricciones que variables de decisión:
+Seleccione una:
+a. Es normal, y el Simplex puede proceder con normalidad a su resolución
+
+Un problema de programación lineal es infactible si
+Seleccione una:
+a. Si al acabar el \Simplex alguna variable artificial tiene un valor positivo 
+
+Cada vez que se añade una variable artificial y una variable de holgura a una restricción de un problema de maximización es preciso:
+Seleccione una:
+a. Añadir la variable artificial a la función objetivo con coste -infinito y la variable de holgura con coste nulo 
+
+La programación entera se divide en las clases:
+Seleccione una:
+c. Programación entera mixta, entera pura y 0-1 
+
+Un problema de transporte se caracteriza porque:
+Seleccione una:
+a. Consiste en un grafo bipartito de orígenes y destinos en los que hay que decidir el número de objetos que se mueven de un lugar a otro 
+
+La ramificación en el algoritmo de Ramificación y Acotación consiste en dividir la región factible actual en otras dos:
+Seleccione una:
+a. Elegir cualquier variable con valor no entero de acuerdo con alguna estrategia de ramificación 
+
+¿Cuál de las siguientes restricciones es lineal?
+Seleccione una:
+c. 2x1+x2+1 = 3 
+
+Marca la frase correcta:
+Seleccione una:
+a. El problema dual del problema dual es el problema primal 
+
+En un problema de programación lineal:
+Seleccione una:
+b. Las restricciones se deben modelar del modo <=, >= ó = 
+
+Un problema de programación lineal puede describirse de varias formas:
+Seleccione una:
+a. Canónica, estándar y simétrica 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
