@@ -6,7 +6,7 @@ from __future__ import division
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
 # attribution to UC Berkeley.
-# 
+#
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
 # The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
@@ -31,7 +31,6 @@ from util import *
 import time, os
 import traceback
 import sys
-
 #######################
 # Parts worth reading #
 #######################
@@ -623,7 +622,7 @@ class Game(object):
             agent = self.agents[agentIndex]
             move_time = 0
             skip_action = False
-                
+
             # Generate an observation of the state
             if 'observationFunction' in dir( agent ):
                 self.mute(agentIndex)
@@ -646,6 +645,9 @@ class Game(object):
                 self.unmute()
             else:
                 observation = self.state.deepCopy()
+
+
+
             # Solicit an action
             action = None
             step += 1
@@ -721,7 +723,6 @@ class Game(object):
 
             if _BOINC_ENABLED:
                 boinc.set_fraction_done(self.getProgress())
-
         # inform a learning agent of the game result
         for agentIndex, agent in enumerate(self.agents):
             if "final" in dir( agent ) :

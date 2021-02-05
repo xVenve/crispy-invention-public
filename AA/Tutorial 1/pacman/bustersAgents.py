@@ -5,7 +5,7 @@ from __future__ import print_function
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
 # attribution to UC Berkeley.
-# 
+#
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
 # The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
@@ -21,6 +21,7 @@ from game import Directions
 from keyboardAgents import KeyboardAgent
 import inference
 import busters
+import os
 
 class NullGraphics(object):
     "Placeholder for graphics"
@@ -130,7 +131,7 @@ class RandomPAgent(BustersAgent):
     def registerInitialState(self, gameState):
         BustersAgent.registerInitialState(self, gameState)
         self.distancer = Distancer(gameState.data.layout, False)
-        
+
     ''' Example of counting something'''
     def countFood(self, gameState):
         food = 0
@@ -139,8 +140,8 @@ class RandomPAgent(BustersAgent):
                 if(height == True):
                     food = food + 1
         return food
-    
-    ''' Print the layout'''  
+
+    ''' Print the layout'''
     def printGrid(self, gameState):
         table = ""
         ##print(gameState.data.layout) ## Print by terminal
@@ -150,7 +151,7 @@ class RandomPAgent(BustersAgent):
                 table = table + gameState.data._foodWallStr(food[x][y], walls[x][y]) + ","
         table = table[:-1]
         return table
-        
+
     def chooseAction(self, gameState):
         move = Directions.STOP
         legal = gameState.getLegalActions(0) ##Legal position from the pacman
@@ -160,7 +161,7 @@ class RandomPAgent(BustersAgent):
         if   ( move_random == 2 ) and Directions.NORTH in legal:   move = Directions.NORTH
         if   ( move_random == 3 ) and Directions.SOUTH in legal: move = Directions.SOUTH
         return move
-        
+
 class GreedyBustersAgent(BustersAgent):
     "An agent that charges the closest ghost."
 
@@ -211,7 +212,7 @@ class BasicAgentAA(BustersAgent):
         BustersAgent.registerInitialState(self, gameState)
         self.distancer = Distancer(gameState.data.layout, False)
         self.countActions = 0
-        
+
     ''' Example of counting something'''
     def countFood(self, gameState):
         food = 0
@@ -220,8 +221,8 @@ class BasicAgentAA(BustersAgent):
                 if(height == True):
                     food = food + 1
         return food
-    
-    ''' Print the layout'''  
+
+    ''' Print the layout'''
     def printGrid(self, gameState):
         table = ""
         #print(gameState.data.layout) ## Print by terminal
@@ -262,19 +263,40 @@ class BasicAgentAA(BustersAgent):
         print( gameState.getWalls())
         # Score
         print("Score: ", gameState.getScore())
-        
-        
+
+
     def chooseAction(self, gameState):
+        file = open("./infofile.txt", "a")
         self.countActions = self.countActions + 1
         self.printInfo(gameState)
         move = Directions.STOP
         legal = gameState.getLegalActions(0) ##Legal position from the pacman
+
         move_random = random.randint(0, 3)
-        if   ( move_random == 0 ) and Directions.WEST in legal:  move = Directions.WEST
-        if   ( move_random == 1 ) and Directions.EAST in legal: move = Directions.EAST
-        if   ( move_random == 2 ) and Directions.NORTH in legal:   move = Directions.NORTH
-        if   ( move_random == 3 ) and Directions.SOUTH in legal: move = Directions.SOUTH
+
+        pos = 0
+        minlocal = 999
+        iteracion = 0
+        alive_ghosts =  gameState.getLivingGhosts()
+        del alive_ghosts [0]
+        for index in gameState.data.ghostDistances:
+            if index < minlocal and alive_ghosts[iteracion] == True:
+                minlocal = index
+                pos = iteracion
+            iteracion +=1
+
+        position_ghost = gameState.getGhostPositions()[pos]
+
+        #ghost = gameState.getGhostPositions[pos]
+        if (position_ghost[0]<gameState.getPacmanPosition()[0]) and Directions.WEST in legal: move = Directions.WEST
+        elif (position_ghost[0]>gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
+        elif (position_ghost[0]==gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
+        if (position_ghost[1]>gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
+        elif (position_ghost[1]<gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
+        # Add the state to the text file
+        file.write(self.printLineData(gameState) + os.linesep)
+        file.close
         return move
 
     def printLineData(self, gameState):
-        return "XXXXXXXXXX"
+        return str(gameState.getLivingGhosts()) + "," + str(gameState.data.ghostDistances) + "," +  str(self.countActions)
