@@ -81,3 +81,153 @@ c. Los requisitos se verifican en la implementación.
 NO es una técnica de elicitación de requisitos:
 Seleccione una:
 e. Inspección 
+
+¿Qué tipos de clases hay según los objetos representados?
+Seleccione una:
+a. Físicos, Lógicos e Históricos. 
+
+Sobre las invariantes de clases:
+Seleccione una:
+b. Deben ser verdaderas en todo momento 
+
+Un objeto es...
+Seleccione una:
+a. una entidad concreta con identidad, estado y  comportamiento 
+
+La ingeniería inversa sirve para…
+Seleccione una:
+e. Describir un sistema en base a uno existente. 
+
+¿Cuáles se consideran características del proceso análisis con objetos y clases?
+Seleccione una:
+b. Todas las respuestas correctas. 
+
+Seleccione la respuesta INCORRECTA:
+Seleccione una:
+e. Una misma asociación permite la invocación de una sola operación.
+
+La generalización débil implica que…
+Seleccione una:
+b. Se disminuye el rendimiento.
+
+El modelo conceptual se puede definir como:
+Seleccione una:
+e. Vista gráfica de la información contenida en los requisitos.
+
+Selecciona la opción CORRECTA en relación con la navegabilidad de una asociación:
+Seleccione una:
+e. Es la capacidad que tiene una instancia de la clase origen de acceder a las instancias de la clase destino por medio de las instancias de la asociación. 
+
+En una relación reflexiva se muestra:
+Seleccione una:
+b. La relación existente entre las instancias de esa clase.
+
+¿A qué se denomina composición?
+Seleccione una:
+a. Es un tipo especial de asociación que representa una relación todo-parte (no compartida) transitiva y asimétrica. 
+
+Dado el siguiente diagrama en UML2, señale la interpretación INCORRECTA:
+Descripción PlantUML:
+@startuml
+class A
+class B
+class C
+class D
+'Relaciones
+A <|-- B
+A <|-- C
+A -- "2" D
+@enduml
+Diagrama de clases para interpretar
+Seleccione una:
+a. Dos objetos de D están asociados con * objetos de A. 
+
+¿Cuál NO es una propiedad deseable de un modelo?
+Seleccione una:
+b. Caro 
+
+El grado de interacción entre los elementos de un mismo módulos se conoce como:
+Seleccione una:
+a. Cohesión 
+
+El grado de interacción entre dos módulos se conoce como:
+Seleccione una:
+b. Acoplamiento
+
+¿Cómo se puede lograr una descomposición modular eficaz?
+Seleccione una:
+c. Máxima cohesión y mínimo acoplamiento 
+
+En programación por contratos y existiendo herencia...
+Seleccione una:
+a. La postcondición en la subclase debe ser más restrictiva o igual que la del padre. 
+
+Sobre las invariantes de clases:
+Seleccione una:
+b. Deben ser verdaderas en todo momento 
+
+En programación por contratos y existiendo herencia...
+Seleccione una:
+c. La precondición en la subclase debe ser menos restrictiva o igual que la del padre. 
+
+¿Qué afirmación referida a las precondiciones es correcta?
+Seleccione una:
+c. El cliente debe asegurarse de que se cumplen (es su obligación en el contrato). 
+
+Una pila es una estructura de datos que permite almacenar un número determinado de elementos siguiendo una estrategia LIFO (“Last Input First Output”, último en entrar, primero en salir) mediante dos operaciones esenciales: 1) push(item): introduce un elemento en la pila y 2) pop(): extrae un elemento de la pila. Señale la respuesta CORRECTA:
+Seleccione una:
+c. Una precondición de la operación pop es que exista al menos un elemento en la pila. Correct!
+
+Dadas las siguientes relaciones y situando el marco en diseño por contratos y asumiendo que el tipo de un parámetro es una precondición y el tipo de retorno de un método es una postcondición, señale la respuesta correcta:
+Descripción textual:
+@startuml
+'Definición de clases
+class A
+class B
+class C
+class F{
+{method} get(A): B
+}
+class F1{
+ {method} get(B): B
+}
+'Definición de relaciones
+A <|--  B
+F <|--  F1
+C --> F
+@enduml
+Contratos
+Seleccione una:
+e. “F1” no cumple el contrato entre las clases “C” y “F” para el método get en lo relativo a las precondiciones.
+
+Sobre las invariantes de clases:
+Seleccione una:
+a. Deben ser verdaderas en todo momento. 
+
+¿Qué afirmación sobre las interfaces es CORRECTA?
+Seleccione una:
+e. Dos componentes pueden ofrecer la misma interfaz.
+
+En relación a los conceptos de acoplamiento y cohesión en el marco del modelado arquitectónico de un sistema:
+Seleccione una:
+d. Un buen modelado arquitectónico debe buscar maximizar la cohesión y minimizar el acoplamiento. 
+
+¿Quiénes son los principales “stakeholders” en la vista de proceso del modelo arquitectural 4+1?
+Seleccione una:
+e. Integradores del sistema 
+
+En el modelo 4+1, la vista de desarrollo…
+Seleccione una:
+d. Ilustra el sistema desde la perspectiva del programador, incluyendo el diagrama de componentes. 
+
+¿Cuál de las siguientes NO es una vista del modelo de 4+1 vistas?
+Seleccione una:
+e. Vista de contratos. 
+
+¿Cuál es el principal aspecto que se aborda con el uso de diseño por contratos en un sistema software?
+Seleccione una:
+c. La robustez, fiabilidad y corrección de un sistema software.
+
+Si se busca una arquitectura para facilitar el cambio de funcionalidades existentes….se debe considerar el siguiente requisito no funcional:
+Seleccione una:
+a. Modificabilidad 
