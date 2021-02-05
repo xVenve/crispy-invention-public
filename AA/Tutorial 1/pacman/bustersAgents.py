@@ -22,6 +22,7 @@ from keyboardAgents import KeyboardAgent
 import inference
 import busters
 import os
+import numpy
 
 class NullGraphics(object):
     "Placeholder for graphics"
@@ -287,16 +288,18 @@ class BasicAgentAA(BustersAgent):
 
         position_ghost = gameState.getGhostPositions()[pos]
 
-        #ghost = gameState.getGhostPositions[pos]
+
+
         if (position_ghost[0]<gameState.getPacmanPosition()[0]) and Directions.WEST in legal: move = Directions.WEST
         elif (position_ghost[0]>gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
         elif (position_ghost[0]==gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
         if (position_ghost[1]>gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
         elif (position_ghost[1]<gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
-        # Add the state to the text file
+        #Add the state to the text file
         file.write(self.printLineData(gameState) + os.linesep)
         file.close
+
         return move
 
     def printLineData(self, gameState):
-        return str(gameState.getLivingGhosts()) + "," + str(gameState.data.ghostDistances) + "," +  str(self.countActions)
+        return str(numpy.count_nonzero(gameState.getLivingGhosts())) + "," + str(min(x for x in gameState.data.ghostDistances if x is not None)) + "," +  str(self.countActions)
