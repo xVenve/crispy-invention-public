@@ -265,8 +265,9 @@ class BasicAgentAA(BustersAgent):
         # Score
         print("Score: ", gameState.getScore())
 
+
     def chooseAction(self, gameState):
-        file = open("./infofile.txt", "a")
+        # file = open("./infofile.txt", "a")
         self.countActions = self.countActions + 1
         self.printInfo(gameState)
         move = Directions.STOP
@@ -292,12 +293,7 @@ class BasicAgentAA(BustersAgent):
         if (position_ghost[1] > gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
         elif (position_ghost[1] < gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
 
-        #Add the state to the text file
-        file.write(self.printLineData(gameState) + "\n")
-
-        file.close
-
         return move
 
     def printLineData(self, gameState):
-        return str(numpy.count_nonzero(gameState.getLivingGhosts())) + "," + str(min(x for x in gameState.data.ghostDistances if x is not None)) + "," + str(self.countActions)
+        return str(gameState.getPacmanPosition()[0]) + "," + str(gameState.getPacmanPosition()[1]) + "," + str(numpy.count_nonzero(gameState.getLivingGhosts())) + "," + str(min(x for x in gameState.data.ghostDistances if x is not None)) + "," + str(self.countActions)
