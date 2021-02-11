@@ -267,7 +267,6 @@ class BasicAgentAA(BustersAgent):
 
 
     def chooseAction(self, gameState):
-        # file = open("./infofile.txt", "a")
         self.countActions = self.countActions + 1
         self.printInfo(gameState)
         move = Directions.STOP

@@ -651,8 +651,6 @@ class Game(object):
             else:
                 observation = self.state.deepCopy()
 
-
-
             # Solicit an action
             action = None
             step += 1
