@@ -617,11 +617,16 @@ class Game(object):
         agentIndex = self.startingIndex
         numAgents = len( self.agents )
         step = 0
+        file = open("./infofile.txt", "a")
         while not self.gameOver:
             # Fetch the next agent
             agent = self.agents[agentIndex]
             move_time = 0
             skip_action = False
+
+            #Add the state to the text file
+            if agentIndex == 0:
+                file.write(self.agents[0].printLineData(self.state) + "\n")
 
             # Generate an observation of the state
             if 'observationFunction' in dir( agent ):
@@ -723,6 +728,9 @@ class Game(object):
 
             if _BOINC_ENABLED:
                 boinc.set_fraction_done(self.getProgress())
+
+        file.close
+
         # inform a learning agent of the game result
         for agentIndex, agent in enumerate(self.agents):
             if "final" in dir( agent ) :
