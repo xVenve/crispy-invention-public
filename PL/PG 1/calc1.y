@@ -6,8 +6,9 @@ El error reside en que el axioma no es iterativo, por tanto, solo lee la primera
 no las reconoce.
 
 PREGUNTA 2:
-Para arreglar el error hemos añadido a las reglas de produccion del axioma una nueva regla que permite que haya mas de
-una expresion por ejecucion, la regla añadida es recursiva haciendo que se puedan encadenar operaciones.
+Para arreglar el error hemos añadido a las reglas de produccioón del axioma una nueva regla, la regla añadida es
+recursiva haciendo que se puedan encadenar operaciones, la regla es recursiva a derechas(axioma::=expresion '\n' axioma).
+El efecto que produce es que se puedan hacer varias operaciones mostrando el resultado después de cada una de ella.
 */
 %{                              /* Seccion 1  Declaraciones de C y BISON */
 #include <stdio.h>
