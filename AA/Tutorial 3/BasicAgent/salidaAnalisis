@@ -1,0 +1,37 @@
+Tester:     weka.experiment.PairedCorrectedTTester -G 4,5,6 -D 1 -R 2 -S 0.05 -result-matrix "weka.experiment.ResultMatrixPlainText -mean-prec 2 -stddev-prec 2 -col-name-width 0 -row-name-width 25 -mean-width 0 -stddev-width 0 -sig-width 0 -count-width 5 -print-col-names -print-row-names -enum-col-names"
+Analysing:  Percent_correct
+Datasets:   13
+Resultsets: 7
+Confidence: 0.05 (two tailed)
+Sorted by:  -
+Date:       2021-02-25, 9:37 p.m.
+
+
+Dataset                   (1) trees.J4 | (2) lazy. (3) lazy. (4) lazy. (5) rules (6) rules (7) bayes
+----------------------------------------------------------------------------------------------------
+pacman_info-weka.filters.(100)   45.84 |   41.43 *   42.00 *   42.46 *   45.61     36.63 *   41.79 *
+'pacman_info-weka.filters(100)   44.07 |   44.05     44.09     44.15     44.00     36.63 *   44.04  
+pacman_info-weka.filters.(100)   48.01 |   40.75 *   42.71 *   44.03 *   46.98     36.63 *   45.46 *
+'pacman_info-weka.filters(100)   41.07 |   40.74     40.74     40.74     41.07     36.63 *   40.03  
+'pacman_info-weka.filters(100)   47.74 |   41.40 *   42.25 *   42.90 *   47.50     36.63 *   42.81 *
+'pacman_info-weka.filters(100)   45.88 |   46.34     46.42     46.59     45.90     36.63 *   43.81 *
+pacman_info-weka.filters.(200)   48.93 |   41.69 *   44.63 *   46.20 *   47.31     36.63 *   43.96 *
+pacman_info-weka.filters.(100)   65.96 |   61.61 *   64.04     64.67     64.96     36.63 *   42.78 *
+'pacman_info-weka.filters(100)   63.90 |   62.00 *   63.59     63.74     63.06     36.63 *   42.86 *
+pacman_info-weka.filters.(100)   67.36 |   63.49 *   65.36     66.26     65.45     36.63 *   44.28 *
+pacman_info-weka.filters.(100)   65.57 |   63.44 *   64.42     64.30     65.20     36.63 *   43.28 *
+pacman_info-weka.filters.(100)   67.81 |   64.04 *   65.03 *   65.31 *   65.46 *   36.63 *   43.14 *
+pacman_info              (100)   68.05 |   65.35 *   65.42 *   66.04     65.63 *   36.63 *   43.85 *
+----------------------------------------------------------------------------------------------------
+                               (v/ /*) |  (0/3/10)   (0/7/6)   (0/8/5)  (0/11/2)  (0/0/13)  (0/2/11)
+
+
+Key:
+(1) trees.J48 '-C 0.25 -M 2' -217733168393644444
+(2) lazy.IBk '-K 1 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\"' -3080186098777067172
+(3) lazy.IBk '-K 3 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\"' -3080186098777067172
+(4) lazy.IBk '-K 5 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\"' -3080186098777067172
+(5) rules.PART '-C 0.25 -M 2' 8121455039782598361
+(6) rules.ZeroR '' 48055541465867954
+(7) bayes.NaiveBayes '' 5995231201785697655
+
