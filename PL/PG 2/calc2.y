@@ -1,13 +1,15 @@
+/* Jorge RodrÃ­guez Fraile Carlos Rubio Olivares Grupo 3*/
+/* 100405951@alumnos.uc3m.es 100405834@alumnos.uc3m.es */
 %{					/* Seccion 1  Declaraciones de C-bison */
 #include <stdio.h>
 #define YYSTYPE  double
 double pot ;
 %}
-                    		/* Seccion 2  Declaraciones de bison   */  
+                    		/* Seccion 2  Declaraciones de bison   */
 %%
-					/* Seccion 3  Gramática - Semántico   */
+					/* Seccion 3  Gramï¿½tica - Semï¿½ntico   */
 
-axioma:      expresion '\n' { printf ("Expresion=%lf\n", $1) ; }  r_expr 
+axioma:      expresion '\n' { printf ("Expresion=%lf\n", $1) ; }  r_expr
            ;
 
 r_expr:			/* lambda */
@@ -25,10 +27,11 @@ expresion:   operando                { $$ = $1 ; }
 operando:    numero                  { $$ = $1 ; }
            | '-' numero              { $$ = -$2 ; }
            | '+' numero              { $$ = $2 ; }
+           | '(' operando ')'        { $$ = $2 ; }
            ;
 
-numero:      digito 		    { $$ = $1 ; pot = 1 ; }
-           | digito numero	   	    { pot *= 10 ; $$ = $1 * pot + $2 ; }      
+numero:      digito 		             { $$ = $1 ; pot = 1 ; }
+           | digito numero	   	     { pot *= 10 ; $$ = $1 * pot + $2 ; }
            ;
 
 digito:      '0'                     { $$ = 0 ; }
@@ -43,7 +46,7 @@ digito:      '0'                     { $$ = 0 ; }
            | '9'                     { $$ = 9 ; }
            ;
 %%
-					/* Seccion 4  Código en C   */
+					/* Seccion 4  Cï¿½digo en C   */
 int yyerror (char *mensaje)
 {
     fprintf (stderr, "%s\n", mensaje) ;
@@ -55,7 +58,7 @@ int yylex ()
 
     do {
          c = getchar () ;
-    } while (c == ' ') ;
+    } while (c == "\n") ;
 
     return c ;
 }
