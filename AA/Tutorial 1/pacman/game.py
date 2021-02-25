@@ -617,7 +617,7 @@ class Game(object):
         agentIndex = self.startingIndex
         numAgents = len( self.agents )
         step = 0
-        file = open("./infofile.txt", "a")
+        file = open("./infofile.arff", "a")
         while not self.gameOver:
             # Fetch the next agent
             agent = self.agents[agentIndex]
