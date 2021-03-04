@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 number = 16.61
-string1 = 'Hola, mundo'
+string1 = 'Hola, mundo!'
 print(string1, number)
 string2 = 'Texto de prueba de Python'
 print(string2)
