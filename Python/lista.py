@@ -8,7 +8,7 @@ listNames = ["Joaquin", "Sara"]
 listNComplete = [[0 for column in range(0, 2)] for row in range(0, 5)]
 # Añadir valores a los huecos de la matriz
 listNComplete[0][0] = "Jorge"
-listNComplete[0][1] = "Rodriguez"
+listNComplete[0][1] = "Rodríguez"
 
 listNComplete[1][0] = "Daniel"
 listNComplete[1][1] = "Serrano"
