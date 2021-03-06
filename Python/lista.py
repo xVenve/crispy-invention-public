@@ -2,7 +2,7 @@
 
 lissaNumbers = [1, 2, 3, 4]  # Crear array
 
-listNames = ["Joaquin", "Sara"]
+listNames = ["Joaquin", "Sara", "Alfredo"]
 # Añadir valores a un array
 
 listNComplete = [[0 for column in range(0, 2)] for row in range(0, 5)]
