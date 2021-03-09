@@ -1,8 +1,11 @@
+/* Jorge Rodríguez Fraile Carlos Rubio Olivares Grupo 3*/
+/* 100405951@alumnos.uc3m.es 100405834@alumnos.uc3m.es */
 %{                                /* Seccion 1 Declaraciones de C-bison */
 #include <stdio.h>
 #define YYSTYPE double            /* tipo de la pila del parser           */
 %}
-%token NUMERO                     /* Seccion 2 Declaraciones de bison      */
+%token NUMERO
+%token VARIABLE                     /* Seccion 2 Declaraciones de bison      */
 %left '+' '-'     /* menor orden de precedencia */
 %left '*' '/'     /* orden de precedencia intermedio */
 %left SIGNO_UNARIO /* define la mayor precedencia, ademas de nuevo token */
@@ -15,12 +18,16 @@ r_expr:                    /* lambda */
             | axioma
             ;
 
-expresion:    operando                { $$  = $1; }
-            | operando '+' expresion  { $$  = $1 + $3; }
-            | operando '-' expresion  { $$  = $1 - $3; }
-            | operando '*' expresion  { $$  = $1 * $3; }
-            | operando '/' expresion  { $$  = $1 / $3; }
+expresion:    operando                 { $$  = $1; }
+            | VARIABLE                 { $$  = $1; }
+            | expresion '+' expresion  { $$  = $1 + $3; }
+            | expresion '-' expresion  { $$  = $1 - $3; }
+            | expresion '*' expresion  { $$  = $1 * $3; }
+            | expresion '/' expresion  { $$  = $1 / $3; }
+            | VARIABLE '=' NUMERO      { $$  = $1 = $3; }
             ;
+
+
 
 operando:     NUMERO                                    { $$ = $1; }
             | '+' NUMERO %prec SIGNO_UNARIO             { $$ = $2; }
@@ -37,7 +44,7 @@ int yyerror (char *mensaje)
 }
 
 /* suprimir la funcion yylex () si se usa flex */
-///*
+/*
 int yylex ()
 {
     unsigned char c ;
@@ -57,7 +64,7 @@ int yylex ()
 
     return c ;
 }
-//*/
+*/
 
 int main ()
 {
