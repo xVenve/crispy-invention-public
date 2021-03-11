@@ -1,6 +1,8 @@
+/* Jorge Rodríguez Fraile Carlos Rubio Olivares Grupo 3*/
+/* 100405951@alumnos.uc3m.es 100405834@alumnos.uc3m.es */
 %{                      /* SECCION 1 */
 #include <stdio.h>
-double memoria [26] ;   /* Se define una zona de memoria para las variables */
+double memoria [52] ;   /* Se define una zona de memoria para las variables */
 %}
 %union {                /* El tipo de la pila (del AP) tiene caracter dual */
       double valor ;    /*  - valor numerico real */
@@ -18,7 +20,7 @@ double memoria [26] ;   /* Se define una zona de memoria para las variables */
 
                         /* SECCION 3: Gramatica - Semantico  */
 
-axioma:       expresion '\n'              { printf ("Expresion=%lf\n", $1) ; } 
+axioma:       expresion '\n'              { printf ("Expresion=%lf\n", $1) ; }
                        r_expr
             | VARIABLE '=' expresion '\n' { memoria [$1] = $3;
                                             printf ("%c=%lf\n", $1+'A', $3);
@@ -58,6 +60,7 @@ char *mensaje ;
     fprintf (stderr, "%s en la linea %d\n", mensaje, n_linea) ;
 }
 
+/*
 int yylex ()
 {
     unsigned char c ;
@@ -73,12 +76,12 @@ int yylex ()
     }
 
     if (c >= 'A' && c <= 'Z') {
-         yylval.indice = c - 'A' ;  /* resta a c el valor ascii de A */
+         yylval.indice = c - 'A' ;  /* resta a c el valor ascii de A
          return VARIABLE ;
     }
 
     if (c >= 'a' && c <= 'z') {
-         yylval.indice = c - 'a' ;  /* resta a c el valor ascii de a  */
+         yylval.indice = 32 + c - 'a'  ;  /* resta a c el valor ascii de a
          return VARIABLE ;
     }
 
@@ -86,6 +89,7 @@ int yylex ()
           n_linea++ ;
     return c;
 }
+*/
 
 int main ()
 {
