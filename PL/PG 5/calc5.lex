@@ -7,7 +7,8 @@ extern int n_linea;
 %%                            /* Segunda Seccion */
 [ \t]                    { ; } /* ignorar espacios y tabuladores */
 [0-9]+\.?|[0-9]*\.[0-9]+ { sscanf (yytext, "%lf", &yylval.valor); return NUMERO; }
-[A-Z]                    { yylval.indice = strdup(yytext) ;return VARIABLE; }
+[A-Z]                    { int caracter = 0; sscanf (yytext, "%c", &caracter); yylval.indice = caracter - 'A'; return VARIABLE; }
+[a-z]                    { int caracter2 = 0; sscanf (yytext, "%c", &caracter2); yylval.indice = caracter2 + 32 - 'a'; return VARIABLE; }
 \n                       { n_linea++; return ('\n'); }
 .                        { return (yytext [0]); }   /* literales */
 %%                            /* Tercera Seccion */
