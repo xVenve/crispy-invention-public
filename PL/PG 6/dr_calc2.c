@@ -2,10 +2,10 @@
 #include <stdlib.h>
 
 #define T_NUMBER 1001
-#define T_OP     1002		
+#define T_OP     1002
 
-int token ;			// Here we store the current token/literal 
-int number ;			// and the value of the number 
+int token ;			// Here we store the current token/literal
+int number ;			// and the value of the number
 
 int line_counter = 1 ;
 
@@ -13,11 +13,11 @@ int line_counter = 1 ;
 int rd_lex ()
 {
 	int c ;
-	
+
 	do {
 		c = getchar () ;
 	} while (c == ' ' || c == '\t') ;
-	
+
 	if (isdigit (c)){
 		ungetc (c, stdin) ;
 		scanf ("%d", &number) ;
@@ -27,17 +27,17 @@ int rd_lex ()
 
 	if (c == '\n')
 		line_counter++ ;	// info for rd_syntax_error()
-	
+
 	token = c ;
 	return (token) ;	// returns a Literal
 }
 
 
-void rd_syntax_error (int expected, int token, char *output) 
+void rd_syntax_error (int expected, int token, char *output)
 {
 	fprintf (stderr, "ERROR in line %d ", line_counter) ;
 	fprintf (stderr, output, token, expected) ;
-	
+
 	exit (0) ;
 }
 
@@ -67,7 +67,7 @@ int ParseTerm (){		// T ::= N       returns the numeric value of the Term
 }
 
 
-int ParseExpression () 			// E ::= TE' + E' ::= lambda | E 
+int ParseExpression () 			// E ::= TE' + E' ::= lambda | E
 {								// returns the numeric value of the Expression
 	int val ;
 	int val2 ;
@@ -75,7 +75,7 @@ int ParseExpression () 			// E ::= TE' + E' ::= lambda | E
 
 	val = ParseTerm () ;
 
-//      ParseExpressionRest () ;			// we wxpand this function into ParseExpression()
+//      ParseExpressionRest () ;			// we expand this function into ParseExpression()
 
 	rd_lex () ;				// ExpressionRest is a nullable Non Terminal
 	if (token == '\n'){	// Therefore, we check FOLLOW(ExpressionRest)
@@ -106,7 +106,7 @@ int ParseExpression () 			// E ::= TE' + E' ::= lambda | E
 		default :   rd_syntax_error (operator, 0, "Unexpected error in ParseExpressionRest for operator %c\n") ;
 			    	break ;
 	}
-	
+
 	return val ;
 }
 
@@ -115,8 +115,7 @@ int main (void){
 
 	while (1){
 		printf ("Valor %d OK\n", ParseExpression ()) ;
-	}	
-	
+	}
+
 	system ("PAUSE") ;
 }
-
