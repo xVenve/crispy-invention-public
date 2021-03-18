@@ -1,3 +1,5 @@
+/* Jorge Rodríguez Fraile Carlos Rubio Olivares Grupo 3*/
+/* 100405951@alumnos.uc3m.es 100405834@alumnos.uc3m.es */ 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -6,7 +8,7 @@
 #define T_NUMBER 1001
 #define T_OP     1002
 
-int ParseExpression () ;		// Prototype for forward reference
+    int ParseExpression(); // Prototype for forward reference
 
 int token ;			// Here we store the current token/literal
 int number ;		// and the value of the number
