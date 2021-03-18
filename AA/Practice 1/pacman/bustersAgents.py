@@ -23,6 +23,8 @@ import inference
 import busters
 import os
 import numpy
+from wekaI import Weka
+
 
 class NullGraphics(object):
     "Placeholder for graphics"
@@ -76,6 +78,8 @@ class BustersAgent(object):
         self.inferenceModules = [inferenceType(a) for a in ghostAgents]
         self.observeEnable = observeEnable
         self.elapseTimeEnable = elapseTimeEnable
+        self.weka = Weka()
+        self.weka.start_jvm()
 
     def registerInitialState(self, gameState):
         "Initializes beliefs and inference modules"
@@ -270,31 +274,33 @@ class BasicAgentAA(BustersAgent):
 
 
     def chooseAction(self, gameState):
-        self.countActions = self.countActions + 1
-        self.printInfo(gameState)
+        # self.countActions = self.countActions + 1
+        # self.printInfo(gameState)
         move = Directions.STOP
-        legal = gameState.getLegalActions(0)  # Legal position from the pacman
+        # legal = gameState.getLegalActions(0)  # Legal position from the pacman
+        #
+        # pos = 0
+        # minlocal = 999
+        # iteracion = 0
+        # alive_ghosts = gameState.getLivingGhosts()
+        # del alive_ghosts[0]
+        # for index in gameState.data.ghostDistances:
+        #     if index is not None and index < minlocal and alive_ghosts[iteracion] == True:
+        #         minlocal = index
+        #         pos = iteracion
+        #     iteracion += 1
+        #
+        # position_ghost = gameState.getGhostPositions()[pos]
+        #
+        # if (position_ghost[0] < gameState.getPacmanPosition()[0]) and Directions.WEST in legal: move = Directions.WEST
+        # elif (position_ghost[0] > gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
+        # elif (position_ghost[0] == gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
+        #
+        # if (position_ghost[1] > gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
+        # elif (position_ghost[1] < gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
 
-        pos = 0
-        minlocal = 999
-        iteracion = 0
-        alive_ghosts = gameState.getLivingGhosts()
-        del alive_ghosts[0]
-        for index in gameState.data.ghostDistances:
-            if index is not None and index < minlocal and alive_ghosts[iteracion] == True:
-                minlocal = index
-                pos = iteracion
-            iteracion += 1
-
-        position_ghost = gameState.getGhostPositions()[pos]
-
-        if (position_ghost[0] < gameState.getPacmanPosition()[0]) and Directions.WEST in legal: move = Directions.WEST
-        elif (position_ghost[0] > gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
-        elif (position_ghost[0] == gameState.getPacmanPosition()[0]) and Directions.EAST in legal: move = Directions.EAST
-
-        if (position_ghost[1] > gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
-        elif (position_ghost[1] < gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
-
+        x = [str(gameState.getPacmanPosition()[0]), str(gameState.getPacmanPosition()[1]), str(numpy.count_nonzero(gameState.getLivingGhosts())),str(gameState.getScore()), str(gameState.data.agentStates[0].getDirection())]
+        move = self.weka.predict("./J48.model",x,"./training_keyboard.arff")
         return move
 
     def printLineData(self, gameState, gameState2):
