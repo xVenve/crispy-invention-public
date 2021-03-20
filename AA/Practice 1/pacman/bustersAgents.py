@@ -277,8 +277,8 @@ class BasicAgentAA(BustersAgent):
         # self.countActions = self.countActions + 1
         # self.printInfo(gameState)
         move = Directions.STOP
-        # legal = gameState.getLegalActions(0)  # Legal position from the pacman
-        #
+        legal = gameState.getLegalActions(0)  # Legal position from the pacman
+
         # pos = 0
         # minlocal = 999
         # iteracion = 0
@@ -289,7 +289,7 @@ class BasicAgentAA(BustersAgent):
         #         minlocal = index
         #         pos = iteracion
         #     iteracion += 1
-        #
+
         # position_ghost = gameState.getGhostPositions()[pos]
         #
         # if (position_ghost[0] < gameState.getPacmanPosition()[0]) and Directions.WEST in legal: move = Directions.WEST
@@ -299,9 +299,9 @@ class BasicAgentAA(BustersAgent):
         # if (position_ghost[1] > gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
         # elif (position_ghost[1] < gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
 
-        x = [gameState.getPacmanPosition()[0], gameState.getPacmanPosition()[1], numpy.count_nonzero(gameState.getLivingGhosts()),gameState.getScore()]
-        print(x)
-        move = self.weka.predict("./j48.model",x,"./training_keyboard.arff")
+        x = [gameState.getPacmanPosition()[0], gameState.getPacmanPosition()[1], numpy.count_nonzero(gameState.getLivingGhosts()), gameState.getScore()]
+        move = self.weka.predict("./j48.model",x,"./training_KeyboardPython.arff")
+        if move not in legal: move = Directions.STOP
         return move
 
     def printLineData(self, gameState, gameState2):

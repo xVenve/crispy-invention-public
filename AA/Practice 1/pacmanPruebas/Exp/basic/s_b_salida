@@ -1,0 +1,39 @@
+Tester:     weka.experiment.PairedCorrectedTTester -G 3,4,5 -D 1 -R 2 -S 0.05 -result-matrix "weka.experiment.ResultMatrixPlainText -mean-prec 2 -stddev-prec 2 -col-name-width 0 -row-name-width 25 -mean-width 2 -stddev-width 2 -sig-width 1 -count-width 5 -print-col-names -print-row-names -enum-col-names"
+Analysing:  Percent_correct
+Datasets:   15
+Resultsets: 7
+Confidence: 0.05 (two tailed)
+Sorted by:  -
+Date:       2021-03-11, 9:59 p.m.
+
+
+Dataset                   (1) trees.J4 | (2) lazy. (3) lazy. (4) lazy. (5) rules (6) rules (7) bayes
+----------------------------------------------------------------------------------------------------
+pacman_info-weka.filters.  (1)   50.22 |   51.98 v   46.70 *   45.37 *   53.30 v   17.18 *   35.24 *
+pacman_info-weka.filters.  (1)   52.86 |   51.10 *   46.70 *   44.93 *   49.78 *   17.18 *   35.24 *
+pacman_info-weka.filters.  (1)   52.86 |   49.78 *   40.97 *   42.73 *   56.39 v   17.18 *   36.56 *
+pacman_info-weka.filters.  (1)   40.53 |   41.85 v   39.65 *   43.61 v   45.81 v   17.18 *   36.12 *
+pacman_info-weka.filters.  (1)   53.30 |   53.30     47.14 *   44.93 *   55.51 v   17.18 *   31.28 *
+pacman_info-weka.filters.  (1)   53.07 |   52.19 *   49.12 *   47.37 *   57.02 v   30.70 *   32.89 *
+pacman_info-weka.filters.  (1)   52.63 |   51.75 *   48.68 *   46.93 *   55.26 v   30.70 *   37.72 *
+pacman_info-weka.filters.  (1)   45.18 |   54.82 v   37.72 *   40.79 *   48.25 v   30.70 *   28.51 *
+pacman_info-weka.filters.  (1)   28.07 |   39.91 v   35.96 v   31.14 v   28.95 v   30.70 v   32.89 v
+pacman_info-weka.filters.  (1)   58.33 |   48.25 *   47.81 *   47.37 *   46.93 *   30.70 *   39.91 *
+pacman_info-weka.filters.  (1)   53.07 |   52.19 *   49.56 *   47.37 *   57.02 v   30.70 *   33.77 *
+pacman_info-weka.filters.  (1)   52.63 |   51.75 *   49.12 *   46.93 *   53.95 v   30.70 *   38.60 *
+pacman_info-weka.filters.  (1)   45.18 |   54.82 v   37.72 *   41.23 *   48.68 v   30.70 *   29.82 *
+pacman_info-weka.filters.  (1)   28.07 |   39.91 v   35.53 v   30.70 v   29.39 v   30.70 v   33.77 v
+pacman_info-weka.filters.  (1)   58.33 |   47.81 *   46.93 *   47.37 *   46.93 *   30.70 *   39.91 *
+----------------------------------------------------------------------------------------------------
+                               (v/ /*) |   (6/1/8)  (2/0/13)  (3/0/12)  (12/0/3)  (2/0/13)  (2/0/13)
+
+
+Key:
+(1) trees.J48 '-C 0.25 -M 2' -217733168393644444
+(2) lazy.IBk '-K 1 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\"' -3080186098777067172
+(3) lazy.IBk '-K 3 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\"' -3080186098777067172
+(4) lazy.IBk '-K 5 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\"' -3080186098777067172
+(5) rules.PART '-C 0.25 -M 2' 8121455039782598361
+(6) rules.ZeroR '' 48055541465867954
+(7) bayes.NaiveBayes '' 5995231201785697655
+
