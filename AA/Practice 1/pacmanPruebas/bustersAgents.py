@@ -78,8 +78,8 @@ class BustersAgent(object):
         self.inferenceModules = [inferenceType(a) for a in ghostAgents]
         self.observeEnable = observeEnable
         self.elapseTimeEnable = elapseTimeEnable
-        # self.weka = Weka()
-        # self.weka.start_jvm()
+        self.weka = Weka()
+        self.weka.start_jvm()
 
     def registerInitialState(self, gameState):
         "Initializes beliefs and inference modules"
@@ -323,8 +323,26 @@ class BasicAgentAA(BustersAgent):
         # if (position_ghost[1] > gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
         # elif (position_ghost[1] < gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
 
-        x = [gameState.getPacmanPosition()[0], gameState.getPacmanPosition()[1], numpy.count_nonzero(gameState.getLivingGhosts()), gameState.getScore()]
-        move = self.weka.predict("./jt.model",x,"./test123.arff")
+        x = [
+        gameState.getPacmanPosition()[0],
+        gameState.getPacmanPosition()[1],
+        gameState.data.layout.width,
+        gameState.data.layout.height,
+        str(gameState.getLivingGhosts()[2]),
+        str(gameState.getLivingGhosts()[4]),
+        numpy.count_nonzero(gameState.getLivingGhosts()),
+        gameState.getGhostPositions()[0][1],
+        gameState.getGhostPositions()[1][0],
+        gameState.getGhostPositions()[1][1],
+        gameState.getGhostPositions()[2][0],
+        gameState.getGhostPositions()[3][0],
+        gameState.getGhostPositions()[3][1],
+        (-1 if gameState.data.ghostDistances[0] is None else gameState.data.ghostDistances[0]),
+        (-1 if gameState.data.ghostDistances[1] is None else gameState.data.ghostDistances[1]),
+        (-1 if gameState.data.ghostDistances[2] is None else gameState.data.ghostDistances[2])]
+
+
+        move = self.weka.predict("./v6.model",x,"./inputTraining6.arff")
         if move not in legal: move = Directions.STOP
         return move
 
