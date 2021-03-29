@@ -78,8 +78,8 @@ class BustersAgent(object):
         self.inferenceModules = [inferenceType(a) for a in ghostAgents]
         self.observeEnable = observeEnable
         self.elapseTimeEnable = elapseTimeEnable
-        self.weka = Weka()
-        self.weka.start_jvm()
+        # self.weka = Weka()
+        # self.weka.start_jvm()
 
     def registerInitialState(self, gameState):
         "Initializes beliefs and inference modules"
@@ -124,9 +124,33 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 
     def chooseAction(self, gameState):
         return KeyboardAgent.getAction(self, gameState)
-
     def printLineData(self, gameState, gameState2):
-        return str(gameState.data.layout.width) + "," + str(gameState.data.layout.height) + "," + str(gameState.getPacmanPosition()[0]) + "," + str(gameState.getPacmanPosition()[1]) + "," + str(numpy.count_nonzero(gameState.getLivingGhosts())) + "," + str(min(x for x in gameState.data.ghostDistances if x is not None)) + "," + str(gameState.getScore()) + "," +str(gameState.data.agentStates[0].getDirection())
+        return str(
+        gameState.getPacmanPosition()[0]) + "," + str(
+        gameState.getPacmanPosition()[1]) + "," + str(
+        gameState.data.layout.width) + "," + str(
+        gameState.data.layout.height) + "," + str(
+        gameState.getLivingGhosts()[1]) + "," + str(
+        gameState.getLivingGhosts()[2]) + "," + str(
+        gameState.getLivingGhosts()[3]) + "," + str(
+        gameState.getLivingGhosts()[4]) + "," + str(
+        numpy.count_nonzero(gameState.getLivingGhosts())) + "," + str(
+        gameState.getGhostPositions()[0][0]) + "," + str(
+        gameState.getGhostPositions()[0][1]) + "," + str(
+        gameState.getGhostPositions()[1][0]) + "," + str(
+        gameState.getGhostPositions()[1][1]) + "," + str(
+        gameState.getGhostPositions()[2][0]) + "," + str(
+        gameState.getGhostPositions()[2][1]) + "," + str(
+        gameState.getGhostPositions()[3][0]) + "," + str(
+        gameState.getGhostPositions()[3][1]) + "," + str(
+        -1 if gameState.data.ghostDistances[0] is None else gameState.data.ghostDistances[0]) + "," + str(
+        -1 if gameState.data.ghostDistances[1] is None else gameState.data.ghostDistances[1]) + "," + str(
+        -1 if gameState.data.ghostDistances[2] is None else gameState.data.ghostDistances[2]) + "," + str(
+        -1 if gameState.data.ghostDistances[3] is None else gameState.data.ghostDistances[3]) + "," + str(
+        min(x for x in gameState.data.ghostDistances if x is not None)) + "," + str(
+        gameState.getScore()) + "," + str(
+        gameState2.getScore()) + "," +  str(
+        gameState.data.agentStates[0].getDirection())
 
 from distanceCalculator import Distancer
 from game import Actions
@@ -299,11 +323,35 @@ class BasicAgentAA(BustersAgent):
         # if (position_ghost[1] > gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
         # elif (position_ghost[1] < gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
 
-        x = [gameState.data.layout.width,gameState.data.layout.height,gameState.getPacmanPosition()[0], gameState.getPacmanPosition()[1], numpy.count_nonzero(gameState.getLivingGhosts()), min(x for x in gameState.data.ghostDistances if x is not None), gameState.getScore()]
-        print(x)
-        move = self.weka.predict("./PARTJORGE5.model",x,"./testJorge - Copy2.arff")
+        x = [gameState.getPacmanPosition()[0], gameState.getPacmanPosition()[1], numpy.count_nonzero(gameState.getLivingGhosts()), gameState.getScore()]
+        move = self.weka.predict("./jt.model",x,"./test123.arff")
         if move not in legal: move = Directions.STOP
         return move
 
     def printLineData(self, gameState, gameState2):
-        return str(gameState.data.layout.width) + "," + str(gameState.data.layout.height) + "," + str(gameState.getPacmanPosition()[0]) + "," + str(gameState.getPacmanPosition()[1]) + "," + str(numpy.count_nonzero(gameState.getLivingGhosts())) + "," + str(min(x for x in gameState.data.ghostDistances if x is not None)) + "," + str(gameState.getScore()) + "," +str(gameState.data.agentStates[0].getDirection())
+        return str(
+        gameState.getPacmanPosition()[0]) + "," + str(
+        gameState.getPacmanPosition()[1]) + "," + str(
+        gameState.data.layout.width) + "," + str(
+        gameState.data.layout.height) + "," + str(
+        gameState.getLivingGhosts()[1]) + "," + str(
+        gameState.getLivingGhosts()[2]) + "," + str(
+        gameState.getLivingGhosts()[3]) + "," + str(
+        gameState.getLivingGhosts()[4]) + "," + str(
+        numpy.count_nonzero(gameState.getLivingGhosts())) + "," + str(
+        gameState.getGhostPositions()[0][0]) + "," + str(
+        gameState.getGhostPositions()[0][1]) + "," + str(
+        gameState.getGhostPositions()[1][0]) + "," + str(
+        gameState.getGhostPositions()[1][1]) + "," + str(
+        gameState.getGhostPositions()[2][0]) + "," + str(
+        gameState.getGhostPositions()[2][1]) + "," + str(
+        gameState.getGhostPositions()[3][0]) + "," + str(
+        gameState.getGhostPositions()[3][1]) + "," + str(
+        -1 if gameState.data.ghostDistances[0] is None else gameState.data.ghostDistances[0]) + "," + str(
+        -1 if gameState.data.ghostDistances[1] is None else gameState.data.ghostDistances[1]) + "," + str(
+        -1 if gameState.data.ghostDistances[2] is None else gameState.data.ghostDistances[2]) + "," + str(
+        -1 if gameState.data.ghostDistances[3] is None else gameState.data.ghostDistances[3]) + "," + str(
+        min(x for x in gameState.data.ghostDistances if x is not None)) + "," + str(
+        gameState.getScore()) + "," + str(
+        gameState2.getScore()) + "," +  str(
+        gameState.data.agentStates[0].getDirection())
