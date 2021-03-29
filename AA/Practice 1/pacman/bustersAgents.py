@@ -299,8 +299,8 @@ class BasicAgentAA(BustersAgent):
         # if (position_ghost[1] > gameState.getPacmanPosition()[1]) and Directions.NORTH in legal: move = Directions.NORTH
         # elif (position_ghost[1] < gameState.getPacmanPosition()[1]) and Directions.SOUTH in legal: move = Directions.SOUTH
 
-        x = [gameState.getPacmanPosition()[0], gameState.getPacmanPosition()[1], numpy.count_nonzero(gameState.getLivingGhosts()), gameState.getScore()]
-        move = self.weka.predict("./j48.model",x,"./training_KeyboardPython.arff")
+        x = [gameState.getPacmanPosition()[0], gameState.getPacmanPosition()[1], numpy.count_nonzero(gameState.getLivingGhosts())]
+        move = self.weka.predict("./pruebaC.model",x,"./training_keyboardC.arff")
         if move not in legal: move = Directions.STOP
         return move
 
