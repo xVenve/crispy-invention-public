@@ -73,20 +73,28 @@ char *to_string(int n)
 
 axioma:         expresion '\n'                { printf("%s\n", $1); }
                 r_expr				          { ; }
+            |   '#' expresion '\n'	            { strcpy(temp, "");
+                                                  char str[] = "( print ";
+                                                  strcat (temp, str);
+                                                  strcat (temp, $2);
+                                                  strcat (temp,")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+                r_expr				          { ; }
+
             |   VARIABLE '=' expresion '\n'	  { strcpy(temp, "");
                                                 strcat(temp, "(");
-                                                strcat (temp, "setq ");
+                                                strcat(temp, " setq ");
                                                 char c = $1 + 'a';
                                                 strcat(temp, &c);
                                                 strcat(temp, $3);
                                                 strcat(temp, ")");
                                                 printf("%s\n", genera_cadena(temp)); }
-                r_expr			              { ; }
+                r_expr			                  { ; }
             ;
 
 
 r_expr:         /* lambda */		{ ; }
-            |   axioma		        { ; }
+            |   axioma		      { ; }
             ;
 
 expresion:      termino					        { $$ = $1; }
