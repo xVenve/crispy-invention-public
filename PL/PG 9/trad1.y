@@ -84,8 +84,10 @@ axioma:         expresion '\n'                { printf("%s\n", $1); }
             |   VARIABLE '=' expresion '\n'	  { strcpy(temp, "");
                                                 strcat(temp, "(");
                                                 strcat(temp, " setq ");
-                                                char c = $1 + 'a';
-                                                strcat(temp, &c);
+                                                char c [2];
+                                                c [0]= $1 + 'a';
+                                                c [1] = '\0';
+                                                strcat(temp, c);
                                                 strcat(temp, $3);
                                                 strcat(temp, ")");
                                                 printf("%s\n", genera_cadena(temp)); }
