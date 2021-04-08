@@ -72,14 +72,14 @@ char *to_string(int n)
 
 
 axioma:         expresion '\n'                { printf("%s\n", $1); }
-                r_expr				          { ; }
-            |   '#' expresion '\n'	            { strcpy(temp, "");
-                                                  char str[] = "( print ";
-                                                  strcat (temp, str);
-                                                  strcat (temp, $2);
-                                                  strcat (temp,")");
-                                                  printf("%s\n", genera_cadena(temp)); }
-                r_expr				          { ; }
+                r_expr				                { ; }
+            |   '#' expresion '\n'	          { strcpy(temp, "");
+                                                char str[] = "( print ";
+                                                strcat (temp, str);
+                                                strcat (temp, $2);
+                                                strcat (temp,")");
+                                                printf("%s\n", genera_cadena(temp)); }
+                r_expr				                { ; }
 
             |   VARIABLE '=' expresion '\n'	  { strcpy(temp, "");
                                                 strcat(temp, "(");
@@ -99,38 +99,38 @@ r_expr:         /* lambda */		{ ; }
             |   axioma		      { ; }
             ;
 
-expresion:      termino					        { $$ = $1; }
+expresion:      termino					              { $$ = $1; }
             |   expresion '+' expresion   		{ strcpy(temp, "");
-                                                  strcat(temp, "(");
-                                                  strcat(temp, " + ");
-                                                  strcat(temp, $1);
-                                                  strcat(temp, $3);
-                                                  strcat(temp, ")");
-                                                  $$ = genera_cadena(temp); }
+                                                strcat(temp, "(");
+                                                strcat(temp, " + ");
+                                                strcat(temp, $1);
+                                                strcat(temp, $3);
+                                                strcat(temp, ")");
+                                                $$ = genera_cadena(temp); }
             |   expresion '-' expresion   		{ strcpy(temp, "");
-                                                  strcat(temp, "(");
-                                                  strcat(temp, " - ");
-                                                  strcat(temp, $1);
-                                                  strcat(temp, $3);
-                                                  strcat(temp, ")");
-                                                  $$ = genera_cadena(temp); }
+                                                strcat(temp, "(");
+                                                strcat(temp, " - ");
+                                                strcat(temp, $1);
+                                                strcat(temp, $3);
+                                                strcat(temp, ")");
+                                                $$ = genera_cadena(temp); }
             |   expresion '*' expresion   		{ strcpy(temp, "");
-                                                  strcat(temp, "(");
-                                                  strcat(temp, " * ");
-                                                  strcat(temp, $1);
-                                                  strcat(temp, $3);
-                                                  strcat(temp, ")");
-                                                  $$ = genera_cadena(temp); }
+                                                strcat(temp, "(");
+                                                strcat(temp, " * ");
+                                                strcat(temp, $1);
+                                                strcat(temp, $3);
+                                                strcat(temp, ")");
+                                                $$ = genera_cadena(temp); }
             |   expresion '/' expresion   		{ strcpy(temp, "");
-                                                  strcat(temp, "(");
-                                                  strcat(temp, " / ");
-                                                  strcat(temp, $1);
-                                                  strcat(temp, $3);
-                                                  strcat(temp, ")");
-                                                  $$ = genera_cadena(temp); }
+                                                strcat(temp, "(");
+                                                strcat(temp, " / ");
+                                                strcat(temp, $1);
+                                                strcat(temp, $3);
+                                                strcat(temp, ")");
+                                                $$ = genera_cadena(temp); }
             ;
 
-termino:        operando				        { $$ = $1; }
+termino:        operando				                { $$ = $1; }
             |   '+' termino %prec SIGNO_UNARIO	{ strcpy(temp, "");
                                                   strcat(temp, "(");
                                                   strcat(temp, "+");
@@ -148,14 +148,14 @@ termino:        operando				        { $$ = $1; }
             ;
 
 operando:       VARIABLE	       		{ sprintf(temp," %c ", $1 + 'a');
-                                          $$ = genera_cadena(temp); }
-            |   NUMERO				    { sprintf(temp," %s ",to_string($1));
-                                          $$ = genera_cadena(temp);}
+                                      $$ = genera_cadena(temp); }
+            |   NUMERO              { sprintf(temp," %s ",to_string($1));
+                                      $$ = genera_cadena(temp);}
             |   '(' expresion ')'		{ strcpy(temp, "");
-                                          strcat(temp, "(");
-                                          strcat(temp, $2);
-                                          strcat(temp, ")");
-                                          $$ = genera_cadena(temp); }
+                                      strcat(temp, "(");
+                                      strcat(temp, $2);
+                                      strcat(temp, ")");
+                                      $$ = genera_cadena(temp); }
             ;
 
 %%
