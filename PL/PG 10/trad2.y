@@ -1,13 +1,14 @@
 /* Jorge Rodríguez Fraile Carlos Rubio Olivares Grupo 3*/
 /* 100405951@alumnos.uc3m.es 100405834@alumnos.uc3m.es */
 %{                          // SECCION 1 Declaraciones de C-Yacc
-
 #include <stdio.h>
 #include <ctype.h>            // declaraciones para tolower
 #include <string.h>           // declaraciones para cadenas
 #include <stdlib.h>           // declaraciones para exit ()
 
 #define FF fflush(stdout);    // para forzar la impresion inmediata
+char temp [2048] ;
+char *genera_cadena (char *nombre);
 
 %}
 
@@ -23,6 +24,8 @@
 %token <cadena> MAIN          // identifica el comienzo del proc. main
 %token <cadena> WHILE         // identifica el bucle main
 
+%type   <cadena>  expresion termino operando
+
 %right '='                    // es la ultima operacion que se debe realizar
 %left '+' '-'                 // menor orden de precedencia
 %left '*' '/'                 // orden de precedencia intermedio
@@ -31,7 +34,98 @@
 %%
                                           // Seccion 3 Gramatica - Semantico
 
-// INTEGRAD VUESTRA GRAMÁTICA
+axioma:         expresion ';'                { printf("%s\n", $1); }
+                r_expr				               { ; }
+            |   '$' '(' impr ')' ';'	       { printf("%s\n", genera_cadena(temp));; }
+                r_expr				               { ; }
+
+            |   IDENTIF '=' expresion ';'	   { strcpy(temp, "");
+                                               strcat(temp, "(");
+                                               strcat(temp, " setq ");
+                                               strcat(temp, $1);
+                                               strcat(temp, $3);
+                                               strcat(temp, ")");
+                                               printf("%s\n", genera_cadena(temp)); }
+                r_expr			                  { ; }
+            ;
+
+impr:       expresion	               	{ strcpy(temp, "");
+                                        strcat(temp, " ( print ");
+                                        strcat(temp, $1);
+                                        strcat(temp, ")");
+                                        $$ = genera_cadena(temp); }
+            | expresion ',' impr      { strcpy(temp, "");
+                                        strcat(temp, " ( print ");
+                                        strcat(temp, $1);
+                                        strcat(temp, ")");
+                                        strcat(temp, $3);
+                                        $$ = genera_cadena(temp); }
+            ;
+
+
+
+r_expr:         /* lambda */		{ ; }
+            |   axioma		      { ; }
+            ;
+
+expresion:      termino					              { $$ = $1; }
+            |   expresion '+' expresion   		{ strcpy(temp, "");
+                                                strcat(temp, "(");
+                                                strcat(temp, " + ");
+                                                strcat(temp, $1);
+                                                strcat(temp, $3);
+                                                strcat(temp, ")");
+                                                $$ = genera_cadena(temp); }
+            |   expresion '-' expresion   		{ strcpy(temp, "");
+                                                strcat(temp, "(");
+                                                strcat(temp, " - ");
+                                                strcat(temp, $1);
+                                                strcat(temp, $3);
+                                                strcat(temp, ")");
+                                                $$ = genera_cadena(temp); }
+            |   expresion '*' expresion   		{ strcpy(temp, "");
+                                                strcat(temp, "(");
+                                                strcat(temp, " * ");
+                                                strcat(temp, $1);
+                                                strcat(temp, $3);
+                                                strcat(temp, ")");
+                                                $$ = genera_cadena(temp); }
+            |   expresion '/' expresion   		{ strcpy(temp, "");
+                                                strcat(temp, "(");
+                                                strcat(temp, " / ");
+                                                strcat(temp, $1);
+                                                strcat(temp, $3);
+                                                strcat(temp, ")");
+                                                $$ = genera_cadena(temp); }
+            ;
+
+termino:        operando				                { $$ = $1; }
+            |   '+' termino %prec SIGNO_UNARIO	{ strcpy(temp, "");
+                                                  strcat(temp, "(");
+                                                  strcat(temp, "+");
+                                                  strcat(temp, $2);
+                                                  strcat(temp, ")");
+                                                  $$ = genera_cadena(temp); }
+            |   '-' termino %prec SIGNO_UNARIO	{ strcpy(temp, "");
+                                                  strcat(temp, "(");
+                                                  strcat(temp, "-");
+                                                  strcat(temp, $2);
+                                                  strcat(temp, ")");
+                                                  $$ = genera_cadena(temp); }
+
+
+            ;
+
+operando:       IDENTIF	       		  { sprintf(temp," %s ", $1);
+                                      $$ = genera_cadena(temp); }
+            |   NUMERO              { sprintf(temp," %d ", $1);
+                                      $$ = genera_cadena(temp);}
+            |   '(' expresion ')'		{ strcpy(temp, "");
+                                      strcat(temp, "(");
+                                      strcat(temp, $2);
+                                      strcat(temp, ")");
+                                      $$ = genera_cadena(temp); }
+            ;
 
 %%
                             // SECCION 4    Codigo en C
