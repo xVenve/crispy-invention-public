@@ -33,17 +33,17 @@ char *genera_cadena (char *nombre);
 
 %%
                                           // Seccion 3 Gramatica - Semantico
-axioma:         decl { ; }
-                def  { ; }
+axioma:     decl                                  { ; }
+            def                                   { ; }
             ;
 
-decl:         INTEGER IDENTIF ';'                   { strcpy(temp, "");
+decl:       INTEGER IDENTIF ';'                   { strcpy(temp, "");
                                                       strcat(temp, "( setq ");
                                                       strcat(temp, $2);
                                                       strcat(temp, " 0 ");
                                                       strcat(temp, ")");
                                                       printf("%s\n", genera_cadena(temp)); }
-                decl				                        { ; }
+              decl				                        { ; }
             |   INTEGER IDENTIF '=' NUMERO ';'	    { strcpy(temp, "");
                                                       strcat(temp, "( setq ");
                                                       strcat(temp, $2);
@@ -63,20 +63,22 @@ decl:         INTEGER IDENTIF ';'                   { strcpy(temp, "");
                                                       strcat(temp, ")");
                                                       printf("%s\n", genera_cadena(temp)); }
                 decl			                          { ; }
-            |   /* lambda */	                      { ; }
+            | /* lambda */	                        { ; }
             ;
 
+def:        mainfun                                 { ; }
+            | /* lambda */	                        { ; }
+            ;
 
-def:         MAIN '(' ')' '{'                       { strcpy(temp, "");
-                                                      strcat(temp, "( defun ");
-                                                      strcat(temp, $1);
-                                                      strcat(temp, " ()");
-                                                      printf("%s\n", genera_cadena(temp));}
+mainfun:    MAIN '(' ')' '{'                       { strcpy(temp, "");
+                                                     strcat(temp, "( defun ");
+                                                     strcat(temp, $1);
+                                                     strcat(temp, " ()");
+                                                     printf("%s\n", genera_cadena(temp));}
             cuerpo                                  { ; }
             '}'                                     { strcpy(temp, "");
                                                       strcat(temp, ")");
                                                       printf("%s\n", genera_cadena(temp)); }
-            |   /* lambda */	                      { ; }
             ;
 
 cuerpo:         expresion ';'                         { printf("\t");
@@ -85,7 +87,12 @@ cuerpo:         expresion ';'                         { printf("\t");
             |   '$' '(' impr ')' ';'	                { printf("\t");
                                                         printf("%s\n", genera_cadena(temp)); }
                 cuerpo				                        { ; }
-            |   INTEGER IDENTIF ';'                   { printf("\t");
+            |   setq                                  { ; }
+            |   /* lambda */	                        { ; }
+
+            ;
+
+setq:        INTEGER IDENTIF ';'                      { printf("\t");
                                                         strcpy(temp, "");
                                                         strcat(temp, "( setq ");
                                                         strcat(temp, $2);
@@ -113,9 +120,6 @@ cuerpo:         expresion ';'                         { printf("\t");
                                                         strcat(temp, $3);
                                                         strcat(temp, ")");
                                                         printf("%s\n", genera_cadena(temp)); }
-                cuerpo			                          { ; }
-            |   /* lambda */	                        { ; }
-
             ;
 
 impr:       expresion	               	{ strcpy(temp, "");
