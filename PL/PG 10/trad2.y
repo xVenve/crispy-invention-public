@@ -21,10 +21,11 @@ char *genera_cadena (char *nombre);
 %token <cadena> IDENTIF       // Identificador=variable
 %token <cadena> INTEGER       // identifica la definicion de un entero
 %token <cadena> STRING
+%token <cadena> PUTS
 %token <cadena> MAIN          // identifica el comienzo del proc. main
 %token <cadena> WHILE         // identifica el bucle main
 
-%type   <cadena>  expresion termino operando impr decl def cuerpo
+%type  <cadena> expresion termino operando impr decl def cuerpo
 
 %right '='                    // es la ultima operacion que se debe realizar
 %left '+' '-'                 // menor orden de precedencia
@@ -33,96 +34,121 @@ char *genera_cadena (char *nombre);
 
 %%
                                           // Seccion 3 Gramatica - Semantico
-axioma:     decl                                  { ; }
-            def                                   { ; }
+axioma:       decl	        { ; }
+              def	          { ; }
             ;
 
-decl:       INTEGER IDENTIF ';'                   { strcpy(temp, "");
-                                                      strcat(temp, "( setq ");
-                                                      strcat(temp, $2);
-                                                      strcat(temp, " 0 ");
-                                                      strcat(temp, ")");
-                                                      printf("%s\n", genera_cadena(temp)); }
-              decl				                        { ; }
-            |   INTEGER IDENTIF '=' NUMERO ';'	    { strcpy(temp, "");
-                                                      strcat(temp, "( setq ");
-                                                      strcat(temp, $2);
-                                                      strcat(temp, " ");
-                                                      char num[4];
-                                                      sprintf(num,"%d", $4);
-                                                      strcat(temp, num);
-                                                      strcat(temp, " )");
-                                                      printf("%s\n", genera_cadena(temp)); }
-              decl				                          { ; }
-            |   IDENTIF '=' expresion ';'	          { strcpy(temp, "");
-                                                      strcat(temp, "(");
-                                                      strcat(temp, " setq ");
-                                                      strcat(temp, $1);
-                                                      strcat(temp, " ");
-                                                      strcat(temp, $3);
-                                                      strcat(temp, ")");
-                                                      printf("%s\n", genera_cadena(temp)); }
-                decl			                          { ; }
-            | /* lambda */	                        { ; }
+decl:         INTEGER IDENTIF                   { strcpy(temp, "");
+                                                  strcat(temp, "( setq ");
+                                                  strcat(temp, $2);
+                                                  strcat(temp, " 0 ");
+                                                  strcat(temp, ")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+              resdecl ';'                       { ; }
+              decl				                      { ; }
+            | INTEGER IDENTIF '=' NUMERO 	      { strcpy(temp, "");
+                                                  strcat(temp, "( setq ");
+                                                  strcat(temp, $2);
+                                                  strcat(temp, " ");
+                                                  char num[4];
+                                                  sprintf(num,"%d", $4);
+                                                  strcat(temp, num);
+                                                  strcat(temp, " )");
+                                                  printf("%s\n", genera_cadena(temp)); }
+              resdecl ';'                       { ; }
+              decl				                      { ; }
+            | IDENTIF '=' expresion ';'	        { strcpy(temp, "");
+                                                  strcat(temp, "(");
+                                                  strcat(temp, " setq ");
+                                                  strcat(temp, $1);
+                                                  strcat(temp, " ");
+                                                  strcat(temp, $3);
+                                                  strcat(temp, ")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+              decl			                          { ; }
+            | /* lambda */	                      { ; }
             ;
 
-def:        mainfun                                 { ; }
-            | /* lambda */	                        { ; }
+resdecl:      ',' IDENTIF '=' expresion           { strcpy(temp, "");
+                                                    strcat(temp, "(");
+                                                    strcat(temp, " setq ");
+                                                    strcat(temp, $2);
+                                                    strcat(temp, " ");
+                                                    strcat(temp, $4);
+                                                    strcat(temp, ") ");
+                                                    printf("%s\n", genera_cadena(temp)); ; }
+              resdecl                             { ; }
+            | ',' IDENTIF                         { strcpy(temp, "");
+                                                    strcat(temp, "( setq ");
+                                                    strcat(temp, $2);
+                                                    strcat(temp, " 0 ");
+                                                    strcat(temp, ")");
+                                                    printf("%s\n", genera_cadena(temp)); }
+              resdecl                             { ; }
+            | /* lambda */	                      { ; }
             ;
 
-mainfun:    MAIN '(' ')' '{'                       { strcpy(temp, "");
-                                                     strcat(temp, "( defun ");
-                                                     strcat(temp, $1);
-                                                     strcat(temp, " ()");
-                                                     printf("%s\n", genera_cadena(temp));}
-            cuerpo                                  { ; }
-            '}'                                     { strcpy(temp, "");
-                                                      strcat(temp, ")");
-                                                      printf("%s\n", genera_cadena(temp)); }
+def:          mainfun                             { ; }
+            | /* lambda */	                      { ; }
             ;
 
-cuerpo:         expresion ';'                         { printf("\t");
-                                                        printf("%s\n", $1); }
-                cuerpo				                        { ; }
-            |   '$' '(' impr ')' ';'	                { printf("\t");
-                                                        printf("%s\n", genera_cadena(temp)); }
-                cuerpo				                        { ; }
-            |   setq                                  { ; }
-            |   /* lambda */	                        { ; }
-
+mainfun:      MAIN '(' ')' '{'	          { strcpy(temp, "");
+                                            strcat(temp, "( defun ");
+                                            strcat(temp, $1);
+                                            strcat(temp, " ()");
+                                            printf("%s\n", genera_cadena(temp));}
+              cuerpo                      { ; }
+              '}'                         { strcpy(temp, "");
+                                            strcat(temp, ")");
+                                            printf("%s\n", genera_cadena(temp)); }
             ;
 
-setq:        INTEGER IDENTIF ';'                      { printf("\t");
-                                                        strcpy(temp, "");
-                                                        strcat(temp, "( setq ");
-                                                        strcat(temp, $2);
-                                                        strcat(temp, " 0 ");
-                                                        strcat(temp, ")");
-                                                        printf("%s\n", genera_cadena(temp)); }
-                cuerpo				                        { ; }
-            |   INTEGER IDENTIF '=' NUMERO ';'	      { printf("\t");
-                                                        strcpy(temp, "");
-                                                        strcat(temp, "( setq ");
-                                                        strcat(temp, $2);
-                                                        strcat(temp, " ");
-                                                        char num[4];
-                                                        sprintf(num,"%d", $4);
-                                                        strcat(temp, num);
-                                                        strcat(temp, " )");
-                                                        printf("%s\n", genera_cadena(temp)); }
-                cuerpo				                        { ; }
-            |   IDENTIF '=' expresion ';'	            { printf("\t");
-                                                        strcpy(temp, "");
-                                                        strcat(temp, "(");
-                                                        strcat(temp, " setq ");
-                                                        strcat(temp, $1);
-                                                        strcat(temp, " ");
-                                                        strcat(temp, $3);
-                                                        strcat(temp, ")");
-                                                        printf("%s\n", genera_cadena(temp)); }
+cuerpo:       '$' '(' impr ')' ';'	            { printf("\t");
+                                                  printf("%s\n", genera_cadena(temp)); }
+              cuerpo				                    { ; }
+            | setq                              { ; }
+              cuerpo				                    { ; }
+            | PUTS '(' STRING ')' ';'	          { printf("\t");
+                                                  strcpy(temp, "");
+                                                  strcat(temp, "( print ");
+                                                  strcat(temp, "\"");
+                                                  strcat(temp, $3);
+                                                  strcat(temp, "\"");
+                                                  strcat(temp, ")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+              cuerpo				                    { ; }
+            | /* lambda */	                    { ; }
             ;
 
-impr:       expresion	               	{ strcpy(temp, "");
+setq:         INTEGER IDENTIF ';'               { printf("\t");
+                                                  strcpy(temp, "");
+                                                  strcat(temp, "( setq ");
+                                                  strcat(temp, $2);
+                                                  strcat(temp, " 0 ");
+                                                  strcat(temp, ")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+            | INTEGER IDENTIF '=' NUMERO ';'	  { printf("\t");
+                                                  strcpy(temp, "");
+                                                  strcat(temp, "( setq ");
+                                                  strcat(temp, $2);
+                                                  strcat(temp, " ");
+                                                  char num[4];
+                                                  sprintf(num,"%d", $4);
+                                                  strcat(temp, num);
+                                                  strcat(temp, " )");
+                                                  printf("%s\n", genera_cadena(temp)); }
+            | IDENTIF '=' expresion ';'	        { printf("\t");
+                                                  strcpy(temp, "");
+                                                  strcat(temp, "(");
+                                                  strcat(temp, " setq ");
+                                                  strcat(temp, $1);
+                                                  strcat(temp, " ");
+                                                  strcat(temp, $3);
+                                                  strcat(temp, ")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+            ;
+
+impr:         expresion	              { strcpy(temp, "");
                                         strcat(temp, "( print ");
                                         strcat(temp, $1);
                                         strcat(temp, ")");
@@ -136,61 +162,61 @@ impr:       expresion	               	{ strcpy(temp, "");
                                         $$ = genera_cadena(temp); }
             ;
 
-expresion:      termino					              { $$ = $1; }
-            |   expresion '+' expresion   		{ strcpy(temp, "");
+expresion:    termino					              { $$ = $1; }
+            | expresion '+' expresion   		{ strcpy(temp, "");
+                                              strcat(temp, "(");
+                                              strcat(temp, " + ");
+                                              strcat(temp, $1);
+                                              strcat(temp, $3);
+                                              strcat(temp, ")");
+                                              $$ = genera_cadena(temp); }
+            | expresion '-' expresion   		{ strcpy(temp, "");
+                                              strcat(temp, "(");
+                                              strcat(temp, " - ");
+                                              strcat(temp, $1);
+                                              strcat(temp, $3);
+                                              strcat(temp, ")");
+                                              $$ = genera_cadena(temp); }
+            | expresion '*' expresion   		{ strcpy(temp, "");
+                                              strcat(temp, "(");
+                                              strcat(temp, " * ");
+                                              strcat(temp, $1);
+                                              strcat(temp, $3);
+                                              strcat(temp, ")");
+                                              $$ = genera_cadena(temp); }
+            | expresion '/' expresion   		{ strcpy(temp, "");
+                                              strcat(temp, "(");
+                                              strcat(temp, " / ");
+                                              strcat(temp, $1);
+                                              strcat(temp, $3);
+                                              strcat(temp, ")");
+                                              $$ = genera_cadena(temp); }
+            ;
+
+termino:      operando				                { $$ = $1; }
+            | '+' termino %prec SIGNO_UNARIO	{ strcpy(temp, "");
                                                 strcat(temp, "(");
-                                                strcat(temp, " + ");
-                                                strcat(temp, $1);
-                                                strcat(temp, $3);
+                                                strcat(temp, "+");
+                                                strcat(temp, $2);
                                                 strcat(temp, ")");
                                                 $$ = genera_cadena(temp); }
-            |   expresion '-' expresion   		{ strcpy(temp, "");
+            | '-' termino %prec SIGNO_UNARIO	{ strcpy(temp, "");
                                                 strcat(temp, "(");
-                                                strcat(temp, " - ");
-                                                strcat(temp, $1);
-                                                strcat(temp, $3);
-                                                strcat(temp, ")");
-                                                $$ = genera_cadena(temp); }
-            |   expresion '*' expresion   		{ strcpy(temp, "");
-                                                strcat(temp, "(");
-                                                strcat(temp, " * ");
-                                                strcat(temp, $1);
-                                                strcat(temp, $3);
-                                                strcat(temp, ")");
-                                                $$ = genera_cadena(temp); }
-            |   expresion '/' expresion   		{ strcpy(temp, "");
-                                                strcat(temp, "(");
-                                                strcat(temp, " / ");
-                                                strcat(temp, $1);
-                                                strcat(temp, $3);
+                                                strcat(temp, "-");
+                                                strcat(temp, $2);
                                                 strcat(temp, ")");
                                                 $$ = genera_cadena(temp); }
             ;
 
-termino:        operando				                { $$ = $1; }
-            |   '+' termino %prec SIGNO_UNARIO	{ strcpy(temp, "");
-                                                  strcat(temp, "(");
-                                                  strcat(temp, "+");
-                                                  strcat(temp, $2);
-                                                  strcat(temp, ")");
-                                                  $$ = genera_cadena(temp); }
-            |   '-' termino %prec SIGNO_UNARIO	{ strcpy(temp, "");
-                                                  strcat(temp, "(");
-                                                  strcat(temp, "-");
-                                                  strcat(temp, $2);
-                                                  strcat(temp, ")");
-                                                  $$ = genera_cadena(temp); }
-            ;
-
-operando:       IDENTIF	       		  { sprintf(temp,"%s ", $1);
-                                      $$ = genera_cadena(temp); }
-            |   NUMERO              { sprintf(temp,"%d ", $1);
-                                      $$ = genera_cadena(temp);}
-            |   '(' expresion ')'		{ strcpy(temp, "");
-                                      strcat(temp, "(");
-                                      strcat(temp, $2);
-                                      strcat(temp, ")");
-                                      $$ = genera_cadena(temp); }
+operando:     IDENTIF	       		  { sprintf(temp,"%s ", $1);
+                                    $$ = genera_cadena(temp); }
+            | NUMERO              { sprintf(temp,"%d ", $1);
+                                    $$ = genera_cadena(temp);}
+            | '(' expresion ')'		{ strcpy(temp, "");
+                                    strcat(temp, "(");
+                                    strcat(temp, $2);
+                                    strcat(temp, ")");
+                                    $$ = genera_cadena(temp); }
             ;
 
 %%
@@ -235,6 +261,7 @@ typedef struct s_pal_reservadas { // para las palabras reservadas de C
 t_reservada pal_reservadas [] = { // define las palabras reservadas y los
     "main",        MAIN,           // y los token asociados
     "int",         INTEGER,
+    "puts",        PUTS,
     NULL,          0               // para marcar el fin de la tabla
 } ;
 

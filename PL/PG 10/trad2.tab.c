@@ -127,9 +127,10 @@ extern int yydebug;
     IDENTIF = 259,
     INTEGER = 260,
     STRING = 261,
-    MAIN = 262,
-    WHILE = 263,
-    SIGNO_UNARIO = 264
+    PUTS = 262,
+    MAIN = 263,
+    WHILE = 264,
+    SIGNO_UNARIO = 265
   };
 #endif
 
@@ -142,7 +143,7 @@ union YYSTYPE
       int valor ;             // - valor numerico de un NUMERO
       char *cadena ;          // - para pasar los nombres de IDENTIFES
 
-#line 146 "trad2.tab.c"
+#line 147 "trad2.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -461,19 +462,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  7
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   81
+#define YYLAST   87
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  22
+#define YYNTOKENS  23
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  21
+#define YYNNTS  25
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  39
+#define YYNRULES  45
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  79
+#define YYNSTATES  92
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   264
+#define YYMAXUTOK   265
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -488,16 +489,16 @@ static const yytype_int8 yytranslate[] =
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,    20,     2,     2,     2,
-      16,    17,    12,    10,    21,    11,     2,    13,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,    15,
-       2,     9,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,    22,     2,     2,     2,
+      18,    19,    13,    11,    17,    12,     2,    14,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    16,
+       2,    10,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    18,     2,    19,     2,     2,     2,     2,
+       2,     2,     2,    20,     2,    21,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -511,17 +512,18 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,    14
+       5,     6,     7,     8,     9,    15
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    36,    36,    36,    40,    40,    47,    47,    57,    57,
-      66,    69,    70,    73,    78,    73,    84,    84,    87,    87,
-      90,    91,    95,    95,   103,   103,   114,   125,   130,   139,
-     140,   147,   154,   161,   170,   171,   177,   185,   187,   189
+       0,    37,    37,    37,    41,    47,    41,    49,    58,    49,
+      60,    60,    69,    72,    72,    81,    81,    88,    91,    92,
+      95,   100,    95,   106,   106,   109,   109,   111,   111,   120,
+     123,   130,   140,   151,   156,   165,   166,   173,   180,   187,
+     196,   197,   203,   211,   213,   215
 };
 #endif
 
@@ -531,11 +533,12 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "NUMERO", "IDENTIF", "INTEGER", "STRING",
-  "MAIN", "WHILE", "'='", "'+'", "'-'", "'*'", "'/'", "SIGNO_UNARIO",
-  "';'", "'('", "')'", "'{'", "'}'", "'$'", "','", "$accept", "axioma",
-  "$@1", "decl", "$@2", "$@3", "$@4", "def", "mainfun", "$@5", "$@6",
-  "cuerpo", "$@7", "$@8", "setq", "$@9", "$@10", "impr", "expresion",
-  "termino", "operando", YY_NULLPTR
+  "PUTS", "MAIN", "WHILE", "'='", "'+'", "'-'", "'*'", "'/'",
+  "SIGNO_UNARIO", "';'", "','", "'('", "')'", "'{'", "'}'", "'$'",
+  "$accept", "axioma", "$@1", "decl", "$@2", "$@3", "$@4", "$@5", "$@6",
+  "resdecl", "$@7", "$@8", "def", "mainfun", "$@9", "$@10", "cuerpo",
+  "$@11", "$@12", "$@13", "setq", "impr", "expresion", "termino",
+  "operando", YY_NULLPTR
 };
 #endif
 
@@ -544,13 +547,13 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_int16 yytoknum[] =
 {
-       0,   256,   257,   258,   259,   260,   261,   262,   263,    61,
-      43,    45,    42,    47,   264,    59,    40,    41,   123,   125,
-      36,    44
+       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
+      61,    43,    45,    42,    47,   265,    59,    44,    40,    41,
+     123,   125,    36
 };
 # endif
 
-#define YYPACT_NINF (-51)
+#define YYPACT_NINF (-65)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -564,14 +567,16 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      36,     7,    38,    11,   -51,     2,    -8,   -51,    48,   -51,
-     -51,     2,     2,     2,    34,   -51,   -51,    58,   -51,    54,
-     -51,   -51,   -51,   -51,    22,     2,     2,     2,     2,   -51,
-      57,    36,    46,   -51,    53,    53,   -51,   -51,    36,   -51,
-     -51,    51,   -51,    36,   -51,   -51,    -1,    62,    69,    59,
-     -51,   -51,    41,     2,    28,     2,    55,   -51,    47,    73,
-     -51,    60,    17,   -51,    -1,   -51,    63,    -1,    64,     2,
-     -51,   -51,   -51,   -51,   -51,    -1,    -1,   -51,   -51
+      26,     0,     3,     5,   -65,    25,     6,   -65,    24,   -65,
+     -65,    25,    25,    25,    45,   -65,   -65,    39,    23,    35,
+     -65,   -65,   -65,   -65,    33,    25,    25,    25,    25,   -65,
+     -65,    62,    52,    36,   -65,    21,    21,   -65,   -65,    26,
+      23,    59,   -65,    50,   -65,    55,    25,    23,    26,   -65,
+     -65,     1,   -65,   -65,    -3,    26,    23,    63,    68,    56,
+      57,   -65,   -65,   -65,   -65,    25,    -7,    70,    25,    58,
+      -3,    51,    74,   -65,    61,    64,    37,   -65,   -65,   -65,
+      65,    66,    69,    25,   -65,   -65,   -65,   -65,    -3,    -3,
+     -65,   -65
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -579,30 +584,32 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-      10,     0,     0,     0,     2,     0,     0,     1,    12,    38,
-      37,     0,     0,     0,     0,    29,    34,     0,     4,     0,
-       3,    11,    35,    36,     0,     0,     0,     0,     0,     8,
-       0,    10,     0,    39,    30,    31,    32,    33,    10,     6,
-       5,     0,     9,    10,    13,     7,    21,    37,     0,     0,
-      14,    20,     0,     0,     0,     0,     0,    16,     0,     0,
-      22,     0,    27,    15,    21,    26,     0,    21,     0,     0,
-      17,    24,    23,    18,    28,    21,    21,    25,    19
+      12,     0,     0,     0,     2,     0,     4,     1,    19,    44,
+      43,     0,     0,     0,     0,    35,    40,     0,    17,     0,
+       3,    18,    41,    42,     0,     0,     0,     0,     0,    10,
+       7,     0,     0,     0,    45,    36,    37,    38,    39,    12,
+      17,    15,     5,     0,    11,     0,     0,    17,    12,    20,
+       8,    13,    16,     6,    29,    12,    17,     0,     0,     0,
+       0,    21,    25,     9,    14,     0,     0,     0,     0,     0,
+      29,     0,     0,    30,     0,     0,    33,    22,    26,    32,
+       0,     0,     0,     0,    31,    27,    23,    34,    29,    29,
+      28,    24
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -51,   -51,   -51,    -7,   -51,   -51,   -51,   -51,   -51,   -51,
-     -51,   -50,   -51,   -51,   -51,   -51,   -51,    12,    -5,    56,
-     -51
+     -65,   -65,   -65,   -22,   -65,   -65,   -65,   -65,   -65,   -29,
+     -65,   -65,   -65,   -65,   -65,   -65,   -64,   -65,   -65,   -65,
+     -65,     4,    -5,    27,   -65
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     3,     8,     4,    31,    43,    38,    20,    21,    46,
-      56,    50,    64,    76,    51,    67,    75,    61,    52,    15,
-      16
+      -1,     3,     8,     4,    18,    48,    40,    55,    39,    32,
+      56,    47,    20,    21,    54,    69,    61,    89,    70,    88,
+      62,    75,    76,    15,    16
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -610,60 +617,64 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      14,    17,     9,    47,    48,     9,    10,    18,    24,    11,
-      12,     7,    11,    12,    70,    13,     5,    72,    13,    49,
-      34,    35,    36,    37,    40,    77,    78,    25,    26,    27,
-      28,    42,    25,    26,    27,    28,    45,    59,    69,    33,
-       1,     2,     6,    60,    25,    26,    27,    28,    58,    29,
-      62,    25,    26,    27,    28,    19,    57,    25,    26,    27,
-      28,    30,    65,    41,    62,    27,    28,    22,    23,    44,
-      32,    53,    39,    54,    63,    55,    66,    68,    71,    73,
-       0,    74
+      14,    57,    58,    72,    59,     7,    78,     6,    24,    73,
+       5,    45,    25,    26,    27,    28,    17,    44,    52,    60,
+      35,    36,    37,    38,    90,    91,    53,    64,     9,    10,
+       1,     2,    19,    63,    27,    28,    11,    12,    22,    23,
+      31,    51,    30,    13,    25,    26,    27,    28,    25,    26,
+      27,    28,    34,    33,    83,    43,    25,    26,    27,    28,
+      71,    29,    25,    26,    27,    28,    41,    79,    42,    46,
+      49,    50,    66,    65,    67,    68,    74,    80,     0,    77,
+      81,    84,    85,    82,     0,    86,     0,    87
 };
 
 static const yytype_int8 yycheck[] =
 {
-       5,     9,     3,     4,     5,     3,     4,    15,    13,    10,
-      11,     0,    10,    11,    64,    16,     9,    67,    16,    20,
-      25,    26,    27,    28,    31,    75,    76,    10,    11,    12,
-      13,    38,    10,    11,    12,    13,    43,     9,    21,    17,
-       4,     5,     4,    15,    10,    11,    12,    13,    53,    15,
-      55,    10,    11,    12,    13,     7,    15,    10,    11,    12,
-      13,     3,    15,    17,    69,    12,    13,    11,    12,    18,
-      16,     9,    15,     4,    19,    16,     3,    17,    15,    15,
-      -1,    69
+       5,     4,     5,    10,     7,     0,    70,     4,    13,    16,
+      10,    40,    11,    12,    13,    14,    10,    39,    47,    22,
+      25,    26,    27,    28,    88,    89,    48,    56,     3,     4,
+       4,     5,     8,    55,    13,    14,    11,    12,    11,    12,
+      17,    46,     3,    18,    11,    12,    13,    14,    11,    12,
+      13,    14,    19,    18,    17,    19,    11,    12,    13,    14,
+      65,    16,    11,    12,    13,    14,     4,    16,    16,    10,
+      20,    16,     4,    10,    18,    18,     6,     3,    -1,    21,
+      19,    16,    16,    19,    -1,    16,    -1,    83
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     4,     5,    23,    25,     9,     4,     0,    24,     3,
-       4,    10,    11,    16,    40,    41,    42,     9,    15,     7,
-      29,    30,    41,    41,    40,    10,    11,    12,    13,    15,
-       3,    26,    16,    17,    40,    40,    40,    40,    28,    15,
-      25,    17,    25,    27,    18,    25,    31,     4,     5,    20,
-      33,    36,    40,     9,     4,    16,    32,    15,    40,     9,
-      15,    39,    40,    19,    34,    15,     3,    37,    17,    21,
-      33,    15,    33,    15,    39,    38,    35,    33,    33
+       0,     4,     5,    24,    26,    10,     4,     0,    25,     3,
+       4,    11,    12,    18,    45,    46,    47,    10,    27,     8,
+      35,    36,    46,    46,    45,    11,    12,    13,    14,    16,
+       3,    17,    32,    18,    19,    45,    45,    45,    45,    31,
+      29,     4,    16,    19,    26,    32,    10,    34,    28,    20,
+      16,    45,    32,    26,    37,    30,    33,     4,     5,     7,
+      22,    39,    43,    26,    32,    10,     4,    18,    18,    38,
+      41,    45,    10,    16,     6,    44,    45,    21,    39,    16,
+       3,    19,    19,    17,    16,    16,    16,    44,    42,    40,
+      39,    39
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    22,    24,    23,    26,    25,    27,    25,    28,    25,
-      25,    29,    29,    31,    32,    30,    34,    33,    35,    33,
-      33,    33,    37,    36,    38,    36,    36,    39,    39,    40,
-      40,    40,    40,    40,    41,    41,    41,    42,    42,    42
+       0,    23,    25,    24,    27,    28,    26,    29,    30,    26,
+      31,    26,    26,    33,    32,    34,    32,    32,    35,    35,
+      37,    38,    36,    40,    39,    41,    39,    42,    39,    39,
+      43,    43,    43,    44,    44,    45,    45,    45,    45,    45,
+      46,    46,    46,    47,    47,    47
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     0,     3,     0,     5,     0,     7,     0,     6,
-       0,     1,     0,     0,     0,     8,     0,     4,     0,     7,
-       1,     0,     0,     5,     0,     7,     4,     1,     3,     1,
-       3,     3,     3,     3,     1,     2,     2,     1,     1,     3
+       0,     2,     0,     3,     0,     0,     7,     0,     0,     9,
+       0,     6,     0,     0,     6,     0,     4,     0,     1,     0,
+       0,     0,     8,     0,     7,     0,     3,     0,     7,     0,
+       3,     5,     4,     1,     3,     1,     3,     3,     3,     3,
+       1,     2,     2,     1,     1,     3
 };
 
 
@@ -1359,218 +1370,272 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 36 "trad2.y"
-                                                  { ; }
-#line 1365 "trad2.tab.c"
+#line 37 "trad2.y"
+                                { ; }
+#line 1376 "trad2.tab.c"
     break;
 
   case 3:
-#line 37 "trad2.y"
-                                                  { ; }
-#line 1371 "trad2.tab.c"
-    break;
-
-  case 4:
-#line 40 "trad2.y"
-                                                  { strcpy(temp, "");
-                                                      strcat(temp, "( setq ");
-                                                      strcat(temp, (yyvsp[-1].cadena));
-                                                      strcat(temp, " 0 ");
-                                                      strcat(temp, ")");
-                                                      printf("%s\n", genera_cadena(temp)); }
+#line 38 "trad2.y"
+                                  { ; }
 #line 1382 "trad2.tab.c"
     break;
 
+  case 4:
+#line 41 "trad2.y"
+                                                { strcpy(temp, "");
+                                                  strcat(temp, "( setq ");
+                                                  strcat(temp, (yyvsp[0].cadena));
+                                                  strcat(temp, " 0 ");
+                                                  strcat(temp, ")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+#line 1393 "trad2.tab.c"
+    break;
+
   case 5:
-#line 46 "trad2.y"
-                                                                        { ; }
-#line 1388 "trad2.tab.c"
+#line 47 "trad2.y"
+                                                { ; }
+#line 1399 "trad2.tab.c"
     break;
 
   case 6:
-#line 47 "trad2.y"
-                                                    { strcpy(temp, "");
-                                                      strcat(temp, "( setq ");
-                                                      strcat(temp, (yyvsp[-3].cadena));
-                                                      strcat(temp, " ");
-                                                      char num[4];
-                                                      sprintf(num,"%d", (yyvsp[-1].valor));
-                                                      strcat(temp, num);
-                                                      strcat(temp, " )");
-                                                      printf("%s\n", genera_cadena(temp)); }
-#line 1402 "trad2.tab.c"
+#line 48 "trad2.y"
+                                                                      { ; }
+#line 1405 "trad2.tab.c"
     break;
 
   case 7:
-#line 56 "trad2.y"
-                                                                          { ; }
-#line 1408 "trad2.tab.c"
+#line 49 "trad2.y"
+                                                      { strcpy(temp, "");
+                                                  strcat(temp, "( setq ");
+                                                  strcat(temp, (yyvsp[-2].cadena));
+                                                  strcat(temp, " ");
+                                                  char num[4];
+                                                  sprintf(num,"%d", (yyvsp[0].valor));
+                                                  strcat(temp, num);
+                                                  strcat(temp, " )");
+                                                  printf("%s\n", genera_cadena(temp)); }
+#line 1419 "trad2.tab.c"
     break;
 
   case 8:
-#line 57 "trad2.y"
-                                                          { strcpy(temp, "");
-                                                      strcat(temp, "(");
-                                                      strcat(temp, " setq ");
-                                                      strcat(temp, (yyvsp[-3].cadena));
-                                                      strcat(temp, " ");
-                                                      strcat(temp, (yyvsp[-1].cadena));
-                                                      strcat(temp, ")");
-                                                      printf("%s\n", genera_cadena(temp)); }
-#line 1421 "trad2.tab.c"
+#line 58 "trad2.y"
+                                                { ; }
+#line 1425 "trad2.tab.c"
     break;
 
   case 9:
-#line 65 "trad2.y"
-                                                                  { ; }
-#line 1427 "trad2.tab.c"
+#line 59 "trad2.y"
+                                                                      { ; }
+#line 1431 "trad2.tab.c"
     break;
 
   case 10:
-#line 66 "trad2.y"
-                                                        { ; }
-#line 1433 "trad2.tab.c"
+#line 60 "trad2.y"
+                                                { strcpy(temp, "");
+                                                  strcat(temp, "(");
+                                                  strcat(temp, " setq ");
+                                                  strcat(temp, (yyvsp[-3].cadena));
+                                                  strcat(temp, " ");
+                                                  strcat(temp, (yyvsp[-1].cadena));
+                                                  strcat(temp, ")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+#line 1444 "trad2.tab.c"
     break;
 
   case 11:
-#line 69 "trad2.y"
-                                                    { ; }
-#line 1439 "trad2.tab.c"
+#line 68 "trad2.y"
+                                                                  { ; }
+#line 1450 "trad2.tab.c"
     break;
 
   case 12:
-#line 70 "trad2.y"
-                                                        { ; }
-#line 1445 "trad2.tab.c"
+#line 69 "trad2.y"
+                                                      { ; }
+#line 1456 "trad2.tab.c"
     break;
 
   case 13:
-#line 73 "trad2.y"
-                                                   { strcpy(temp, "");
-                                                     strcat(temp, "( defun ");
-                                                     strcat(temp, (yyvsp[-3].cadena));
-                                                     strcat(temp, " ()");
-                                                     printf("%s\n", genera_cadena(temp));}
-#line 1455 "trad2.tab.c"
-    break;
-
-  case 14:
-#line 78 "trad2.y"
-                                                    { ; }
-#line 1461 "trad2.tab.c"
-    break;
-
-  case 15:
-#line 79 "trad2.y"
-                                                    { strcpy(temp, "");
-                                                      strcat(temp, ")");
-                                                      printf("%s\n", genera_cadena(temp)); }
+#line 72 "trad2.y"
+                                                  { strcpy(temp, "");
+                                                    strcat(temp, "(");
+                                                    strcat(temp, " setq ");
+                                                    strcat(temp, (yyvsp[-2].cadena));
+                                                    strcat(temp, " ");
+                                                    strcat(temp, (yyvsp[0].cadena));
+                                                    strcat(temp, ") ");
+                                                    printf("%s\n", genera_cadena(temp)); ; }
 #line 1469 "trad2.tab.c"
     break;
 
+  case 14:
+#line 80 "trad2.y"
+                                                  { ; }
+#line 1475 "trad2.tab.c"
+    break;
+
+  case 15:
+#line 81 "trad2.y"
+                                                  { strcpy(temp, "");
+                                                    strcat(temp, "( setq ");
+                                                    strcat(temp, (yyvsp[0].cadena));
+                                                    strcat(temp, " 0 ");
+                                                    strcat(temp, ")");
+                                                    printf("%s\n", genera_cadena(temp)); }
+#line 1486 "trad2.tab.c"
+    break;
+
   case 16:
-#line 84 "trad2.y"
-                                                      { printf("\t");
-                                                        printf("%s\n", (yyvsp[-1].cadena)); }
-#line 1476 "trad2.tab.c"
+#line 87 "trad2.y"
+                                                  { ; }
+#line 1492 "trad2.tab.c"
     break;
 
   case 17:
-#line 86 "trad2.y"
-                                                                        { ; }
-#line 1482 "trad2.tab.c"
+#line 88 "trad2.y"
+                                                      { ; }
+#line 1498 "trad2.tab.c"
     break;
 
   case 18:
-#line 87 "trad2.y"
-                                                        { printf("\t");
-                                                        printf("%s\n", genera_cadena(temp)); }
-#line 1489 "trad2.tab.c"
+#line 91 "trad2.y"
+                                                  { ; }
+#line 1504 "trad2.tab.c"
     break;
 
   case 19:
-#line 89 "trad2.y"
-                                                                        { ; }
-#line 1495 "trad2.tab.c"
+#line 92 "trad2.y"
+                                                      { ; }
+#line 1510 "trad2.tab.c"
     break;
 
   case 20:
-#line 90 "trad2.y"
-                                                      { ; }
-#line 1501 "trad2.tab.c"
+#line 95 "trad2.y"
+                                          { strcpy(temp, "");
+                                            strcat(temp, "( defun ");
+                                            strcat(temp, (yyvsp[-3].cadena));
+                                            strcat(temp, " ()");
+                                            printf("%s\n", genera_cadena(temp));}
+#line 1520 "trad2.tab.c"
     break;
 
   case 21:
-#line 91 "trad2.y"
-                                                        { ; }
-#line 1507 "trad2.tab.c"
+#line 100 "trad2.y"
+                                          { ; }
+#line 1526 "trad2.tab.c"
     break;
 
   case 22:
-#line 95 "trad2.y"
-                                                      { printf("\t");
-                                                        strcpy(temp, "");
-                                                        strcat(temp, "( setq ");
-                                                        strcat(temp, (yyvsp[-1].cadena));
-                                                        strcat(temp, " 0 ");
-                                                        strcat(temp, ")");
-                                                        printf("%s\n", genera_cadena(temp)); }
-#line 1519 "trad2.tab.c"
+#line 101 "trad2.y"
+                                          { strcpy(temp, "");
+                                            strcat(temp, ")");
+                                            printf("%s\n", genera_cadena(temp)); }
+#line 1534 "trad2.tab.c"
     break;
 
   case 23:
-#line 102 "trad2.y"
-                                                                        { ; }
-#line 1525 "trad2.tab.c"
+#line 106 "trad2.y"
+                                                    { printf("\t");
+                                                  printf("%s\n", genera_cadena(temp)); }
+#line 1541 "trad2.tab.c"
     break;
 
   case 24:
-#line 103 "trad2.y"
-                                                      { printf("\t");
-                                                        strcpy(temp, "");
-                                                        strcat(temp, "( setq ");
-                                                        strcat(temp, (yyvsp[-3].cadena));
-                                                        strcat(temp, " ");
-                                                        char num[4];
-                                                        sprintf(num,"%d", (yyvsp[-1].valor));
-                                                        strcat(temp, num);
-                                                        strcat(temp, " )");
-                                                        printf("%s\n", genera_cadena(temp)); }
-#line 1540 "trad2.tab.c"
+#line 108 "trad2.y"
+                                                                    { ; }
+#line 1547 "trad2.tab.c"
     break;
 
   case 25:
-#line 113 "trad2.y"
-                                                                        { ; }
-#line 1546 "trad2.tab.c"
+#line 109 "trad2.y"
+                                                { ; }
+#line 1553 "trad2.tab.c"
     break;
 
   case 26:
-#line 114 "trad2.y"
-                                                            { printf("\t");
-                                                        strcpy(temp, "");
-                                                        strcat(temp, "(");
-                                                        strcat(temp, " setq ");
-                                                        strcat(temp, (yyvsp[-3].cadena));
-                                                        strcat(temp, " ");
-                                                        strcat(temp, (yyvsp[-1].cadena));
-                                                        strcat(temp, ")");
-                                                        printf("%s\n", genera_cadena(temp)); }
-#line 1560 "trad2.tab.c"
+#line 110 "trad2.y"
+                                                                    { ; }
+#line 1559 "trad2.tab.c"
     break;
 
   case 27:
-#line 125 "trad2.y"
-                                        { strcpy(temp, "");
+#line 111 "trad2.y"
+                                                  { printf("\t");
+                                                  strcpy(temp, "");
+                                                  strcat(temp, "( print ");
+                                                  strcat(temp, "\"");
+                                                  strcat(temp, (yyvsp[-2].cadena));
+                                                  strcat(temp, "\"");
+                                                  strcat(temp, ")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+#line 1572 "trad2.tab.c"
+    break;
+
+  case 28:
+#line 119 "trad2.y"
+                                                                    { ; }
+#line 1578 "trad2.tab.c"
+    break;
+
+  case 29:
+#line 120 "trad2.y"
+                                                    { ; }
+#line 1584 "trad2.tab.c"
+    break;
+
+  case 30:
+#line 123 "trad2.y"
+                                                { printf("\t");
+                                                  strcpy(temp, "");
+                                                  strcat(temp, "( setq ");
+                                                  strcat(temp, (yyvsp[-1].cadena));
+                                                  strcat(temp, " 0 ");
+                                                  strcat(temp, ")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+#line 1596 "trad2.tab.c"
+    break;
+
+  case 31:
+#line 130 "trad2.y"
+                                                  { printf("\t");
+                                                  strcpy(temp, "");
+                                                  strcat(temp, "( setq ");
+                                                  strcat(temp, (yyvsp[-3].cadena));
+                                                  strcat(temp, " ");
+                                                  char num[4];
+                                                  sprintf(num,"%d", (yyvsp[-1].valor));
+                                                  strcat(temp, num);
+                                                  strcat(temp, " )");
+                                                  printf("%s\n", genera_cadena(temp)); }
+#line 1611 "trad2.tab.c"
+    break;
+
+  case 32:
+#line 140 "trad2.y"
+                                                { printf("\t");
+                                                  strcpy(temp, "");
+                                                  strcat(temp, "(");
+                                                  strcat(temp, " setq ");
+                                                  strcat(temp, (yyvsp[-3].cadena));
+                                                  strcat(temp, " ");
+                                                  strcat(temp, (yyvsp[-1].cadena));
+                                                  strcat(temp, ")");
+                                                  printf("%s\n", genera_cadena(temp)); }
+#line 1625 "trad2.tab.c"
+    break;
+
+  case 33:
+#line 151 "trad2.y"
+                                      { strcpy(temp, "");
                                         strcat(temp, "( print ");
                                         strcat(temp, (yyvsp[0].cadena));
                                         strcat(temp, ")");
                                         (yyval.cadena) = genera_cadena(temp); }
-#line 1570 "trad2.tab.c"
+#line 1635 "trad2.tab.c"
     break;
 
-  case 28:
-#line 130 "trad2.y"
+  case 34:
+#line 156 "trad2.y"
                                       { strcpy(temp, "");
                                         strcat(temp, "( print ");
                                         strcat(temp, (yyvsp[-2].cadena));
@@ -1578,117 +1643,117 @@ yyreduce:
                                         strcat(temp, " ");
                                         strcat(temp, (yyvsp[0].cadena));
                                         (yyval.cadena) = genera_cadena(temp); }
-#line 1582 "trad2.tab.c"
-    break;
-
-  case 29:
-#line 139 "trad2.y"
-                                                                      { (yyval.cadena) = (yyvsp[0].cadena); }
-#line 1588 "trad2.tab.c"
-    break;
-
-  case 30:
-#line 140 "trad2.y"
-                                                        { strcpy(temp, "");
-                                                strcat(temp, "(");
-                                                strcat(temp, " + ");
-                                                strcat(temp, (yyvsp[-2].cadena));
-                                                strcat(temp, (yyvsp[0].cadena));
-                                                strcat(temp, ")");
-                                                (yyval.cadena) = genera_cadena(temp); }
-#line 1600 "trad2.tab.c"
-    break;
-
-  case 31:
-#line 147 "trad2.y"
-                                                        { strcpy(temp, "");
-                                                strcat(temp, "(");
-                                                strcat(temp, " - ");
-                                                strcat(temp, (yyvsp[-2].cadena));
-                                                strcat(temp, (yyvsp[0].cadena));
-                                                strcat(temp, ")");
-                                                (yyval.cadena) = genera_cadena(temp); }
-#line 1612 "trad2.tab.c"
-    break;
-
-  case 32:
-#line 154 "trad2.y"
-                                                        { strcpy(temp, "");
-                                                strcat(temp, "(");
-                                                strcat(temp, " * ");
-                                                strcat(temp, (yyvsp[-2].cadena));
-                                                strcat(temp, (yyvsp[0].cadena));
-                                                strcat(temp, ")");
-                                                (yyval.cadena) = genera_cadena(temp); }
-#line 1624 "trad2.tab.c"
-    break;
-
-  case 33:
-#line 161 "trad2.y"
-                                                        { strcpy(temp, "");
-                                                strcat(temp, "(");
-                                                strcat(temp, " / ");
-                                                strcat(temp, (yyvsp[-2].cadena));
-                                                strcat(temp, (yyvsp[0].cadena));
-                                                strcat(temp, ")");
-                                                (yyval.cadena) = genera_cadena(temp); }
-#line 1636 "trad2.tab.c"
-    break;
-
-  case 34:
-#line 170 "trad2.y"
-                                                                        { (yyval.cadena) = (yyvsp[0].cadena); }
-#line 1642 "trad2.tab.c"
+#line 1647 "trad2.tab.c"
     break;
 
   case 35:
-#line 171 "trad2.y"
-                                                { strcpy(temp, "");
-                                                  strcat(temp, "(");
-                                                  strcat(temp, "+");
-                                                  strcat(temp, (yyvsp[0].cadena));
-                                                  strcat(temp, ")");
-                                                  (yyval.cadena) = genera_cadena(temp); }
+#line 165 "trad2.y"
+                                                                      { (yyval.cadena) = (yyvsp[0].cadena); }
 #line 1653 "trad2.tab.c"
     break;
 
   case 36:
-#line 177 "trad2.y"
-                                                { strcpy(temp, "");
-                                                  strcat(temp, "(");
-                                                  strcat(temp, "-");
-                                                  strcat(temp, (yyvsp[0].cadena));
-                                                  strcat(temp, ")");
-                                                  (yyval.cadena) = genera_cadena(temp); }
-#line 1664 "trad2.tab.c"
+#line 166 "trad2.y"
+                                                        { strcpy(temp, "");
+                                              strcat(temp, "(");
+                                              strcat(temp, " + ");
+                                              strcat(temp, (yyvsp[-2].cadena));
+                                              strcat(temp, (yyvsp[0].cadena));
+                                              strcat(temp, ")");
+                                              (yyval.cadena) = genera_cadena(temp); }
+#line 1665 "trad2.tab.c"
     break;
 
   case 37:
-#line 185 "trad2.y"
-                                          { sprintf(temp,"%s ", (yyvsp[0].cadena));
-                                      (yyval.cadena) = genera_cadena(temp); }
-#line 1671 "trad2.tab.c"
+#line 173 "trad2.y"
+                                                        { strcpy(temp, "");
+                                              strcat(temp, "(");
+                                              strcat(temp, " - ");
+                                              strcat(temp, (yyvsp[-2].cadena));
+                                              strcat(temp, (yyvsp[0].cadena));
+                                              strcat(temp, ")");
+                                              (yyval.cadena) = genera_cadena(temp); }
+#line 1677 "trad2.tab.c"
     break;
 
   case 38:
-#line 187 "trad2.y"
-                                    { sprintf(temp,"%d ", (yyvsp[0].valor));
-                                      (yyval.cadena) = genera_cadena(temp);}
-#line 1678 "trad2.tab.c"
+#line 180 "trad2.y"
+                                                        { strcpy(temp, "");
+                                              strcat(temp, "(");
+                                              strcat(temp, " * ");
+                                              strcat(temp, (yyvsp[-2].cadena));
+                                              strcat(temp, (yyvsp[0].cadena));
+                                              strcat(temp, ")");
+                                              (yyval.cadena) = genera_cadena(temp); }
+#line 1689 "trad2.tab.c"
     break;
 
   case 39:
-#line 189 "trad2.y"
+#line 187 "trad2.y"
+                                                        { strcpy(temp, "");
+                                              strcat(temp, "(");
+                                              strcat(temp, " / ");
+                                              strcat(temp, (yyvsp[-2].cadena));
+                                              strcat(temp, (yyvsp[0].cadena));
+                                              strcat(temp, ")");
+                                              (yyval.cadena) = genera_cadena(temp); }
+#line 1701 "trad2.tab.c"
+    break;
+
+  case 40:
+#line 196 "trad2.y"
+                                                                { (yyval.cadena) = (yyvsp[0].cadena); }
+#line 1707 "trad2.tab.c"
+    break;
+
+  case 41:
+#line 197 "trad2.y"
                                                 { strcpy(temp, "");
-                                      strcat(temp, "(");
-                                      strcat(temp, (yyvsp[-1].cadena));
-                                      strcat(temp, ")");
-                                      (yyval.cadena) = genera_cadena(temp); }
-#line 1688 "trad2.tab.c"
+                                                strcat(temp, "(");
+                                                strcat(temp, "+");
+                                                strcat(temp, (yyvsp[0].cadena));
+                                                strcat(temp, ")");
+                                                (yyval.cadena) = genera_cadena(temp); }
+#line 1718 "trad2.tab.c"
+    break;
+
+  case 42:
+#line 203 "trad2.y"
+                                                { strcpy(temp, "");
+                                                strcat(temp, "(");
+                                                strcat(temp, "-");
+                                                strcat(temp, (yyvsp[0].cadena));
+                                                strcat(temp, ")");
+                                                (yyval.cadena) = genera_cadena(temp); }
+#line 1729 "trad2.tab.c"
+    break;
+
+  case 43:
+#line 211 "trad2.y"
+                                          { sprintf(temp,"%s ", (yyvsp[0].cadena));
+                                    (yyval.cadena) = genera_cadena(temp); }
+#line 1736 "trad2.tab.c"
+    break;
+
+  case 44:
+#line 213 "trad2.y"
+                                  { sprintf(temp,"%d ", (yyvsp[0].valor));
+                                    (yyval.cadena) = genera_cadena(temp);}
+#line 1743 "trad2.tab.c"
+    break;
+
+  case 45:
+#line 215 "trad2.y"
+                                        { strcpy(temp, "");
+                                    strcat(temp, "(");
+                                    strcat(temp, (yyvsp[-1].cadena));
+                                    strcat(temp, ")");
+                                    (yyval.cadena) = genera_cadena(temp); }
+#line 1753 "trad2.tab.c"
     break;
 
 
-#line 1692 "trad2.tab.c"
+#line 1757 "trad2.tab.c"
 
       default: break;
     }
@@ -1920,7 +1985,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 196 "trad2.y"
+#line 222 "trad2.y"
 
                             // SECCION 4    Codigo en C
 int n_linea = 1 ;
@@ -1963,6 +2028,7 @@ typedef struct s_pal_reservadas { // para las palabras reservadas de C
 t_reservada pal_reservadas [] = { // define las palabras reservadas y los
     "main",        MAIN,           // y los token asociados
     "int",         INTEGER,
+    "puts",        PUTS,
     NULL,          0               // para marcar el fin de la tabla
 } ;
 
