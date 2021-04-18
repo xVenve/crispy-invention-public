@@ -22,6 +22,7 @@ char *genera_cadena (char *nombre);
 %token <cadena> INTEGER       // identifica la definicion de un entero
 %token <cadena> STRING
 %token <cadena> PUTS
+%token <cadena> PRINT
 %token <cadena> MAIN          // identifica el comienzo del proc. main
 %token <cadena> WHILE         // identifica el bucle main
 
@@ -103,7 +104,7 @@ mainfun:      MAIN '(' ')' '{'	          { strcpy(temp, "");
                                             printf("%s\n", genera_cadena(temp)); }
             ;
 
-cuerpo:       '$' '(' impr ')' ';'	            { printf("\t");
+cuerpo:       PRINT '(' impr ')' ';'	            { printf("\t");
                                                   printf("%s\n", genera_cadena(temp)); }
               cuerpo				                    { ; }
             | setq                              { ; }
@@ -153,6 +154,8 @@ impr:         expresion	              { strcpy(temp, "");
                                         strcat(temp, $1);
                                         strcat(temp, ")");
                                         $$ = genera_cadena(temp); }
+            | STRING	              { strcpy(temp, "");
+                                      $$ = genera_cadena(temp); }
             | expresion ',' impr      { strcpy(temp, "");
                                         strcat(temp, "( print ");
                                         strcat(temp, $1);
@@ -160,6 +163,9 @@ impr:         expresion	              { strcpy(temp, "");
                                         strcat(temp, " ");
                                         strcat(temp, $3);
                                         $$ = genera_cadena(temp); }
+            | STRING ',' impr       { strcpy(temp, "");
+                                      strcat(temp, $3);
+                                      $$ = genera_cadena(temp); }
             ;
 
 expresion:    termino					              { $$ = $1; }
@@ -211,7 +217,7 @@ termino:      operando				                { $$ = $1; }
 operando:     IDENTIF	       		  { sprintf(temp,"%s ", $1);
                                     $$ = genera_cadena(temp); }
             | NUMERO              { sprintf(temp,"%d ", $1);
-                                    $$ = genera_cadena(temp);}
+                                    $$ = genera_cadena(temp); }
             | '(' expresion ')'		{ strcpy(temp, "");
                                     strcat(temp, "(");
                                     strcat(temp, $2);
@@ -262,6 +268,7 @@ t_reservada pal_reservadas [] = { // define las palabras reservadas y los
     "main",        MAIN,           // y los token asociados
     "int",         INTEGER,
     "puts",        PUTS,
+    "printf",      PRINT,
     NULL,          0               // para marcar el fin de la tabla
 } ;
 

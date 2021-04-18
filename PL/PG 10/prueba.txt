@@ -7,12 +7,14 @@ main () {
   int b=3;
   a=7;
   puts("Hola mundo");
-  $(a);
-  $(12);
-  $(a+12);
-  $(a+b);
-  $(12-10);
-  $(12*10);
-  $(12/3);
-  $(a,12,a+12);
+  printf(a);
+  printf(12);
+  printf(a+12);
+  printf(a+b);
+  printf(12-10);
+  printf(12*10);
+  printf(12/3);
+  printf(a,12,a+12);
+  printf("Hola mundo");
+  printf("Hola mundo",a,12,a+12,"Hello world");
 }
