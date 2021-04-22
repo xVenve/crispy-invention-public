@@ -22,13 +22,25 @@ char *genera_cadena (char *nombre);
 %token <cadena> INTEGER       // identifica la definicion de un entero
 %token <cadena> STRING
 %token <cadena> PUTS
+%token <cadena> LEQ
+%token <cadena> GEQ
+%token <cadena> EQ
+%token <cadena> NEQ
+%token <cadena> AND
+%token <cadena> OR
+%token <cadena> IF
+%token <cadena> ELSE
 %token <cadena> PRINT
 %token <cadena> MAIN          // identifica el comienzo del proc. main
-%token <cadena> WHILE         // identifica el bucle main
+%token <cadena> WHILE         // identifica el bucle while
 
-%type  <cadena> expresion termino operando impr decl def cuerpo
+%type  <cadena> expresion termino operando impr decl def cuerpo cond
 
 %right '='                    // es la ultima operacion que se debe realizar
+%left OR
+%left AND
+%left EQ NEQ
+%left '<' LEQ GEQ '>'
 %left '+' '-'                 // menor orden de precedencia
 %left '*' '/'                 // orden de precedencia intermedio
 %left SIGNO_UNARIO            // mayor orden de precedencia
@@ -66,8 +78,8 @@ decl:         INTEGER IDENTIF                   { strcpy(temp, "");
                                                   strcat(temp, $3);
                                                   strcat(temp, ")");
                                                   printf("%s\n", genera_cadena(temp)); }
-              decl			                          { ; }
-            | /* lambda */	                      { ; }
+              decl			                        { ; }
+            | /* lambda */	                    { ; }
             ;
 
 resdecl:      ',' IDENTIF '=' expresion           { strcpy(temp, "");
@@ -104,21 +116,54 @@ mainfun:      MAIN '(' ')' '{'	          { strcpy(temp, "");
                                             printf("%s\n", genera_cadena(temp)); }
             ;
 
-cuerpo:       PRINT '(' impr ')' ';'	            { printf("\t");
-                                                  printf("%s\n", genera_cadena(temp)); }
+cuerpo:       sent                              { ; }
               cuerpo				                    { ; }
-            | setq                              { ; }
-              cuerpo				                    { ; }
-            | PUTS '(' STRING ')' ';'	          { printf("\t");
+            | WHILE '('                         { printf("\t");
                                                   strcpy(temp, "");
-                                                  strcat(temp, "( print ");
-                                                  strcat(temp, "\"");
-                                                  strcat(temp, $3);
-                                                  strcat(temp, "\"");
-                                                  strcat(temp, ")");
+                                                  strcat(temp, "( loop ");
+                                                  strcat(temp, "while ");
+                                                  printf("%s", genera_cadena(temp));}
+              cond                              { ; }
+              ')' '{'                           { strcat(temp, " do( ");
+                                                  printf("%s\n", genera_cadena(temp)); }
+              sent                              { ; }
+              '}'                               { strcpy(temp, "");
+                                                  strcat(temp, "\t)");
                                                   printf("%s\n", genera_cadena(temp)); }
               cuerpo				                    { ; }
             | /* lambda */	                    { ; }
+            | IF '('                            { printf("\t");
+                                                  strcpy(temp, "");
+                                                  strcat(temp, "( if ");
+                                                  printf("%s", genera_cadena(temp));}
+              cond                              { ; }
+              ')' '{'                           { printf("%s\n", genera_cadena(temp)); }
+              sent                              { ; }
+              els                               { ; }
+              cuerpo				                    { ; }
+            ;
+
+els:         '}' ELSE '{'                   { ; }
+             sent                           { ; }
+             '}'                            { strcpy(temp, "");
+                                              strcat(temp, "\t)");
+                                              printf("%s\n", genera_cadena(temp)); }
+            | '}'                           { strcpy(temp, "");
+                                              strcat(temp, "\t)");
+                                              printf("%s\n", genera_cadena(temp)); }
+            ;
+
+sent:        PRINT '(' impr ')' ';'	        { printf("\t");
+                                              printf("%s\n", genera_cadena(temp)); }
+            | setq                          { ; }
+            | PUTS '(' STRING ')' ';'	      { printf("\t");
+                                              strcpy(temp, "");
+                                              strcat(temp, "( print ");
+                                              strcat(temp, "\"");
+                                              strcat(temp, $3);
+                                              strcat(temp, "\"");
+                                              strcat(temp, ")");
+                                              printf("%s\n", genera_cadena(temp)); }
             ;
 
 setq:         INTEGER IDENTIF ';'               { printf("\t");
@@ -149,20 +194,20 @@ setq:         INTEGER IDENTIF ';'               { printf("\t");
                                                   printf("%s\n", genera_cadena(temp)); }
             ;
 
-impr:         expresion	              { strcpy(temp, "");
-                                        strcat(temp, "( print ");
-                                        strcat(temp, $1);
-                                        strcat(temp, ")");
-                                        $$ = genera_cadena(temp); }
+impr:         expresion	            { strcpy(temp, "");
+                                      strcat(temp, "( print ");
+                                      strcat(temp, $1);
+                                      strcat(temp, ")");
+                                      $$ = genera_cadena(temp); }
             | STRING	              { strcpy(temp, "");
                                       $$ = genera_cadena(temp); }
-            | expresion ',' impr      { strcpy(temp, "");
-                                        strcat(temp, "( print ");
-                                        strcat(temp, $1);
-                                        strcat(temp, ")");
-                                        strcat(temp, " ");
-                                        strcat(temp, $3);
-                                        $$ = genera_cadena(temp); }
+            | expresion ',' impr    { strcpy(temp, "");
+                                      strcat(temp, "( print ");
+                                      strcat(temp, $1);
+                                      strcat(temp, ")");
+                                      strcat(temp, " ");
+                                      strcat(temp, $3);
+                                      $$ = genera_cadena(temp); }
             | STRING ',' impr       { strcpy(temp, "");
                                       strcat(temp, $3);
                                       $$ = genera_cadena(temp); }
@@ -197,6 +242,65 @@ expresion:    termino					              { $$ = $1; }
                                               strcat(temp, $3);
                                               strcat(temp, ")");
                                               $$ = genera_cadena(temp); }
+            | cond                          { ; }
+            ;
+
+cond:       expresion GEQ expresion   		{ strcpy(temp, "");
+                                            strcat(temp, "(");
+                                            strcat(temp, " >= ");
+                                            strcat(temp, $1);
+                                            strcat(temp, $3);
+                                            strcat(temp, ")");
+                                            $$ = genera_cadena(temp); }
+            | expresion LEQ expresion   	{ strcpy(temp, "");
+                                            strcat(temp, "(");
+                                            strcat(temp, " <= ");
+                                            strcat(temp, $1);
+                                            strcat(temp, $3);
+                                            strcat(temp, ")");
+                                            $$ = genera_cadena(temp); }
+            | expresion '>' expresion   	{ strcpy(temp, "");
+                                            strcat(temp, "(");
+                                            strcat(temp, " > ");
+                                            strcat(temp, $1);
+                                            strcat(temp, $3);
+                                            strcat(temp, ")");
+                                            $$ = genera_cadena(temp); }
+            | expresion '<' expresion   	{ strcpy(temp, "");
+                                            strcat(temp, "(");
+                                            strcat(temp, " < ");
+                                            strcat(temp, $1);
+                                            strcat(temp, $3);
+                                            strcat(temp, ")");
+                                            $$ = genera_cadena(temp); }
+            | expresion AND expresion   	{ strcpy(temp, "");
+                                            strcat(temp, "(");
+                                            strcat(temp, " And ");
+                                            strcat(temp, $1);
+                                            strcat(temp, $3);
+                                            strcat(temp, ")");
+                                            $$ = genera_cadena(temp); }
+            | expresion OR expresion   		{ strcpy(temp, "");
+                                            strcat(temp, "(");
+                                            strcat(temp, " or ");
+                                            strcat(temp, $1);
+                                            strcat(temp, $3);
+                                            strcat(temp, ")");
+                                            $$ = genera_cadena(temp); }
+            | expresion EQ expresion   		{ strcpy(temp, "");
+                                            strcat(temp, "(");
+                                            strcat(temp, " = ");
+                                            strcat(temp, $1);
+                                            strcat(temp, $3);
+                                            strcat(temp, ")");
+                                            $$ = genera_cadena(temp); }
+            | expresion NEQ expresion   	{ strcpy(temp, "");
+                                            strcat(temp, "(");
+                                            strcat(temp, " /= ");
+                                            strcat(temp, $1);
+                                            strcat(temp, $3);
+                                            strcat(temp, ")");
+                                            $$ = genera_cadena(temp); }
             ;
 
 termino:      operando				                { $$ = $1; }
@@ -267,8 +371,17 @@ typedef struct s_pal_reservadas { // para las palabras reservadas de C
 t_reservada pal_reservadas [] = { // define las palabras reservadas y los
     "main",        MAIN,           // y los token asociados
     "int",         INTEGER,
+    "while",       WHILE,
     "puts",        PUTS,
+    "if",          IF,
+    "else",        ELSE,
     "printf",      PRINT,
+    ">=",          GEQ,
+    "<=",          LEQ,
+    "&&",          AND,
+    "||",          OR,
+    "==",          EQ,
+    "!=",          NEQ,
     NULL,          0               // para marcar el fin de la tabla
 } ;
 

@@ -17,4 +17,20 @@ main () {
   printf(a,12,a+12);
   printf("Hola mundo");
   printf("Hola mundo",a,12,a+12,"Hello world");
+  bol = 23+23 > 23*2;
+  bol2 = 23+23 >= 23*2;
+  printf(3>=4);
+  printf(3>=4 && 2<2 || 3==2 || 2!=1);
+
+  while(3>=4 && 2*3+6!=45) { puts("Bucle while");}
+
+  printf(3>=4 && 2*3+6!=45);
+
+  if (2!=1){puts("Bucle if");}
+
+  bol5 = 34*2 > 23;
+  if (2!=1){puts("Bucle if");} else {puts("else del if");}
+
+  printf(12/3);
+
 }
