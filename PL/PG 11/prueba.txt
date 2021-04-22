@@ -15,6 +15,8 @@ main () {
   printf(12*10);
   printf(12/3);
   printf(a,12,a+12);
+  printf(+12);
+  printf(-12);
   printf("Hola mundo");
   printf("Hola mundo",a,12,a+12,"Hello world");
   bol = 23+23 > 23*2;
@@ -22,7 +24,7 @@ main () {
   printf(3>=4);
   printf(3>=4 && 2<2 || 3==2 || 2!=1);
 
-  while(3>=4 && 2*3+6!=45) { puts("Bucle while");}
+  while(3>=4 && 2*3+6!=45) { puts("Bucle while"); puts("Bucle while2");}
 
   printf(3>=4 && 2*3+6!=45);
 
