@@ -1,0 +1,20 @@
+int d = 1, e=3, f;
+int g;
+int h=45;
+i=17;
+main () {
+  int a;
+  int b=3;
+  a=7;
+  puts("Hola mundo");
+  printf(a);
+  printf(12);
+  printf(a+12);
+  printf(a+b);
+  printf(12-10);
+  printf(12*10);
+  printf(12/3);
+  printf(a,12,a+12);
+  printf("Hola mundo");
+  printf("Hola mundo",a,12,a+12,"Hello world");
+}
