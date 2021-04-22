@@ -698,8 +698,8 @@ class Game(object):
             self.unmute()
 
             #Add the state to the text file
-            if agentIndex == 0:
-                file.write(self.agents[0].printLineData(self.state, self.state.generateSuccessor(agentIndex, action)) + "\n")
+            # if agentIndex == 0:
+            #     file.write(self.agents[0].printLineData(self.state, self.state.generateSuccessor(agentIndex, action)) + "\n")
 
             # Execute the action
             self.moveHistory.append( (agentIndex, action) )

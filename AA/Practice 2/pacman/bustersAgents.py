@@ -23,6 +23,7 @@ import inference
 import busters
 import os
 import numpy
+import math
 # from wekaI import Weka
 
 
@@ -420,7 +421,72 @@ class QLearningAgent(BustersAgent):
         Compute the row of the qtable for a given state.
         For instance, the state (3,1) is the row 7
         """
-        return state[0]+state[1]*4
+        return 96*self.computeNearestGhostDistance(state)+24*self.computePacManOrientation(state)+8*self.computeNearestDotDistance(state)+self.computeNearestGhostDirection(state)
+
+    def computeNearestGhostDistance(self, state):  # Cerca 2 Medio 1 Lejos 0
+        distance = min(x for x in state.data.ghostDistances if x is not None)
+        if distance < 5:
+            return 2
+        elif distance < 7:
+            return 1
+        else:
+            return 0
+
+    def computePacManOrientation(self, state):  # Norte 0 Sur 1 Este 2 Oeste 3
+        if Directions.NORTH == state.data.agentStates[0].getDirection():
+            return 0
+        elif Directions.SOUTH == state.data.agentStates[0].getDirection():
+            return 1
+        elif Directions.EAST == state.data.agentStates[0].getDirection():
+            return 2
+        elif Directions.WEST == state.data.agentStates[0].getDirection():
+            return 3
+
+    def computeNearestDotDistance(self, state):  # Cerca 2 Medio 1 Lejos 0
+        distance = state.getDistanceNearestFood()
+        if distance < 5:
+            return 2
+        elif distance < 7:
+            return 1
+        else:
+            return 0
+
+    def computeNearestGhostDirection(self, state):  # Norte 0 Noreste 1 Este 2 Sureste 3 Sur 4 Suroeste 5 Oeste 6 Noroeste 7
+        pos = 0
+        minlocal = 999
+        iteracion = 0
+        alive_ghosts = state.getLivingGhosts()
+        del alive_ghosts[0]
+        for index in state.data.ghostDistances:
+            if index is not None and index < minlocal and alive_ghosts[iteracion] == True:
+                minlocal = index
+                pos = iteracion
+            iteracion += 1
+
+        position_ghost = state.getGhostPositions()[pos]
+        ghost_x = position_ghost[0]
+        ghost_y = position_ghost[1]
+
+        pacman_x = state.getPacmanPosition()[0]
+        pacman_y = state.getPacmanPosition()[1]
+
+        if   pacman_x - ghost_x == 0 and pacman_y - ghost_y <  0: # Norte 0
+            return  0
+        elif pacman_x - ghost_x <  0 and pacman_y - ghost_y <  0: # Noreste 1
+            return  1
+        elif pacman_x - ghost_x <  0 and pacman_y - ghost_y == 0: # Este 2
+            return  2
+        elif pacman_x - ghost_x <  0 and pacman_y - ghost_y >  0: # Sureste 3
+            return  3
+        elif pacman_x - ghost_x == 0 and pacman_y - ghost_y >  0: # Sur 4
+            return  4
+        elif pacman_x - ghost_x >  0 and pacman_y - ghost_y >  0: # Suroeste 5
+            return  5
+        elif pacman_x - ghost_x >  0 and pacman_y - ghost_y == 0: # Oeste 6
+            return  6
+        elif pacman_x - ghost_x >  0 and pacman_y - ghost_y <  0: # Noroeste 7
+            return  7
+
 
     def getQValue(self, state, action):
 
@@ -453,7 +519,7 @@ class QLearningAgent(BustersAgent):
           are no legal actions, which is the case at the terminal state,
           you should return None.
         """
-        legalActions = self.getLegalActions(state)
+        legalActions = state.getLegalActions(0)
         if len(legalActions)==0:
           return None
 
@@ -479,7 +545,7 @@ class QLearningAgent(BustersAgent):
         """
 
         # Pick Action
-        legalActions = self.getLegalActions(state)
+        legalActions = state.getLegalActions(0)
         action = None
 
         if len(legalActions) == 0:
