@@ -378,11 +378,15 @@ class QLearningAgent(BustersAgent):
     def __init__(self, **args):
         "Initialize Q-values"
         BustersAgent.__init__(self, **args)
+        self.numTraining = 100
+        self.episodesSoFar = 0
 
-        self.actions = {"north":0, "east":1, "south":2, "west":3}
+        self.actions = {"North":0, "South":1, "East":2, "West":3, "Stop":0}
         self.table_file = open("qtable.txt", "r+")
         self.q_table = self.readQtable()
         self.epsilon = 0.05
+        self.alpha = 0.05
+        self.discount = 0.05
 
     def readQtable(self):
         "Read qtable from disc"
@@ -441,13 +445,18 @@ class QLearningAgent(BustersAgent):
             return 2
         elif Directions.WEST == state.data.agentStates[0].getDirection():
             return 3
+        else:
+            return 0
 
     def computeNearestDotDistance(self, state):  # Cerca 2 Medio 1 Lejos 0
         distance = state.getDistanceNearestFood()
-        if distance < 5:
-            return 2
-        elif distance < 7:
-            return 1
+        if distance is not None:
+            if distance < 5:
+                return 2
+            elif distance < 7:
+                return 1
+            else:
+                return 0
         else:
             return 0
 
@@ -456,7 +465,6 @@ class QLearningAgent(BustersAgent):
         minlocal = 999
         iteracion = 0
         alive_ghosts = state.getLivingGhosts()
-        del alive_ghosts[0]
         for index in state.data.ghostDistances:
             if index is not None and index < minlocal and alive_ghosts[iteracion] == True:
                 minlocal = index
@@ -488,7 +496,7 @@ class QLearningAgent(BustersAgent):
             return  7
 
 
-    def getQValue(self, state, action):
+    def getQValue(self, state, action): # Norte 0 Sur 1 Este 2 Oeste 3
 
         """
           Returns Q(state,action)
@@ -496,19 +504,19 @@ class QLearningAgent(BustersAgent):
           or the Q node value otherwise
         """
         position = self.computePosition(state)
-        action_column = self.actions[action]
 
+        action_column = self.actions[action]
         return self.q_table[position][action_column]
 
 
-    def computeValueFromQValues(self, game):
+    def computeValueFromQValues(self, state):
         """
           Returns max_action Q(state,action)
           where the max is over legal actions.  Note that if
           there are no legal actions, which is the case at the
           terminal state, you should return a value of 0.0.
         """
-        legalActions = self.getLegalActions(state)
+        legalActions = state.getLegalActions(0)
         if len(legalActions)==0:
           return 0
         return max(self.q_table[self.computePosition(state)])
@@ -547,15 +555,20 @@ class QLearningAgent(BustersAgent):
         # Pick Action
         legalActions = state.getLegalActions(0)
         action = None
+        self.lastState = state
 
         if len(legalActions) == 0:
-             return action
+            self.lastAction = action
+            return action
 
         flip = util.flipCoin(self.epsilon)
 
         if flip:
-            return random.choice(legalActions)
-        return self.getPolicy(state)
+            self.lastAction = random.choice(legalActions)
+            return self.lastAction
+
+        self.lastAction = self.getPolicy(state)
+        return self.lastAction
 
 
     def update(self, state, action, nextState, reward):
@@ -577,7 +590,7 @@ class QLearningAgent(BustersAgent):
 
         """
         # TRACE for transition and position to update. Comment the following lines if you do not want to see that trace
-        print("Update Q-table with transition: ", state, action, nextState, reward)
+        print("Update Q-table with transition:\n", state, action,"\n", nextState, reward)
         position = self.computePosition(state)
         action_column = self.actions[action]
 
@@ -589,8 +602,8 @@ class QLearningAgent(BustersAgent):
         self.q_table[position][action_column] = (1-self.alpha)*self.q_table[position][action_column] + self.alpha * (reward + self.discount * self.computeValueFromQValues(nextState))
 
         # TRACE for updated q-table. Comment the following lines if you do not want to see that trace
-        print("Q-table:")
-        self.printQtable()
+        # print("Q-table:")
+        # self.printQtable()
 
     def getPolicy(self, state):
         "Return the best action in the qtable for a given state"
@@ -599,3 +612,96 @@ class QLearningAgent(BustersAgent):
     def getValue(self, state):
         "Return the highest q value for a given state"
         return self.computeValueFromQValues(state)
+
+    def observeTransition(self, state,action,nextState,deltaReward):
+        """
+            Called by environment to inform agent that a transition has
+            been observed. This will result in a call to self.update
+            on the same arguments
+
+            NOTE: Do *not* override or call this function
+        """
+        self.episodeRewards += deltaReward
+        self.update(state,action,nextState,deltaReward)
+
+    def observationFunction(self, state):
+        """
+            This is where we ended up after our last action.
+            The simulation should somehow ensure this is called
+        """
+        if not self.lastState is None:
+            reward = state.getScore() - self.lastState.getScore()
+            self.observeTransition(self.lastState, self.lastAction, state, reward)
+        return state
+
+    def startEpisode(self):
+        """
+          Called by environment when new episode is starting
+        """
+        self.lastState = None
+        self.lastAction = None
+        self.episodeRewards = 0.0
+
+    def registerInitialState(self, state):
+        self.startEpisode()
+        if self.episodesSoFar == 0:
+            print('Beginning %d episodes of Training' % (self.numTraining))
+
+    def stopEpisode(self):
+        """
+          Called by environment when episode is done
+        """
+        if self.episodesSoFar < self.numTraining:
+            self.accumTrainRewards += self.episodeRewards
+        else:
+            self.accumTestRewards += self.episodeRewards
+        self.episodesSoFar += 1
+        if self.episodesSoFar >= self.numTraining:
+            # Take off the training wheels
+            self.epsilon = 0.0    # no exploration
+            self.alpha = 0.0      # no learning
+
+    def isInTraining(self):
+        return self.episodesSoFar < self.numTraining
+
+    def isInTesting(self):
+        return not self.isInTraining()
+
+    def final(self, state):
+        """
+          Called by Pacman game at the terminal state
+        """
+        deltaReward = state.getScore() - self.lastState.getScore()
+        self.observeTransition(self.lastState, self.lastAction, state, deltaReward)
+        self.stopEpisode()
+
+        # Make sure we have this var
+        if not 'episodeStartTime' in self.__dict__:
+            self.episodeStartTime = time.time()
+        if not 'lastWindowAccumRewards' in self.__dict__:
+            self.lastWindowAccumRewards = 0.0
+        self.lastWindowAccumRewards += state.getScore()
+
+        NUM_EPS_UPDATE = 100
+        if self.episodesSoFar % NUM_EPS_UPDATE == 0:
+            print('Reinforcement Learning Status:')
+            windowAvg = self.lastWindowAccumRewards / float(NUM_EPS_UPDATE)
+            if self.episodesSoFar <= self.numTraining:
+                trainAvg = self.accumTrainRewards / float(self.episodesSoFar)
+                print('\tCompleted %d out of %d training episodes' % (
+                       self.episodesSoFar,self.numTraining))
+                print('\tAverage Rewards over all training: %.2f' % (
+                        trainAvg))
+            else:
+                testAvg = float(self.accumTestRewards) / (self.episodesSoFar - self.numTraining)
+                print('\tCompleted %d test episodes' % (self.episodesSoFar - self.numTraining))
+                print('\tAverage Rewards over testing: %.2f' % testAvg)
+            print('\tAverage Rewards for last %d episodes: %.2f'  % (
+                    NUM_EPS_UPDATE,windowAvg))
+            print('\tEpisode took %.2f seconds' % (time.time() - self.episodeStartTime))
+            self.lastWindowAccumRewards = 0.0
+            self.episodeStartTime = time.time()
+
+        if self.episodesSoFar == self.numTraining:
+            msg = 'Training Done (turning off epsilon and alpha)'
+            print('%s\n%s' % (msg,'-' * len(msg)))
