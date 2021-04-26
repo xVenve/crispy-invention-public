@@ -1,6 +1,8 @@
 int d = 1, e=3, f;
 int g;
+int f=45-12*3;
 int h=45;
+int mivector [32];
 i=17;
 main () {
   int a;
@@ -14,6 +16,7 @@ main () {
   printf(12-10);
   printf(12*10);
   printf(12/3);
+  printf(12/3, ((34)==(34)));
   printf(a,12,a+12);
   printf(+12);
   printf(-12);
@@ -32,7 +35,12 @@ main () {
 
   bol5 = 34*2 > 23;
   if (2!=1){puts("Bucle if");} else {puts("else del if");}
+  bol5 = 34*2 > 23;
+
+  for(int j = 0;bol5 == 3;j = j +1){puts("Hola for"); puts("Hola for2");}
 
   printf(12/3);
-
+  int mivector [32];
+  printf(12*mivector[2]);
+  mivector [5] = 123 ;
 }
