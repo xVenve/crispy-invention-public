@@ -1,35 +1,51 @@
 int d = 1, e=3, f;
 int g;
-int f=45-12*3;
 int h=45;
 int mivector [32];
-i=17;
+
+factorial (int a, int b, int c, int d, int e, int f) {
+  int o ;
+  if (n == 1) {
+    o = 1 ;
+  } else {
+    o = n * (n-1) ;
+  }
+}
+
+factorial1 (int a) {
+}
+
+factorial2 () {
+}
+
 main () {
   int a;
   int b=3;
   a=7;
   puts("Hola mundo");
-  printf(a);
-  printf(12);
-  printf(a+12);
-  printf(a+b);
-  printf(12-10);
-  printf(12*10);
-  printf(12/3);
-  printf(12/3, ((34)==(34)));
-  printf(a,12,a+12);
-  printf(+12);
-  printf(-12);
-  printf("Hola mundo");
-  printf("Hola mundo",a,12,a+12,"Hello world");
+  printf("%algo", a);
+  printf("%algo", 12);
+  printf("%algo", a+12);
+  printf("%algo", a+b);
+  printf("%algo", 12-10);
+  printf("%algo", 12*10);
+  int d = 1, e=3, f;
+  printf("%algo", 12/3);
+  printf("%algo", 12/3, ((34)==(34)));
+  printf("%algo", a,12,a+12);
+  printf("%algo", +12);
+  printf("%algo", -12);
+  printf("%algo", "Hola mundo");
+  printf("%algo", "Hola mundo",a,12,a+12,"Hello world");
   bol = 23+23 > 23*2;
   bol2 = 23+23 >= 23*2;
-  printf(3>=4);
-  printf(3>=4 && 2<2 || 3==2 || 2!=1);
+  printf("%algo", 3>=4);
+  printf("%algo", 3>=4 && 2<2 || 3==2 || 2!=1);
+
 
   while(3>=4 && 2*3+6!=45) { puts("Bucle while"); puts("Bucle while2");}
 
-  printf(3>=4 && 2*3+6!=45);
+  printf("%algo", 3>=4 && 2*3+6!=45);
 
   if (2!=1){puts("Bucle if");}
 
@@ -39,8 +55,17 @@ main () {
 
   for(int j = 0;bol5 == 3;j = j +1){puts("Hola for"); puts("Hola for2");}
 
-  printf(12/3);
+  printf("%algo", 12/3);
   int mivector [32];
-  printf(12*mivector[2]);
+  printf("%algo", 12*mivector[2]);
   mivector [5] = 123 ;
+
+  printf("%algo", factorial());
+  printf("%algo", factorial(1));
+  printf("%algo", factorial(1, 12/3, (3)));
+
+  factorial();
+  factorial(1);
+  factorial(1, 12/3, (3));
+
 }

@@ -35,7 +35,7 @@ char *genera_cadena (char *nombre);
 %token <cadena> WHILE         // identifica el bucle while
 %token <cadena> FOR
 
-%type  <cadena> expresion expresioncond termino operando impr decl def cuerpo cond iter decliter vec
+%type  <cadena> expresion expresioncond termino operando impr decl def cuerpo cond iter decliter vec callfun inipar resinipar par respar
 
 %right '='                    // es la ultima operacion que se debe realizar
 %left OR
@@ -52,24 +52,27 @@ axioma:       decl	        { ; }
               def	          { ; }
             ;
 
-decl:         INTEGER IDENTIF                   { sprintf(temp, "(setq %s 0)\n", $2);
-                                                  printf("%s", genera_cadena(temp)); }
-              resdecl ';'                       { ; }
-              decl				                      { ; }
-            | INTEGER IDENTIF '=' expresion 	   { sprintf(temp, "(setq %s %s)\n", $2, $4);
-                                                  printf("%s", genera_cadena(temp)); }
-              resdecl ';'                       { ; }
-              decl				                      { ; }
-            | IDENTIF '=' expresioncond ';'	    { sprintf(temp, "(setq %s %s)\n", $1, $3);
-                                                  printf("%s", genera_cadena(temp)); }
-              decl			                        { ; }
-            | INTEGER IDENTIF '[' expresion ']' ';'	      { sprintf(temp, "(setq %s (make-array %s))\n", $2, $4);
-                                                  printf("%s", genera_cadena(temp)); }
-              decl			                        { ; }
-            | /* lambda */	                    { ; }
+decl:         INTEGER IDENTIF                               { sprintf(temp, "(setq %s 0)\n", $2);
+                                                              printf("%s", genera_cadena(temp)); }
+              resdecl ';'                                   { ; }
+              decl				                                  { ; }
+            | INTEGER IDENTIF '=' NUMERO 	              { sprintf(temp, "(setq %s %d)\n", $2, $4);
+                                                          printf("%s", genera_cadena(temp)); }
+              resdecl ';'                                   { ; }
+              decl				                                  { ; }
+            /* | IDENTIF '=' NUMERO ';'	                { sprintf(temp, "(setq %s %d)\n", $1, $3);
+                                                              printf("%s", genera_cadena(temp)); }
+              decl			                                    { ; } */
+            | INTEGER IDENTIF '[' NUMERO ']' ';' 	      { sprintf(temp, "(setq %s (make-array %d))\n", $2, $4);
+                                                              printf("%s", genera_cadena(temp)); }
+              decl			                                    { ; }
+            /* | vec '=' expresion ';' 	                      { sprintf(temp, "(setf %s %s)\n", $1, $3);
+                                                              printf("%s", genera_cadena(temp)); }
+              decl			                                    { ; } */
+            | /* lambda */	                                { ; }
             ;
 
-resdecl:      ',' IDENTIF '=' expresion 	      { sprintf(temp, "(setq %s %s)\n", $2, $4);
+resdecl:      ',' IDENTIF '=' NUMERO 	      { sprintf(temp, "(setq %s %d)\n", $2, $4);
                                                   printf("%s", genera_cadena(temp)); }
               resdecl                           { ; }
             | ',' IDENTIF                       { sprintf(temp, "(setq %s 0)\n", $2);
@@ -79,8 +82,28 @@ resdecl:      ',' IDENTIF '=' expresion 	      { sprintf(temp, "(setq %s %s)\n",
             ;
 
 def:          mainfun             { ; }
+            | fun 	              { ; }
+             def                 { ; }
             | /* lambda */ 	      { ; }
             ;
+
+fun:          IDENTIF '(' inipar ')' '{' 	 { sprintf(temp, "(defun %s (%s)\n", $1, $3);
+                                            printf("%s", genera_cadena(temp));}
+              cuerpo                      { ; }
+             '}'                         { sprintf(temp, ")\n");
+                                           printf("%s", genera_cadena(temp)); }
+            ;
+
+inipar:       INTEGER IDENTIF resinipar                { sprintf(temp, "%s%s", $2, $3);
+                                                     $$ = genera_cadena(temp);}
+            | /* lambda */                        { $$ = genera_cadena(""); }
+            ;
+
+resinipar:   ',' INTEGER IDENTIF resinipar          { sprintf(temp, " %s%s", $3, $4);
+                                                  $$ = genera_cadena(temp); }
+            | /* lambda */                      { $$ = genera_cadena(""); }
+            ;
+
 
 mainfun:      MAIN '(' ')' '{' 	      { sprintf(temp, "(defun %s ()\n", $1);
                                         printf("%s", genera_cadena(temp));}
@@ -89,38 +112,42 @@ mainfun:      MAIN '(' ')' '{' 	      { sprintf(temp, "(defun %s ()\n", $1);
                                         printf("%s", genera_cadena(temp)); }
             ;
 
-cuerpo:       sent                { ; }
-              cuerpo				      { ; }
-            | WHILE '('           { sprintf(temp, "\t(loop %s ", $1);
-                                    printf("%s", genera_cadena(temp));}
-              cond                { ; }
-              ')' '{'             { strcat(temp, " do\n");
-                                    printf("%s", genera_cadena(temp)); }
-              cuerpo              { ; }
-              '}'                 { sprintf(temp, "\t)\n");
-                                    printf("%s", genera_cadena(temp)); }
-              cuerpo				      { ; }
-            | IF '('              { sprintf(temp, "\t(if ");
-                                    printf("%s", genera_cadena(temp));}
-              cond                { ; }
-              ')' '{'             { printf("%s\n\t", genera_cadena(temp)); }
-              sent                { ; }
-              els                 { ; }
-              cuerpo				      { ; }
-            | FOR '(' decliter ';' cond ';' iter ')'      { sprintf(temp, "%s\t(loop while %s", $3, $5);
-                                                            printf("%s", genera_cadena(temp)); }
-            '{'                   { sprintf(temp, " do\n");
-                                    printf("%s", genera_cadena(temp)); }
-            cuerpo                { ; }
-            '}'                   { printf("%s\t)\n", $7); }
-            cuerpo                { ; }
-            | /* lambda */ 	      { ; }
+cuerpo:       sent                                          { ; }
+              cuerpo				                                { ; }
+            | WHILE '('                                     { sprintf(temp, "\t(loop %s ", $1);
+                                                              printf("%s", genera_cadena(temp)); }
+              cond                                          { ; }
+              ')' '{'                                       { strcat(temp, " do\n");
+                                                              printf("%s", genera_cadena(temp)); }
+              cuerpo                                        { ; }
+              '}'                                           { sprintf(temp, "\t)\n");
+                                                              printf("%s", genera_cadena(temp)); }
+              cuerpo				                                { ; }
+            | IF '('                                        { sprintf(temp, "\t(if ");
+                                                              printf("%s", genera_cadena(temp)); }
+              cond                                          { ; }
+              ')' '{'                                       { printf("%s\n\t", genera_cadena(temp)); }
+              sent                                          { ; }
+              els                                           { ; }
+              cuerpo				                                { ; }
+            | FOR '(' decliter ';' cond ';' iter ')' 	      { sprintf(temp, "%s\t(loop while %s", $3, $5);
+                                                              printf("%s", genera_cadena(temp)); }
+              '{'                                           { sprintf(temp, " do\n");
+                                                              printf("%s", genera_cadena(temp)); }
+              cuerpo                                        { ; }
+              '}'                                           { printf("%s\t)\n", $7); }
+              cuerpo                                        { ; }
+            | callfun ';'                                   { printf("\t%s\n", $1); }
+              cuerpo                                        { ; }
+            | /* lambda */ 	                                { ; }
             ;
-decliter:   INTEGER IDENTIF '=' expresion  { sprintf(temp, "\t(setq %s %s)\n", $2, $4);
-                                             $$ = genera_cadena(temp); }
+
+decliter:     INTEGER IDENTIF '=' expresion 	      { sprintf(temp, "\t(setq %s %s)\n", $2, $4);
+                                                      $$ = genera_cadena(temp); }
             ;
-iter:       IDENTIF '=' expresion { sprintf(temp, "\t(setq %s %s)\n", $1, $3);
-                                    $$ = genera_cadena(temp); }
+
+iter:         IDENTIF '=' expresion 	      { sprintf(temp, "\t(setq %s %s)\n", $1, $3);
+                                              $$ = genera_cadena(temp); }
             ;
 
 els:         '}' ELSE '{' 	      { printf("\t"); }
@@ -131,32 +158,58 @@ els:         '}' ELSE '{' 	      { printf("\t"); }
                                     printf("%s", genera_cadena(temp)); }
             ;
 
-sent:         PRINT '(' impr ')' ';' 	        { if(strcmp(temp, "") != 0) printf("\t%s\n", genera_cadena(temp)); }
-            | setq                            { ; }
-            | PUTS '(' STRING ')' ';' 	      { sprintf(temp, "\t(print \"%s\")\n", $3);
-                                                printf("%s", genera_cadena(temp)); }
+sent:         PRINT '(' STRING ',' impr ')' ';' 	      { if(strcmp(temp, "") != 0) printf("\t%s\n", genera_cadena(temp)); }
+            | setq                                      { ; }
+            | PUTS '(' STRING ')' ';' 	                { sprintf(temp, "\t(print \"%s\")\n", $3);
+                                                          printf("%s", genera_cadena(temp)); }
             ;
 
-setq:         INTEGER IDENTIF ';'                   { sprintf(temp, "\t(setq %s 0)\n", $2);
-                                                      printf("%s", genera_cadena(temp)); }
-            | INTEGER IDENTIF '=' expresion ';' 	      { sprintf(temp, "\t(setq %s %s)\n", $2, $4);
-                                                      printf("%s", genera_cadena(temp)); }
-            | IDENTIF '=' expresioncond ';'	            { sprintf(temp, "\t(setq %s %s)\n", $1, $3);
-                                                      printf("%s", genera_cadena(temp)); }
-            | INTEGER IDENTIF '[' expresion ']' ';'	      { sprintf(temp, "\t(setq %s (make-array %s))\n", $2, $4);
-                                                            printf("%s", genera_cadena(temp)); }
-            | vec '=' expresion ';' 	               { sprintf(temp, "\t(setf %s %s)\n", $1, $3);
-                                                      printf("%s", genera_cadena(temp)); }
+setq:         INTEGER IDENTIF                               { sprintf(temp, "\t(setq %s 0)\n", $2);
+                                                              printf("%s", genera_cadena(temp)); }
+              ressetq ';'                                   { ; }
+            | INTEGER IDENTIF '=' expresion 	              { sprintf(temp, "\t(setq %s %s)\n", $2, $4);
+                                                              printf("%s", genera_cadena(temp)); }
+              ressetq ';'                                   { ; }
+            | IDENTIF '=' expresioncond ';'	                { sprintf(temp, "\t(setq %s %s)\n", $1, $3);
+                                                              printf("%s", genera_cadena(temp)); }
+            | INTEGER IDENTIF '[' expresion ']' ';' 	      { sprintf(temp, "\t(setq %s (make-array %s))\n", $2, $4);
+                                                              printf("%s", genera_cadena(temp)); }
+            | vec '=' expresion ';' 	                      { sprintf(temp, "\t(setf %s %s)\n", $1, $3);
+                                                              printf("%s", genera_cadena(temp)); }
             ;
 
-impr:         expresioncond	                { sprintf(temp, "(print %s)", $1);
-                                          $$ = genera_cadena(temp); }
-            | STRING	                  { strcpy(temp, "");
-                                          $$ = genera_cadena(temp); }
+ressetq:      ',' IDENTIF '=' expresioncond 	  { sprintf(temp, "\t(setq %s %s)\n", $2, $4);
+                                                  printf("%s", genera_cadena(temp)); }
+              ressetq                           { ; }
+            | ',' IDENTIF                       { sprintf(temp, "\t(setq %s 0)\n", $2);
+                                                  printf("%s", genera_cadena(temp)); }
+              ressetq                           { ; }
+            | /* lambda */	                    { ; }
+            ;
+
+impr:         expresioncond	                { sprintf(temp, "(print %s )", $1);
+                                              $$ = genera_cadena(temp); }
+            | STRING	                      { strcpy(temp, "");
+                                              $$ = genera_cadena(temp); }
             | expresioncond ',' impr 	      { sprintf(temp, "(print %s) %s", $1, $3);
-                                          $$ = genera_cadena(temp); }
-            | STRING ',' impr           { sprintf(temp, "%s", $3);
-                                          $$ = genera_cadena(temp); }
+                                              $$ = genera_cadena(temp); }
+            | STRING ',' impr               { sprintf(temp, "%s", $3);
+                                              $$ = genera_cadena(temp); }
+            | callfun                       { sprintf(temp, "(print %s)", $1);
+                                              $$ = genera_cadena(temp); }
+            ;
+
+callfun:    IDENTIF '(' par ')'               { sprintf(temp, "(%s%s)", $1, $3);
+                                                $$ = genera_cadena(temp); }
+            ;
+
+par:        expresion respar                      { sprintf(temp, " %s%s", $1, $2);
+                                                     $$ = genera_cadena(temp);}
+            | /* lambda */	                    { $$ = genera_cadena(""); }
+            ;
+respar:       ',' expresion respar                 { sprintf(temp, " %s%s", $2, $3);
+                                                     $$ = genera_cadena(temp);}
+            | /* lambda */	                    { $$ = genera_cadena(""); }
             ;
 
 expresion:    termino					                { $$ = $1; }
@@ -169,28 +222,29 @@ expresion:    termino					                { $$ = $1; }
             | expresion '/' expresion   	   	{ sprintf(temp, "(/ %s %s)", $1, $3);
                                                 $$ = genera_cadena(temp); }
             ;
-expresioncond: expresion                 { $$ = genera_cadena(temp); }
-            | cond                       { $$ = genera_cadena(temp); }
-            | '(' cond ')' 	             { sprintf(temp, "(%s)", $2);
+
+expresioncond: expresion                { $$ = genera_cadena(temp); }
+            | cond                      { $$ = genera_cadena(temp); }
+            | '(' cond ')' 	            { sprintf(temp, "(%s)", $2);
                                           $$ = genera_cadena(temp); }
             ;
 
-cond:       expresioncond GEQ expresioncond 	  { sprintf(temp, "(>= %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
+cond:         expresioncond GEQ expresioncond 	{ sprintf(temp, "(>= %s %s)", $1, $3);
+                                                  $$ = genera_cadena(temp); }
             | expresioncond LEQ expresioncond 	{ sprintf(temp, "(<= %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
+                                                  $$ = genera_cadena(temp); }
             | expresioncond '>' expresioncond 	{ sprintf(temp, "(> %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
+                                                  $$ = genera_cadena(temp); }
             | expresioncond '<' expresioncond   { sprintf(temp, "(< %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
+                                                  $$ = genera_cadena(temp); }
             | expresioncond AND expresioncond 	{ sprintf(temp, "(and %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
+                                                  $$ = genera_cadena(temp); }
             | expresioncond OR expresioncond 	  { sprintf(temp, "(or %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
+                                                  $$ = genera_cadena(temp); }
             | expresioncond EQ expresioncond 	 { sprintf(temp, "(= %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
+                                                  $$ = genera_cadena(temp); }
             | expresioncond NEQ expresioncond 	{ sprintf(temp, "(/= %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
+                                                  $$ = genera_cadena(temp); }
             ;
 
 termino:      operando				                      { $$ = $1; }
@@ -201,8 +255,8 @@ termino:      operando				                      { $$ = $1; }
             | vec       	                          { $$ = genera_cadena($1); }
             ;
 
-vec: IDENTIF '[' expresion ']'       	    { sprintf(temp, "(aref %s %s)", $1, $3);
-                                          $$ = genera_cadena(temp); }
+vec:          IDENTIF '[' expresion ']'       	{ sprintf(temp, "(aref %s %s)", $1, $3);
+                                                  $$ = genera_cadena(temp); }
             ;
 
 operando:     IDENTIF	       		        { sprintf(temp,"%s", $1);
