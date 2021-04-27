@@ -36,6 +36,7 @@ main () {
   printf("%algo", +12);
   printf("%algo", -12);
   printf("%algo", "Hola mundo");
+  printf("%algo", "Ignorar");
   printf("%algo", "Hola mundo",a,12,a+12,"Hello world");
   bol = 23+23 > 23*2;
   bol2 = 23+23 >= 23*2;
