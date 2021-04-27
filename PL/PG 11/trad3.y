@@ -34,8 +34,10 @@ char *genera_cadena (char *nombre);
 %token <cadena> MAIN          // identifica el comienzo del proc. main
 %token <cadena> WHILE         // identifica el bucle while
 %token <cadena> FOR
+%token <cadena> RETURN
 
-%type  <cadena> expresion expresioncond termino operando impr decl def cuerpo cond iter decliter vec callfun inipar resinipar par respar ressetq setq sent els mainfun fun resdecl
+
+%type  <cadena> expresion expresioncond termino operando impr decl def cuerpo cond iter decliter vec callfun inipar resinipar par respar ressetq setq sent els mainfun fun resdecl progn
 
 %right '='                    // es la ultima operacion que se debe realizar
 %left OR
@@ -52,17 +54,17 @@ axioma:       decl def 	      { sprintf(temp, "%s%s", $1, $2);
                                 printf("%s", genera_cadena(temp)); }
             ;
 
-decl:         INTEGER IDENTIF resdecl ';' decl                    { sprintf(temp, "(setq %s 0)\n%s%s", $2, $3, $5);
+decl:        INTEGER IDENTIF resdecl ';' decl                    { sprintf(temp, "(setq %s 0)\n%s%s", $2, $3, $5);
                                                                     $$ = genera_cadena(temp); }
             | INTEGER IDENTIF '=' NUMERO resdecl ';' decl 	      { sprintf(temp, "(setq %s %d)\n%s%s", $2, $4, $5, $7);
                                                                     $$ = genera_cadena(temp); }
             | INTEGER IDENTIF '[' NUMERO ']' ';' decl	            { sprintf(temp, "(setq %s (make-array %d))\n%s", $2, $4, $7);
                                                                     $$ = genera_cadena(temp); }
-            /* | IDENTIF '=' NUMERO ';' decl	                    { sprintf(temp, "(setq %s %d)\n%s", $1, $3, $5);
+            /*| IDENTIF '=' NUMERO ';' decl	                    { sprintf(temp, "(setq %s %d)\n%s", $1, $3, $5);
                                                                     $$ = genera_cadena(temp); }
             | vec '=' NUMERO ';' decl	                            { sprintf(temp, "(setf %s %d)\n%s", $1, $3, $5);
                                                                     $$ = genera_cadena(temp); } */
-            | /* lambda */	                                      { ; }
+            | /* lambda */	                                      { $$ = genera_cadena(""); }
             ;
 
 resdecl:      ',' IDENTIF '=' NUMERO resdecl 	      { sprintf(temp, "(setq %s %d)\n%s", $2, $4, $5);
@@ -78,10 +80,10 @@ def:          mainfun             { $$ = genera_cadena($1); }
             | /* lambda */ 	      { $$ = genera_cadena(""); }
             ;
 
-fun:          IDENTIF '(' inipar ')' '{' cuerpo	'}' 	      { sprintf(temp, "(defun %s (%s)\n%s)\n", $1, $3, $6);
+fun:          IDENTIF '(' inipar ')' '{' cuerpo '}' 	      { sprintf(temp, "(defun %s (%s)\n%s)\n", $1, $3, $6);
                                                               $$ = genera_cadena(temp); }
-
             ;
+
 
 inipar:       INTEGER IDENTIF resinipar 	      { sprintf(temp, "%s%s", $2, $3);
                                                   $$ = genera_cadena(temp); }
@@ -102,11 +104,13 @@ cuerpo:       sent cuerpo                                                       
                                                                                     $$ = genera_cadena(temp); }
             | WHILE '(' cond ')' '{' cuerpo '}' cuerpo                            { sprintf(temp, "\t(loop %s %s do\n%s\t)\n%s", $1, $3, $6, $8);
                                                                                     $$ = genera_cadena(temp); }
-            | IF '(' cond ')' '{' sent els cuerpo                                 { sprintf(temp, "\t(if %s\n\t%s%s%s", $3, $6, $7, $8);
+            | IF '(' cond ')' '{' progn els cuerpo                                 { sprintf(temp, "\t(if %s\n\t%s%s%s", $3, $6, $7, $8);
                                                                                     $$ = genera_cadena(temp); }
             | FOR '(' decliter ';' cond ';' iter ')' '{' cuerpo	'}' cuerpo 	      { sprintf(temp, "%s\t(loop while %s do\n%s%s\t)\n%s", $3, $5, $10, $7, $12);
                                                                                     $$ = genera_cadena(temp); }
             | callfun ';' cuerpo                                                  { sprintf(temp, "\t%s\n%s", $1, $3);
+                                                                                    $$ = genera_cadena(temp); }
+            | RETURN expresioncond ';' 	                                          { sprintf(temp, "\t%s\n", $2);
                                                                                     $$ = genera_cadena(temp); }
             | /* lambda */ 	                                                      { $$ = genera_cadena(""); }
             ;
@@ -119,7 +123,11 @@ iter:         IDENTIF '=' expresion 	      { sprintf(temp, "\t(setq %s %s)\n", $
                                               $$ = genera_cadena(temp); }
             ;
 
-els:         '}' ELSE '{' sent	 '}' 	      { sprintf(temp, "\t%s\t)\n", $4);
+progn:        cuerpo                 { sprintf(temp, "(progn\n%s\t)\n", $1);
+                                       $$ = genera_cadena(temp); }
+            ;
+
+els:         '}' ELSE '{' progn '}' 	      { sprintf(temp, "\t%s\t)\n", $4);
                                               $$ = genera_cadena(temp); }
             | '}'                           { sprintf(temp, "\t)\n");
                                               $$ = genera_cadena(temp); }
@@ -158,8 +166,6 @@ impr:         expresioncond	                { sprintf(temp, "(print %s)", $1);
             | expresioncond ',' impr 	      { sprintf(temp, "(print %s) %s", $1, $3);
                                               $$ = genera_cadena(temp); }
             | STRING ',' impr               { sprintf(temp, "%s", $3);
-                                              $$ = genera_cadena(temp); }
-            | callfun                       { sprintf(temp, "(print %s)", $1);
                                               $$ = genera_cadena(temp); }
             ;
 
@@ -217,8 +223,11 @@ termino:      operando				                      { $$ = $1; }
                                                       $$ = genera_cadena(temp); }
             | '-' termino %prec SIGNO_UNARIO       	{ sprintf(temp, "(- %s)", $2);
                                                       $$ = genera_cadena(temp); }
-            | vec       	                          { $$ = genera_cadena($1); }
+            | vec                                   { $$ = $1; }
+            | callfun                               { $$ = $1; }
             ;
+
+
 
 vec:          IDENTIF '[' expresion ']' 	      { sprintf(temp, "(aref %s %s)", $1, $3);
                                                   $$ = genera_cadena(temp); }
@@ -286,6 +295,7 @@ t_reservada pal_reservadas [] = { // define las palabras reservadas y los
     "==",          EQ,
     "!=",          NEQ,
     "for",         FOR,
+    "return",      RETURN,
     NULL,          0               // para marcar el fin de la tabla
 } ;
 

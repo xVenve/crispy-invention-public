@@ -2,7 +2,6 @@ int d = 1, e=3, f;
 int g;
 int h=45;
 int mivector [32];
-
 factorial (int a, int b, int c, int d, int e, int f) {
   int o ;
   if (n == 1) {
@@ -10,6 +9,16 @@ factorial (int a, int b, int c, int d, int e, int f) {
   } else {
     o = n * (n-1) ;
   }
+}
+
+factorial3 (int n) {
+  int var ;
+  if (n == 1) {
+    var = 1 ;
+  } else {
+    var = n * factorial (n-1) ;
+  }
+  return var ;
 }
 
 factorial1 (int a) {
@@ -63,10 +72,16 @@ main () {
 
   printf("%algo", factorial());
   printf("%algo", factorial(1));
+  printf("%algo", factorial(n));
   printf("%algo", factorial(1, 12/3, (3)));
 
   factorial();
   factorial(1);
+  factorial(n);
+
   factorial(1, 12/3, (3));
+  if (2!=1){puts("Bucle if1");} else {puts("else del if");}
+
+  if (2!=1){puts("Bucle if1");puts("Bucle if2");} else {puts("else del if");puts("else del if2");}
 
 }
