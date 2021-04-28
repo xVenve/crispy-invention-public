@@ -538,7 +538,7 @@ static const yytype_uint8 yyrline[] =
      151,   153,   157,   159,   161,   164,   166,   168,   170,   174,
      178,   180,   183,   185,   188,   189,   191,   193,   195,   199,
      200,   201,   205,   207,   209,   211,   213,   215,   217,   219,
-     223,   224,   226,   228,   229,   234,   238,   240,   242
+     223,   224,   226,   228,   229,   232,   236,   238,   240
 };
 #endif
 
@@ -1471,14 +1471,14 @@ yyreduce:
     {
   case 2:
 #line 53 "trad3.y"
-                                      { sprintf(temp, "%s%s", (yyvsp[-1].cadena), (yyvsp[0].cadena));
-                                printf("%s", genera_cadena(temp)); }
+                                        { sprintf(temp, "%s%s", (yyvsp[-1].cadena), (yyvsp[0].cadena));
+                                    printf("%s", genera_cadena(temp)); }
 #line 1477 "trad3.tab.c"
     break;
 
   case 3:
 #line 57 "trad3.y"
-                                                                 { sprintf(temp, "(setq %s 0)\n%s%s", (yyvsp[-3].cadena), (yyvsp[-2].cadena), (yyvsp[0].cadena));
+                                                                  { sprintf(temp, "(setq %s 0)\n%s%s", (yyvsp[-3].cadena), (yyvsp[-2].cadena), (yyvsp[0].cadena));
                                                                     (yyval.cadena) = genera_cadena(temp); }
 #line 1484 "trad3.tab.c"
     break;
@@ -1792,7 +1792,7 @@ yyreduce:
   case 49:
 #line 174 "trad3.y"
                                               { sprintf(temp, "(%s%s)", (yyvsp[-3].cadena), (yyvsp[-1].cadena));
-                                          (yyval.cadena) = genera_cadena(temp); }
+                                            (yyval.cadena) = genera_cadena(temp); }
 #line 1797 "trad3.tab.c"
     break;
 
@@ -1858,19 +1858,19 @@ yyreduce:
 
   case 59:
 #line 199 "trad3.y"
-                                    { (yyval.cadena) = genera_cadena(temp); }
+                                      { (yyval.cadena) = genera_cadena(temp); }
 #line 1863 "trad3.tab.c"
     break;
 
   case 60:
 #line 200 "trad3.y"
-                                    { (yyval.cadena) = genera_cadena(temp); }
+                                      { (yyval.cadena) = genera_cadena(temp); }
 #line 1869 "trad3.tab.c"
     break;
 
   case 61:
 #line 201 "trad3.y"
-                                      { sprintf(temp, "(%s)", (yyvsp[-1].cadena));
+                                        { sprintf(temp, "(%s)", (yyvsp[-1].cadena));
                                       (yyval.cadena) = genera_cadena(temp); }
 #line 1876 "trad3.tab.c"
     break;
@@ -1964,28 +1964,28 @@ yyreduce:
     break;
 
   case 75:
-#line 234 "trad3.y"
+#line 232 "trad3.y"
                                                       { sprintf(temp, "(aref %s %s)", (yyvsp[-3].cadena), (yyvsp[-1].cadena));
                                                   (yyval.cadena) = genera_cadena(temp); }
 #line 1971 "trad3.tab.c"
     break;
 
   case 76:
-#line 238 "trad3.y"
+#line 236 "trad3.y"
                                                 { sprintf(temp,"%s", (yyvsp[0].cadena));
                                           (yyval.cadena) = genera_cadena(temp); }
 #line 1978 "trad3.tab.c"
     break;
 
   case 77:
-#line 240 "trad3.y"
+#line 238 "trad3.y"
                                         { sprintf(temp,"%d", (yyvsp[0].valor));
                                           (yyval.cadena) = genera_cadena(temp); }
 #line 1985 "trad3.tab.c"
     break;
 
   case 78:
-#line 242 "trad3.y"
+#line 240 "trad3.y"
                                               { sprintf(temp, "(%s)", (yyvsp[-1].cadena));
                                           (yyval.cadena) = genera_cadena(temp); }
 #line 1992 "trad3.tab.c"
@@ -2224,7 +2224,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 246 "trad3.y"
+#line 244 "trad3.y"
 
                             // SECCION 4    Codigo en C
 int n_linea = 1 ;

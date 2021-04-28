@@ -50,11 +50,11 @@ char *genera_cadena (char *nombre);
 
 %%
                                           // Seccion 3 Gramatica - Semantico
-axioma:       decl mainfun 	      { sprintf(temp, "%s%s", $1, $2);
-                                printf("%s", genera_cadena(temp)); }
+axioma:       decl mainfun       	{ sprintf(temp, "%s%s", $1, $2);
+                                    printf("%s", genera_cadena(temp)); }
             ;
 
-decl:        INTEGER IDENTIF resdecl ';' decl                    { sprintf(temp, "(setq %s 0)\n%s%s", $2, $3, $5);
+decl:         INTEGER IDENTIF resdecl ';' decl                    { sprintf(temp, "(setq %s 0)\n%s%s", $2, $3, $5);
                                                                     $$ = genera_cadena(temp); }
             | INTEGER IDENTIF '=' NUMERO resdecl ';' decl 	      { sprintf(temp, "(setq %s %d)\n%s%s", $2, $4, $5, $7);
                                                                     $$ = genera_cadena(temp); }
@@ -129,7 +129,7 @@ progn:        cuerpo                 { sprintf(temp, "(progn\n%s\t)\n", $1);
                                        $$ = genera_cadena(temp); }
             ;
 
-els:         '}' ELSE '{' progn '}' 	      { sprintf(temp, "\t%s\t)\n", $4);
+els:          '}' ELSE '{' progn '}' 	      { sprintf(temp, "\t%s\t)\n", $4);
                                               $$ = genera_cadena(temp); }
             | '}'                           { sprintf(temp, "\t)\n");
                                               $$ = genera_cadena(temp); }
@@ -171,8 +171,8 @@ impr:         expresioncond	                { sprintf(temp, "(print %s)", $1);
                                               $$ = genera_cadena(temp); }
             ;
 
-callfun:    IDENTIF '(' par ')' 	      { sprintf(temp, "(%s%s)", $1, $3);
-                                          $$ = genera_cadena(temp); }
+callfun:      IDENTIF '(' par ')' 	      { sprintf(temp, "(%s%s)", $1, $3);
+                                            $$ = genera_cadena(temp); }
             ;
 
 par:          expresion respar 	      { sprintf(temp, " %s%s", $1, $2);
@@ -196,9 +196,9 @@ expresion:    termino					                { $$ = $1; }
                                                 $$ = genera_cadena(temp); }
             ;
 
-expresioncond:  expresion           { $$ = genera_cadena(temp); }
-              | cond                { $$ = genera_cadena(temp); }
-              | '(' cond ')' 	      { sprintf(temp, "(%s)", $2);
+expresioncond:    expresion           { $$ = genera_cadena(temp); }
+                | cond                { $$ = genera_cadena(temp); }
+                | '(' cond ')'       	{ sprintf(temp, "(%s)", $2);
                                       $$ = genera_cadena(temp); }
               ;
 
@@ -228,8 +228,6 @@ termino:      operando				                      { $$ = $1; }
             | vec                                   { $$ = $1; }
             | callfun                               { $$ = $1; }
             ;
-
-
 
 vec:          IDENTIF '[' expresion ']' 	      { sprintf(temp, "(aref %s %s)", $1, $3);
                                                   $$ = genera_cadena(temp); }
