@@ -24,6 +24,7 @@ import busters
 import os
 import numpy
 import math
+import time
 # from wekaI import Weka
 
 
@@ -380,11 +381,12 @@ class QLearningAgent(BustersAgent):
         BustersAgent.__init__(self, **args)
         self.numTraining = 100
         self.episodesSoFar = 0
+        self.accumTrainRewards = 0.0
 
         self.actions = {"North":0, "South":1, "East":2, "West":3, "Stop":0}
         self.table_file = open("qtable.txt", "r+")
         self.q_table = self.readQtable()
-        self.epsilon = 0.05
+        self.epsilon = 0.03
         self.alpha = 0.05
         self.discount = 0.05
 
@@ -429,9 +431,9 @@ class QLearningAgent(BustersAgent):
 
     def computeNearestGhostDistance(self, state):  # Cerca 2 Medio 1 Lejos 0
         distance = min(x for x in state.data.ghostDistances if x is not None)
-        if distance < 5:
+        if distance < 7:
             return 2
-        elif distance < 7:
+        elif distance < 15:
             return 1
         else:
             return 0
@@ -451,9 +453,9 @@ class QLearningAgent(BustersAgent):
     def computeNearestDotDistance(self, state):  # Cerca 2 Medio 1 Lejos 0
         distance = state.getDistanceNearestFood()
         if distance is not None:
-            if distance < 5:
+            if distance < 7:
                 return 2
-            elif distance < 7:
+            elif distance < 15:
                 return 1
             else:
                 return 0
@@ -528,6 +530,8 @@ class QLearningAgent(BustersAgent):
           you should return None.
         """
         legalActions = state.getLegalActions(0)
+        legalActions.remove('Stop')
+
         if len(legalActions)==0:
           return None
 
@@ -554,6 +558,7 @@ class QLearningAgent(BustersAgent):
 
         # Pick Action
         legalActions = state.getLegalActions(0)
+        legalActions.remove('Stop')
         action = None
         self.lastState = state
 
@@ -630,9 +635,54 @@ class QLearningAgent(BustersAgent):
             The simulation should somehow ensure this is called
         """
         if not self.lastState is None:
-            reward = state.getScore() - self.lastState.getScore()
+            reward = self.getReward(self.lastState, state)
             self.observeTransition(self.lastState, self.lastAction, state, reward)
         return state
+
+    def getReward(self, state, nexstate):
+        distance = min(x for x in state.data.ghostDistances if x is not None)
+        return self.sumaFantasma(state)+self.sumaComida(state)+self.sumaAcercarseF(state)+self.sumaAcercarseC(state)+self.sumaIrDireccionCorrecta(nexstate)-1-(distance*0.1)
+
+    def sumaFantasma (self,state):
+        if state.getScore() == 199:
+            return 200
+        else:
+            return 0
+
+    def sumaComida (self,state):
+        if state.getScore () == 99:
+            return 100
+        else:
+            return 0
+
+    def sumaAcercarseF (self,state): # Cerca 2 Medio 1 Lejos 0
+        if self.computeNearestGhostDistance(state) == 0:
+            return -2
+        if self.computeNearestGhostDistance(state) == 1:
+            return 1
+        else:
+            return 2
+
+    def sumaAcercarseC (self,state): # Cerca 2 Medio 1 Lejos 0
+        if self.computeNearestDotDistance(state) == 0:
+            return 0 #Probar a castigarle si esta lejos
+        if self.computeNearestDotDistance(state) == 1:
+            return 0.5
+        else:
+            return 1
+
+    def sumaIrDireccionCorrecta (self,state):
+            # Norte 0 Sur 1 Este 2 Oeste 3
+            # Norte 0 Noreste 1 Este 2 Sureste 3 Sur 4 Suroeste 5 Oeste 6 Noroeste 7
+            if self.computePacManOrientation(state) == 0 and (self.computeNearestGhostDirection(state) == 0 or self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 7 ):
+                return 0.1
+            if self.computePacManOrientation(state) == 1 and (self.computeNearestGhostDirection(state) == 3 or self.computeNearestGhostDirection(state) == 4 or self.computeNearestGhostDirection(state) == 5 ):
+                return 0.1
+            if self.computePacManOrientation(state) == 2 and (self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 2 or self.computeNearestGhostDirection(state) == 3 ):
+                return 0.1
+            if self.computePacManOrientation(state) == 3 and (self.computeNearestGhostDirection(state) == 5 or self.computeNearestGhostDirection(state) == 6 or self.computeNearestGhostDirection(state) == 7 ):
+                return 0.1
+            return 0
 
     def startEpisode(self):
         """
