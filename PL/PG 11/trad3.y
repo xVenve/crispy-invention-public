@@ -50,7 +50,7 @@ char *genera_cadena (char *nombre);
 
 %%
                                           // Seccion 3 Gramatica - Semantico
-axioma:       decl def 	      { sprintf(temp, "%s%s", $1, $2);
+axioma:       decl mainfun 	      { sprintf(temp, "%s%s", $1, $2);
                                 printf("%s", genera_cadena(temp)); }
             ;
 
@@ -60,10 +60,12 @@ decl:        INTEGER IDENTIF resdecl ';' decl                    { sprintf(temp,
                                                                     $$ = genera_cadena(temp); }
             | INTEGER IDENTIF '[' NUMERO ']' ';' decl	            { sprintf(temp, "(setq %s (make-array %d))\n%s", $2, $4, $7);
                                                                     $$ = genera_cadena(temp); }
-            /*| IDENTIF '=' NUMERO ';' decl	                    { sprintf(temp, "(setq %s %d)\n%s", $1, $3, $5);
+            | IDENTIF '=' NUMERO ';' decl	                        { sprintf(temp, "(setq %s %d)\n%s", $1, $3, $5);
                                                                     $$ = genera_cadena(temp); }
             | vec '=' NUMERO ';' decl	                            { sprintf(temp, "(setf %s %d)\n%s", $1, $3, $5);
-                                                                    $$ = genera_cadena(temp); } */
+                                                                    $$ = genera_cadena(temp); }
+            | fun def                                             { sprintf(temp, "%s%s", $1, $2);
+                                                                    $$ = genera_cadena(temp); }
             | /* lambda */	                                      { $$ = genera_cadena(""); }
             ;
 
@@ -74,8 +76,7 @@ resdecl:      ',' IDENTIF '=' NUMERO resdecl 	      { sprintf(temp, "(setq %s %d
             | /* lambda */	                        { $$ = genera_cadena(""); }
             ;
 
-def:          mainfun             { $$ = genera_cadena($1); }
-            | fun def	            { sprintf(temp, "%s%s", $1, $2);
+def:          fun def	            { sprintf(temp, "%s%s", $1, $2);
                                     $$ = genera_cadena(temp); }
             | /* lambda */ 	      { $$ = genera_cadena(""); }
             ;
@@ -97,14 +98,15 @@ resinipar:   ',' INTEGER IDENTIF resinipar 	      { sprintf(temp, " %s%s", $3, $
 
 
 mainfun:      MAIN '(' ')' '{' 	cuerpo '}' 	      { sprintf(temp, "(defun %s ()\n%s)\n", $1, $5);
-                                                      $$ = genera_cadena(temp); }
+                                                    $$ = genera_cadena(temp); }
+            | /* lambda */                        { $$ = genera_cadena(""); }
             ;
 
 cuerpo:       sent cuerpo                                                         { sprintf(temp, "%s%s", $1, $2);
                                                                                     $$ = genera_cadena(temp); }
             | WHILE '(' cond ')' '{' cuerpo '}' cuerpo                            { sprintf(temp, "\t(loop %s %s do\n%s\t)\n%s", $1, $3, $6, $8);
                                                                                     $$ = genera_cadena(temp); }
-            | IF '(' cond ')' '{' progn els cuerpo                                 { sprintf(temp, "\t(if %s\n\t%s%s%s", $3, $6, $7, $8);
+            | IF '(' cond ')' '{' progn els cuerpo                                { sprintf(temp, "\t(if %s\n\t%s%s%s", $3, $6, $7, $8);
                                                                                     $$ = genera_cadena(temp); }
             | FOR '(' decliter ';' cond ';' iter ')' '{' cuerpo	'}' cuerpo 	      { sprintf(temp, "%s\t(loop while %s do\n%s%s\t)\n%s", $3, $5, $10, $7, $12);
                                                                                     $$ = genera_cadena(temp); }

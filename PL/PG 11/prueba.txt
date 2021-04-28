@@ -2,6 +2,8 @@ int d = 1, e=3, f;
 int g;
 int h=45;
 int mivector [32];
+a=7;
+mivector [31]=324;
 factorial (int a, int b, int c, int d, int e, int f) {
   int o ;
   if (n == 1) {
