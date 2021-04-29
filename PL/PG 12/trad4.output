@@ -19,215 +19,224 @@ Grammar
    12 def: fun def
    13    | %empty
 
-   14 fun: IDENTIF '(' inipar ')' '{' cuerpo '}'
+   14 $@1: %empty
 
-   15 inipar: INTEGER IDENTIF resinipar
-   16       | %empty
+   15 fun: IDENTIF $@1 '(' inipar ')' '{' cuerpo '}'
 
-   17 resinipar: ',' INTEGER IDENTIF resinipar
-   18          | %empty
+   16 inipar: INTEGER IDENTIF resinipar
+   17       | %empty
 
-   19 mainfun: MAIN '(' ')' '{' cuerpo '}'
-   20        | %empty
+   18 resinipar: ',' INTEGER IDENTIF resinipar
+   19          | %empty
 
-   21 cuerpo: sent cuerpo
-   22       | WHILE '(' cond ')' '{' cuerpo '}' cuerpo
-   23       | IF '(' cond ')' '{' progn els cuerpo
-   24       | FOR '(' decliter ';' cond ';' iter ')' '{' cuerpo '}' cuerpo
-   25       | callfun ';' cuerpo
-   26       | RETURN expresioncond ';'
-   27       | %empty
+   20 mainfun: MAIN '(' ')' '{' cuerpo '}'
+   21        | %empty
 
-   28 decliter: INTEGER IDENTIF '=' expresion
+   22 cuerpo: sent cuerpo
+   23       | WHILE '(' cond ')' '{' cuerpo '}' cuerpo
+   24       | IF '(' cond ')' '{' progn els cuerpo
+   25       | FOR '(' decliter ';' cond ';' iter ')' '{' cuerpo '}' cuerpo
+   26       | callfun ';' cuerpo
+   27       | RETURN expresioncond ';' cuerpo
+   28       | %empty
 
-   29 iter: IDENTIF '=' expresion
+   29 decliter: INTEGER IDENTIF '=' expresion
 
-   30 progn: cuerpo
+   30 iter: IDENTIF '=' expresion
 
-   31 els: '}' ELSE '{' progn '}'
-   32    | '}'
+   31 progn: cuerpo
 
-   33 sent: PRINT '(' STRING ',' impr ')' ';'
-   34     | setq
-   35     | PUTS '(' STRING ')' ';'
+   32 els: '}' ELSE '{' progn '}'
+   33    | '}'
 
-   36 setq: INTEGER IDENTIF ressetq ';'
-   37     | INTEGER IDENTIF '=' expresion ressetq ';'
-   38     | IDENTIF '=' expresioncond ';'
-   39     | INTEGER IDENTIF '[' expresion ']' ';'
-   40     | vec '=' expresion ';'
+   34 sent: PRINT '(' STRING ',' impr ')' ';'
+   35     | setq
+   36     | PUTS '(' STRING ')' ';'
 
-   41 ressetq: ',' IDENTIF '=' expresioncond ressetq
-   42        | ',' IDENTIF ressetq
-   43        | %empty
+   37 setq: INTEGER IDENTIF ressetq ';'
+   38     | INTEGER IDENTIF '=' expresion ressetq ';'
+   39     | IDENTIF '=' expresioncond ';'
+   40     | INTEGER IDENTIF '[' expresion ']' ';'
+   41     | vec '=' expresion ';'
 
-   44 impr: expresioncond
-   45     | STRING
-   46     | expresioncond ',' impr
-   47     | STRING ',' impr
+   42 ressetq: ',' IDENTIF '=' expresioncond ressetq
+   43        | ',' IDENTIF ressetq
+   44        | %empty
 
-   48 callfun: IDENTIF '(' par ')'
+   45 impr: expresioncond
+   46     | STRING
+   47     | expresioncond ',' impr
+   48     | STRING ',' impr
 
-   49 par: expresion respar
-   50    | %empty
+   49 callfun: IDENTIF '(' par ')'
 
-   51 respar: ',' expresion respar
-   52       | %empty
+   50 par: expresion respar
+   51    | %empty
 
-   53 expresion: termino
-   54          | expresion '+' expresion
-   55          | expresion '-' expresion
-   56          | expresion '*' expresion
-   57          | expresion '/' expresion
+   52 respar: ',' expresion respar
+   53       | %empty
 
-   58 expresioncond: expresion
-   59              | cond
-   60              | '(' cond ')'
+   54 expresion: termino
+   55          | expresion '+' expresion
+   56          | expresion '-' expresion
+   57          | expresion '*' expresion
+   58          | expresion '/' expresion
+   59          | expresion '%' expresion
+   60          | POW '(' expresion ',' expresion ')'
 
-   61 cond: expresioncond GEQ expresioncond
-   62     | expresioncond LEQ expresioncond
-   63     | expresioncond '>' expresioncond
-   64     | expresioncond '<' expresioncond
-   65     | expresioncond AND expresioncond
-   66     | expresioncond OR expresioncond
-   67     | expresioncond EQ expresioncond
-   68     | expresioncond NEQ expresioncond
+   61 expresioncond: expresion
+   62              | cond
+   63              | '(' cond ')'
 
-   69 termino: operando
-   70        | '+' termino
-   71        | '-' termino
-   72        | vec
-   73        | callfun
+   64 cond: expresioncond GEQ expresioncond
+   65     | expresioncond LEQ expresioncond
+   66     | expresioncond '>' expresioncond
+   67     | expresioncond '<' expresioncond
+   68     | expresioncond AND expresioncond
+   69     | expresioncond OR expresioncond
+   70     | expresioncond EQ expresioncond
+   71     | expresioncond NEQ expresioncond
 
-   74 vec: IDENTIF '[' expresion ']'
+   72 termino: operando
+   73        | '+' termino
+   74        | '-' termino
+   75        | vec
+   76        | callfun
 
-   75 operando: IDENTIF
-   76         | NUMERO
-   77         | '(' expresion ')'
+   77 vec: IDENTIF '[' expresion ']'
+
+   78 operando: IDENTIF
+   79         | NUMERO
+   80         | '(' expresion ')'
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
-    '(' (40) 14 19 22 23 24 33 35 48 60 77
-    ')' (41) 14 19 22 23 24 33 35 48 60 77
-    '*' (42) 56
-    '+' (43) 54 70
-    ',' (44) 9 10 17 33 41 42 46 47 51
-    '-' (45) 55 71
-    '/' (47) 57
-    ';' (59) 2 3 4 5 6 24 25 26 33 35 36 37 38 39 40
-    '<' (60) 64
-    '=' (61) 3 5 6 9 28 29 37 38 40 41
-    '>' (62) 63
-    '[' (91) 4 39 74
-    ']' (93) 4 39 74
-    '{' (123) 14 19 22 23 24 31
-    '}' (125) 14 19 22 24 31 32
+    '%' (37) 59
+    '(' (40) 15 20 23 24 25 34 36 49 60 63 80
+    ')' (41) 15 20 23 24 25 34 36 49 60 63 80
+    '*' (42) 57
+    '+' (43) 55 73
+    ',' (44) 9 10 18 34 42 43 47 48 52 60
+    '-' (45) 56 74
+    '/' (47) 58
+    ';' (59) 2 3 4 5 6 25 26 27 34 36 37 38 39 40 41
+    '<' (60) 67
+    '=' (61) 3 5 6 9 29 30 38 39 41 42
+    '>' (62) 66
+    '[' (91) 4 40 77
+    ']' (93) 4 40 77
+    '{' (123) 15 20 23 24 25 32
+    '}' (125) 15 20 23 25 32 33
     error (256)
-    NUMERO <valor> (258) 3 4 5 6 9 76
-    IDENTIF <cadena> (259) 2 3 4 5 9 10 14 15 17 28 29 36 37 38 39 41 42 48 74 75
-    INTEGER <cadena> (260) 2 3 4 15 17 28 36 37 39
-    STRING <cadena> (261) 33 35 45 47
-    PUTS <cadena> (262) 35
-    LEQ <cadena> (263) 62
-    GEQ <cadena> (264) 61
-    EQ <cadena> (265) 67
-    NEQ <cadena> (266) 68
-    AND <cadena> (267) 65
-    OR <cadena> (268) 66
-    IF <cadena> (269) 23
-    ELSE <cadena> (270) 31
-    PRINT <cadena> (271) 33
-    MAIN <cadena> (272) 19
-    WHILE <cadena> (273) 22
-    FOR <cadena> (274) 24
-    RETURN <cadena> (275) 26
-    SIGNO_UNARIO (276)
+    NUMERO <valor> (258) 3 4 5 6 9 79
+    IDENTIF <cadena> (259) 2 3 4 5 9 10 15 16 18 29 30 37 38 39 40 42 43 49 77 78
+    INTEGER <cadena> (260) 2 3 4 16 18 29 37 38 40
+    STRING <cadena> (261) 34 36 46 48
+    PUTS <cadena> (262) 36
+    LEQ <cadena> (263) 65
+    GEQ <cadena> (264) 64
+    EQ <cadena> (265) 70
+    NEQ <cadena> (266) 71
+    AND <cadena> (267) 68
+    OR <cadena> (268) 69
+    IF <cadena> (269) 24
+    ELSE <cadena> (270) 32
+    PRINT <cadena> (271) 34
+    MAIN <cadena> (272) 20
+    WHILE <cadena> (273) 23
+    FOR <cadena> (274) 25
+    RETURN <cadena> (275) 27
+    POW <cadena> (276) 60
+    SIGNO_UNARIO (277)
 
 
 Nonterminals, with rules where they appear
 
-    $accept (37)
+    $accept (39)
         on left: 0
-    axioma (38)
+    axioma (40)
         on left: 1
         on right: 0
-    decl <cadena> (39)
+    decl <cadena> (41)
         on left: 2 3 4 5 6 7 8
         on right: 1 2 3 4 5 6
-    resdecl <cadena> (40)
+    resdecl <cadena> (42)
         on left: 9 10 11
         on right: 2 3 9 10
-    def <cadena> (41)
+    def <cadena> (43)
         on left: 12 13
         on right: 7 12
-    fun <cadena> (42)
-        on left: 14
+    fun <cadena> (44)
+        on left: 15
         on right: 7 12
-    inipar <cadena> (43)
-        on left: 15 16
-        on right: 14
-    resinipar <cadena> (44)
-        on left: 17 18
-        on right: 15 17
-    mainfun <cadena> (45)
-        on left: 19 20
+    $@1 (45)
+        on left: 14
+        on right: 15
+    inipar <cadena> (46)
+        on left: 16 17
+        on right: 15
+    resinipar <cadena> (47)
+        on left: 18 19
+        on right: 16 18
+    mainfun <cadena> (48)
+        on left: 20 21
         on right: 1
-    cuerpo <cadena> (46)
-        on left: 21 22 23 24 25 26 27
-        on right: 14 19 21 22 23 24 25 30
-    decliter <cadena> (47)
-        on left: 28
-        on right: 24
-    iter <cadena> (48)
+    cuerpo <cadena> (49)
+        on left: 22 23 24 25 26 27 28
+        on right: 15 20 22 23 24 25 26 27 31
+    decliter <cadena> (50)
         on left: 29
-        on right: 24
-    progn <cadena> (49)
+        on right: 25
+    iter <cadena> (51)
         on left: 30
-        on right: 23 31
-    els <cadena> (50)
-        on left: 31 32
-        on right: 23
-    sent <cadena> (51)
-        on left: 33 34 35
-        on right: 21
-    setq <cadena> (52)
-        on left: 36 37 38 39 40
-        on right: 34
-    ressetq <cadena> (53)
-        on left: 41 42 43
-        on right: 36 37 41 42
-    impr <cadena> (54)
-        on left: 44 45 46 47
-        on right: 33 46 47
-    callfun <cadena> (55)
-        on left: 48
-        on right: 25 73
-    par <cadena> (56)
-        on left: 49 50
-        on right: 48
-    respar <cadena> (57)
-        on left: 51 52
-        on right: 49 51
-    expresion <cadena> (58)
-        on left: 53 54 55 56 57
-        on right: 28 29 37 39 40 49 51 54 55 56 57 58 74 77
-    expresioncond <cadena> (59)
-        on left: 58 59 60
-        on right: 26 38 41 44 46 61 62 63 64 65 66 67 68
-    cond <cadena> (60)
-        on left: 61 62 63 64 65 66 67 68
-        on right: 22 23 24 59 60
-    termino <cadena> (61)
-        on left: 69 70 71 72 73
-        on right: 53 70 71
-    vec <cadena> (62)
-        on left: 74
-        on right: 6 40 72
-    operando <cadena> (63)
-        on left: 75 76 77
-        on right: 69
+        on right: 25
+    progn <cadena> (52)
+        on left: 31
+        on right: 24 32
+    els <cadena> (53)
+        on left: 32 33
+        on right: 24
+    sent <cadena> (54)
+        on left: 34 35 36
+        on right: 22
+    setq <cadena> (55)
+        on left: 37 38 39 40 41
+        on right: 35
+    ressetq <cadena> (56)
+        on left: 42 43 44
+        on right: 37 38 42 43
+    impr <cadena> (57)
+        on left: 45 46 47 48
+        on right: 34 47 48
+    callfun <cadena> (58)
+        on left: 49
+        on right: 26 76
+    par <cadena> (59)
+        on left: 50 51
+        on right: 49
+    respar <cadena> (60)
+        on left: 52 53
+        on right: 50 52
+    expresion <cadena> (61)
+        on left: 54 55 56 57 58 59 60
+        on right: 29 30 38 40 41 50 52 55 56 57 58 59 60 61 77 80
+    expresioncond <cadena> (62)
+        on left: 61 62 63
+        on right: 27 39 42 45 47 64 65 66 67 68 69 70 71
+    cond <cadena> (63)
+        on left: 64 65 66 67 68 69 70 71
+        on right: 23 24 25 62 63
+    termino <cadena> (64)
+        on left: 72 73 74 75 76
+        on right: 54 73 74
+    vec <cadena> (65)
+        on left: 77
+        on right: 6 41 75
+    operando <cadena> (66)
+        on left: 78 79 80
+        on right: 72
 
 
 State 0
@@ -248,12 +257,15 @@ State 0
 State 1
 
     5 decl: IDENTIF . '=' NUMERO ';' decl
-   14 fun: IDENTIF . '(' inipar ')' '{' cuerpo '}'
-   74 vec: IDENTIF . '[' expresion ']'
+   15 fun: IDENTIF . $@1 '(' inipar ')' '{' cuerpo '}'
+   77 vec: IDENTIF . '[' expresion ']'
 
     '='  shift, and go to state 7
     '['  shift, and go to state 8
-    '('  shift, and go to state 9
+
+    $default  reduce using rule 14 ($@1)
+
+    $@1  go to state 9
 
 
 State 2
@@ -278,7 +290,7 @@ State 4
 
     MAIN  shift, and go to state 12
 
-    $default  reduce using rule 20 (mainfun)
+    $default  reduce using rule 21 (mainfun)
 
     mainfun  go to state 13
 
@@ -311,30 +323,27 @@ State 7
 
 State 8
 
-   74 vec: IDENTIF '[' . expresion ']'
+   77 vec: IDENTIF '[' . expresion ']'
 
     NUMERO   shift, and go to state 19
     IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
 
-    callfun    go to state 24
-    expresion  go to state 25
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
+    callfun    go to state 25
+    expresion  go to state 26
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 9
 
-   14 fun: IDENTIF '(' . inipar ')' '{' cuerpo '}'
+   15 fun: IDENTIF $@1 . '(' inipar ')' '{' cuerpo '}'
 
-    INTEGER  shift, and go to state 29
-
-    $default  reduce using rule 16 (inipar)
-
-    inipar  go to state 30
+    '('  shift, and go to state 30
 
 
 State 10
@@ -361,7 +370,7 @@ State 11
 
 State 12
 
-   19 mainfun: MAIN . '(' ')' '{' cuerpo '}'
+   20 mainfun: MAIN . '(' ')' '{' cuerpo '}'
 
     '('  shift, and go to state 35
 
@@ -375,9 +384,11 @@ State 13
 
 State 14
 
-   14 fun: IDENTIF . '(' inipar ')' '{' cuerpo '}'
+   15 fun: IDENTIF . $@1 '(' inipar ')' '{' cuerpo '}'
 
-    '('  shift, and go to state 9
+    $default  reduce using rule 14 ($@1)
+
+    $@1  go to state 9
 
 
 State 15
@@ -415,141 +426,148 @@ State 18
 
 State 19
 
-   76 operando: NUMERO .
+   79 operando: NUMERO .
 
-    $default  reduce using rule 76 (operando)
+    $default  reduce using rule 79 (operando)
 
 
 State 20
 
-   48 callfun: IDENTIF . '(' par ')'
-   74 vec: IDENTIF . '[' expresion ']'
-   75 operando: IDENTIF .
+   49 callfun: IDENTIF . '(' par ')'
+   77 vec: IDENTIF . '[' expresion ']'
+   78 operando: IDENTIF .
 
     '['  shift, and go to state 8
     '('  shift, and go to state 39
 
-    $default  reduce using rule 75 (operando)
+    $default  reduce using rule 78 (operando)
 
 
 State 21
 
-   70 termino: '+' . termino
+   60 expresion: POW . '(' expresion ',' expresion ')'
 
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
-
-    callfun   go to state 24
-    termino   go to state 40
-    vec       go to state 27
-    operando  go to state 28
+    '('  shift, and go to state 40
 
 
 State 22
 
-   71 termino: '-' . termino
+   73 termino: '+' . termino
 
     NUMERO   shift, and go to state 19
     IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
 
-    callfun   go to state 24
+    callfun   go to state 25
     termino   go to state 41
-    vec       go to state 27
-    operando  go to state 28
+    vec       go to state 28
+    operando  go to state 29
 
 
 State 23
 
-   77 operando: '(' . expresion ')'
+   74 termino: '-' . termino
 
     NUMERO   shift, and go to state 19
     IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
 
-    callfun    go to state 24
-    expresion  go to state 42
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
+    callfun   go to state 25
+    termino   go to state 42
+    vec       go to state 28
+    operando  go to state 29
 
 
 State 24
 
-   73 termino: callfun .
+   80 operando: '(' . expresion ')'
 
-    $default  reduce using rule 73 (termino)
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    callfun    go to state 25
+    expresion  go to state 43
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 25
 
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
-   74 vec: IDENTIF '[' expresion . ']'
+   76 termino: callfun .
 
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-    ']'  shift, and go to state 47
+    $default  reduce using rule 76 (termino)
 
 
 State 26
 
-   53 expresion: termino .
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+   77 vec: IDENTIF '[' expresion . ']'
 
-    $default  reduce using rule 53 (expresion)
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+    ']'  shift, and go to state 49
 
 
 State 27
 
-   72 termino: vec .
+   54 expresion: termino .
 
-    $default  reduce using rule 72 (termino)
+    $default  reduce using rule 54 (expresion)
 
 
 State 28
 
-   69 termino: operando .
+   75 termino: vec .
 
-    $default  reduce using rule 69 (termino)
+    $default  reduce using rule 75 (termino)
 
 
 State 29
 
-   15 inipar: INTEGER . IDENTIF resinipar
+   72 termino: operando .
 
-    IDENTIF  shift, and go to state 48
+    $default  reduce using rule 72 (termino)
 
 
 State 30
 
-   14 fun: IDENTIF '(' inipar . ')' '{' cuerpo '}'
+   15 fun: IDENTIF $@1 '(' . inipar ')' '{' cuerpo '}'
 
-    ')'  shift, and go to state 49
+    INTEGER  shift, and go to state 50
+
+    $default  reduce using rule 17 (inipar)
+
+    inipar  go to state 51
 
 
 State 31
 
     3 decl: INTEGER IDENTIF '=' . NUMERO resdecl ';' decl
 
-    NUMERO  shift, and go to state 50
+    NUMERO  shift, and go to state 52
 
 
 State 32
 
     4 decl: INTEGER IDENTIF '[' . NUMERO ']' ';' decl
 
-    NUMERO  shift, and go to state 51
+    NUMERO  shift, and go to state 53
 
 
 State 33
@@ -557,21 +575,21 @@ State 33
     9 resdecl: ',' . IDENTIF '=' NUMERO resdecl
    10        | ',' . IDENTIF resdecl
 
-    IDENTIF  shift, and go to state 52
+    IDENTIF  shift, and go to state 54
 
 
 State 34
 
     2 decl: INTEGER IDENTIF resdecl . ';' decl
 
-    ';'  shift, and go to state 53
+    ';'  shift, and go to state 55
 
 
 State 35
 
-   19 mainfun: MAIN '(' . ')' '{' cuerpo '}'
+   20 mainfun: MAIN '(' . ')' '{' cuerpo '}'
 
-    ')'  shift, and go to state 54
+    ')'  shift, and go to state 56
 
 
 State 36
@@ -585,7 +603,7 @@ State 37
 
     6 decl: vec '=' NUMERO . ';' decl
 
-    ';'  shift, and go to state 55
+    ';'  shift, and go to state 57
 
 
 State 38
@@ -597,177 +615,196 @@ State 38
 
     $default  reduce using rule 8 (decl)
 
-    decl  go to state 56
+    decl  go to state 58
     fun   go to state 5
     vec   go to state 6
 
 
 State 39
 
-   48 callfun: IDENTIF '(' . par ')'
+   49 callfun: IDENTIF '(' . par ')'
 
     NUMERO   shift, and go to state 19
     IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
 
-    $default  reduce using rule 50 (par)
+    $default  reduce using rule 51 (par)
 
-    callfun    go to state 24
-    par        go to state 57
-    expresion  go to state 58
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
+    callfun    go to state 25
+    par        go to state 59
+    expresion  go to state 60
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 40
 
-   70 termino: '+' termino .
+   60 expresion: POW '(' . expresion ',' expresion ')'
 
-    $default  reduce using rule 70 (termino)
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    callfun    go to state 25
+    expresion  go to state 61
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 41
 
-   71 termino: '-' termino .
+   73 termino: '+' termino .
 
-    $default  reduce using rule 71 (termino)
+    $default  reduce using rule 73 (termino)
 
 
 State 42
 
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
-   77 operando: '(' expresion . ')'
+   74 termino: '-' termino .
 
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-    ')'  shift, and go to state 59
+    $default  reduce using rule 74 (termino)
 
 
 State 43
 
-   54 expresion: expresion '+' . expresion
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+   80 operando: '(' expresion . ')'
 
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
-
-    callfun    go to state 24
-    expresion  go to state 60
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+    ')'  shift, and go to state 62
 
 
 State 44
 
-   55 expresion: expresion '-' . expresion
+   55 expresion: expresion '+' . expresion
 
     NUMERO   shift, and go to state 19
     IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
 
-    callfun    go to state 24
-    expresion  go to state 61
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
+    callfun    go to state 25
+    expresion  go to state 63
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 45
 
-   56 expresion: expresion '*' . expresion
+   56 expresion: expresion '-' . expresion
 
     NUMERO   shift, and go to state 19
     IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
 
-    callfun    go to state 24
-    expresion  go to state 62
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
+    callfun    go to state 25
+    expresion  go to state 64
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 46
 
-   57 expresion: expresion '/' . expresion
+   59 expresion: expresion '%' . expresion
 
     NUMERO   shift, and go to state 19
     IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
 
-    callfun    go to state 24
-    expresion  go to state 63
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
+    callfun    go to state 25
+    expresion  go to state 65
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 47
 
-   74 vec: IDENTIF '[' expresion ']' .
+   57 expresion: expresion '*' . expresion
 
-    $default  reduce using rule 74 (vec)
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    callfun    go to state 25
+    expresion  go to state 66
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 48
 
-   15 inipar: INTEGER IDENTIF . resinipar
+   58 expresion: expresion '/' . expresion
 
-    ','  shift, and go to state 64
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
 
-    $default  reduce using rule 18 (resinipar)
-
-    resinipar  go to state 65
+    callfun    go to state 25
+    expresion  go to state 67
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 49
 
-   14 fun: IDENTIF '(' inipar ')' . '{' cuerpo '}'
+   77 vec: IDENTIF '[' expresion ']' .
 
-    '{'  shift, and go to state 66
+    $default  reduce using rule 77 (vec)
 
 
 State 50
 
-    3 decl: INTEGER IDENTIF '=' NUMERO . resdecl ';' decl
+   16 inipar: INTEGER . IDENTIF resinipar
 
-    ','  shift, and go to state 33
-
-    $default  reduce using rule 11 (resdecl)
-
-    resdecl  go to state 67
+    IDENTIF  shift, and go to state 68
 
 
 State 51
 
-    4 decl: INTEGER IDENTIF '[' NUMERO . ']' ';' decl
+   15 fun: IDENTIF $@1 '(' inipar . ')' '{' cuerpo '}'
 
-    ']'  shift, and go to state 68
+    ')'  shift, and go to state 69
 
 
 State 52
 
-    9 resdecl: ',' IDENTIF . '=' NUMERO resdecl
-   10        | ',' IDENTIF . resdecl
+    3 decl: INTEGER IDENTIF '=' NUMERO . resdecl ';' decl
 
-    '='  shift, and go to state 69
     ','  shift, and go to state 33
 
     $default  reduce using rule 11 (resdecl)
@@ -777,6 +814,26 @@ State 52
 
 State 53
 
+    4 decl: INTEGER IDENTIF '[' NUMERO . ']' ';' decl
+
+    ']'  shift, and go to state 71
+
+
+State 54
+
+    9 resdecl: ',' IDENTIF . '=' NUMERO resdecl
+   10        | ',' IDENTIF . resdecl
+
+    '='  shift, and go to state 72
+    ','  shift, and go to state 33
+
+    $default  reduce using rule 11 (resdecl)
+
+    resdecl  go to state 73
+
+
+State 55
+
     2 decl: INTEGER IDENTIF resdecl ';' . decl
 
     IDENTIF  shift, and go to state 1
@@ -784,19 +841,19 @@ State 53
 
     $default  reduce using rule 8 (decl)
 
-    decl  go to state 71
+    decl  go to state 74
     fun   go to state 5
     vec   go to state 6
 
 
-State 54
+State 56
 
-   19 mainfun: MAIN '(' ')' . '{' cuerpo '}'
+   20 mainfun: MAIN '(' ')' . '{' cuerpo '}'
 
-    '{'  shift, and go to state 72
+    '{'  shift, and go to state 75
 
 
-State 55
+State 57
 
     6 decl: vec '=' NUMERO ';' . decl
 
@@ -805,364 +862,310 @@ State 55
 
     $default  reduce using rule 8 (decl)
 
-    decl  go to state 73
+    decl  go to state 76
     fun   go to state 5
     vec   go to state 6
 
 
-State 56
+State 58
 
     5 decl: IDENTIF '=' NUMERO ';' decl .
 
     $default  reduce using rule 5 (decl)
 
 
-State 57
-
-   48 callfun: IDENTIF '(' par . ')'
-
-    ')'  shift, and go to state 74
-
-
-State 58
-
-   49 par: expresion . respar
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
-
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-    ','  shift, and go to state 75
-
-    $default  reduce using rule 52 (respar)
-
-    respar  go to state 76
-
-
 State 59
 
-   77 operando: '(' expresion ')' .
+   49 callfun: IDENTIF '(' par . ')'
 
-    $default  reduce using rule 77 (operando)
+    ')'  shift, and go to state 77
 
 
 State 60
 
-   54 expresion: expresion . '+' expresion
-   54          | expresion '+' expresion .
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
+   50 par: expresion . respar
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
 
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+    ','  shift, and go to state 78
 
-    $default  reduce using rule 54 (expresion)
+    $default  reduce using rule 53 (respar)
+
+    respar  go to state 79
 
 
 State 61
 
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   55          | expresion '-' expresion .
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+   60          | POW '(' expresion . ',' expresion ')'
 
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-
-    $default  reduce using rule 55 (expresion)
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+    ','  shift, and go to state 80
 
 
 State 62
 
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   56          | expresion '*' expresion .
-   57          | expresion . '/' expresion
+   80 operando: '(' expresion ')' .
 
-    $default  reduce using rule 56 (expresion)
+    $default  reduce using rule 80 (operando)
 
 
 State 63
 
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
-   57          | expresion '/' expresion .
+   55 expresion: expresion . '+' expresion
+   55          | expresion '+' expresion .
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
 
-    $default  reduce using rule 57 (expresion)
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+
+    $default  reduce using rule 55 (expresion)
 
 
 State 64
 
-   17 resinipar: ',' . INTEGER IDENTIF resinipar
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   56          | expresion '-' expresion .
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
 
-    INTEGER  shift, and go to state 77
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+
+    $default  reduce using rule 56 (expresion)
 
 
 State 65
 
-   15 inipar: INTEGER IDENTIF resinipar .
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+   59          | expresion '%' expresion .
 
-    $default  reduce using rule 15 (inipar)
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+
+    $default  reduce using rule 59 (expresion)
 
 
 State 66
 
-   14 fun: IDENTIF '(' inipar ')' '{' . cuerpo '}'
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   57          | expresion '*' expresion .
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
 
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
-
-    $default  reduce using rule 27 (cuerpo)
-
-    cuerpo   go to state 86
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
+    $default  reduce using rule 57 (expresion)
 
 
 State 67
 
-    3 decl: INTEGER IDENTIF '=' NUMERO resdecl . ';' decl
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   58          | expresion '/' expresion .
+   59          | expresion . '%' expresion
 
-    ';'  shift, and go to state 91
+    $default  reduce using rule 58 (expresion)
 
 
 State 68
 
-    4 decl: INTEGER IDENTIF '[' NUMERO ']' . ';' decl
+   16 inipar: INTEGER IDENTIF . resinipar
 
-    ';'  shift, and go to state 92
+    ','  shift, and go to state 81
+
+    $default  reduce using rule 19 (resinipar)
+
+    resinipar  go to state 82
 
 
 State 69
 
-    9 resdecl: ',' IDENTIF '=' . NUMERO resdecl
+   15 fun: IDENTIF $@1 '(' inipar ')' . '{' cuerpo '}'
 
-    NUMERO  shift, and go to state 93
+    '{'  shift, and go to state 83
 
 
 State 70
+
+    3 decl: INTEGER IDENTIF '=' NUMERO resdecl . ';' decl
+
+    ';'  shift, and go to state 84
+
+
+State 71
+
+    4 decl: INTEGER IDENTIF '[' NUMERO ']' . ';' decl
+
+    ';'  shift, and go to state 85
+
+
+State 72
+
+    9 resdecl: ',' IDENTIF '=' . NUMERO resdecl
+
+    NUMERO  shift, and go to state 86
+
+
+State 73
 
    10 resdecl: ',' IDENTIF resdecl .
 
     $default  reduce using rule 10 (resdecl)
 
 
-State 71
+State 74
 
     2 decl: INTEGER IDENTIF resdecl ';' decl .
 
     $default  reduce using rule 2 (decl)
 
 
-State 72
+State 75
 
-   19 mainfun: MAIN '(' ')' '{' . cuerpo '}'
+   20 mainfun: MAIN '(' ')' '{' . cuerpo '}'
 
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
 
-    $default  reduce using rule 27 (cuerpo)
+    $default  reduce using rule 28 (cuerpo)
 
-    cuerpo   go to state 94
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
+    cuerpo   go to state 95
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
 
 
-State 73
+State 76
 
     6 decl: vec '=' NUMERO ';' decl .
 
     $default  reduce using rule 6 (decl)
 
 
-State 74
-
-   48 callfun: IDENTIF '(' par ')' .
-
-    $default  reduce using rule 48 (callfun)
-
-
-State 75
-
-   51 respar: ',' . expresion respar
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
-
-    callfun    go to state 24
-    expresion  go to state 95
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
-
-
-State 76
-
-   49 par: expresion respar .
-
-    $default  reduce using rule 49 (par)
-
-
 State 77
 
-   17 resinipar: ',' INTEGER . IDENTIF resinipar
+   49 callfun: IDENTIF '(' par ')' .
 
-    IDENTIF  shift, and go to state 96
+    $default  reduce using rule 49 (callfun)
 
 
 State 78
 
-   38 setq: IDENTIF . '=' expresioncond ';'
-   48 callfun: IDENTIF . '(' par ')'
-   74 vec: IDENTIF . '[' expresion ']'
+   52 respar: ',' . expresion respar
 
-    '='  shift, and go to state 97
-    '['  shift, and go to state 8
-    '('  shift, and go to state 39
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    callfun    go to state 25
+    expresion  go to state 100
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 79
 
-   36 setq: INTEGER . IDENTIF ressetq ';'
-   37     | INTEGER . IDENTIF '=' expresion ressetq ';'
-   39     | INTEGER . IDENTIF '[' expresion ']' ';'
+   50 par: expresion respar .
 
-    IDENTIF  shift, and go to state 98
+    $default  reduce using rule 50 (par)
 
 
 State 80
 
-   35 sent: PUTS . '(' STRING ')' ';'
+   60 expresion: POW '(' expresion ',' . expresion ')'
 
-    '('  shift, and go to state 99
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    callfun    go to state 25
+    expresion  go to state 101
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
 
 
 State 81
 
-   23 cuerpo: IF . '(' cond ')' '{' progn els cuerpo
+   18 resinipar: ',' . INTEGER IDENTIF resinipar
 
-    '('  shift, and go to state 100
+    INTEGER  shift, and go to state 102
 
 
 State 82
 
-   33 sent: PRINT . '(' STRING ',' impr ')' ';'
+   16 inipar: INTEGER IDENTIF resinipar .
 
-    '('  shift, and go to state 101
+    $default  reduce using rule 16 (inipar)
 
 
 State 83
 
-   22 cuerpo: WHILE . '(' cond ')' '{' cuerpo '}' cuerpo
+   15 fun: IDENTIF $@1 '(' inipar ')' '{' . cuerpo '}'
 
-    '('  shift, and go to state 102
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
+
+    $default  reduce using rule 28 (cuerpo)
+
+    cuerpo   go to state 103
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
 
 
 State 84
-
-   24 cuerpo: FOR . '(' decliter ';' cond ';' iter ')' '{' cuerpo '}' cuerpo
-
-    '('  shift, and go to state 103
-
-
-State 85
-
-   26 cuerpo: RETURN . expresioncond ';'
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 106
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 86
-
-   14 fun: IDENTIF '(' inipar ')' '{' cuerpo . '}'
-
-    '}'  shift, and go to state 108
-
-
-State 87
-
-   21 cuerpo: sent . cuerpo
-
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
-
-    $default  reduce using rule 27 (cuerpo)
-
-    cuerpo   go to state 109
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
-
-
-State 88
-
-   34 sent: setq .
-
-    $default  reduce using rule 34 (sent)
-
-
-State 89
-
-   25 cuerpo: callfun . ';' cuerpo
-
-    ';'  shift, and go to state 110
-
-
-State 90
-
-   40 setq: vec . '=' expresion ';'
-
-    '='  shift, and go to state 111
-
-
-State 91
 
     3 decl: INTEGER IDENTIF '=' NUMERO resdecl ';' . decl
 
@@ -1171,12 +1174,12 @@ State 91
 
     $default  reduce using rule 8 (decl)
 
-    decl  go to state 112
+    decl  go to state 104
     fun   go to state 5
     vec   go to state 6
 
 
-State 92
+State 85
 
     4 decl: INTEGER IDENTIF '[' NUMERO ']' ';' . decl
 
@@ -1185,12 +1188,12 @@ State 92
 
     $default  reduce using rule 8 (decl)
 
-    decl  go to state 113
+    decl  go to state 105
     fun   go to state 5
     vec   go to state 6
 
 
-State 93
+State 86
 
     9 resdecl: ',' IDENTIF '=' NUMERO . resdecl
 
@@ -1198,1487 +1201,1703 @@ State 93
 
     $default  reduce using rule 11 (resdecl)
 
-    resdecl  go to state 114
+    resdecl  go to state 106
+
+
+State 87
+
+   39 setq: IDENTIF . '=' expresioncond ';'
+   49 callfun: IDENTIF . '(' par ')'
+   77 vec: IDENTIF . '[' expresion ']'
+
+    '='  shift, and go to state 107
+    '['  shift, and go to state 8
+    '('  shift, and go to state 39
+
+
+State 88
+
+   37 setq: INTEGER . IDENTIF ressetq ';'
+   38     | INTEGER . IDENTIF '=' expresion ressetq ';'
+   40     | INTEGER . IDENTIF '[' expresion ']' ';'
+
+    IDENTIF  shift, and go to state 108
+
+
+State 89
+
+   36 sent: PUTS . '(' STRING ')' ';'
+
+    '('  shift, and go to state 109
+
+
+State 90
+
+   24 cuerpo: IF . '(' cond ')' '{' progn els cuerpo
+
+    '('  shift, and go to state 110
+
+
+State 91
+
+   34 sent: PRINT . '(' STRING ',' impr ')' ';'
+
+    '('  shift, and go to state 111
+
+
+State 92
+
+   23 cuerpo: WHILE . '(' cond ')' '{' cuerpo '}' cuerpo
+
+    '('  shift, and go to state 112
+
+
+State 93
+
+   25 cuerpo: FOR . '(' decliter ';' cond ';' iter ')' '{' cuerpo '}' cuerpo
+
+    '('  shift, and go to state 113
 
 
 State 94
 
-   19 mainfun: MAIN '(' ')' '{' cuerpo . '}'
+   27 cuerpo: RETURN . expresioncond ';' cuerpo
 
-    '}'  shift, and go to state 115
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 116
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
 
 
 State 95
 
-   51 respar: ',' expresion . respar
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
+   20 mainfun: MAIN '(' ')' '{' cuerpo . '}'
 
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-    ','  shift, and go to state 75
-
-    $default  reduce using rule 52 (respar)
-
-    respar  go to state 116
+    '}'  shift, and go to state 118
 
 
 State 96
 
-   17 resinipar: ',' INTEGER IDENTIF . resinipar
+   22 cuerpo: sent . cuerpo
 
-    ','  shift, and go to state 64
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
 
-    $default  reduce using rule 18 (resinipar)
+    $default  reduce using rule 28 (cuerpo)
 
-    resinipar  go to state 117
+    cuerpo   go to state 119
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
 
 
 State 97
 
-   38 setq: IDENTIF '=' . expresioncond ';'
+   35 sent: setq .
 
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 118
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
+    $default  reduce using rule 35 (sent)
 
 
 State 98
 
-   36 setq: INTEGER IDENTIF . ressetq ';'
-   37     | INTEGER IDENTIF . '=' expresion ressetq ';'
-   39     | INTEGER IDENTIF . '[' expresion ']' ';'
+   26 cuerpo: callfun . ';' cuerpo
 
-    '='  shift, and go to state 119
-    '['  shift, and go to state 120
-    ','  shift, and go to state 121
-
-    $default  reduce using rule 43 (ressetq)
-
-    ressetq  go to state 122
+    ';'  shift, and go to state 120
 
 
 State 99
 
-   35 sent: PUTS '(' . STRING ')' ';'
+   41 setq: vec . '=' expresion ';'
 
-    STRING  shift, and go to state 123
+    '='  shift, and go to state 121
 
 
 State 100
 
-   23 cuerpo: IF '(' . cond ')' '{' progn els cuerpo
+   52 respar: ',' expresion . respar
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
 
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+    ','  shift, and go to state 78
 
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 124
-    cond           go to state 125
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
+    $default  reduce using rule 53 (respar)
+
+    respar  go to state 122
 
 
 State 101
 
-   33 sent: PRINT '(' . STRING ',' impr ')' ';'
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+   60          | POW '(' expresion ',' expresion . ')'
 
-    STRING  shift, and go to state 126
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+    ')'  shift, and go to state 123
 
 
 State 102
 
-   22 cuerpo: WHILE '(' . cond ')' '{' cuerpo '}' cuerpo
+   18 resinipar: ',' INTEGER . IDENTIF resinipar
 
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 124
-    cond           go to state 127
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
+    IDENTIF  shift, and go to state 124
 
 
 State 103
 
-   24 cuerpo: FOR '(' . decliter ';' cond ';' iter ')' '{' cuerpo '}' cuerpo
+   15 fun: IDENTIF $@1 '(' inipar ')' '{' cuerpo . '}'
 
-    INTEGER  shift, and go to state 128
-
-    decliter  go to state 129
+    '}'  shift, and go to state 125
 
 
 State 104
-
-   60 expresioncond: '(' . cond ')'
-   77 operando: '(' . expresion ')'
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 130
-    expresioncond  go to state 124
-    cond           go to state 131
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 105
-
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
-   58 expresioncond: expresion .
-
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-
-    $default  reduce using rule 58 (expresioncond)
-
-
-State 106
-
-   26 cuerpo: RETURN expresioncond . ';'
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-
-    LEQ  shift, and go to state 132
-    GEQ  shift, and go to state 133
-    EQ   shift, and go to state 134
-    NEQ  shift, and go to state 135
-    AND  shift, and go to state 136
-    OR   shift, and go to state 137
-    '<'  shift, and go to state 138
-    '>'  shift, and go to state 139
-    ';'  shift, and go to state 140
-
-
-State 107
-
-   59 expresioncond: cond .
-
-    $default  reduce using rule 59 (expresioncond)
-
-
-State 108
-
-   14 fun: IDENTIF '(' inipar ')' '{' cuerpo '}' .
-
-    $default  reduce using rule 14 (fun)
-
-
-State 109
-
-   21 cuerpo: sent cuerpo .
-
-    $default  reduce using rule 21 (cuerpo)
-
-
-State 110
-
-   25 cuerpo: callfun ';' . cuerpo
-
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
-
-    $default  reduce using rule 27 (cuerpo)
-
-    cuerpo   go to state 141
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
-
-
-State 111
-
-   40 setq: vec '=' . expresion ';'
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
-
-    callfun    go to state 24
-    expresion  go to state 142
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
-
-
-State 112
 
     3 decl: INTEGER IDENTIF '=' NUMERO resdecl ';' decl .
 
     $default  reduce using rule 3 (decl)
 
 
-State 113
+State 105
 
     4 decl: INTEGER IDENTIF '[' NUMERO ']' ';' decl .
 
     $default  reduce using rule 4 (decl)
 
 
-State 114
+State 106
 
     9 resdecl: ',' IDENTIF '=' NUMERO resdecl .
 
     $default  reduce using rule 9 (resdecl)
 
 
+State 107
+
+   39 setq: IDENTIF '=' . expresioncond ';'
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 126
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 108
+
+   37 setq: INTEGER IDENTIF . ressetq ';'
+   38     | INTEGER IDENTIF . '=' expresion ressetq ';'
+   40     | INTEGER IDENTIF . '[' expresion ']' ';'
+
+    '='  shift, and go to state 127
+    '['  shift, and go to state 128
+    ','  shift, and go to state 129
+
+    $default  reduce using rule 44 (ressetq)
+
+    ressetq  go to state 130
+
+
+State 109
+
+   36 sent: PUTS '(' . STRING ')' ';'
+
+    STRING  shift, and go to state 131
+
+
+State 110
+
+   24 cuerpo: IF '(' . cond ')' '{' progn els cuerpo
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 132
+    cond           go to state 133
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 111
+
+   34 sent: PRINT '(' . STRING ',' impr ')' ';'
+
+    STRING  shift, and go to state 134
+
+
+State 112
+
+   23 cuerpo: WHILE '(' . cond ')' '{' cuerpo '}' cuerpo
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 132
+    cond           go to state 135
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 113
+
+   25 cuerpo: FOR '(' . decliter ';' cond ';' iter ')' '{' cuerpo '}' cuerpo
+
+    INTEGER  shift, and go to state 136
+
+    decliter  go to state 137
+
+
+State 114
+
+   63 expresioncond: '(' . cond ')'
+   80 operando: '(' . expresion ')'
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 138
+    expresioncond  go to state 132
+    cond           go to state 139
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
 State 115
 
-   19 mainfun: MAIN '(' ')' '{' cuerpo '}' .
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+   61 expresioncond: expresion .
 
-    $default  reduce using rule 19 (mainfun)
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+
+    $default  reduce using rule 61 (expresioncond)
 
 
 State 116
 
-   51 respar: ',' expresion respar .
+   27 cuerpo: RETURN expresioncond . ';' cuerpo
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
 
-    $default  reduce using rule 51 (respar)
+    LEQ  shift, and go to state 140
+    GEQ  shift, and go to state 141
+    EQ   shift, and go to state 142
+    NEQ  shift, and go to state 143
+    AND  shift, and go to state 144
+    OR   shift, and go to state 145
+    '<'  shift, and go to state 146
+    '>'  shift, and go to state 147
+    ';'  shift, and go to state 148
 
 
 State 117
 
-   17 resinipar: ',' INTEGER IDENTIF resinipar .
+   62 expresioncond: cond .
 
-    $default  reduce using rule 17 (resinipar)
+    $default  reduce using rule 62 (expresioncond)
 
 
 State 118
 
-   38 setq: IDENTIF '=' expresioncond . ';'
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
+   20 mainfun: MAIN '(' ')' '{' cuerpo '}' .
 
-    LEQ  shift, and go to state 132
-    GEQ  shift, and go to state 133
-    EQ   shift, and go to state 134
-    NEQ  shift, and go to state 135
-    AND  shift, and go to state 136
-    OR   shift, and go to state 137
-    '<'  shift, and go to state 138
-    '>'  shift, and go to state 139
-    ';'  shift, and go to state 143
+    $default  reduce using rule 20 (mainfun)
 
 
 State 119
 
-   37 setq: INTEGER IDENTIF '=' . expresion ressetq ';'
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
-
-    callfun    go to state 24
-    expresion  go to state 144
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
-
-
-State 120
-
-   39 setq: INTEGER IDENTIF '[' . expresion ']' ';'
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
-
-    callfun    go to state 24
-    expresion  go to state 145
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
-
-
-State 121
-
-   41 ressetq: ',' . IDENTIF '=' expresioncond ressetq
-   42        | ',' . IDENTIF ressetq
-
-    IDENTIF  shift, and go to state 146
-
-
-State 122
-
-   36 setq: INTEGER IDENTIF ressetq . ';'
-
-    ';'  shift, and go to state 147
-
-
-State 123
-
-   35 sent: PUTS '(' STRING . ')' ';'
-
-    ')'  shift, and go to state 148
-
-
-State 124
-
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-
-    LEQ  shift, and go to state 132
-    GEQ  shift, and go to state 133
-    EQ   shift, and go to state 134
-    NEQ  shift, and go to state 135
-    AND  shift, and go to state 136
-    OR   shift, and go to state 137
-    '<'  shift, and go to state 138
-    '>'  shift, and go to state 139
-
-
-State 125
-
-   23 cuerpo: IF '(' cond . ')' '{' progn els cuerpo
-   59 expresioncond: cond .
-
-    ')'  shift, and go to state 149
-
-    $default  reduce using rule 59 (expresioncond)
-
-
-State 126
-
-   33 sent: PRINT '(' STRING . ',' impr ')' ';'
-
-    ','  shift, and go to state 150
-
-
-State 127
-
-   22 cuerpo: WHILE '(' cond . ')' '{' cuerpo '}' cuerpo
-   59 expresioncond: cond .
-
-    ')'  shift, and go to state 151
-
-    $default  reduce using rule 59 (expresioncond)
-
-
-State 128
-
-   28 decliter: INTEGER . IDENTIF '=' expresion
-
-    IDENTIF  shift, and go to state 152
-
-
-State 129
-
-   24 cuerpo: FOR '(' decliter . ';' cond ';' iter ')' '{' cuerpo '}' cuerpo
-
-    ';'  shift, and go to state 153
-
-
-State 130
-
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
-   58 expresioncond: expresion .
-   77 operando: '(' expresion . ')'
-
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-    ')'  shift, and go to state 59
-
-    $default  reduce using rule 58 (expresioncond)
-
-
-State 131
-
-   59 expresioncond: cond .
-   60              | '(' cond . ')'
-
-    ')'  shift, and go to state 154
-
-    $default  reduce using rule 59 (expresioncond)
-
-
-State 132
-
-   62 cond: expresioncond LEQ . expresioncond
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 155
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 133
-
-   61 cond: expresioncond GEQ . expresioncond
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 156
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 134
-
-   67 cond: expresioncond EQ . expresioncond
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 157
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 135
-
-   68 cond: expresioncond NEQ . expresioncond
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 158
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 136
-
-   65 cond: expresioncond AND . expresioncond
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 159
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 137
-
-   66 cond: expresioncond OR . expresioncond
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 160
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 138
-
-   64 cond: expresioncond '<' . expresioncond
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 161
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 139
-
-   63 cond: expresioncond '>' . expresioncond
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 162
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 140
-
-   26 cuerpo: RETURN expresioncond ';' .
-
-    $default  reduce using rule 26 (cuerpo)
-
-
-State 141
-
-   25 cuerpo: callfun ';' cuerpo .
-
-    $default  reduce using rule 25 (cuerpo)
-
-
-State 142
-
-   40 setq: vec '=' expresion . ';'
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
-
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-    ';'  shift, and go to state 163
-
-
-State 143
-
-   38 setq: IDENTIF '=' expresioncond ';' .
-
-    $default  reduce using rule 38 (setq)
-
-
-State 144
-
-   37 setq: INTEGER IDENTIF '=' expresion . ressetq ';'
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
-
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-    ','  shift, and go to state 121
-
-    $default  reduce using rule 43 (ressetq)
-
-    ressetq  go to state 164
-
-
-State 145
-
-   39 setq: INTEGER IDENTIF '[' expresion . ']' ';'
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
-
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-    ']'  shift, and go to state 165
-
-
-State 146
-
-   41 ressetq: ',' IDENTIF . '=' expresioncond ressetq
-   42        | ',' IDENTIF . ressetq
-
-    '='  shift, and go to state 166
-    ','  shift, and go to state 121
-
-    $default  reduce using rule 43 (ressetq)
-
-    ressetq  go to state 167
-
-
-State 147
-
-   36 setq: INTEGER IDENTIF ressetq ';' .
-
-    $default  reduce using rule 36 (setq)
-
-
-State 148
-
-   35 sent: PUTS '(' STRING ')' . ';'
-
-    ';'  shift, and go to state 168
-
-
-State 149
-
-   23 cuerpo: IF '(' cond ')' . '{' progn els cuerpo
-
-    '{'  shift, and go to state 169
-
-
-State 150
-
-   33 sent: PRINT '(' STRING ',' . impr ')' ';'
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    STRING   shift, and go to state 170
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    impr           go to state 171
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 172
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 151
-
-   22 cuerpo: WHILE '(' cond ')' . '{' cuerpo '}' cuerpo
-
-    '{'  shift, and go to state 173
-
-
-State 152
-
-   28 decliter: INTEGER IDENTIF . '=' expresion
-
-    '='  shift, and go to state 174
-
-
-State 153
-
-   24 cuerpo: FOR '(' decliter ';' . cond ';' iter ')' '{' cuerpo '}' cuerpo
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 124
-    cond           go to state 175
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 154
-
-   60 expresioncond: '(' cond ')' .
-
-    $default  reduce using rule 60 (expresioncond)
-
-
-State 155
-
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   62     | expresioncond LEQ expresioncond .
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-
-    $default  reduce using rule 62 (cond)
-
-
-State 156
-
-   61 cond: expresioncond . GEQ expresioncond
-   61     | expresioncond GEQ expresioncond .
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-
-    $default  reduce using rule 61 (cond)
-
-
-State 157
-
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   67     | expresioncond EQ expresioncond .
-   68     | expresioncond . NEQ expresioncond
-
-    LEQ  shift, and go to state 132
-    GEQ  shift, and go to state 133
-    '<'  shift, and go to state 138
-    '>'  shift, and go to state 139
-
-    $default  reduce using rule 67 (cond)
-
-
-State 158
-
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-   68     | expresioncond NEQ expresioncond .
-
-    LEQ  shift, and go to state 132
-    GEQ  shift, and go to state 133
-    '<'  shift, and go to state 138
-    '>'  shift, and go to state 139
-
-    $default  reduce using rule 68 (cond)
-
-
-State 159
-
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   65     | expresioncond AND expresioncond .
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-
-    LEQ  shift, and go to state 132
-    GEQ  shift, and go to state 133
-    EQ   shift, and go to state 134
-    NEQ  shift, and go to state 135
-    '<'  shift, and go to state 138
-    '>'  shift, and go to state 139
-
-    $default  reduce using rule 65 (cond)
-
-
-State 160
-
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   66     | expresioncond OR expresioncond .
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-
-    LEQ  shift, and go to state 132
-    GEQ  shift, and go to state 133
-    EQ   shift, and go to state 134
-    NEQ  shift, and go to state 135
-    AND  shift, and go to state 136
-    '<'  shift, and go to state 138
-    '>'  shift, and go to state 139
-
-    $default  reduce using rule 66 (cond)
-
-
-State 161
-
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   64     | expresioncond '<' expresioncond .
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-
-    $default  reduce using rule 64 (cond)
-
-
-State 162
-
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   63     | expresioncond '>' expresioncond .
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-
-    $default  reduce using rule 63 (cond)
-
-
-State 163
-
-   40 setq: vec '=' expresion ';' .
-
-    $default  reduce using rule 40 (setq)
-
-
-State 164
-
-   37 setq: INTEGER IDENTIF '=' expresion ressetq . ';'
-
-    ';'  shift, and go to state 176
-
-
-State 165
-
-   39 setq: INTEGER IDENTIF '[' expresion ']' . ';'
-
-    ';'  shift, and go to state 177
-
-
-State 166
-
-   41 ressetq: ',' IDENTIF '=' . expresioncond ressetq
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 178
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 167
-
-   42 ressetq: ',' IDENTIF ressetq .
-
-    $default  reduce using rule 42 (ressetq)
-
-
-State 168
-
-   35 sent: PUTS '(' STRING ')' ';' .
-
-    $default  reduce using rule 35 (sent)
-
-
-State 169
-
-   23 cuerpo: IF '(' cond ')' '{' . progn els cuerpo
-
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
-
-    $default  reduce using rule 27 (cuerpo)
-
-    cuerpo   go to state 179
-    progn    go to state 180
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
-
-
-State 170
-
-   45 impr: STRING .
-   47     | STRING . ',' impr
-
-    ','  shift, and go to state 181
-
-    $default  reduce using rule 45 (impr)
-
-
-State 171
-
-   33 sent: PRINT '(' STRING ',' impr . ')' ';'
-
-    ')'  shift, and go to state 182
-
-
-State 172
-
-   44 impr: expresioncond .
-   46     | expresioncond . ',' impr
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-
-    LEQ  shift, and go to state 132
-    GEQ  shift, and go to state 133
-    EQ   shift, and go to state 134
-    NEQ  shift, and go to state 135
-    AND  shift, and go to state 136
-    OR   shift, and go to state 137
-    '<'  shift, and go to state 138
-    '>'  shift, and go to state 139
-    ','  shift, and go to state 183
-
-    $default  reduce using rule 44 (impr)
-
-
-State 173
-
-   22 cuerpo: WHILE '(' cond ')' '{' . cuerpo '}' cuerpo
-
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
-
-    $default  reduce using rule 27 (cuerpo)
-
-    cuerpo   go to state 184
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
-
-
-State 174
-
-   28 decliter: INTEGER IDENTIF '=' . expresion
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
-
-    callfun    go to state 24
-    expresion  go to state 185
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
-
-
-State 175
-
-   24 cuerpo: FOR '(' decliter ';' cond . ';' iter ')' '{' cuerpo '}' cuerpo
-   59 expresioncond: cond .
-
-    ';'  shift, and go to state 186
-
-    $default  reduce using rule 59 (expresioncond)
-
-
-State 176
-
-   37 setq: INTEGER IDENTIF '=' expresion ressetq ';' .
-
-    $default  reduce using rule 37 (setq)
-
-
-State 177
-
-   39 setq: INTEGER IDENTIF '[' expresion ']' ';' .
-
-    $default  reduce using rule 39 (setq)
-
-
-State 178
-
-   41 ressetq: ',' IDENTIF '=' expresioncond . ressetq
-   61 cond: expresioncond . GEQ expresioncond
-   62     | expresioncond . LEQ expresioncond
-   63     | expresioncond . '>' expresioncond
-   64     | expresioncond . '<' expresioncond
-   65     | expresioncond . AND expresioncond
-   66     | expresioncond . OR expresioncond
-   67     | expresioncond . EQ expresioncond
-   68     | expresioncond . NEQ expresioncond
-
-    LEQ  shift, and go to state 132
-    GEQ  shift, and go to state 133
-    EQ   shift, and go to state 134
-    NEQ  shift, and go to state 135
-    AND  shift, and go to state 136
-    OR   shift, and go to state 137
-    '<'  shift, and go to state 138
-    '>'  shift, and go to state 139
-    ','  shift, and go to state 121
-
-    $default  reduce using rule 43 (ressetq)
-
-    ressetq  go to state 187
-
-
-State 179
-
-   30 progn: cuerpo .
-
-    $default  reduce using rule 30 (progn)
-
-
-State 180
-
-   23 cuerpo: IF '(' cond ')' '{' progn . els cuerpo
-
-    '}'  shift, and go to state 188
-
-    els  go to state 189
-
-
-State 181
-
-   47 impr: STRING ',' . impr
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    STRING   shift, and go to state 170
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    impr           go to state 190
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 172
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 182
-
-   33 sent: PRINT '(' STRING ',' impr ')' . ';'
-
-    ';'  shift, and go to state 191
-
-
-State 183
-
-   46 impr: expresioncond ',' . impr
-
-    NUMERO   shift, and go to state 19
-    IDENTIF  shift, and go to state 20
-    STRING   shift, and go to state 170
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 104
-
-    impr           go to state 192
-    callfun        go to state 24
-    expresion      go to state 105
-    expresioncond  go to state 172
-    cond           go to state 107
-    termino        go to state 26
-    vec            go to state 27
-    operando       go to state 28
-
-
-State 184
-
-   22 cuerpo: WHILE '(' cond ')' '{' cuerpo . '}' cuerpo
-
-    '}'  shift, and go to state 193
-
-
-State 185
-
-   28 decliter: INTEGER IDENTIF '=' expresion .
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
-
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-
-    $default  reduce using rule 28 (decliter)
-
-
-State 186
-
-   24 cuerpo: FOR '(' decliter ';' cond ';' . iter ')' '{' cuerpo '}' cuerpo
-
-    IDENTIF  shift, and go to state 194
-
-    iter  go to state 195
-
-
-State 187
-
-   41 ressetq: ',' IDENTIF '=' expresioncond ressetq .
-
-    $default  reduce using rule 41 (ressetq)
-
-
-State 188
-
-   31 els: '}' . ELSE '{' progn '}'
-   32    | '}' .
-
-    ELSE  shift, and go to state 196
-
-    $default  reduce using rule 32 (els)
-
-
-State 189
-
-   23 cuerpo: IF '(' cond ')' '{' progn els . cuerpo
-
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
-
-    $default  reduce using rule 27 (cuerpo)
-
-    cuerpo   go to state 197
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
-
-
-State 190
-
-   47 impr: STRING ',' impr .
-
-    $default  reduce using rule 47 (impr)
-
-
-State 191
-
-   33 sent: PRINT '(' STRING ',' impr ')' ';' .
-
-    $default  reduce using rule 33 (sent)
-
-
-State 192
-
-   46 impr: expresioncond ',' impr .
-
-    $default  reduce using rule 46 (impr)
-
-
-State 193
-
-   22 cuerpo: WHILE '(' cond ')' '{' cuerpo '}' . cuerpo
-
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
-
-    $default  reduce using rule 27 (cuerpo)
-
-    cuerpo   go to state 198
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
-
-
-State 194
-
-   29 iter: IDENTIF . '=' expresion
-
-    '='  shift, and go to state 199
-
-
-State 195
-
-   24 cuerpo: FOR '(' decliter ';' cond ';' iter . ')' '{' cuerpo '}' cuerpo
-
-    ')'  shift, and go to state 200
-
-
-State 196
-
-   31 els: '}' ELSE . '{' progn '}'
-
-    '{'  shift, and go to state 201
-
-
-State 197
-
-   23 cuerpo: IF '(' cond ')' '{' progn els cuerpo .
-
-    $default  reduce using rule 23 (cuerpo)
-
-
-State 198
-
-   22 cuerpo: WHILE '(' cond ')' '{' cuerpo '}' cuerpo .
+   22 cuerpo: sent cuerpo .
 
     $default  reduce using rule 22 (cuerpo)
 
 
-State 199
+State 120
 
-   29 iter: IDENTIF '=' . expresion
+   26 cuerpo: callfun ';' . cuerpo
+
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
+
+    $default  reduce using rule 28 (cuerpo)
+
+    cuerpo   go to state 149
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
+
+
+State 121
+
+   41 setq: vec '=' . expresion ';'
 
     NUMERO   shift, and go to state 19
     IDENTIF  shift, and go to state 20
-    '+'      shift, and go to state 21
-    '-'      shift, and go to state 22
-    '('      shift, and go to state 23
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
 
-    callfun    go to state 24
-    expresion  go to state 202
-    termino    go to state 26
-    vec        go to state 27
-    operando   go to state 28
+    callfun    go to state 25
+    expresion  go to state 150
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
+
+
+State 122
+
+   52 respar: ',' expresion respar .
+
+    $default  reduce using rule 52 (respar)
+
+
+State 123
+
+   60 expresion: POW '(' expresion ',' expresion ')' .
+
+    $default  reduce using rule 60 (expresion)
+
+
+State 124
+
+   18 resinipar: ',' INTEGER IDENTIF . resinipar
+
+    ','  shift, and go to state 81
+
+    $default  reduce using rule 19 (resinipar)
+
+    resinipar  go to state 151
+
+
+State 125
+
+   15 fun: IDENTIF $@1 '(' inipar ')' '{' cuerpo '}' .
+
+    $default  reduce using rule 15 (fun)
+
+
+State 126
+
+   39 setq: IDENTIF '=' expresioncond . ';'
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+
+    LEQ  shift, and go to state 140
+    GEQ  shift, and go to state 141
+    EQ   shift, and go to state 142
+    NEQ  shift, and go to state 143
+    AND  shift, and go to state 144
+    OR   shift, and go to state 145
+    '<'  shift, and go to state 146
+    '>'  shift, and go to state 147
+    ';'  shift, and go to state 152
+
+
+State 127
+
+   38 setq: INTEGER IDENTIF '=' . expresion ressetq ';'
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    callfun    go to state 25
+    expresion  go to state 153
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
+
+
+State 128
+
+   40 setq: INTEGER IDENTIF '[' . expresion ']' ';'
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    callfun    go to state 25
+    expresion  go to state 154
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
+
+
+State 129
+
+   42 ressetq: ',' . IDENTIF '=' expresioncond ressetq
+   43        | ',' . IDENTIF ressetq
+
+    IDENTIF  shift, and go to state 155
+
+
+State 130
+
+   37 setq: INTEGER IDENTIF ressetq . ';'
+
+    ';'  shift, and go to state 156
+
+
+State 131
+
+   36 sent: PUTS '(' STRING . ')' ';'
+
+    ')'  shift, and go to state 157
+
+
+State 132
+
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+
+    LEQ  shift, and go to state 140
+    GEQ  shift, and go to state 141
+    EQ   shift, and go to state 142
+    NEQ  shift, and go to state 143
+    AND  shift, and go to state 144
+    OR   shift, and go to state 145
+    '<'  shift, and go to state 146
+    '>'  shift, and go to state 147
+
+
+State 133
+
+   24 cuerpo: IF '(' cond . ')' '{' progn els cuerpo
+   62 expresioncond: cond .
+
+    ')'  shift, and go to state 158
+
+    $default  reduce using rule 62 (expresioncond)
+
+
+State 134
+
+   34 sent: PRINT '(' STRING . ',' impr ')' ';'
+
+    ','  shift, and go to state 159
+
+
+State 135
+
+   23 cuerpo: WHILE '(' cond . ')' '{' cuerpo '}' cuerpo
+   62 expresioncond: cond .
+
+    ')'  shift, and go to state 160
+
+    $default  reduce using rule 62 (expresioncond)
+
+
+State 136
+
+   29 decliter: INTEGER . IDENTIF '=' expresion
+
+    IDENTIF  shift, and go to state 161
+
+
+State 137
+
+   25 cuerpo: FOR '(' decliter . ';' cond ';' iter ')' '{' cuerpo '}' cuerpo
+
+    ';'  shift, and go to state 162
+
+
+State 138
+
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+   61 expresioncond: expresion .
+   80 operando: '(' expresion . ')'
+
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+    ')'  shift, and go to state 62
+
+    $default  reduce using rule 61 (expresioncond)
+
+
+State 139
+
+   62 expresioncond: cond .
+   63              | '(' cond . ')'
+
+    ')'  shift, and go to state 163
+
+    $default  reduce using rule 62 (expresioncond)
+
+
+State 140
+
+   65 cond: expresioncond LEQ . expresioncond
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 164
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 141
+
+   64 cond: expresioncond GEQ . expresioncond
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 165
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 142
+
+   70 cond: expresioncond EQ . expresioncond
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 166
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 143
+
+   71 cond: expresioncond NEQ . expresioncond
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 167
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 144
+
+   68 cond: expresioncond AND . expresioncond
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 168
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 145
+
+   69 cond: expresioncond OR . expresioncond
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 169
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 146
+
+   67 cond: expresioncond '<' . expresioncond
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 170
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 147
+
+   66 cond: expresioncond '>' . expresioncond
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 171
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 148
+
+   27 cuerpo: RETURN expresioncond ';' . cuerpo
+
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
+
+    $default  reduce using rule 28 (cuerpo)
+
+    cuerpo   go to state 172
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
+
+
+State 149
+
+   26 cuerpo: callfun ';' cuerpo .
+
+    $default  reduce using rule 26 (cuerpo)
+
+
+State 150
+
+   41 setq: vec '=' expresion . ';'
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+    ';'  shift, and go to state 173
+
+
+State 151
+
+   18 resinipar: ',' INTEGER IDENTIF resinipar .
+
+    $default  reduce using rule 18 (resinipar)
+
+
+State 152
+
+   39 setq: IDENTIF '=' expresioncond ';' .
+
+    $default  reduce using rule 39 (setq)
+
+
+State 153
+
+   38 setq: INTEGER IDENTIF '=' expresion . ressetq ';'
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+    ','  shift, and go to state 129
+
+    $default  reduce using rule 44 (ressetq)
+
+    ressetq  go to state 174
+
+
+State 154
+
+   40 setq: INTEGER IDENTIF '[' expresion . ']' ';'
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+    ']'  shift, and go to state 175
+
+
+State 155
+
+   42 ressetq: ',' IDENTIF . '=' expresioncond ressetq
+   43        | ',' IDENTIF . ressetq
+
+    '='  shift, and go to state 176
+    ','  shift, and go to state 129
+
+    $default  reduce using rule 44 (ressetq)
+
+    ressetq  go to state 177
+
+
+State 156
+
+   37 setq: INTEGER IDENTIF ressetq ';' .
+
+    $default  reduce using rule 37 (setq)
+
+
+State 157
+
+   36 sent: PUTS '(' STRING ')' . ';'
+
+    ';'  shift, and go to state 178
+
+
+State 158
+
+   24 cuerpo: IF '(' cond ')' . '{' progn els cuerpo
+
+    '{'  shift, and go to state 179
+
+
+State 159
+
+   34 sent: PRINT '(' STRING ',' . impr ')' ';'
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    STRING   shift, and go to state 180
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    impr           go to state 181
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 182
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 160
+
+   23 cuerpo: WHILE '(' cond ')' . '{' cuerpo '}' cuerpo
+
+    '{'  shift, and go to state 183
+
+
+State 161
+
+   29 decliter: INTEGER IDENTIF . '=' expresion
+
+    '='  shift, and go to state 184
+
+
+State 162
+
+   25 cuerpo: FOR '(' decliter ';' . cond ';' iter ')' '{' cuerpo '}' cuerpo
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 132
+    cond           go to state 185
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 163
+
+   63 expresioncond: '(' cond ')' .
+
+    $default  reduce using rule 63 (expresioncond)
+
+
+State 164
+
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   65     | expresioncond LEQ expresioncond .
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+
+    $default  reduce using rule 65 (cond)
+
+
+State 165
+
+   64 cond: expresioncond . GEQ expresioncond
+   64     | expresioncond GEQ expresioncond .
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+
+    $default  reduce using rule 64 (cond)
+
+
+State 166
+
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   70     | expresioncond EQ expresioncond .
+   71     | expresioncond . NEQ expresioncond
+
+    LEQ  shift, and go to state 140
+    GEQ  shift, and go to state 141
+    '<'  shift, and go to state 146
+    '>'  shift, and go to state 147
+
+    $default  reduce using rule 70 (cond)
+
+
+State 167
+
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+   71     | expresioncond NEQ expresioncond .
+
+    LEQ  shift, and go to state 140
+    GEQ  shift, and go to state 141
+    '<'  shift, and go to state 146
+    '>'  shift, and go to state 147
+
+    $default  reduce using rule 71 (cond)
+
+
+State 168
+
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   68     | expresioncond AND expresioncond .
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+
+    LEQ  shift, and go to state 140
+    GEQ  shift, and go to state 141
+    EQ   shift, and go to state 142
+    NEQ  shift, and go to state 143
+    '<'  shift, and go to state 146
+    '>'  shift, and go to state 147
+
+    $default  reduce using rule 68 (cond)
+
+
+State 169
+
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   69     | expresioncond OR expresioncond .
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+
+    LEQ  shift, and go to state 140
+    GEQ  shift, and go to state 141
+    EQ   shift, and go to state 142
+    NEQ  shift, and go to state 143
+    AND  shift, and go to state 144
+    '<'  shift, and go to state 146
+    '>'  shift, and go to state 147
+
+    $default  reduce using rule 69 (cond)
+
+
+State 170
+
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   67     | expresioncond '<' expresioncond .
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+
+    $default  reduce using rule 67 (cond)
+
+
+State 171
+
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   66     | expresioncond '>' expresioncond .
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+
+    $default  reduce using rule 66 (cond)
+
+
+State 172
+
+   27 cuerpo: RETURN expresioncond ';' cuerpo .
+
+    $default  reduce using rule 27 (cuerpo)
+
+
+State 173
+
+   41 setq: vec '=' expresion ';' .
+
+    $default  reduce using rule 41 (setq)
+
+
+State 174
+
+   38 setq: INTEGER IDENTIF '=' expresion ressetq . ';'
+
+    ';'  shift, and go to state 186
+
+
+State 175
+
+   40 setq: INTEGER IDENTIF '[' expresion ']' . ';'
+
+    ';'  shift, and go to state 187
+
+
+State 176
+
+   42 ressetq: ',' IDENTIF '=' . expresioncond ressetq
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 188
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 177
+
+   43 ressetq: ',' IDENTIF ressetq .
+
+    $default  reduce using rule 43 (ressetq)
+
+
+State 178
+
+   36 sent: PUTS '(' STRING ')' ';' .
+
+    $default  reduce using rule 36 (sent)
+
+
+State 179
+
+   24 cuerpo: IF '(' cond ')' '{' . progn els cuerpo
+
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
+
+    $default  reduce using rule 28 (cuerpo)
+
+    cuerpo   go to state 189
+    progn    go to state 190
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
+
+
+State 180
+
+   46 impr: STRING .
+   48     | STRING . ',' impr
+
+    ','  shift, and go to state 191
+
+    $default  reduce using rule 46 (impr)
+
+
+State 181
+
+   34 sent: PRINT '(' STRING ',' impr . ')' ';'
+
+    ')'  shift, and go to state 192
+
+
+State 182
+
+   45 impr: expresioncond .
+   47     | expresioncond . ',' impr
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+
+    LEQ  shift, and go to state 140
+    GEQ  shift, and go to state 141
+    EQ   shift, and go to state 142
+    NEQ  shift, and go to state 143
+    AND  shift, and go to state 144
+    OR   shift, and go to state 145
+    '<'  shift, and go to state 146
+    '>'  shift, and go to state 147
+    ','  shift, and go to state 193
+
+    $default  reduce using rule 45 (impr)
+
+
+State 183
+
+   23 cuerpo: WHILE '(' cond ')' '{' . cuerpo '}' cuerpo
+
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
+
+    $default  reduce using rule 28 (cuerpo)
+
+    cuerpo   go to state 194
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
+
+
+State 184
+
+   29 decliter: INTEGER IDENTIF '=' . expresion
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    callfun    go to state 25
+    expresion  go to state 195
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
+
+
+State 185
+
+   25 cuerpo: FOR '(' decliter ';' cond . ';' iter ')' '{' cuerpo '}' cuerpo
+   62 expresioncond: cond .
+
+    ';'  shift, and go to state 196
+
+    $default  reduce using rule 62 (expresioncond)
+
+
+State 186
+
+   38 setq: INTEGER IDENTIF '=' expresion ressetq ';' .
+
+    $default  reduce using rule 38 (setq)
+
+
+State 187
+
+   40 setq: INTEGER IDENTIF '[' expresion ']' ';' .
+
+    $default  reduce using rule 40 (setq)
+
+
+State 188
+
+   42 ressetq: ',' IDENTIF '=' expresioncond . ressetq
+   64 cond: expresioncond . GEQ expresioncond
+   65     | expresioncond . LEQ expresioncond
+   66     | expresioncond . '>' expresioncond
+   67     | expresioncond . '<' expresioncond
+   68     | expresioncond . AND expresioncond
+   69     | expresioncond . OR expresioncond
+   70     | expresioncond . EQ expresioncond
+   71     | expresioncond . NEQ expresioncond
+
+    LEQ  shift, and go to state 140
+    GEQ  shift, and go to state 141
+    EQ   shift, and go to state 142
+    NEQ  shift, and go to state 143
+    AND  shift, and go to state 144
+    OR   shift, and go to state 145
+    '<'  shift, and go to state 146
+    '>'  shift, and go to state 147
+    ','  shift, and go to state 129
+
+    $default  reduce using rule 44 (ressetq)
+
+    ressetq  go to state 197
+
+
+State 189
+
+   31 progn: cuerpo .
+
+    $default  reduce using rule 31 (progn)
+
+
+State 190
+
+   24 cuerpo: IF '(' cond ')' '{' progn . els cuerpo
+
+    '}'  shift, and go to state 198
+
+    els  go to state 199
+
+
+State 191
+
+   48 impr: STRING ',' . impr
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    STRING   shift, and go to state 180
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    impr           go to state 200
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 182
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 192
+
+   34 sent: PRINT '(' STRING ',' impr ')' . ';'
+
+    ';'  shift, and go to state 201
+
+
+State 193
+
+   47 impr: expresioncond ',' . impr
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    STRING   shift, and go to state 180
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 114
+
+    impr           go to state 202
+    callfun        go to state 25
+    expresion      go to state 115
+    expresioncond  go to state 182
+    cond           go to state 117
+    termino        go to state 27
+    vec            go to state 28
+    operando       go to state 29
+
+
+State 194
+
+   23 cuerpo: WHILE '(' cond ')' '{' cuerpo . '}' cuerpo
+
+    '}'  shift, and go to state 203
+
+
+State 195
+
+   29 decliter: INTEGER IDENTIF '=' expresion .
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+
+    $default  reduce using rule 29 (decliter)
+
+
+State 196
+
+   25 cuerpo: FOR '(' decliter ';' cond ';' . iter ')' '{' cuerpo '}' cuerpo
+
+    IDENTIF  shift, and go to state 204
+
+    iter  go to state 205
+
+
+State 197
+
+   42 ressetq: ',' IDENTIF '=' expresioncond ressetq .
+
+    $default  reduce using rule 42 (ressetq)
+
+
+State 198
+
+   32 els: '}' . ELSE '{' progn '}'
+   33    | '}' .
+
+    ELSE  shift, and go to state 206
+
+    $default  reduce using rule 33 (els)
+
+
+State 199
+
+   24 cuerpo: IF '(' cond ')' '{' progn els . cuerpo
+
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
+
+    $default  reduce using rule 28 (cuerpo)
+
+    cuerpo   go to state 207
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
 
 
 State 200
 
-   24 cuerpo: FOR '(' decliter ';' cond ';' iter ')' . '{' cuerpo '}' cuerpo
+   48 impr: STRING ',' impr .
 
-    '{'  shift, and go to state 203
+    $default  reduce using rule 48 (impr)
 
 
 State 201
 
-   31 els: '}' ELSE '{' . progn '}'
+   34 sent: PRINT '(' STRING ',' impr ')' ';' .
 
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
-
-    $default  reduce using rule 27 (cuerpo)
-
-    cuerpo   go to state 179
-    progn    go to state 204
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
+    $default  reduce using rule 34 (sent)
 
 
 State 202
 
-   29 iter: IDENTIF '=' expresion .
-   54 expresion: expresion . '+' expresion
-   55          | expresion . '-' expresion
-   56          | expresion . '*' expresion
-   57          | expresion . '/' expresion
+   47 impr: expresioncond ',' impr .
 
-    '+'  shift, and go to state 43
-    '-'  shift, and go to state 44
-    '*'  shift, and go to state 45
-    '/'  shift, and go to state 46
-
-    $default  reduce using rule 29 (iter)
+    $default  reduce using rule 47 (impr)
 
 
 State 203
 
-   24 cuerpo: FOR '(' decliter ';' cond ';' iter ')' '{' . cuerpo '}' cuerpo
+   23 cuerpo: WHILE '(' cond ')' '{' cuerpo '}' . cuerpo
 
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
 
-    $default  reduce using rule 27 (cuerpo)
+    $default  reduce using rule 28 (cuerpo)
 
-    cuerpo   go to state 205
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
+    cuerpo   go to state 208
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
 
 
 State 204
 
-   31 els: '}' ELSE '{' progn . '}'
+   30 iter: IDENTIF . '=' expresion
 
-    '}'  shift, and go to state 206
+    '='  shift, and go to state 209
 
 
 State 205
 
-   24 cuerpo: FOR '(' decliter ';' cond ';' iter ')' '{' cuerpo . '}' cuerpo
+   25 cuerpo: FOR '(' decliter ';' cond ';' iter . ')' '{' cuerpo '}' cuerpo
 
-    '}'  shift, and go to state 207
+    ')'  shift, and go to state 210
 
 
 State 206
 
-   31 els: '}' ELSE '{' progn '}' .
+   32 els: '}' ELSE . '{' progn '}'
 
-    $default  reduce using rule 31 (els)
+    '{'  shift, and go to state 211
 
 
 State 207
 
-   24 cuerpo: FOR '(' decliter ';' cond ';' iter ')' '{' cuerpo '}' . cuerpo
+   24 cuerpo: IF '(' cond ')' '{' progn els cuerpo .
 
-    IDENTIF  shift, and go to state 78
-    INTEGER  shift, and go to state 79
-    PUTS     shift, and go to state 80
-    IF       shift, and go to state 81
-    PRINT    shift, and go to state 82
-    WHILE    shift, and go to state 83
-    FOR      shift, and go to state 84
-    RETURN   shift, and go to state 85
-
-    $default  reduce using rule 27 (cuerpo)
-
-    cuerpo   go to state 208
-    sent     go to state 87
-    setq     go to state 88
-    callfun  go to state 89
-    vec      go to state 90
+    $default  reduce using rule 24 (cuerpo)
 
 
 State 208
 
-   24 cuerpo: FOR '(' decliter ';' cond ';' iter ')' '{' cuerpo '}' cuerpo .
+   23 cuerpo: WHILE '(' cond ')' '{' cuerpo '}' cuerpo .
 
-    $default  reduce using rule 24 (cuerpo)
+    $default  reduce using rule 23 (cuerpo)
+
+
+State 209
+
+   30 iter: IDENTIF '=' . expresion
+
+    NUMERO   shift, and go to state 19
+    IDENTIF  shift, and go to state 20
+    POW      shift, and go to state 21
+    '+'      shift, and go to state 22
+    '-'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    callfun    go to state 25
+    expresion  go to state 212
+    termino    go to state 27
+    vec        go to state 28
+    operando   go to state 29
+
+
+State 210
+
+   25 cuerpo: FOR '(' decliter ';' cond ';' iter ')' . '{' cuerpo '}' cuerpo
+
+    '{'  shift, and go to state 213
+
+
+State 211
+
+   32 els: '}' ELSE '{' . progn '}'
+
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
+
+    $default  reduce using rule 28 (cuerpo)
+
+    cuerpo   go to state 189
+    progn    go to state 214
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
+
+
+State 212
+
+   30 iter: IDENTIF '=' expresion .
+   55 expresion: expresion . '+' expresion
+   56          | expresion . '-' expresion
+   57          | expresion . '*' expresion
+   58          | expresion . '/' expresion
+   59          | expresion . '%' expresion
+
+    '+'  shift, and go to state 44
+    '-'  shift, and go to state 45
+    '%'  shift, and go to state 46
+    '*'  shift, and go to state 47
+    '/'  shift, and go to state 48
+
+    $default  reduce using rule 30 (iter)
+
+
+State 213
+
+   25 cuerpo: FOR '(' decliter ';' cond ';' iter ')' '{' . cuerpo '}' cuerpo
+
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
+
+    $default  reduce using rule 28 (cuerpo)
+
+    cuerpo   go to state 215
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
+
+
+State 214
+
+   32 els: '}' ELSE '{' progn . '}'
+
+    '}'  shift, and go to state 216
+
+
+State 215
+
+   25 cuerpo: FOR '(' decliter ';' cond ';' iter ')' '{' cuerpo . '}' cuerpo
+
+    '}'  shift, and go to state 217
+
+
+State 216
+
+   32 els: '}' ELSE '{' progn '}' .
+
+    $default  reduce using rule 32 (els)
+
+
+State 217
+
+   25 cuerpo: FOR '(' decliter ';' cond ';' iter ')' '{' cuerpo '}' . cuerpo
+
+    IDENTIF  shift, and go to state 87
+    INTEGER  shift, and go to state 88
+    PUTS     shift, and go to state 89
+    IF       shift, and go to state 90
+    PRINT    shift, and go to state 91
+    WHILE    shift, and go to state 92
+    FOR      shift, and go to state 93
+    RETURN   shift, and go to state 94
+
+    $default  reduce using rule 28 (cuerpo)
+
+    cuerpo   go to state 218
+    sent     go to state 96
+    setq     go to state 97
+    callfun  go to state 98
+    vec      go to state 99
+
+
+State 218
+
+   25 cuerpo: FOR '(' decliter ';' cond ';' iter ')' '{' cuerpo '}' cuerpo .
+
+    $default  reduce using rule 25 (cuerpo)

@@ -23,10 +23,26 @@ factorial3 (int n) {
   return var ;
 }
 
+factorial4 (int n) {
+  int var ;
+  var = 2;
+  return var;
+  if (n == 1) {
+    var = 1 ;
+  } else {
+    var = n * factorial4 (n-1) ;
+  }
+  return var ;
+}
+
 factorial1 (int a) {
+
+return a ;
+
 }
 
 factorial2 () {
+return 4;
 }
 
 main () {
@@ -42,7 +58,6 @@ main () {
   printf("%algo", 12*10);
   int d = 1, e=3, f;
   printf("%algo", 12/3);
-  printf("%algo", 12/3, ((34)==(34)));
   printf("%algo", a,12,a+12);
   printf("%algo", +12);
   printf("%algo", -12);
@@ -73,18 +88,12 @@ main () {
   printf("%algo", 12*mivector[2]);
   mivector [5] = 123 ;
 
-  printf("%algo", factorial());
-  printf("%algo", factorial(1));
-  printf("%algo", factorial(n));
-  printf("%algo", factorial(1, 12/3, 3));
-
-  factorial();
-  factorial(1);
-  factorial(n);
-
-  factorial(1, 12/3, (3));
   if (2!=1){puts("Bucle if1");} else {puts("else del if");}
 
   if (2!=1){puts("Bucle if1");puts("Bucle if2");} else {puts("else del if");puts("else del if2");}
+
+  printf("%Hola", 4%2, pow(2,2), pow(1+1, 2*1+1));
+
+  printf("%Hola", factorial4(3));
 
 }

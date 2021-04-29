@@ -8,6 +8,7 @@
 
 #define FF fflush(stdout);    // para forzar la impresion inmediata
 char temp [2048] ;
+char nombre_fun[48] ;
 char *genera_cadena (char *nombre);
 
 %}
@@ -35,6 +36,7 @@ char *genera_cadena (char *nombre);
 %token <cadena> WHILE         // identifica el bucle while
 %token <cadena> FOR
 %token <cadena> RETURN
+%token <cadena> POW
 
 
 %type  <cadena> expresion expresioncond termino operando impr decl def cuerpo cond iter decliter vec callfun inipar resinipar par respar ressetq setq sent els mainfun fun resdecl progn
@@ -45,6 +47,7 @@ char *genera_cadena (char *nombre);
 %left EQ NEQ
 %left '<' LEQ GEQ '>'
 %left '+' '-'                 // menor orden de precedencia
+%left '%'
 %left '*' '/'                 // orden de precedencia intermedio
 %left SIGNO_UNARIO            // mayor orden de precedencia
 
@@ -81,8 +84,9 @@ def:          fun def	            { sprintf(temp, "%s%s", $1, $2);
             | /* lambda */ 	      { $$ = genera_cadena(""); }
             ;
 
-fun:          IDENTIF '(' inipar ')' '{' cuerpo '}' 	      { sprintf(temp, "(defun %s (%s)\n%s)\n", $1, $3, $6);
-                                                              $$ = genera_cadena(temp); }
+fun:          IDENTIF                               { sprintf(nombre_fun, "%s", $1); }
+              '(' inipar ')' '{' cuerpo '}' 	      { sprintf(temp, "(defun %s (%s)\n%s)\n", nombre_fun, $4, $7);
+                                                      $$ = genera_cadena(temp); }
             ;
 
 
@@ -112,7 +116,7 @@ cuerpo:       sent cuerpo                                                       
                                                                                     $$ = genera_cadena(temp); }
             | callfun ';' cuerpo                                                  { sprintf(temp, "\t%s\n%s", $1, $3);
                                                                                     $$ = genera_cadena(temp); }
-            | RETURN expresioncond ';' 	                                          { sprintf(temp, "\t%s\n", $2);
+            | RETURN expresioncond ';' cuerpo 	                                  { sprintf(temp, "\t(return-from %s %s)\n%s", nombre_fun,$2, $4);
                                                                                     $$ = genera_cadena(temp); }
             | /* lambda */ 	                                                      { $$ = genera_cadena(""); }
             ;
@@ -185,15 +189,19 @@ respar:       ',' expresion respar 	      { sprintf(temp, " %s%s", $2, $3);
             | /* lambda */	              { $$ = genera_cadena(""); }
             ;
 
-expresion:    termino					                { $$ = $1; }
-            | expresion '+' expresion 	      { sprintf(temp, "(+ %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
-            | expresion '-' expresion 	      { sprintf(temp, "(- %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
-            | expresion '*' expresion 	      { sprintf(temp, "(* %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
-            | expresion '/' expresion   	   	{ sprintf(temp, "(/ %s %s)", $1, $3);
-                                                $$ = genera_cadena(temp); }
+expresion:    termino					                            { $$ = $1; }
+            | expresion '+' expresion 	                  { sprintf(temp, "(+ %s %s)", $1, $3);
+                                                            $$ = genera_cadena(temp); }
+            | expresion '-' expresion 	                  { sprintf(temp, "(- %s %s)", $1, $3);
+                                                            $$ = genera_cadena(temp); }
+            | expresion '*' expresion 	                  { sprintf(temp, "(* %s %s)", $1, $3);
+                                                            $$ = genera_cadena(temp); }
+            | expresion '/' expresion   	   	            { sprintf(temp, "(/ %s %s)", $1, $3);
+                                                            $$ = genera_cadena(temp); }
+            | expresion '%' expresion   	   	            { sprintf(temp, "(mod %s %s)", $1, $3);
+                                                            $$ = genera_cadena(temp); }
+            | POW  '(' expresion ',' expresion ')' 	      { sprintf(temp, "(expt %s %s)", $3, $5);
+                                                            $$ = genera_cadena(temp); }
             ;
 
 expresioncond:    expresion           { $$ = genera_cadena(temp); }
@@ -296,6 +304,7 @@ t_reservada pal_reservadas [] = { // define las palabras reservadas y los
     "!=",          NEQ,
     "for",         FOR,
     "return",      RETURN,
+    "pow",         POW,
     NULL,          0               // para marcar el fin de la tabla
 } ;
 
