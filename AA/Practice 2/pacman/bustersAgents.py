@@ -386,7 +386,7 @@ class QLearningAgent(BustersAgent):
         self.actions = {"North":0, "South":1, "East":2, "West":3, "Stop":0}
         self.table_file = open("qtable.txt", "r+")
         self.q_table = self.readQtable()
-        self.epsilon = 0.03
+        self.epsilon = 0.05
         self.alpha = 0.05
         self.discount = 0.05
 
@@ -595,11 +595,11 @@ class QLearningAgent(BustersAgent):
 
         """
         # TRACE for transition and position to update. Comment the following lines if you do not want to see that trace
-        print("Update Q-table with transition:\n", state, action,"\n", nextState, reward)
+        # print("Update Q-table with transition:\n", state, action,"\n", nextState, reward)
         position = self.computePosition(state)
         action_column = self.actions[action]
 
-        print("Corresponding Q-table cell to update:", position, action_column)
+        # print("Corresponding Q-table cell to update:", position, action_column)
         position = self.computePosition(state)
 
 
@@ -721,6 +721,9 @@ class QLearningAgent(BustersAgent):
         """
           Called by Pacman game at the terminal state
         """
+        print(state.getScore())
+
+
         deltaReward = state.getScore() - self.lastState.getScore()
         self.observeTransition(self.lastState, self.lastAction, state, deltaReward)
         self.stopEpisode()

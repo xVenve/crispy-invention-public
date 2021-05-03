@@ -626,7 +626,9 @@ if __name__ == '__main__':
     > python pacman.py --help
     """
     args = readCommand( sys.argv[1:] ) # Get game components based on input
-    runGames( **args )
+    for i in range(50): # REPETICION
+        runGames(**args)
+        i += 1
 
 def observationFunction(self, state):
     """
