@@ -1,0 +1,6 @@
+host:
+port:
+measurements_microservice_server: "34.89.246.68" # Actualizar
+measurements_microservice_port: 5001
+devices_microservice_server: "34.89.246.68" # Actualizar
+devices_microservice_port: 5001
