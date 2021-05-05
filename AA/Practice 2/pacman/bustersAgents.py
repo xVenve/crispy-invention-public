@@ -386,7 +386,7 @@ class QLearningAgent(BustersAgent):
         self.actions = {"North":0, "South":1, "East":2, "West":3, "Stop":0}
         self.table_file = open("qtable.txt", "r+")
         self.q_table = self.readQtable()
-        self.epsilon = 0.05
+        self.epsilon = 0.07
         self.alpha = 0.05
         self.discount = 0.05
 
@@ -639,49 +639,53 @@ class QLearningAgent(BustersAgent):
             self.observeTransition(self.lastState, self.lastAction, state, reward)
         return state
 
-    def getReward(self, state, nexstate):
-        distance = min(x for x in state.data.ghostDistances if x is not None)
-        return self.sumaFantasma(state)+self.sumaComida(state)+self.sumaAcercarseF(state)+self.sumaAcercarseC(state)+self.sumaIrDireccionCorrecta(nexstate)-1-(distance*0.1)
+    def getReward(self, state, nextstate):
+        distance = min(x for x in nextstate.data.ghostDistances if x is not None)
+        return self.sumaFantasma(nextstate)+self.sumaComida(nextstate)+self.sumaAcercarseF(state,nextstate)+self.sumaAcercarseC(state)+self.sumaIrDireccionCorrecta(nextstate)-1-(distance*0.1)
 
     def sumaFantasma (self,state):
-        if state.getScore() == 199:
+        if state.getScore() == 200:
             return 200
         else:
             return 0
 
     def sumaComida (self,state):
-        if state.getScore () == 99:
+        if state.getScore () == 100:
             return 100
         else:
             return 0
 
-    def sumaAcercarseF (self,state): # Cerca 2 Medio 1 Lejos 0
-        if self.computeNearestGhostDistance(state) == 0:
-            return -2
-        if self.computeNearestGhostDistance(state) == 1:
-            return 1
+    def sumaAcercarseF (self,state,nextstate): # Cerca 2 Medio 1 Lejos 0
+        if self.computeNearestGhostDistance(state) == 0 and self.computeNearestGhostDistance(nextstate) ==1: #Lejos a medio
+            return 2.5
+        if self.computeNearestGhostDistance(state) == 1 and self.computeNearestGhostDistance(nextstate)==2: #Medio a cerca
+            return 5
+        if self.computeNearestGhostDistance(state) == 1 and self.computeNearestGhostDistance(nextstate)==0: #Medio a lejos
+            return -1
+        if self.computeNearestGhostDistance(state) == 2 and self.computeNearestGhostDistance(nextstate)==1: #Cerca a medio
+            return -1.5
         else:
-            return 2
+            return 0
 
     def sumaAcercarseC (self,state): # Cerca 2 Medio 1 Lejos 0
         if self.computeNearestDotDistance(state) == 0:
-            return 0 #Probar a castigarle si esta lejos
+            return -2.5 #Probar a castigarle si esta lejos
         if self.computeNearestDotDistance(state) == 1:
-            return 0.5
+            return 1.25
         else:
-            return 1
+            return 2.5
 
     def sumaIrDireccionCorrecta (self,state):
             # Norte 0 Sur 1 Este 2 Oeste 3
             # Norte 0 Noreste 1 Este 2 Sureste 3 Sur 4 Suroeste 5 Oeste 6 Noroeste 7
             if self.computePacManOrientation(state) == 0 and (self.computeNearestGhostDirection(state) == 0 or self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 7 ):
-                return 0.1
+                return 0
             if self.computePacManOrientation(state) == 1 and (self.computeNearestGhostDirection(state) == 3 or self.computeNearestGhostDirection(state) == 4 or self.computeNearestGhostDirection(state) == 5 ):
-                return 0.1
+                return 0
             if self.computePacManOrientation(state) == 2 and (self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 2 or self.computeNearestGhostDirection(state) == 3 ):
-                return 0.1
+                return 0
             if self.computePacManOrientation(state) == 3 and (self.computeNearestGhostDirection(state) == 5 or self.computeNearestGhostDirection(state) == 6 or self.computeNearestGhostDirection(state) == 7 ):
-                return 0.1
+                return 0
             return 0
 
     def startEpisode(self):
