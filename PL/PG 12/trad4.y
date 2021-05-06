@@ -123,6 +123,9 @@ cuerpo:       sent cuerpo                                                       
 
 decliter:     INTEGER IDENTIF '=' expresion 	      { sprintf(temp, "\t(setq %s %s)\n", $2, $4);
                                                       $$ = genera_cadena(temp); }
+            | IDENTIF '=' expresion 	              { sprintf(temp, "\t(setq %s %s)\n", $1, $3);
+                                                      $$ = genera_cadena(temp); }
+
             ;
 
 iter:         IDENTIF '=' expresion 	      { sprintf(temp, "\t(setq %s %s)\n", $1, $3);
