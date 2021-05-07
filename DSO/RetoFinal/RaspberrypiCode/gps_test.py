@@ -1,6 +1,4 @@
 import serial
-import time
-import string
 import pynmea2
 
 while True:
