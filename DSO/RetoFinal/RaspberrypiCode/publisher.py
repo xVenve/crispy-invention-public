@@ -19,13 +19,13 @@ def make_connection():
     client.connect("35.242.227.79", 1883, 60)  # IP MQTT
 
 
-def send_temperature(temperature):
-    client.publish('/uc3m/classrooms/leganes/myclass/temperature', payload=temperature, qos=0, retain=False)
+def send_temperature(temperature, time):
+    client.publish('/uc3m/classrooms/leganes/myclass/temperature', payload=str(temperature)+","+str(time), qos=0, retain=False)
     time.sleep(1)
 
 
-def send_humidity(humidity):
-    client.publish('/uc3m/classrooms/leganes/myclass/humidity', payload=humidity, qos=0, retain=False)
+def send_humidity(humidity, time):
+    client.publish('/uc3m/classrooms/leganes/myclass/humidity', payload=str(humidity)+","+str(time), qos=0, retain=False)
     time.sleep(1)
 
 

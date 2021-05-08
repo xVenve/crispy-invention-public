@@ -23,18 +23,27 @@ def on_message(client, userdata, message):
     global current_temperature, current_humidity
     print("received message =", str(message.payload.decode("utf-8")))
     if message.topic == "/uc3m/classrooms/leganes/myclass/temperature":
-        current_temperature = float(message.payload.decode("utf-8"))
-        data = {"temperature": current_temperature, "humidity": current_humidity}
+        raw_data = float(message.payload.decode("utf-8"))
+        tempTime = raw_data.split(",")
+        current_temperature = tempTime[0]
+        current_time = tempTime[1]
+        data = {"temperature": current_temperature, "humidity": current_humidity, "date": current_time}
         submit_data_to_store(data)
         print(data)
     if message.topic == "/uc3m/classrooms/leganes/myclass/humidity":
-        current_humidity = float(message.payload.decode("utf-8"))
-        data = {"temperature": current_temperature, "humidity": current_humidity}
+        raw_data = float(message.payload.decode("utf-8"))
+        HumTime = raw_data.split(",")
+        current_humidity = HumTime[0]
+        current_time = HumTime[1]
+        data = {"temperature": current_temperature, "humidity": current_humidity, "date": current_time}
         submit_data_to_store(data)
         print(data)
     if message.topic == "/uc3m/classrooms/leganes/myclass/device_info":
-        r = message.payload.decode("utf-8")
-        data = {"device": r}
+        raw_data = message.payload.decode("utf-8")
+        idLocation = raw_data.split(",")
+        r = idLocation[0]
+        location = idLocation[1]
+        data = {"device": r, "location": location}
         submit_device_info_to_store(data)
         print(data)
 
