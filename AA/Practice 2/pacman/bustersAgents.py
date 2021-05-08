@@ -468,7 +468,7 @@ class QLearningAgent(BustersAgent):
         iteracion = 0
         alive_ghosts = state.getLivingGhosts()
         for index in state.data.ghostDistances:
-            if index is not None and index < minlocal and alive_ghosts[iteracion] == True:
+            if index is not None and index < minlocal and alive_ghosts[iteracion+1] == True:
                 minlocal = index
                 pos = iteracion
             iteracion += 1
@@ -497,6 +497,53 @@ class QLearningAgent(BustersAgent):
         elif pacman_x - ghost_x >  0 and pacman_y - ghost_y <  0: # Noroeste 7
             return  7
 
+    def computePosition2(self, state):
+        """
+        Compute the row of the qtable for a given state.
+        For instance, the state (3,1) is the row 7
+        """
+        return 16*self.computeNearestGhostDistance2(state)+8*self.nearWallUp(state)+4*self.nearWallDown(state)+2*self.nearWallLeft(state)+self.nearWallRight(state)
+
+    def computeNearestGhostDistance2(self, state):  # Muy cerca 4 Cerca 3 Media 2 Lejos 1 Muy Lejos 0
+        distance = min(x for x in state.data.ghostDistances if x is not None)
+        if distance < 4: #Muy cerca
+            return 4
+        elif distance < 7: #Cerca
+            return 3
+        elif distance < 10: #Media
+            return 2
+        elif distance < 13: #Lejos
+            return 1
+        else:               #Muy Lejos
+            return 0
+
+    def nearWallUp(self,state):
+        pos = state.getPacmanPosition()
+        if state.hasWall(pos[0],pos[1]+1):
+            return 1
+        else:
+            return 0
+
+    def nearWallDown(self,state):
+        pos = state.getPacmanPosition()
+        if state.hasWall(pos[0],pos[1]-1):
+            return 1
+        else:
+            return 0
+
+    def nearWallLeft(self,state):
+        pos = state.getPacmanPosition()
+        if state.hasWall(pos[0]-1,pos[1]):
+            return 1
+        else:
+            return 0
+
+    def nearWallRight(self,state):
+        pos = state.getPacmanPosition()
+        if state.hasWall(pos[0]+1,pos[1]):
+            return 1
+        else:
+            return 0
 
     def getQValue(self, state, action): # Norte 0 Sur 1 Este 2 Oeste 3
 
@@ -505,7 +552,7 @@ class QLearningAgent(BustersAgent):
           Should return 0.0 if we have never seen a state
           or the Q node value otherwise
         """
-        position = self.computePosition(state)
+        position = self.computePosition2(state)
 
         action_column = self.actions[action]
         return self.q_table[position][action_column]
@@ -521,7 +568,7 @@ class QLearningAgent(BustersAgent):
         legalActions = state.getLegalActions(0)
         if len(legalActions)==0:
           return 0
-        return max(self.q_table[self.computePosition(state)])
+        return max(self.q_table[self.computePosition2(state)])
 
     def computeActionFromQValues(self, state):
         """
@@ -558,7 +605,8 @@ class QLearningAgent(BustersAgent):
 
         # Pick Action
         legalActions = state.getLegalActions(0)
-        legalActions.remove('Stop')
+        if Directions.STOP in legalActions:
+            legalActions.remove('Stop')
         action = None
         self.lastState = state
 
@@ -596,16 +644,13 @@ class QLearningAgent(BustersAgent):
         """
         # TRACE for transition and position to update. Comment the following lines if you do not want to see that trace
         # print("Update Q-table with transition:\n", state, action,"\n", nextState, reward)
-        position = self.computePosition(state)
+        position = self.computePosition2(state)
         action_column = self.actions[action]
 
         # print("Corresponding Q-table cell to update:", position, action_column)
-        position = self.computePosition(state)
-
 
         "*** YOUR CODE HERE ***"
         self.q_table[position][action_column] = (1-self.alpha)*self.q_table[position][action_column] + self.alpha * (reward + self.discount * self.computeValueFromQValues(nextState))
-
         # TRACE for updated q-table. Comment the following lines if you do not want to see that trace
         # print("Q-table:")
         # self.printQtable()
@@ -635,13 +680,14 @@ class QLearningAgent(BustersAgent):
             The simulation should somehow ensure this is called
         """
         if not self.lastState is None:
-            reward = self.getReward(self.lastState, state)
+            reward = self.getReward2(self.lastState, state)
+
             self.observeTransition(self.lastState, self.lastAction, state, reward)
         return state
 
     def getReward(self, state, nextstate):
         distance = min(x for x in nextstate.data.ghostDistances if x is not None)
-        return self.sumaFantasma(nextstate)+self.sumaComida(nextstate)+self.sumaAcercarseF(state,nextstate)+self.sumaAcercarseC(state)+self.sumaIrDireccionCorrecta(nextstate)-1-(distance*0.1)
+        return self.sumaFantasma(nextstate)+self.sumaComida(nextstate)+self.sumaAcercarseF(state,nextstate)+self.sumaAcercarseC(state,nextstate)+self.sumaIrDireccionCorrecta(nextstate)-1-(distance*0.1)+self.choquePared(state)
 
     def sumaFantasma (self,state):
         if state.getScore() == 200:
@@ -657,9 +703,9 @@ class QLearningAgent(BustersAgent):
 
     def sumaAcercarseF (self,state,nextstate): # Cerca 2 Medio 1 Lejos 0
         if self.computeNearestGhostDistance(state) == 0 and self.computeNearestGhostDistance(nextstate) ==1: #Lejos a medio
-            return 2.5
+            return 3.5
         if self.computeNearestGhostDistance(state) == 1 and self.computeNearestGhostDistance(nextstate)==2: #Medio a cerca
-            return 5
+            return 7
         if self.computeNearestGhostDistance(state) == 1 and self.computeNearestGhostDistance(nextstate)==0: #Medio a lejos
             return -1
         if self.computeNearestGhostDistance(state) == 2 and self.computeNearestGhostDistance(nextstate)==1: #Cerca a medio
@@ -667,25 +713,93 @@ class QLearningAgent(BustersAgent):
         else:
             return 0
 
-    def sumaAcercarseC (self,state): # Cerca 2 Medio 1 Lejos 0
-        if self.computeNearestDotDistance(state) == 0:
-            return -2.5 #Probar a castigarle si esta lejos
-        if self.computeNearestDotDistance(state) == 1:
+    def sumaAcercarseF2(self,state,nextstate): # Muy Cerca: 4 Cerca 3 Medio 2 Lejos 1 Muy Lejos 0
+        if self.computeNearestGhostDistance2(state) == 0 and self.computeNearestGhostDistance2(nextstate) ==1: #Muy Lejos a lejos
             return 1.25
-        else:
+        if self.computeNearestGhostDistance2(state) == 1 and self.computeNearestGhostDistance2(nextstate) ==2: #Lejos a medio
             return 2.5
+        if self.computeNearestGhostDistance2(state) == 2 and self.computeNearestGhostDistance2(nextstate)==3: #Medio a cerca
+            return 5
+        if self.computeNearestGhostDistance2(state) == 3 and self.computeNearestGhostDistance2(nextstate)==4: #Cerca a Muy cerca
+            return 10
+        if self.computeNearestGhostDistance2(state) == 4 and self.computeNearestGhostDistance2(nextstate) ==3: #muy cerca a cerca
+            return -20
+        if self.computeNearestGhostDistance2(state) == 3 and self.computeNearestGhostDistance2(nextstate)==2: #Cerca a medio
+            return -10
+        if self.computeNearestGhostDistance2(state) == 2 and self.computeNearestGhostDistance2(nextstate)==1: #Medio a lejos
+            return -5
+        if self.computeNearestGhostDistance2(state) == 1 and self.computeNearestGhostDistance2(nextstate)==0: #Lejos a muy lejos
+            return -2.5
+        else:
+            return 0
+
+    def sumaAcercarseC (self,state,nextstate): # Cerca 2 Medio 1 Lejos 0
+        if self.computeNearestDotDistance(state) == 0 and self.computeNearestDotDistance(nextstate) ==1: #Lejos a medio
+            return 1.75
+        if self.computeNearestDotDistance(state) == 1 and self.computeNearestDotDistance(nextstate)==2: #Medio a cerca
+            return 3.5
+        if self.computeNearestDotDistance(state) == 1 and self.computeNearestDotDistance(nextstate)==0: #Medio a lejos
+            return -0.5
+        if self.computeNearestDotDistance(state) == 2 and self.computeNearestDotDistance(nextstate)==1: #Cerca a medio
+            return -0.75
+        else:
+            return 0
 
     def sumaIrDireccionCorrecta (self,state):
             # Norte 0 Sur 1 Este 2 Oeste 3
             # Norte 0 Noreste 1 Este 2 Sureste 3 Sur 4 Suroeste 5 Oeste 6 Noroeste 7
             if self.computePacManOrientation(state) == 0 and (self.computeNearestGhostDirection(state) == 0 or self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 7 ):
-                return 0
+                return 1
             if self.computePacManOrientation(state) == 1 and (self.computeNearestGhostDirection(state) == 3 or self.computeNearestGhostDirection(state) == 4 or self.computeNearestGhostDirection(state) == 5 ):
-                return 0
+                return 1
             if self.computePacManOrientation(state) == 2 and (self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 2 or self.computeNearestGhostDirection(state) == 3 ):
-                return 0
+                return 1
             if self.computePacManOrientation(state) == 3 and (self.computeNearestGhostDirection(state) == 5 or self.computeNearestGhostDirection(state) == 6 or self.computeNearestGhostDirection(state) == 7 ):
-                return 0
+                return 1
+            return 0
+
+    def choquePared (self,state):
+        pos = state.getPacmanPosition()
+        if (state.hasWall(pos[0]+1,pos[1]) == True) and (self.computeNearestGhostDirection(state) == 2 or self.computeNearestGhostDirection(state) == 3 or self.computeNearestGhostDirection(state) == 1):
+            return -300
+        if (state.hasWall(pos[0]-1,pos[1]) == True) and (self.computeNearestGhostDirection(state) == 5 or self.computeNearestGhostDirection(state) == 6 or self.computeNearestGhostDirection(state) == 7):
+            return -300
+        if (state.hasWall(pos[0],pos[1]+1) == True) and (self.computeNearestGhostDirection(state) == 0 or self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 7):
+            return -300
+        if (state.hasWall(pos[0],pos[1]-1) == True) and (self.computeNearestGhostDirection(state) == 3 or self.computeNearestGhostDirection(state) == 4 or self.computeNearestGhostDirection(state) == 5):
+            return -300
+        else:
+            return 0
+
+    def getReward2(self, state, nextstate):
+        distance = min(x for x in nextstate.data.ghostDistances if x is not None)
+        return self.sumaFantasma(nextstate)+self.sumaComida(nextstate)+self.sumaAcercarseF2(state,nextstate)+self.sumaAcercarseC(state,nextstate)+self.sumaIrDireccionCorrecta(nextstate)-1-(distance*0.1)+self.choquePared(state)+self.noVolves(state, nextstate)
+
+    def noVolves(self, state, nextState):
+        dir = state.data.agentStates[0].getDirection()
+        posactual = state.getPacmanPosition()
+        posanterior = [posactual[0],posactual[1]]
+        if (self.nearWallUp(state) == 0 and self.nearWallDown(state) == 0 and self.nearWallLeft(state) == 0 and self.nearWallRight(state) == 0):
+            if (dir == 'North'):
+                posanterior[1] = posactual[1]-1
+                posanterior [0] = posactual[0]
+            elif (dir == 'South'):
+                posanterior[1] = posactual[1]+1
+                posanterior [0] = posactual[0]
+            elif (dir == 'West'):
+                posanterior[0] =posactual[0]+1
+                posanterior [1] = posactual[1]
+            elif dir == 'East':
+                posanterior[0]= posactual[0]-1
+                posanterior[1] = posactual[1]
+            else:
+                posanterior = posactual
+        else:
+            return 0
+        possiguiente = nextState.getPacmanPosition()
+        if posanterior[0]  == possiguiente[0] and posanterior[1]  == possiguiente[1]:
+            return -100
+        else:
             return 0
 
     def startEpisode(self):
