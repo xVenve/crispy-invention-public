@@ -39,7 +39,7 @@ char *genera_cadena (char *nombre);
 %token <cadena> POW
 
 
-%type  <cadena> expresion expresioncond termino operando impr decl def cuerpo cond iter decliter vec callfun inipar resinipar par respar ressetq setq sent els mainfun fun resdecl progn
+%type  <cadena> expresion expresioncond termino operando impr decl def cuerpo cond iter decliter vec callfun inipar resinipar par respar ressetq setq sent els mainfun fun resdecl progn expresionp
 
 %right '='                    // es la ultima operacion que se debe realizar
 %left OR
@@ -207,6 +207,21 @@ expresion:    termino					                            { $$ = $1; }
                                                             $$ = genera_cadena(temp); }
             ;
 
+expresionp:    termino					                          { $$ = $1; }
+            | expresion '+' expresion 	                  { sprintf(temp, "((+ %s %s))", $1, $3);
+                                                            $$ = genera_cadena(temp); }
+            | expresion '-' expresion 	                  { sprintf(temp, "((- %s %s))", $1, $3);
+                                                            $$ = genera_cadena(temp); }
+            | expresion '*' expresion 	                  { sprintf(temp, "((* %s %s))", $1, $3);
+                                                            $$ = genera_cadena(temp); }
+            | expresion '/' expresion   	   	            { sprintf(temp, "((/ %s %s))", $1, $3);
+                                                            $$ = genera_cadena(temp); }
+            | expresion '%' expresion   	   	            { sprintf(temp, "((mod %s %s))", $1, $3);
+                                                            $$ = genera_cadena(temp); }
+            | POW  '(' expresion ',' expresion ')' 	      { sprintf(temp, "((expt %s %s))", $3, $5);
+                                                            $$ = genera_cadena(temp); }
+            ;
+
 expresioncond:    expresion           { $$ = genera_cadena(temp); }
                 | cond                { $$ = genera_cadena(temp); }
                 | '(' cond ')'       	{ sprintf(temp, "(%s)", $2);
@@ -248,8 +263,7 @@ operando:     IDENTIF	       		        { sprintf(temp,"%s", $1);
                                           $$ = genera_cadena(temp); }
             | NUMERO                    { sprintf(temp,"%d", $1);
                                           $$ = genera_cadena(temp); }
-            | '(' expresion ')' 	      { sprintf(temp, "(%s)", $2);
-                                          $$ = genera_cadena(temp); }
+            | '(' expresionp ')' 	      { $$ = $2; }
             ;
 
 %%
