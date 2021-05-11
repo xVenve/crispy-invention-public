@@ -22,6 +22,16 @@ function insert_table() {
 	if(rowCount > 10) $("table tr:eq(1)").remove();
 	$("table tbody").append("<tr><td>" + temp + " C </td><td>" + hum + " %</td></tr>");
 }
+function mostrar_medidas(nombre){
+	document.getElementById("medidas").style.display = "block";
+	document.getElementById("dispositivos").style.display = "none";
+}
+
+function mostrar_dispositivos(){
+	document.getElementById("medidas").style.display = "none";
+	document.getElementById("dispositivos").style.display = "block";
+
+}
 
 get_device_list()
 setInterval(get_current_sensor_data,2000)

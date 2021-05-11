@@ -6,27 +6,54 @@
 	<meta charset="ISO-8859-1">
 </head>
 <body>
-<div id="all">
-	<h1>Mediciones de nuestra Weather Station</h1>
-	<p>Resultado de la ultima medicion obtenida por el sensor:</p>
-	<div class="sensor_measures result"></div>
-	<p>Dispositivo que toma las medidas:</p>
-	<div class="device_list result"></div>
-	<p>Las ultimas 10 mediciones (cada 3 sec):</p>
-     <table>
-            <thead>
-                <tr>
-                    <th>Temperatura</th>
-                    <th>Humedad</th>
-                </tr>
-            </thead>
-            <tbody>
+<div class="all" id="dispositivos">
+	<h1>Lista de dispositivos </h1>
+     <table class="sortable" >
+        <tr>
+            <th>Nombre del dispositivo</th>
+            <th>Estado</th>
+            <th>Ubicación</th>
+            <th>Fecha</th>
+            <th>Medidas</th>
 
-            </tbody>
-        </table>
+        </tr>
+
+        <tr class="item">
+            <td>user:0001</td>
+            <td>UK</td>
+            <td>Melissa</td>
+            <td>13/02/2023</td>
+            <td><button class ="boton" onclick="mostrar_medidas('')">Medidas</button></tr>
+        </tr>
+    </table>
+
 </div>
+<div class="all" id = "medidas">
+	<h1>Mediciones del sensor seleccionado</h1>
+     <table class="sortable">
+        <tr>
+            <th>Nombre del dispositivo</th>
+            <th>Estado</th>
+            <th>Ubicación</th>
+            <th>Fecha</th>
+        </tr>
+
+        <tr class="item">
+            <td>user:0001</td>
+            <td>UK</td>
+            <td>Melissa</td>
+            <td>13/02/2023</td>
+        </tr>
+    </table>
+    <button class ="boton" id = "boton_volver" onclick="mostrar_dispositivos()">Volver</button>
+
+</div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js_lib.js"></script>
+    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+
+    
 </body>
 </html>

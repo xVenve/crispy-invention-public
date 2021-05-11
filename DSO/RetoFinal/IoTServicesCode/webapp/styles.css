@@ -3,7 +3,7 @@
 	padding: 10px;
 }
 
-#all {
+.all {
  width: 60%;
   margin: 0 auto;
   background-color: #6495ED;
@@ -11,6 +11,27 @@
   left: 0;
   padding: 10px;
 	color: white;
+}
+
+
+#medidas {
+  display: none;
+}
+
+.boton {
+  background-color: #CCCCFF; 
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+#boton_volver{
+  margin-top: 10px;
 }
 
 h1 {
