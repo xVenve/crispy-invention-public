@@ -19,10 +19,10 @@ def devices_retriever():
     mydb = connect_database()
     r = {}
     with mydb.cursor() as mycursor:
-        mycursor.execute("SELECT device_id FROM devices ORDER BY id DESC LIMIT 1;")
+        mycursor.execute("SELECT device_id, location, date FROM devices ORDER BY date;")
         myresult = mycursor.fetchall()
-        for device_id in myresult:
-            r = {"device_id": device_id}
+        for device_id, location, date in myresult:
+            r = {"device_id": device_id, "location": location, "date": date}
         mydb.commit()
     return r
 
@@ -30,12 +30,27 @@ def devices_retriever():
 def devices_regiter(params):
     mydb = connect_database()
     with mydb.cursor() as mycursor:
-        sql = "INSERT INTO devices (device_id) VALUES (%s)"
-        val = params["device"]
-        device_id = (val,)
+        sql = "INSERT INTO devices (device_id, location, date) VALUES (%s, %s, %s)"
+        val = (params["device"], params["location"], params["date"])
         try:
-            mycursor.execute(sql, device_id)
+            mycursor.execute(sql, val)
             mydb.commit()
             print(mycursor.rowcount, "record inserted.")
         except:
             print("Error inserting the device")
+# --------------------------------LEER---------------------------------------------------------------
+        sql = "UPDATE devices SET location =%s, date=%s WHERE device_id='"+params["device"]+"'"
+        val = (params["location"], params["date"])
+        try:
+            mycursor.execute(sql, val)
+            mydb.commit()
+            print(mycursor.rowcount, "record updated.")
+        except:
+            try:
+                sql = "INSERT INTO devices (device_id, location, date) VALUES (%s, %s, %s)"
+                val = (params["device"], params["location"], params["date"])
+                mycursor.execute(sql, val)
+                mydb.commit()
+                print(mycursor.rowcount, "record inserted.")
+            except:
+                print("Error inserting the device")

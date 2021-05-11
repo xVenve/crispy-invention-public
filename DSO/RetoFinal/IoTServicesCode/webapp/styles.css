@@ -1,16 +1,16 @@
-.result{
-	background-color: #CCCCFF;
-	padding: 10px;
+.result {
+  background-color: #CCCCFF;
+  padding: 10px;
 }
 
 .all {
- width: 60%;
+  width: 60%;
   margin: 0 auto;
   background-color: #6495ED;
   top: 0;
   left: 0;
   padding: 10px;
-	color: white;
+  color: white;
 }
 
 
@@ -19,7 +19,7 @@
 }
 
 .boton {
-  background-color: #CCCCFF; 
+  background-color: #CCCCFF;
   border: none;
   color: rgb(0, 0, 0);
   padding: 10px;
@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 
-#boton_volver{
+#boton_volver {
   margin-top: 10px;
 }
 
@@ -42,11 +42,12 @@ table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
-    background-color: #191970;
+  background-color: #191970;
 
 }
 
-td, th {
+td,
+th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;

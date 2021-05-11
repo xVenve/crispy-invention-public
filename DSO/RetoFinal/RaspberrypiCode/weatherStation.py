@@ -12,7 +12,7 @@ import I2C_LCD_driver
 
 temp_global = 0
 hum_global = 0
-
+end = 0
 showTemp = True
 error = False
 clear_lcd = False
@@ -28,11 +28,12 @@ def change_display(channel):
 def tempHumSensor():
     dht_sensor = Adafruit_DHT.DHT11
     dht_pin = 4
+    identifier = ':'.join(['{:02x}'.format((uuid.getnode() >> ele) & 0xff)
+                           for ele in range(0, 8 * 6, 8)][::-1])
 
     minute = False
     start = time.time()
-    end = 0
-
+    global end
     new_temperature = 0
     new_humidity = 0
 
@@ -42,6 +43,7 @@ def tempHumSensor():
 
     while True:
         humidity, temperature = Adafruit_DHT.read(dht_sensor, dht_pin)
+
         end = time.time() - start
         if end >= 60:
             minute = True
@@ -50,16 +52,18 @@ def tempHumSensor():
             if new_temperature != temperature or minute:
                 new_temperature = temperature
                 temp_global = temperature
-                send_temperature(temperature, datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+                start = time.time()
+                send_temperature(temperature, datetime.now().strftime("%d/%m/%Y %H:%M:%S"), identifier + " - Raspberry")
             if new_humidity != humidity or minute:
                 new_humidity = humidity
                 hum_global = humidity
-                send_humidity(humidity, datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+                start = time.time()
+                send_humidity(humidity, datetime.now().strftime("%d/%m/%Y %H:%M:%S"), identifier + " - Raspberry")
             if minute:
                 minute = False
         else:
             error = True
-        time.sleep(6)
+        time.sleep(2)
 
 
 def display():
@@ -80,13 +84,15 @@ def display():
                 lcd.lcd_clear()
                 clear_lcd = False
             if showTemp:
-                lcd.lcd_display_string("Temperature: %d%s C" % (temp_global, chr(223)), 1)
+                lcd.lcd_display_string("Temp: %d%s C" % (temp_global, chr(223)), 1)
+                lcd.lcd_display_string("Next update: %d" % (60 - end), 2)
             else:
                 lcd.lcd_display_string("Humidity: %d %%" % hum_global, 1)
+                lcd.lcd_display_string("Next update: %d" % (60 - end), 2)
             if error:
                 lcd.lcd_clear()
                 lcd.lcd_display_string("Sensor failure.", 1)
-                lcd.lcd_display_string("Check wiring.", 2)
+                lcd.lcd_display_string("Next update: %d" % (60 - end), 2)
                 time.sleep(2)
                 error = False
                 lcd.lcd_clear()
@@ -99,8 +105,8 @@ def weatherSensor():
     identifier = ':'.join(['{:02x}'.format((uuid.getnode() >> ele) & 0xff)
                            for ele in range(0, 8 * 6, 8)][::-1])
     while True:
-        send_id(identifier + " - Raspberry 1"+","+getLocation())
-        print(identifier + " - Raspberry 1"+","+getLocation())
+        send_id(identifier + " - Raspberry"+","+getLocation()+","+datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+        print(identifier + " - Raspberry"+","+getLocation()+","+datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         time.sleep(3600)
 
 

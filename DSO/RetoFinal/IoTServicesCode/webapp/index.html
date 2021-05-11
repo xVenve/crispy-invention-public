@@ -1,59 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>DSO - Interfaz de Usuario</title>
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	<meta charset="ISO-8859-1">
+    <title>DSO - Interfaz de Usuario</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="UTF-8">
 </head>
+
 <body>
-<div class="all" id="dispositivos">
-	<h1>Lista de dispositivos </h1>
-     <table class="sortable" >
-        <tr>
-            <th>Nombre del dispositivo</th>
-            <th>Estado</th>
-            <th>Ubicación</th>
-            <th>Fecha</th>
-            <th>Medidas</th>
-
-        </tr>
-
-        <tr class="item">
-            <td>user:0001</td>
-            <td>UK</td>
-            <td>Melissa</td>
-            <td>13/02/2023</td>
-            <td><button class ="boton" onclick="mostrar_medidas('')">Medidas</button></tr>
-        </tr>
-    </table>
-
-</div>
-<div class="all" id = "medidas">
-	<h1>Mediciones del sensor seleccionado</h1>
-     <table class="sortable">
-        <tr>
-            <th>Nombre del dispositivo</th>
-            <th>Estado</th>
-            <th>Ubicación</th>
-            <th>Fecha</th>
-        </tr>
-
-        <tr class="item">
-            <td>user:0001</td>
-            <td>UK</td>
-            <td>Melissa</td>
-            <td>13/02/2023</td>
-        </tr>
-    </table>
-    <button class ="boton" id = "boton_volver" onclick="mostrar_dispositivos()">Volver</button>
-
-</div>
-
-
+    <div class="all" id="dispositivos">
+        <h1>Lista de dispositivos </h1>
+        <table class="sortable">
+            <tr>
+                <th>Nombre del dispositivo</th>
+                <th>Estado</th>
+                <th>Ubicación</th>
+                <th>Fecha</th>
+                <th>Medidas</th>
+            </tr>
+            <tr class="item">
+                <td>user:0001</td>
+                <td>UK</td>
+                <td>Melissa</td>
+                <td>13/02/2023</td>
+                <td><button class="boton" onclick="mostrar_medidas('ELDISPOSITIVO')">Medidas</button>
+            </tr>
+            </tr>
+        </table>
+    <div class="device_list result"></div>
+    </div>
+    <div class="all" id="medidas">
+        <h1 id="titulo_medidas">Mediciones del dispositivo</h1>
+        <table class="sortable">
+            <tr>
+                <th>Fecha</th>
+                <th>Temperatura °C</th>
+                <th>Humedad %</th>
+            </tr>
+            <tr class="item">
+                <td>user:0001</td>
+                <td>UK</td>
+                <td>13/02/2023</td>
+            </tr>
+        </table>
+        <button class="boton" id="boton_volver" onclick="mostrar_dispositivos()">Volver</button>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script type="text/javascript" src="js_lib.js"></script>
+    <script type="text/javascript" src="js_lib.js"></script>
     <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
-
-    
 </body>
+
 </html>

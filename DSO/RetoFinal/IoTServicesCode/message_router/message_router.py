@@ -27,7 +27,9 @@ def on_message(client, userdata, message):
         tempTime = raw_data.split(",")
         current_temperature = tempTime[0]
         current_time = tempTime[1]
-        data = {"temperature": current_temperature, "humidity": current_humidity, "date": current_time}
+        current_device = tempTime[2]
+        data = {"temperature": current_temperature, "humidity": current_humidity, "date": current_time,
+                "device": current_device}
         submit_data_to_store(data)
         print(data)
     if message.topic == "/uc3m/classrooms/leganes/myclass/humidity":
@@ -35,7 +37,9 @@ def on_message(client, userdata, message):
         HumTime = raw_data.split(",")
         current_humidity = HumTime[0]
         current_time = HumTime[1]
-        data = {"temperature": current_temperature, "humidity": current_humidity, "date": current_time}
+        current_device = HumTime[2]
+        data = {"temperature": current_temperature, "humidity": current_humidity, "date": current_time,
+                "device": current_device}
         submit_data_to_store(data)
         print(data)
     if message.topic == "/uc3m/classrooms/leganes/myclass/device_info":
@@ -43,7 +47,8 @@ def on_message(client, userdata, message):
         idLocation = raw_data.split(",")
         r = idLocation[0]
         location = idLocation[1]
-        data = {"device": r, "location": location}
+        date = idLocation[2]
+        data = {"device": r, "location": location, "date": date} # Mirar como hacer lo de cambiar estados
         submit_device_info_to_store(data)
         print(data)
 
