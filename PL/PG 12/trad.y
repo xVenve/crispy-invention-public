@@ -207,7 +207,7 @@ expresion:    termino					                            { $$ = $1; }
                                                             $$ = genera_cadena(temp); }
             ;
 
-expresionp:    termino					                          { $$ = $1; }
+expresionp:   termino					                            { $$ = $1; }
             | expresion '+' expresion 	                  { sprintf(temp, "((+ %s %s))", $1, $3);
                                                             $$ = genera_cadena(temp); }
             | expresion '-' expresion 	                  { sprintf(temp, "((- %s %s))", $1, $3);
@@ -224,7 +224,7 @@ expresionp:    termino					                          { $$ = $1; }
 
 expresioncond:    expresion           { $$ = genera_cadena(temp); }
                 | cond                { $$ = genera_cadena(temp); }
-                | '(' cond ')'       	{ sprintf(temp, "(%s)", $2);
+                | '(' cond ')'       	{ sprintf(temp, "%s", $2);
                                         $$ = genera_cadena(temp); }
               ;
 

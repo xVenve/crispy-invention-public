@@ -1,0 +1,2 @@
+Se han realizado todas las pruebas aportadas en Aula Global, además hemos creado otro documento de pruebas llamado
+pruebas.txt donde se han hecho todas las comprobaciones para correcto funcionamiento.
