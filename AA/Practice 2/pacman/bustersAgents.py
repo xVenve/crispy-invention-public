@@ -502,19 +502,19 @@ class QLearningAgent(BustersAgent):
         Compute the row of the qtable for a given state.
         For instance, the state (3,1) is the row 7
         """
-        return 16*self.computeNearestGhostDistance2(state)+8*self.nearWallUp(state)+4*self.nearWallDown(state)+2*self.nearWallLeft(state)+self.nearWallRight(state)
+        return 96*self.computeNearestGhostDistance2(state)+48*self.nearWallUp(state)+24*self.nearWallDown(state)+12*self.nearWallLeft(state)+6*self.nearWallRight(state)+2*self.computeNearestDotDistance(state)+self.computeNearestGhostDirection2(state)
 
     def computeNearestGhostDistance2(self, state):  # Muy cerca 4 Cerca 3 Media 2 Lejos 1 Muy Lejos 0
         distance = min(x for x in state.data.ghostDistances if x is not None)
-        if distance < 4: #Muy cerca
+        if distance < 4:    # Muy cerca
             return 4
-        elif distance < 7: #Cerca
+        elif distance < 7:  # Cerca
             return 3
-        elif distance < 10: #Media
+        elif distance < 10: # Media
             return 2
-        elif distance < 13: #Lejos
+        elif distance < 13: # Lejos
             return 1
-        else:               #Muy Lejos
+        else:               # Muy Lejos
             return 0
 
     def nearWallUp(self,state):
@@ -541,6 +541,32 @@ class QLearningAgent(BustersAgent):
     def nearWallRight(self,state):
         pos = state.getPacmanPosition()
         if state.hasWall(pos[0]+1,pos[1]):
+            return 1
+        else:
+            return 0
+
+    def computeNearestGhostDirection2(self, state):   # Norte 0 Sur 1 Este 2 Oeste 3
+        pos = 0
+        minlocal = 999
+        iteracion = 0
+        alive_ghosts = state.getLivingGhosts()
+        for index in state.data.ghostDistances:
+            if index is not None and index < minlocal and alive_ghosts[iteracion+1] == True:
+                minlocal = index
+                pos = iteracion
+            iteracion += 1
+
+        position_ghost = state.getGhostPositions()[pos]
+        ghost_x = position_ghost[0]
+        ghost_y = position_ghost[1]
+
+        pacman_x = state.getPacmanPosition()[0]
+        pacman_y = state.getPacmanPosition()[1]
+
+        dis_ejex = ghost_x-pacman_x
+        dis_ejey = ghost_y-pacman_y
+
+        if (abs(dis_ejex) > abs(dis_ejey)):
             return 1
         else:
             return 0
@@ -681,22 +707,22 @@ class QLearningAgent(BustersAgent):
         """
         if not self.lastState is None:
             reward = self.getReward2(self.lastState, state)
-
+            print(reward)
             self.observeTransition(self.lastState, self.lastAction, state, reward)
         return state
 
     def getReward(self, state, nextstate):
         distance = min(x for x in nextstate.data.ghostDistances if x is not None)
-        return self.sumaFantasma(nextstate)+self.sumaComida(nextstate)+self.sumaAcercarseF(state,nextstate)+self.sumaAcercarseC(state,nextstate)+self.sumaIrDireccionCorrecta(nextstate)-1-(distance*0.1)+self.choquePared(state)
+        return self.sumaFantasma(state, nextstate)+self.sumaComida(state, nextstate)+self.sumaAcercarseF(state,nextstate)+self.sumaAcercarseC(state,nextstate)+self.sumaIrDireccionCorrecta(nextstate)-1-(distance*0.1)+self.choquePared(state)
 
-    def sumaFantasma (self,state):
-        if state.getScore() == 200:
+    def sumaFantasma (self,state, nextState):
+        if (nextState.getScore()-state.getScore ()) == 199:
             return 200
         else:
             return 0
 
-    def sumaComida (self,state):
-        if state.getScore () == 100:
+    def sumaComida (self,state, nextState):
+        if (nextState.getScore()-state.getScore ()) == 99:
             return 100
         else:
             return 0
@@ -748,57 +774,91 @@ class QLearningAgent(BustersAgent):
     def sumaIrDireccionCorrecta (self,state):
             # Norte 0 Sur 1 Este 2 Oeste 3
             # Norte 0 Noreste 1 Este 2 Sureste 3 Sur 4 Suroeste 5 Oeste 6 Noroeste 7
-            if self.computePacManOrientation(state) == 0 and (self.computeNearestGhostDirection(state) == 0 or self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 7 ):
+            if self.computePacManOrientation(state) == 0 and (self.computeNearestGhostDirection(state) == 0):
                 return 1
-            if self.computePacManOrientation(state) == 1 and (self.computeNearestGhostDirection(state) == 3 or self.computeNearestGhostDirection(state) == 4 or self.computeNearestGhostDirection(state) == 5 ):
+            if self.computePacManOrientation(state) == 1 and (self.computeNearestGhostDirection(state) == 4):
                 return 1
-            if self.computePacManOrientation(state) == 2 and (self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 2 or self.computeNearestGhostDirection(state) == 3 ):
+            if self.computePacManOrientation(state) == 2 and (self.computeNearestGhostDirection(state) == 2):
                 return 1
-            if self.computePacManOrientation(state) == 3 and (self.computeNearestGhostDirection(state) == 5 or self.computeNearestGhostDirection(state) == 6 or self.computeNearestGhostDirection(state) == 7 ):
+            if self.computePacManOrientation(state) == 3 and (self.computeNearestGhostDirection(state) == 6):
                 return 1
             return 0
 
     def choquePared (self,state):
         pos = state.getPacmanPosition()
         if (state.hasWall(pos[0]+1,pos[1]) == True) and (self.computeNearestGhostDirection(state) == 2 or self.computeNearestGhostDirection(state) == 3 or self.computeNearestGhostDirection(state) == 1):
-            return -300
+            return -100
         if (state.hasWall(pos[0]-1,pos[1]) == True) and (self.computeNearestGhostDirection(state) == 5 or self.computeNearestGhostDirection(state) == 6 or self.computeNearestGhostDirection(state) == 7):
-            return -300
+            return -100
         if (state.hasWall(pos[0],pos[1]+1) == True) and (self.computeNearestGhostDirection(state) == 0 or self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 7):
-            return -300
+            return -100
         if (state.hasWall(pos[0],pos[1]-1) == True) and (self.computeNearestGhostDirection(state) == 3 or self.computeNearestGhostDirection(state) == 4 or self.computeNearestGhostDirection(state) == 5):
-            return -300
+            return -100
         else:
             return 0
 
     def getReward2(self, state, nextstate):
         distance = min(x for x in nextstate.data.ghostDistances if x is not None)
-        return self.sumaFantasma(nextstate)+self.sumaComida(nextstate)+self.sumaAcercarseF2(state,nextstate)+self.sumaAcercarseC(state,nextstate)+self.sumaIrDireccionCorrecta(nextstate)-1-(distance*0.1)+self.choquePared(state)+self.noVolves(state, nextstate)
+        return self.sumaFantasma(state, nextstate)+self.sumaComida(state, nextstate)+self.sumaAcercarseF2(state,nextstate)+self.sumaAcercarseC(state,nextstate)+self.sumaIrDireccionCorrecta(nextstate)-1-(distance*0.1)+self.choquePared2(state)+self.avoidLoop(state, nextstate)
 
-    def noVolves(self, state, nextState):
+    def choquePared2 (self,state):
+        pos = state.getPacmanPosition()
+        ar = state.hasWall(pos[0],pos[1]+1)
+        ab = state.hasWall(pos[0],pos[1]-1)
+        d = state.hasWall(pos[0]+1,pos[1])
+        i = state.hasWall(pos[0]-1,pos[1])
+        ard = state.hasWall(pos[0]+1,pos[1]+1)
+        ari = state.hasWall(pos[0]-1,pos[1]+1)
+        abd = state.hasWall(pos[0]+1,pos[1]-1)
+        abi = state.hasWall(pos[0]-1,pos[1]-1)
+        ref = 0
+        if (d == True) and (self.computeNearestGhostDirection(state) == 2 or self.computeNearestGhostDirection(state) == 3 or self.computeNearestGhostDirection(state) == 1):
+            ref-=40
+            if ard: ref-=40
+            if abd: ref-=40
+            if (ar and ab) or (i and ar) or (i and ab): ref-=40
+        if (i == True) and (self.computeNearestGhostDirection(state) == 5 or self.computeNearestGhostDirection(state) == 6 or self.computeNearestGhostDirection(state) == 7):
+            ref-=40
+            if ari: ref-=40
+            if abi: ref-=40
+            if (ar and ab) or (d and ar) or (d and ab): ref-=40
+        if (ar == True) and (self.computeNearestGhostDirection(state) == 0 or self.computeNearestGhostDirection(state) == 1 or self.computeNearestGhostDirection(state) == 7):
+            ref-=40
+            if ard: ref-=40
+            if ari: ref-=40
+            if (i and d) or (ab and d) or (ab and i): ref-=40
+        if (ab == True) and (self.computeNearestGhostDirection(state) == 3 or self.computeNearestGhostDirection(state) == 4 or self.computeNearestGhostDirection(state) == 5):
+            ref-=40
+            if abd: ref-=40
+            if abi: ref-=40
+            if (i and d) or (ar and d) or (ar and i): ref-=40
+        return ref
+
+    def avoidLoop(self, state, nextState):
         dir = state.data.agentStates[0].getDirection()
         posactual = state.getPacmanPosition()
         posanterior = [posactual[0],posactual[1]]
-        if (self.nearWallUp(state) == 0 and self.nearWallDown(state) == 0 and self.nearWallLeft(state) == 0 and self.nearWallRight(state) == 0):
-            if (dir == 'North'):
-                posanterior[1] = posactual[1]-1
-                posanterior [0] = posactual[0]
-            elif (dir == 'South'):
-                posanterior[1] = posactual[1]+1
-                posanterior [0] = posactual[0]
-            elif (dir == 'West'):
-                posanterior[0] =posactual[0]+1
-                posanterior [1] = posactual[1]
-            elif dir == 'East':
-                posanterior[0]= posactual[0]-1
-                posanterior[1] = posactual[1]
-            else:
-                posanterior = posactual
-        else:
-            return 0
         possiguiente = nextState.getPacmanPosition()
+
+
+        if (dir == 'North'):
+            posanterior[1] = posactual[1]-1
+            posanterior [0] = posactual[0]
+        elif (dir == 'South'):
+            posanterior[1] = posactual[1]+1
+            posanterior [0] = posactual[0]
+        elif (dir == 'West'):
+            posanterior[0] =posactual[0]+1
+            posanterior [1] = posactual[1]
+        elif dir == 'East':
+            posanterior[0]= posactual[0]-1
+            posanterior[1] = posactual[1]
+        else:
+            posanterior = posactual
+
+
         if posanterior[0]  == possiguiente[0] and posanterior[1]  == possiguiente[1]:
-            return -100
+            return -40
         else:
             return 0
 

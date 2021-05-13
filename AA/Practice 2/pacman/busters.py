@@ -608,7 +608,7 @@ def runGames( layout, pacman, ghosts, display, numGames, maxMoves=-1):
         wins = [game.state.isWin() for game in games]
         winRate = wins.count(True)/ float(len(wins))
         print('Average Score:', sum(scores) / float(len(scores)))
-        print('Scores:       ', ', '.join([str(score) for score in scores]))
+        print("Scores:       \n", "\n".join([str(score) for score in scores]))
         print('Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate))
         print('Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins]))
 
@@ -626,9 +626,7 @@ if __name__ == '__main__':
     > python pacman.py --help
     """
     args = readCommand( sys.argv[1:] ) # Get game components based on input
-    for i in range(50): # REPETICION
-        runGames(**args)
-        i += 1
+    runGames(**args)
 
 def observationFunction(self, state):
     """
