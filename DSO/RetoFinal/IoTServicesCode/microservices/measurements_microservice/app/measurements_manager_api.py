@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
-from load_preferences import getPreferences
+import os
 
 from measurements_manager import *
 
@@ -20,5 +20,6 @@ def get_measurements():
     return measurements_retriever()
 
 
-params = getPreferences("microservice_conf.yaml")
-app.run(host=params["host"], port=params["port"])
+HOST = os.getenv('HOST')
+PORT = os.getenv('PORT')
+app.run(HOST, PORT)

@@ -10,16 +10,21 @@ CREATE TABLE sensor_data (
     id MEDIUMINT NOT NULL AUTO_INCREMENT,
     humidity float NOT NULL,
     temperature float NOT NULL,
+    device varchar(50) NOT NULL,
+    date varchar(50) NOT NULL,
     PRIMARY KEY (id)
 );
 
-SELECT temperature, humidity FROM sensor_data ORDER BY id DESC LIMIT 1;
+SELECT * FROM sensor_data ORDER BY id DESC;
 
 CREATE TABLE devices (
     id MEDIUMINT NOT NULL AUTO_INCREMENT,
     device_id varchar(50) NOT NULL,
+    location varchar(50) NOT NULL,
+    date varchar(50) NOT NULL,
+    status varchar(50) NOT NULL,
     UNIQUE (device_id),
     PRIMARY KEY (id)
 );
 
-SELECT device_id FROM devices ORDER BY id DESC LIMIT 1;
+SELECT * FROM devices ORDER BY id DESC;

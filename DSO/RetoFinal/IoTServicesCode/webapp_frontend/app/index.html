@@ -9,8 +9,8 @@
 
 <body>
     <div class="all" id="dispositivos">
-        <h1>Lista de dispositivos </h1>
-        <table class="sortable">
+        <h1>Lista de dispositivos</h1>
+        <table class="sortable device_list">
             <tr>
                 <th>Nombre del dispositivo</th>
                 <th>Estado</th>
@@ -18,29 +18,15 @@
                 <th>Fecha</th>
                 <th>Medidas</th>
             </tr>
-            <tr class="item">
-                <td>user:0001</td>
-                <td>UK</td>
-                <td>Melissa</td>
-                <td>13/02/2023</td>
-                <td><button class="boton" onclick="mostrar_medidas('ELDISPOSITIVO')">Medidas</button>
-            </tr>
-            </tr>
         </table>
-    <div class="device_list result"></div>
     </div>
     <div class="all" id="medidas">
         <h1 id="titulo_medidas">Mediciones del dispositivo</h1>
-        <table class="sortable">
+        <table class="sortable sensor_measures">
             <tr>
                 <th>Fecha</th>
                 <th>Temperatura °C</th>
                 <th>Humedad %</th>
-            </tr>
-            <tr class="item">
-                <td>user:0001</td>
-                <td>UK</td>
-                <td>13/02/2023</td>
             </tr>
         </table>
         <button class="boton" id="boton_volver" onclick="mostrar_dispositivos()">Volver</button>

@@ -2,7 +2,7 @@ import time
 import paho.mqtt.client as paho
 from measurement_register_interface import *
 from device_register_interface import *
-from load_preferences import getPreferences
+import os
 
 current_temperature = "0"
 current_temperature = 0
@@ -48,16 +48,16 @@ def on_message(client, userdata, message):
         r = idLocation[0]
         location = idLocation[1]
         date = idLocation[2]
-        data = {"device": r, "location": location, "date": date} # Mirar como hacer lo de cambiar estados
+        status = idLocation[3]
+        data = {"device": r, "location": location, "date": date, "status": status}
         submit_device_info_to_store(data)
         print(data)
 
 
-params = getPreferences("conf.yaml")
 client = paho.Client()
-client.username_pw_set(username=params["broker_user"], password=params["broker_pwd"])
+client.username_pw_set(username=os.getenv('BROKER_USER'), password=os.getenv('BROKER_PWD'))
 client.on_connect = on_connect
 client.on_message = on_message
-print("connecting to broker ", params["broker_address"])
-client.connect(params["broker_address"], params["broker_port"], params["broker_keep_alive"])  # connect
+print("connecting to broker ", os.getenv('BROKER_ADDRESS'))
+client.connect(os.getenv('BROKER_ADDRESS'), int(os.getenv('BROKER_PORT')), int(os.getenv('BROKER_KEEP_ALIVE')))  # connect
 client.loop_forever()

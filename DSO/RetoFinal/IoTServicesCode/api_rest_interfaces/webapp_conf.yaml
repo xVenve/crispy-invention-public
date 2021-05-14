@@ -1,6 +1,0 @@
-measurements_microservice_server: "0.0.0.0"
-measurements_microservice_port: 5001
-devices_microservice_server: "0.0.0.0"
-devices_microservice_port: 5002
-host: "0.0.0.0"
-port: 5000

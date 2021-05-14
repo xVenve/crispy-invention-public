@@ -1,7 +1,6 @@
+import os
 from flask import Flask, request
 from flask_cors import CORS
-from load_preferences import getPreferences
-
 from devices_manager import *
 
 app = Flask(__name__)
@@ -20,5 +19,6 @@ def retrieve_devices():
     return devices_retriever()
 
 
-params = getPreferences("microservice_conf.yaml")
-app.run(host=params["host"], port=params["port"])
+HOST = os.getenv('HOST')
+PORT = os.getenv('PORT')
+app.run(host=HOST, port=PORT)

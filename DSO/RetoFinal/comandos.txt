@@ -1,0 +1,53 @@
+### instance-message-broker
+
+git clone http://gitlab-dso.sel.inf.uc3m.es/g027/sesion13.git
+
+cd sesion13/IoTServicesCode/
+docker rm -f iotservicescode_message_broker_1
+docker-compose build message_broker
+docker-compose up message_broker
+
+
+### instance-containers-services
+
+git clone http://gitlab-dso.sel.inf.uc3m.es/g027/sesion13.git
+
+cd sesion13/IoTServicesCode/
+docker rm -f iotservicescode_mariaDB_1
+docker-compose up -d mariaDB
+docker ps
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' iotservicescode_mariaDB_1
+docker exec -it iotservicescode_mariaDB_1 mysql -h 172.21.0.2 -u root -p
+
+)fy=(`3u"Um%k{Jr
+
+create database iot_data;
+grant all privileges on iot_data.* TO 'iot_user'@'%' identified by '9R[-RP#64nY7*E*H';
+flush privileges;
+use iot_data;
+CREATE TABLE sensor_data (
+    id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    humidity float NOT NULL,
+    temperature float NOT NULL,
+    PRIMARY KEY (id)
+);
+CREATE TABLE devices (
+    id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    device_id varchar(50) NOT NULL,
+    UNIQUE (device_id),
+    PRIMARY KEY (id)
+);
+exit
+
+docker rm -f iotservicescode_message_router_1
+docker rm -f iotservicescode_devices_microservice_1
+docker rm -f iotservicescode_measurements_microservice_1
+docker rm -f iotservicescode_webapp_backend_1
+docker rm -f iotservicescode_webapp_frontend_1
+docker-compose build
+docker-compose up -d measurements_microservice
+docker-compose up -d devices_microservice
+docker-compose up -d message_router
+docker-compose up -d webapp_backend
+docker-compose up -d webapp_frontend
+
