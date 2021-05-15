@@ -28,32 +28,18 @@ def devices_retriever():
     return result
 
 def devices_regiter(params):
-    mydb = connect_database()
-    with mydb.cursor() as mycursor:
-        # sql = "INSERT INTO devices (device_id, location, date, status) VALUES (%s, %s, %s, %s)"
-        # val = (params["device"], params["location"],
-        #        params["date"], params["status"])
-        # try:
-        #     mycursor.execute(sql, val)
-        #     mydb.commit()
-        #     print(mycursor.rowcount, "record inserted.")
-        # except:
-        #     print("Error inserting the device")
-# --------------------------------LEER---------------------------------------------------------------
-        sql = "UPDATE devices SET location=%s, date=%s, status=%s WHERE device_id='" + \
-            params["device"]+"'"
-        val = (params["location"], params["date"], params["status"])
-        try:
-            mycursor.execute(sql, val)
-            mydb.commit()
-            print(mycursor.rowcount, "record updated.")
-        except:
-            try:
-                sql = "INSERT INTO devices (device_id, location, date, status) VALUES (%s, %s, %s, %s)"
-                val = (params["device"], params["location"],
-                       params["date"], params["status"])
-                mycursor.execute(sql, val)
-                mydb.commit()
-                print(mycursor.rowcount, "record inserted.")
-            except:
-                print("Error inserting the device")
+	mydb = connect_database()
+	with mydb.cursor() as mycursor:
+         sql = "INSERT INTO devices (device_id, location, date, status) VALUES (%s, %s, %s, %s)"
+         val = (params["device"], params["location"],
+                params["date"], params["status"])
+         try:
+             mycursor.execute(sql, val)
+             mydb.commit()
+             print(mycursor.rowcount, "record inserted.")
+         except:
+             sql = "UPDATE devices SET location=%s, date=%s, status=%s WHERE device_id=%s"
+             val = (params["location"], params["date"], params["status"], params["device"])
+             mycursor.execute(sql, val)
+             mydb.commit()
+             print("Error inserting the device")

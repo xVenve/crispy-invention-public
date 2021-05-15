@@ -23,9 +23,9 @@ def on_message(client, userdata, message):
     global current_temperature, current_humidity
     print("received message =", str(message.payload.decode("utf-8")))
     if message.topic == "/uc3m/classrooms/leganes/myclass/temperature":
-        raw_data = float(message.payload.decode("utf-8"))
+        raw_data = message.payload.decode("utf-8")
         tempTime = raw_data.split(",")
-        current_temperature = tempTime[0]
+        current_temperature = float(tempTime[0])
         current_time = tempTime[1]
         current_device = tempTime[2]
         data = {"temperature": current_temperature, "humidity": current_humidity, "date": current_time,
@@ -33,9 +33,9 @@ def on_message(client, userdata, message):
         submit_data_to_store(data)
         print(data)
     if message.topic == "/uc3m/classrooms/leganes/myclass/humidity":
-        raw_data = float(message.payload.decode("utf-8"))
+        raw_data = message.payload.decode("utf-8")
         HumTime = raw_data.split(",")
-        current_humidity = HumTime[0]
+        current_humidity = float(HumTime[0])
         current_time = HumTime[1]
         current_device = HumTime[2]
         data = {"temperature": current_temperature, "humidity": current_humidity, "date": current_time,
