@@ -2,6 +2,7 @@ import Adafruit_DHT
 import uuid
 import threading
 from datetime import datetime
+import time
 
 from RPi import GPIO
 
@@ -49,12 +50,12 @@ def tempHumSensor():
             minute = True
             start = time.time()
         if temperature is not None and humidity is not None:
-            if new_temperature != temperature or minute:
+            if new_temperature != temperature and 0 < temperature < 100 and 0 < humidity < 100 or minute:
                 new_temperature = temperature
                 temp_global = temperature
                 start = time.time()
                 send_temperature(temperature, datetime.now().strftime("%d/%m/%Y %H:%M:%S"), identifier + " - Raspberry")
-            if new_humidity != humidity or minute:
+            if new_humidity != humidity and 0 < temperature < 100 and 0 < humidity < 100 or minute:
                 new_humidity = humidity
                 hum_global = humidity
                 start = time.time()
@@ -101,9 +102,10 @@ def display():
 
 
 def weatherSensor():
-    make_connection()
     identifier = ':'.join(['{:02x}'.format((uuid.getnode() >> ele) & 0xff)
                            for ele in range(0, 8 * 6, 8)][::-1])
+    will_msg = identifier + " - Raspberry"+","+getLocation()
+    make_connection(will_msg)
     while True:
         send_id(identifier + " - Raspberry"+","+getLocation()+","+datetime.now().strftime("%d/%m/%Y %H:%M:%S")+",Activo")
         print(identifier + " - Raspberry"+","+getLocation()+","+datetime.now().strftime("%d/%m/%Y %H:%M:%S")+",Activo")
@@ -126,9 +128,10 @@ def getLocation():
 
 
 if __name__ == "__main__":
-    weatherSensor()
+    weather = threading.Thread(target=weatherSensor)
     sensor = threading.Thread(target=tempHumSensor)
     lcd = threading.Thread(target=display)
 
+    weather.start()
     sensor.start()
     lcd.start()

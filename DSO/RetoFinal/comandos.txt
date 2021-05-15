@@ -1,8 +1,8 @@
 ### instance-message-broker
 
-git clone http://gitlab-dso.sel.inf.uc3m.es/g027/sesion13.git
+git clone https://github.com/xVenve/crispy-invention.git
 
-cd sesion13/IoTServicesCode/
+cd crispy-invention/DSO/RetoFinal/IoTServicesCode/
 docker rm -f iotservicescode_message_broker_1
 docker-compose build message_broker
 docker-compose up message_broker
@@ -10,9 +10,9 @@ docker-compose up message_broker
 
 ### instance-containers-services
 
-git clone http://gitlab-dso.sel.inf.uc3m.es/g027/sesion13.git
+git clone https://github.com/xVenve/crispy-invention.git
 
-cd sesion13/IoTServicesCode/
+cd crispy-invention/DSO/RetoFinal/IoTServicesCode/
 docker rm -f iotservicescode_mariaDB_1
 docker-compose up -d mariaDB
 docker ps
@@ -29,11 +29,16 @@ CREATE TABLE sensor_data (
     id MEDIUMINT NOT NULL AUTO_INCREMENT,
     humidity float NOT NULL,
     temperature float NOT NULL,
+    device varchar(50) NOT NULL,
+    date varchar(50) NOT NULL,
     PRIMARY KEY (id)
 );
 CREATE TABLE devices (
     id MEDIUMINT NOT NULL AUTO_INCREMENT,
     device_id varchar(50) NOT NULL,
+    location varchar(50) NOT NULL,
+    date varchar(50) NOT NULL,
+    status varchar(50) NOT NULL,
     UNIQUE (device_id),
     PRIMARY KEY (id)
 );
