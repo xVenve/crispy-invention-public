@@ -545,7 +545,7 @@ class QLearningAgent(BustersAgent):
         else:
             return 0
 
-    def computeNearestGhostDirection2(self, state):   # Norte 0 Sur 1 Este 2 Oeste 3
+    def computeNearestGhostDirection2(self, state):   # Eje X: 0 Eje Y: 1
         pos = 0
         minlocal = 999
         iteracion = 0
@@ -707,7 +707,7 @@ class QLearningAgent(BustersAgent):
         """
         if not self.lastState is None:
             reward = self.getReward2(self.lastState, state)
-            print(reward)
+            # print(reward)
             self.observeTransition(self.lastState, self.lastAction, state, reward)
         return state
 
@@ -717,13 +717,13 @@ class QLearningAgent(BustersAgent):
 
     def sumaFantasma (self,state, nextState):
         if (nextState.getScore()-state.getScore ()) == 199:
-            return 200
+            return 400
         else:
             return 0
 
     def sumaComida (self,state, nextState):
         if (nextState.getScore()-state.getScore ()) == 99:
-            return 100
+            return 200
         else:
             return 0
 
