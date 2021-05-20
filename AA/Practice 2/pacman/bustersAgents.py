@@ -365,23 +365,10 @@ class BasicAgentAA(BustersAgent):
     #     gameState.data.agentStates[0].getDirection())
 
 class QLearningAgent(BustersAgent):
-    """
-      Q-Learning Agent
 
-      Functions you should fill in:
-        - update
-
-      Instance variables you have access to
-        - self.epsilon (exploration prob)
-        - self.alpha (learning rate)
-        - self.discount (discount rate)
-    """
     def __init__(self, **args):
         "Initialize Q-values"
         BustersAgent.__init__(self, **args)
-        self.numTraining = 100
-        self.episodesSoFar = 0
-        self.accumTrainRewards = 0.0
 
         self.actions = {"North":0, "South":1, "East":2, "West":3, "Stop":0}
         self.table_file = open("qtable.txt", "r+")
@@ -423,10 +410,7 @@ class QLearningAgent(BustersAgent):
         self.table_file.close()
 
     def computePosition(self, state):
-        """
-        Compute the row of the qtable for a given state.
-        For instance, the state (3,1) is the row 7
-        """
+        " Compute the row of the qtable for a given state."
         return 96*self.computeNearestGhostDistance(state)+24*self.computePacManOrientation(state)+8*self.computeNearestDotDistance(state)+self.computeNearestGhostDirection(state)
 
     def computeNearestGhostDistance(self, state):  # Cerca 2 Medio 1 Lejos 0
@@ -498,10 +482,7 @@ class QLearningAgent(BustersAgent):
             return  7
 
     def computePosition2(self, state):
-        """
-        Compute the row of the qtable for a given state.
-        For instance, the state (3,1) is the row 7
-        """
+        " Compute the row of the qtable for a given state. "
         return 96*self.computeNearestGhostDistance2(state)+48*self.nearWallUp(state)+24*self.nearWallDown(state)+12*self.nearWallLeft(state)+6*self.nearWallRight(state)+2*self.computeNearestDotDistance(state)+self.computeNearestGhostDirection2(state)
 
     def computeNearestGhostDistance2(self, state):  # Muy cerca 4 Cerca 3 Media 2 Lejos 1 Muy Lejos 0
@@ -654,30 +635,14 @@ class QLearningAgent(BustersAgent):
         """
         The parent class calls this to observe a
         state = action => nextState and reward transition.
-        You should do your Q-Value update here
-
-        Good Terminal state -> reward 1
-        Bad Terminal state -> reward -1
-        Otherwise -> reward 0
-
-        Q-Learning update:
-
-        if terminal_state:
-        Q(state,action) <- (1-self.alpha) Q(state,action) + self.alpha * (r + 0)
-        else:
-        Q(state,action) <- (1-self.alpha) Q(state,action) + self.alpha * (r + self.discount * max a' Q(nextState, a'))
-
         """
-        # TRACE for transition and position to update. Comment the following lines if you do not want to see that trace
         # print("Update Q-table with transition:\n", state, action,"\n", nextState, reward)
         position = self.computePosition2(state)
         action_column = self.actions[action]
 
         # print("Corresponding Q-table cell to update:", position, action_column)
 
-        "*** YOUR CODE HERE ***"
         self.q_table[position][action_column] = (1-self.alpha)*self.q_table[position][action_column] + self.alpha * (reward + self.discount * self.computeValueFromQValues(nextState))
-        # TRACE for updated q-table. Comment the following lines if you do not want to see that trace
         # print("Q-table:")
         # self.printQtable()
 
@@ -694,8 +659,6 @@ class QLearningAgent(BustersAgent):
             Called by environment to inform agent that a transition has
             been observed. This will result in a call to self.update
             on the same arguments
-
-            NOTE: Do *not* override or call this function
         """
         self.episodeRewards += deltaReward
         self.update(state,action,nextState,deltaReward)
@@ -872,67 +835,3 @@ class QLearningAgent(BustersAgent):
 
     def registerInitialState(self, state):
         self.startEpisode()
-        if self.episodesSoFar == 0:
-            print('Beginning %d episodes of Training' % (self.numTraining))
-
-    def stopEpisode(self):
-        """
-          Called by environment when episode is done
-        """
-        if self.episodesSoFar < self.numTraining:
-            self.accumTrainRewards += self.episodeRewards
-        else:
-            self.accumTestRewards += self.episodeRewards
-        self.episodesSoFar += 1
-        if self.episodesSoFar >= self.numTraining:
-            # Take off the training wheels
-            self.epsilon = 0.0    # no exploration
-            self.alpha = 0.0      # no learning
-
-    def isInTraining(self):
-        return self.episodesSoFar < self.numTraining
-
-    def isInTesting(self):
-        return not self.isInTraining()
-
-    def final(self, state):
-        """
-          Called by Pacman game at the terminal state
-        """
-        print(state.getScore())
-
-
-        deltaReward = state.getScore() - self.lastState.getScore()
-        self.observeTransition(self.lastState, self.lastAction, state, deltaReward)
-        self.stopEpisode()
-
-        # Make sure we have this var
-        if not 'episodeStartTime' in self.__dict__:
-            self.episodeStartTime = time.time()
-        if not 'lastWindowAccumRewards' in self.__dict__:
-            self.lastWindowAccumRewards = 0.0
-        self.lastWindowAccumRewards += state.getScore()
-
-        NUM_EPS_UPDATE = 100
-        if self.episodesSoFar % NUM_EPS_UPDATE == 0:
-            print('Reinforcement Learning Status:')
-            windowAvg = self.lastWindowAccumRewards / float(NUM_EPS_UPDATE)
-            if self.episodesSoFar <= self.numTraining:
-                trainAvg = self.accumTrainRewards / float(self.episodesSoFar)
-                print('\tCompleted %d out of %d training episodes' % (
-                       self.episodesSoFar,self.numTraining))
-                print('\tAverage Rewards over all training: %.2f' % (
-                        trainAvg))
-            else:
-                testAvg = float(self.accumTestRewards) / (self.episodesSoFar - self.numTraining)
-                print('\tCompleted %d test episodes' % (self.episodesSoFar - self.numTraining))
-                print('\tAverage Rewards over testing: %.2f' % testAvg)
-            print('\tAverage Rewards for last %d episodes: %.2f'  % (
-                    NUM_EPS_UPDATE,windowAvg))
-            print('\tEpisode took %.2f seconds' % (time.time() - self.episodeStartTime))
-            self.lastWindowAccumRewards = 0.0
-            self.episodeStartTime = time.time()
-
-        if self.episodesSoFar == self.numTraining:
-            msg = 'Training Done (turning off epsilon and alpha)'
-            print('%s\n%s' % (msg,'-' * len(msg)))
