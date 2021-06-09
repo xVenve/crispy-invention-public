@@ -38,7 +38,7 @@ h1 {
   margin: 10px;
 }
 
-table {
+.sortable {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
@@ -53,6 +53,10 @@ th {
   padding: 8px;
 }
 
-tr:nth-child(even) {
+.it:nth-child(even) {
   background-color: #4169E1;
+}
+
+.h {
+  background-color: black;
 }

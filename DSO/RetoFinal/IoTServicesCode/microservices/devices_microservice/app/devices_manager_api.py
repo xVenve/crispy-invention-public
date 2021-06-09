@@ -10,7 +10,7 @@ CORS(app)
 @app.route('/devices/register/', methods=['POST'])
 def save_deviceinfo():
     params = request.get_json()
-    devices_regiter(params)
+    devices_register(params)
     return {"result": "record inserted"}, 201
 
 

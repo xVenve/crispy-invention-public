@@ -1,10 +1,10 @@
-import time
-import paho.mqtt.client as paho
-from measurement_register_interface import *
-from device_register_interface import *
 import os
 
-current_temperature = "0"
+import paho.mqtt.client as paho
+
+from device_register_interface import *
+from measurement_register_interface import *
+
 current_temperature = 0
 current_humidity = 0
 
@@ -59,5 +59,5 @@ client.username_pw_set(username=os.getenv('BROKER_USER'), password=os.getenv('BR
 client.on_connect = on_connect
 client.on_message = on_message
 print("connecting to broker ", os.getenv('BROKER_ADDRESS'))
-client.connect(os.getenv('BROKER_ADDRESS'), int(os.getenv('BROKER_PORT')), int(os.getenv('BROKER_KEEP_ALIVE')))  # connect
+client.connect(os.getenv('BROKER_ADDRESS'), int(os.getenv('BROKER_PORT')), int(os.getenv('BROKER_KEEP_ALIVE')))
 client.loop_forever()

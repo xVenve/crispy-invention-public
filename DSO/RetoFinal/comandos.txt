@@ -1,22 +1,20 @@
 ### instance-message-broker
 
-git clone https://github.com/xVenve/crispy-invention.git
+git clone http://gitlab-dso.sel.inf.uc3m.es/g027/retofinal.git
 
-cd crispy-invention/DSO/RetoFinal/IoTServicesCode/
+cd retofinal/IoTServicesCode/
 docker rm -f iotservicescode_message_broker_1
 docker-compose build message_broker
 docker-compose up message_broker
 
 
-### instance-containers-services
+### retofinal-containers-services
 
-git clone https://github.com/xVenve/crispy-invention.git
+git clone http://gitlab-dso.sel.inf.uc3m.es/g027/retofinal.git
 
-cd crispy-invention/DSO/RetoFinal/IoTServicesCode/
+cd retofinal/IoTServicesCode/
 docker rm -f iotservicescode_mariaDB_1
 docker-compose up -d mariaDB
-docker ps
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' iotservicescode_mariaDB_1
 docker exec -it iotservicescode_mariaDB_1 mysql -h 172.21.0.2 -u root -p
 
 )fy=(`3u"Um%k{Jr

@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>DSO - Interfaz de Usuario</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <head>
     <meta charset="UTF-8">
-</head>
+    <title>DSO - Interfaz de Usuario</title>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/jquery.dataTables_themeroller.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/jquery.dataTables.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_table_jui.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_table.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_page.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
+    <script data-require="jqueryui@*" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.js" data-semver="1.9.4" data-require="datatables@*"></script>
+    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+    <link href="styles.css" rel="stylesheet" />
+    <script src="js_lib.js"></script>
+  </head>
 
-<body>
-    <div class="all" id="dispositivos">
+  <body>
+
+   <div class="all" id="dispositivos">
         <h1>Lista de dispositivos </h1>
         <table class="sortable" id="dev">
-            <tr>
+            <tr class="h">
                 <th>Nombre del dispositivo</th>
                 <th>Estado</th>
                 <th>Ubicación</th>
@@ -20,10 +32,15 @@
             </tr>
         </table>
     </div>
+
     <div class="all" id="medidas">
         <h1 id="titulo_medidas">Mediciones del dispositivo</h1>
-        <table class="sortable" id="mes">
-            <tr>
+        <p id="date_filter">
+            <span id="date-label-from" class="date-label">Desde:</span><input class="date_range_filter date" type="text" id="datepicker_from" />
+            <span id="date-label-to" class="date-label">Hasta:</span><input class="date_range_filter date" type="text" id="datepicker_to" />
+        </p>
+        <table class="sortable display" id="mes">
+            <tr class="h it">
                 <th>Fecha</th>
                 <th>Temperatura °C</th>
                 <th>Humedad %</th>
@@ -31,9 +48,7 @@
         </table>
         <button class="boton" id="boton_volver" onclick="mostrar_dispositivos()">Volver</button>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js_lib.js"></script>
-    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
-</body>
+
+  </body>
 
 </html>

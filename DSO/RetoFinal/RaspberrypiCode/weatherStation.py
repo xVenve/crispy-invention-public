@@ -107,7 +107,8 @@ def weatherSensor():
     will_msg = identifier + " - Raspberry"+","+getLocation()
     make_connection(will_msg)
     while True:
-        send_id(identifier + " - Raspberry"+","+getLocation()+","+datetime.now().strftime("%d/%m/%Y %H:%M:%S")+",Activo")
+        send_id(identifier + " - Raspberry"+","+getLocation()+","+datetime.now().strftime(
+            "%d/%m/%Y %H:%M:%S")+",Activo")
         print(identifier + " - Raspberry"+","+getLocation()+","+datetime.now().strftime("%d/%m/%Y %H:%M:%S")+",Activo")
         time.sleep(3600)
 
@@ -116,7 +117,6 @@ def getLocation():
     while True:
         port = "/dev/ttyAMA0"
         ser = serial.Serial(port, baudrate=9600, timeout=0.5)
-        dataout = pynmea2.NMEAStreamReader()
         newdata = ser.readline()
 
         if newdata[0:6] == "$GPRMC":

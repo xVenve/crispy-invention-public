@@ -3,6 +3,7 @@ import json
 import mysql.connector
 import os
 
+
 def connect_database():
     mydb = mysql.connector.connect(
         host=os.getenv('DBHOST'),
@@ -21,11 +22,12 @@ def measurements_retriever():
             "SELECT temperature, humidity, date, device FROM sensor_data ORDER BY date;")
         myresult = mycursor.fetchall()
         for temperature, humidity, date, device in myresult:
-           r.append({"temperature": temperature, "humidity": humidity,
-                 "date": date, "device": device})
+            r.append({"temperature": temperature, "humidity": humidity,
+                      "date": date, "device": device})
         mydb.commit()
     result = json.dumps(r, sort_keys=True)
     return result
+
 
 def measurements_register(params):
     mydb = connect_database()
