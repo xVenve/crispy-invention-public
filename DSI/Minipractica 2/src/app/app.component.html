@@ -1,0 +1,44 @@
+<div id="all">
+  <div style="text-align: center">
+    <h1>
+      {{ title }}
+    </h1>
+  </div>
+
+  <div>
+    <p>
+      Filter by:
+      <input type="search" placeholder="(car brand)" [(ngModel)]="brandToFilter">
+    </p>
+    <table>
+      <tr>
+        <th>Photo</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Year</th>
+        <th>For sale from</th>
+        <th>Price</th>
+        <th>PVP</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let car of cars | filter: brandToFilter; let i = index">
+        <td>
+          <p *ngIf="car.pic==''">(no photo!)</p>
+          <img *ngIf="car.pic!=''" src="{{ car.pic }}" id="carpic" />
+        </td>
+        <td>{{ car.brand | uppercase}}</td>
+        <td>{{ car.model | lowercase}}</td>
+        <td>{{ car.year.getFullYear() }}</td>
+        <td>{{ car.dateOnSale.getMonth()+"-"+car.dateOnSale.getFullYear() }}</td>
+        <td>{{ car.price | number: "1.0-0"}} €</td>
+        <td>
+          <div [ngClass]="isGoodCondition(car.condition)?'good':'bad'">{{ car.price * 1.21 | number: "1.0-0" }} €</div>
+        </td>
+        <td id="tableButtons">
+          <button type="button" (click)="car.lower()">Discount</button>
+          <button type="button" (click)="sold(i)">Sold</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
