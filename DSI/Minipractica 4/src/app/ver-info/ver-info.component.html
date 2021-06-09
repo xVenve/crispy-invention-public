@@ -1,0 +1,32 @@
+<div fxLayout="row" fxLayoutAlign="center">
+
+<div fxFlex=66 fxFlexFill fxLayout="column" fxLayoutAlign="center">
+
+<p fxFlex fxFlexAlign="center" class="titulo-ventana">Contact information</p>
+
+    <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{contact.name}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="contact.birthday!= undefined"><h3>Birthday:</h3><p>{{getBirthday(contact)}}</p></ng-container>
+      <ng-container *ngIf="contact.phone!=''"><h3>Phone:</h3><p>{{contact.phone}}</p></ng-container>
+      <ng-container *ngIf="contact.email!=''"><h3>Email:</h3><p>{{contact.email}}</p></ng-container>
+
+      <h3>Type:</h3><p>{{getType(contact)}}</p>
+        <ng-container *ngIf="contact.type==2"><h3>Specialty:</h3>
+        <p>{{getSpecialty(contact)}}</p></ng-container>
+
+        <ng-container *ngIf="contact.address!=''"><h3>Address:</h3><p>{{contact.address}}</p></ng-container>
+      <ng-container *ngIf="contact.company!=''"><h3>Company:</h3><p>{{contact.company}}</p></ng-container>
+      <ng-container *ngIf="contact.charge!=''"><h3>Charge:</h3><p>{{contact.charge}}</p></ng-container>
+      <ng-container *ngIf="contact.info!=undefined"><h3>Annotations:</h3><p>{{contact.info}}</p></ng-container>
+    </mat-card-content>
+</mat-card>
+
+<div fxLayout="row" style="margin-top:50px;">
+  <div fxFlex fxLayoutAlign="center">
+    <button (click)="back()" mat-flat-button color="primary">Back</button>
+  </div>
+
+</div>
