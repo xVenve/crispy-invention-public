@@ -1,0 +1,45 @@
+<div id="all">
+  <div style="text-align: center">
+    <h1>
+      {{ title }}
+    </h1>
+  </div>
+
+  <div>
+    <p>
+      Consumption:
+      <select name="meals" [(ngModel)]="foodSelected">
+        <option *ngFor="let meal of getMeals(); let i = index" [value]="i">
+          {{ meal[0] }} ({{ meal[1] | currency: "EUR":"symbol":"1.2-2":"es" }})
+        </option>
+      </select>
+      <button class="button" type="button" (click)="addMeal()">+</button>
+    </p>
+
+    <p><b>Consumption:</b></p>
+
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+      </tr>
+      <tr *ngFor="let com of bill; let i = index">
+        <td>{{ com[0] }}</td>
+        <td id="price">
+          {{ com[1] | currency: "EUR":"symbol":"1.2-2":"es" }}
+        </td>
+        <button class="button" type="button" (click)="delMeal(i)">-</button>
+      </tr>
+      <tr>
+        <td><b>TOTAL</b></td>
+        <td>
+          <b>{{ total | currency: "EUR":"symbol":"1.2-2":"es" }}</b>
+        </td>
+      </tr>
+    </table>
+
+    <p>
+      <b></b>
+    </p>
+  </div>
+</div>
