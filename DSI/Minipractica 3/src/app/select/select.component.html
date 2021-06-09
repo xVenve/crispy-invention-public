@@ -1,0 +1,13 @@
+<div>
+  {{label1}}:
+  <select [(ngModel)]="comu" (change)="updateCustomElements()">
+    <option value={{c.id}} *ngFor="let c of comunidades">{{c.name}}</option>
+  </select>
+
+  {{label2}}:
+  <select [(ngModel)]="prov" (change)="updateCustomElements()">
+    <ng-container *ngFor="let p of provincias">
+      <option value={{p.id}} *ngIf="comu==p.idFather">{{p.name}}</option>
+    </ng-container>
+  </select> <br>
+</div>
