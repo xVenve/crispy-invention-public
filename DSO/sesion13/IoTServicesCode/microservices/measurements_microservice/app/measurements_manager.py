@@ -1,30 +1,27 @@
-import mysql.connector
-from utils.load_preferences import getPreferences
+import json
 
+import mysql.connector
+import os
 
 def connect_database():
-    params = getPreferences('db_config.yaml')
-
     mydb = mysql.connector.connect(
-        host=params["dbhost"],
-        user=params["dbuser"],
-        password=params["dbpassword"],
-        database=params["dbdatabase"],
+        host=os.getenv('DBHOST'),
+        user=os.getenv('DBUSER'),
+        password=os.getenv('DBPASSWORD'),
+        database=os.getenv('DBDATABASE')
     )
     return mydb
-
 
 def measurements_retriever():
     mydb = connect_database()
     r = {}
     with mydb.cursor() as mycursor:
-        mycursor.execute("SELECT temperature, humidity FROM sensor_data ORDER BY id DESC LIMIT 1")
+        mycursor.execute("SELECT temperature, humidity FROM sensor_data ORDER BY id DESC LIMIT 1;")
         myresult = mycursor.fetchall()
         for temperature, humidity in myresult:
             r = {"temperature": temperature, "humidity": humidity}
         mydb.commit()
     return r
-
 
 def measurements_register(params):
     mydb = connect_database()

@@ -1,18 +1,20 @@
-import paho.mqtt.client as mqtt
-from measurement_register_interface import submit_data_to_store
-from device_register_interface import submit_device_info_to_store
-from utils.load_preferences import getPreferences
+import time
+import paho.mqtt.client as paho
+from measurement_register_interface import *
+from device_register_interface import *
+import os
 
 current_temperature = "0"
-current_humidity = "0"
+current_temperature = 0
+current_humidity = 0
 
 
-def on_connect(client_connected, userdata, flags, rc):
+def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("Connected success")
-        client_connected.subscribe("/uc3m/classrooms/leganes/myclass/temperature")
-        client_connected.subscribe("/uc3m/classrooms/leganes/myclass/humidity")
-        client_connected.subscribe("/uc3m/classrooms/leganes/myclass/device_info")
+        client.subscribe("/uc3m/classrooms/leganes/myclass/temperature")
+        client.subscribe("/uc3m/classrooms/leganes/myclass/humidity")
+        client.subscribe("/uc3m/classrooms/leganes/myclass/device_info")
     else:
         print("Connected fail with code", {rc})
 
@@ -37,11 +39,10 @@ def on_message(client, userdata, message):
         print(data)
 
 
-params = getPreferences("conf.yaml")
-client = mqtt.Client()
-client.username_pw_set(username=params["broker_user"], password=params["broker_pwd"])
+client = paho.Client()
+client.username_pw_set(username=os.getenv('BROKER_USER'), password=os.getenv('BROKER_PWD'))
 client.on_connect = on_connect
 client.on_message = on_message
-print("connecting to broker ", params["broker_address"])
-client.connect(params["broker_address"], params["broker_port"], params["broker_keep_alive"])
+print("connecting to broker ", os.getenv('BROKER_ADDRESS'))
+client.connect(os.getenv('BROKER_ADDRESS'), int(os.getenv('BROKER_PORT')), int(os.getenv('BROKER_KEEP_ALIVE')))  # connect
 client.loop_forever()

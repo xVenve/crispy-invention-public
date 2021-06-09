@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DSO - Interfaz de Usuario</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<meta charset="ISO-8859-1">
+</head>
+<body>
+<div id="all">
+	<h1>Mediciones de nuestra Weather Station</h1>
+	<p>Resultado de la ultima medicion obtenida por el sensor:</p>
+	<div class="sensor_measures result"></div>
+	<p>Dispositivo que toma las medidas:</p>
+	<div class="device_list result"></div>
+	<p>Las ultimas 10 mediciones (cada 3 sec):</p>
+     <table>
+            <thead>
+                <tr>
+                    <th>Temperatura</th>
+                    <th>Humedad</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js_lib.js"></script>
+</body>
+</html>

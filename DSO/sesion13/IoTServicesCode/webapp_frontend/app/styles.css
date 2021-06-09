@@ -1,0 +1,36 @@
+.result{
+	background-color: #CCCCFF;
+	padding: 10px;
+}
+
+#all {
+ width: 60%;
+  margin: 0 auto;
+  background-color: #6495ED;
+  top: 0;
+  left: 0;
+  padding: 10px;
+	color: white;
+}
+
+h1 {
+  margin: 10px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+    background-color: #191970;
+
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #4169E1;
+}

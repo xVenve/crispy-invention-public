@@ -16,7 +16,7 @@ def make_connection():
     client.username_pw_set(username="dso_server27", password="JoCa18")
     client.on_connect = on_connect
     client.will_set('/uc3m/classrooms/leganes/myclass/device_info', '{"status":"Off"}')
-    client.connect("35.198.89.29", 1883, 60)  # Actualizar
+    client.connect("34.107.49.43", 1883, 60)  # IP MQTT
 
 
 def send_temperature(temperature):
