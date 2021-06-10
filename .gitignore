@@ -308,3 +308,5 @@ GitHub.sublime-settings
 *.exe
 *.out
 *.app
+
+.vscode/
